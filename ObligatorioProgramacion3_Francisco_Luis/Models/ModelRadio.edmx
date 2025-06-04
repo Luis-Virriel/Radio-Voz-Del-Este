@@ -1,0 +1,590 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RadioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="IDNumber" />
+          </Key>
+          <Property Name="IDNumber" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="30" />
+          <Property Name="LastName" Type="varchar" MaxLength="30" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="varchar" MaxLength="8" />
+          <Property Name="ProgramID" Type="int" />
+          <Property Name="Comment" Type="varchar" MaxLength="500" />
+          <Property Name="CommentDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ExchangeRates">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExchangeDate" Type="date" />
+          <Property Name="CurrencyType" Type="varchar" MaxLength="10" />
+          <Property Name="ExchangeValue" Type="decimal" Precision="10" Scale="4" />
+        </EntityType>
+        <EntityType Name="HostProgram">
+          <Key>
+            <PropertyRef Name="IDHost" />
+            <PropertyRef Name="IDProgram" />
+          </Key>
+          <Property Name="IDHost" Type="int" Nullable="false" />
+          <Property Name="IDProgram" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hosts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HostName" Type="varchar" MaxLength="50" />
+          <Property Name="Bio" Type="varchar(max)" />
+          <Property Name="ProgramID" Type="int" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="Content" Type="text" />
+          <Property Name="PublishDate" Type="date" />
+          <Property Name="ImageURL" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="RadioPrograms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProgramName" Type="varchar" MaxLength="50" />
+          <Property Name="ImageURL" Type="varchar" MaxLength="255" />
+          <Property Name="RadioDescription" Type="varchar" MaxLength="255" />
+          <Property Name="Schedule" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sponsors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SponsorsName" Type="varchar" MaxLength="50" />
+          <Property Name="SponsorDescription" Type="varchar" MaxLength="255" />
+          <Property Name="CantPlan" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="30" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="255" />
+          <Property Name="RoleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Weather">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WeatherDate" Type="date" />
+          <Property Name="Temperature" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="WeatherDescription" Type="text" />
+          <Property Name="Icon" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__Clients__UserID__5165187F">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Clients">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comments__Client__619B8048">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="IDNumber" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comments__Progra__628FA481">
+          <End Role="RadioPrograms" Type="Self.RadioPrograms" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RadioPrograms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="ProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HostProgr__IDHos__59FA5E80">
+          <End Role="Hosts" Type="Self.Hosts" Multiplicity="1" />
+          <End Role="HostProgram" Type="Self.HostProgram" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hosts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HostProgram">
+              <PropertyRef Name="IDHost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HostProgr__IDPro__59063A47">
+          <End Role="RadioPrograms" Type="Self.RadioPrograms" Multiplicity="1" />
+          <End Role="HostProgram" Type="Self.HostProgram" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RadioPrograms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HostProgram">
+              <PropertyRef Name="IDProgram" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hosts__ProgramID__5629CD9C">
+          <End Role="RadioPrograms" Type="Self.RadioPrograms" Multiplicity="0..1" />
+          <End Role="Hosts" Type="Self.Hosts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RadioPrograms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Hosts">
+              <PropertyRef Name="ProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleID__4D94879B">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RadioModelStoreContainer">
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExchangeRates" EntityType="Self.ExchangeRates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HostProgram" EntityType="Self.HostProgram" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hosts" EntityType="Self.Hosts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RadioPrograms" EntityType="Self.RadioPrograms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sponsors" EntityType="Self.Sponsors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Weather" EntityType="Self.Weather" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Clients__UserID__5165187F" Association="Self.FK__Clients__UserID__5165187F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Clients" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comments__Client__619B8048" Association="Self.FK__Comments__Client__619B8048">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comments__Progra__628FA481" Association="Self.FK__Comments__Progra__628FA481">
+            <End Role="RadioPrograms" EntitySet="RadioPrograms" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HostProgr__IDHos__59FA5E80" Association="Self.FK__HostProgr__IDHos__59FA5E80">
+            <End Role="Hosts" EntitySet="Hosts" />
+            <End Role="HostProgram" EntitySet="HostProgram" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HostProgr__IDPro__59063A47" Association="Self.FK__HostProgr__IDPro__59063A47">
+            <End Role="RadioPrograms" EntitySet="RadioPrograms" />
+            <End Role="HostProgram" EntitySet="HostProgram" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hosts__ProgramID__5629CD9C" Association="Self.FK__Hosts__ProgramID__5629CD9C">
+            <End Role="RadioPrograms" EntitySet="RadioPrograms" />
+            <End Role="Hosts" EntitySet="Hosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleID__4D94879B" Association="Self.FK__Users__RoleID__4D94879B">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RadioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="IDNumber" />
+          </Key>
+          <Property Name="IDNumber" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Clients__UserID__5165187F" FromRole="Clients" ToRole="Users" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__Client__619B8048" FromRole="Clients" ToRole="Comments" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="ProgramID" Type="Int32" />
+          <Property Name="Comment1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CommentDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Comments__Client__619B8048" FromRole="Comments" ToRole="Clients" />
+          <NavigationProperty Name="RadioProgram" Relationship="Self.FK__Comments__Progra__628FA481" FromRole="Comments" ToRole="RadioPrograms" />
+        </EntityType>
+        <EntityType Name="ExchangeRate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExchangeDate" Type="DateTime" Precision="0" />
+          <Property Name="CurrencyType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ExchangeValue" Type="Decimal" Precision="10" Scale="4" />
+        </EntityType>
+        <EntityType Name="Host">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HostName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProgramID" Type="Int32" />
+          <NavigationProperty Name="RadioProgram" Relationship="Self.FK__Hosts__ProgramID__5629CD9C" FromRole="Hosts" ToRole="RadioPrograms" />
+          <NavigationProperty Name="RadioPrograms" Relationship="Self.HostProgram" FromRole="Hosts" ToRole="RadioPrograms" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PublishDate" Type="DateTime" Precision="0" />
+          <Property Name="ImageURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RadioProgram">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImageURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RadioDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Schedule" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__Progra__628FA481" FromRole="RadioPrograms" ToRole="Comments" />
+          <NavigationProperty Name="Hosts" Relationship="Self.FK__Hosts__ProgramID__5629CD9C" FromRole="RadioPrograms" ToRole="Hosts" />
+          <NavigationProperty Name="Hosts1" Relationship="Self.HostProgram" FromRole="RadioPrograms" ToRole="Hosts" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__RoleID__4D94879B" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Sponsor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SponsorsName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SponsorDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CantPlan" Type="Int32" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Clients__UserID__5165187F" FromRole="Users" ToRole="Clients" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__Users__RoleID__4D94879B" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="Weather">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WeatherDate" Type="DateTime" Precision="0" />
+          <Property Name="Temperature" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="WeatherDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Icon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__Clients__UserID__5165187F">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Clients" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Clients">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comments__Client__619B8048">
+          <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="IDNumber" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comments__Progra__628FA481">
+          <End Role="RadioPrograms" Type="Self.RadioProgram" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RadioPrograms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="ProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hosts__ProgramID__5629CD9C">
+          <End Role="RadioPrograms" Type="Self.RadioProgram" Multiplicity="0..1" />
+          <End Role="Hosts" Type="Self.Host" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RadioPrograms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Hosts">
+              <PropertyRef Name="ProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleID__4D94879B">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="HostProgram">
+          <End Role="Hosts" Type="Self.Host" Multiplicity="*" />
+          <End Role="RadioPrograms" Type="Self.RadioProgram" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="RadioEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="ExchangeRates" EntityType="Self.ExchangeRate" />
+          <EntitySet Name="Hosts" EntityType="Self.Host" />
+          <EntitySet Name="News" EntityType="Self.News" />
+          <EntitySet Name="RadioPrograms" EntityType="Self.RadioProgram" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Sponsors" EntityType="Self.Sponsor" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Weathers" EntityType="Self.Weather" />
+          <AssociationSet Name="FK__Clients__UserID__5165187F" Association="Self.FK__Clients__UserID__5165187F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Clients" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comments__Client__619B8048" Association="Self.FK__Comments__Client__619B8048">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comments__Progra__628FA481" Association="Self.FK__Comments__Progra__628FA481">
+            <End Role="RadioPrograms" EntitySet="RadioPrograms" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hosts__ProgramID__5629CD9C" Association="Self.FK__Hosts__ProgramID__5629CD9C">
+            <End Role="RadioPrograms" EntitySet="RadioPrograms" />
+            <End Role="Hosts" EntitySet="Hosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleID__4D94879B" Association="Self.FK__Users__RoleID__4D94879B">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="HostProgram" Association="Self.HostProgram">
+            <End Role="Hosts" EntitySet="Hosts" />
+            <End Role="RadioPrograms" EntitySet="RadioPrograms" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RadioModelStoreContainer" CdmEntityContainer="RadioEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="RadioModel.Client">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="RadioModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+                <ScalarProperty Name="Comment1" ColumnName="Comment" />
+                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExchangeRates">
+            <EntityTypeMapping TypeName="RadioModel.ExchangeRate">
+              <MappingFragment StoreEntitySet="ExchangeRates">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ExchangeDate" ColumnName="ExchangeDate" />
+                <ScalarProperty Name="CurrencyType" ColumnName="CurrencyType" />
+                <ScalarProperty Name="ExchangeValue" ColumnName="ExchangeValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hosts">
+            <EntityTypeMapping TypeName="RadioModel.Host">
+              <MappingFragment StoreEntitySet="Hosts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="RadioModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RadioPrograms">
+            <EntityTypeMapping TypeName="RadioModel.RadioProgram">
+              <MappingFragment StoreEntitySet="RadioPrograms">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="RadioDescription" ColumnName="RadioDescription" />
+                <ScalarProperty Name="Schedule" ColumnName="Schedule" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="RadioModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sponsors">
+            <EntityTypeMapping TypeName="RadioModel.Sponsor">
+              <MappingFragment StoreEntitySet="Sponsors">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SponsorsName" ColumnName="SponsorsName" />
+                <ScalarProperty Name="SponsorDescription" ColumnName="SponsorDescription" />
+                <ScalarProperty Name="CantPlan" ColumnName="CantPlan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="RadioModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Weathers">
+            <EntityTypeMapping TypeName="RadioModel.Weather">
+              <MappingFragment StoreEntitySet="Weather">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="WeatherDate" ColumnName="WeatherDate" />
+                <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+                <ScalarProperty Name="WeatherDescription" ColumnName="WeatherDescription" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="HostProgram" TypeName="RadioModel.HostProgram" StoreEntitySet="HostProgram">
+            <EndProperty Name="Hosts">
+              <ScalarProperty Name="ID" ColumnName="IDHost" />
+            </EndProperty>
+            <EndProperty Name="RadioPrograms">
+              <ScalarProperty Name="ID" ColumnName="IDProgram" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

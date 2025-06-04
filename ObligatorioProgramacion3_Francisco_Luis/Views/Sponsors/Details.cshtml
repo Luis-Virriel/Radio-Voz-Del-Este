@@ -1,0 +1,42 @@
+﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.Sponsor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sponsor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SponsorsName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SponsorsName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SponsorDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SponsorDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CantPlan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CantPlan)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

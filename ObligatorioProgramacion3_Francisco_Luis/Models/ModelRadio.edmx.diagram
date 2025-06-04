@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="164c5f3b715c435db5a28f86d1570e25" Name="Diagram1">
+        <EntityTypeShape EntityType="RadioModel.Client" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.Comment" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.ExchangeRate" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.Host" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.News" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.RadioProgram" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.Role" Width="1.5" PointX="1.5" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.Sponsor" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.User" Width="1.5" PointX="1.5" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.Weather" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="RadioModel.FK__Clients__UserID__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioModel.FK__Comments__Client__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioModel.FK__Comments__Progra__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioModel.FK__Hosts__ProgramID__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioModel.FK__Users__RoleID__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioModel.HostProgram" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

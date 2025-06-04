@@ -1,0 +1,244 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\views\\shared\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\views\\shared\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\controllers\\weatherscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\controllers\\weatherscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\controllers\\sponsorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\controllers\\sponsorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\controllers\\radioprogramscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\controllers\\radioprogramscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\controllers\\hostscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\controllers\\hostscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\controllers\\exchangeratescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\controllers\\exchangeratescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\controllers\\commentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\controllers\\commentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|c:\\users\\luisv\\onedrive\\tercersemestre\\programacion3\\obligatorioprogramacion3_francisco_luis\\obligatorioprogramacion3_francisco_luis\\models\\modelradio.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
+      "RelativeMoniker": "D:0:0:{BAAF8D9A-0174-492C-8627-CB3360ABD672}|ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis.csproj|solutionrelative:obligatorioprogramacion3_francisco_luis\\models\\modelradio.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Home.cshtml",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Views\\Shared\\Home.cshtml",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Views\\Shared\\Home.cshtml",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Views\\Shared\\Home.cshtml",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Views\\Shared\\Home.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-04T12:17:30.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-04T11:55:42.252Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WeathersController.cs",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\WeathersController.cs",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\WeathersController.cs",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\WeathersController.cs",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\WeathersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T11:37:29.064Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T11:37:11.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SponsorsController.cs",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\SponsorsController.cs",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\SponsorsController.cs",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\SponsorsController.cs",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\SponsorsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T11:36:33.11Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RolesController.cs",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\RolesController.cs",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\RolesController.cs",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\RolesController.cs",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\RolesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T11:35:56.632Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "RadioProgramsController.cs",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\RadioProgramsController.cs",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\RadioProgramsController.cs",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\RadioProgramsController.cs",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\RadioProgramsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T11:35:37.165Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "NewsController.cs",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\NewsController.cs",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\NewsController.cs",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\NewsController.cs",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\NewsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T11:33:47.794Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "HostsController.cs",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\HostsController.cs",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\HostsController.cs",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\HostsController.cs",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\HostsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T11:32:30.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ExchangeRatesController.cs",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\ExchangeRatesController.cs",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\ExchangeRatesController.cs",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\ExchangeRatesController.cs",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\ExchangeRatesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T11:31:59.32Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CommentsController.cs",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\CommentsController.cs",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\CommentsController.cs",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\CommentsController.cs",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\CommentsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T11:31:35.918Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ClientsController.cs",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\ClientsController.cs",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\ClientsController.cs",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Controllers\\ClientsController.cs",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Controllers\\ClientsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T11:31:11.28Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ModelRadio.edmx [Diagram1]",
+              "DocumentMoniker": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Models\\ModelRadio.edmx",
+              "RelativeDocumentMoniker": "ObligatorioProgramacion3_Francisco_Luis\\Models\\ModelRadio.edmx",
+              "ToolTip": "C:\\Users\\luisv\\OneDrive\\TercerSemestre\\Programacion3\\ObligatorioProgramacion3_Francisco_Luis\\ObligatorioProgramacion3_Francisco_Luis\\Models\\ModelRadio.edmx [Diagram1]",
+              "RelativeToolTip": "ObligatorioProgramacion3_Francisco_Luis\\Models\\ModelRadio.edmx [Diagram1]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001116|",
+              "WhenOpened": "2025-06-04T11:26:26.525Z",
+              "EditorCaption": " [Diagram1]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
