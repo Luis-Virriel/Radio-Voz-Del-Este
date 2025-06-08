@@ -1,20 +1,208 @@
-﻿/* Set padding to keep content from hitting the edges */
-.body-content {
-    margin-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+﻿:root {
+    --color-bg: #0d1b2a;
+    --color-bg-secondary: #1b263b;
+    --color-bg-tertiary: rgba(65, 90, 119, 0.1);
+    --color-text: #e0e1dd;
+    --color-accent: #778da9;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+/* Contenedor general */
+.container {
+    max-width: 900px;
+    width: 100%;
+    padding: 2rem 1rem;
+    margin: auto;
 }
+
+/* Secciones */
+.section {
+    background-color: var(--color-bg-tertiary);
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Títulos */
+h1, h2 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+}
+
+/* Enlaces */
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+/* Botones */
+.btn-outline-light {
+    background: none;
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+    padding: 0.6rem 2rem;
+    border-radius: 2rem;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .btn-outline-light:hover {
+        background-color: var(--color-accent);
+        color: var(--color-bg);
+    }
+
+/* Navbar */
+.navbar-dark.bg-dark {
+    width: 100%;
+    background-color: rgba(27, 38, 59, 0.9);
+    padding: 1rem 3rem; /* Más padding a izquierda y derecha */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-sizing: border-box; /* para que el padding no aumente el ancho total */
+}
+
+.navbar .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.85rem;
+    color: var(--color-text);
+}
+
+/* Audio */
+audio {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 1rem;
+    margin: 1rem 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+/* Lista */
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+    ul li {
+        padding: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+/* Tarjeta o bloque con borde leve */
+.border-light {
+    border: none;
+    padding: 1rem;
+    margin-top: 1rem;
+    color: var(--color-text);
+    font-weight: 700;
+    background-color: var(--color-bg-tertiary);
+    border-radius: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-fluid.bg-dark {
+        padding: 1.5rem 1rem;
+    }
+
+    .btn-outline-light {
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+}
+/* Contenedor principal con barras laterales y centro */
+.d-flex.justify-content-between.align-items-start {
+    gap: 1rem;
+}
+
+/* Que las barras laterales no se reduzcan demasiado */
+.bg-secondary.bg-opacity-10 {
+    flex-shrink: 0;
+}
+
+/* Contenido central adaptable */
+.flex-grow-1 {
+    max-width: 600px;
+    margin: 0 1rem;
+}
+
+/* En pantallas pequeñas apilamos */
+@media (max-width: 768px) {
+    .d-flex.justify-content-between.align-items-start {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bg-secondary.bg-opacity-10 {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        padding: 1rem 0;
+        margin-bottom: 1rem;
+    }
+
+    .flex-grow-1 {
+        max-width: 100%;
+        margin: 0;
+        padding: 0 1rem;
+    }
+
+    audio {
+        max-width: 100%;
+    }
+}
+

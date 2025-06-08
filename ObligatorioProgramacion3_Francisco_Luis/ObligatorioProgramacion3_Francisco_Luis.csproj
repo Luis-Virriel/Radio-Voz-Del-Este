@@ -308,9 +308,11 @@
     <Content Include="Views\Weathers\Details.cshtml" />
     <Content Include="Views\Weathers\Edit.cshtml" />
     <Content Include="Views\Weathers\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\" />
     <Folder Include="Scripts\BDDScript\" />
   </ItemGroup>
   <ItemGroup>
