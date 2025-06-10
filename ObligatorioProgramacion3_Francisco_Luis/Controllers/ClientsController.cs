@@ -109,7 +109,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(client);
         }
 
-        // POST: Clients/Delete/5
+        // POST: Clients/Delete/5hola
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
