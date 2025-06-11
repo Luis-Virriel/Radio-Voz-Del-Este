@@ -1,0 +1,279 @@
+﻿/* ClientIndex.css - Estilos para vista Index de clientes */
+
+/* Resetear estilos del body y html */
+body {
+    background-color: #1a2332 !important;
+    margin: 0;
+    padding: 10px;
+    overflow-x: hidden;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+/* Contenedor principal */
+.index-container {
+    background-color: #0e375a;
+    max-width: 98%;
+    width: 98%;
+    margin: 10px auto;
+    padding: 25px;
+    border-radius: 15px;
+    color: #b3d9ff;
+    font-family: "Paprika", system-ui;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    min-height: 400px;
+    box-sizing: border-box;
+}
+
+/* Título principal */
+.index-title {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 35px;
+    font-style: normal;
+    color: #69c0ff;
+    font-weight: 400;
+    font-family: "Paprika", system-ui;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+}
+
+/* Botón Create New */
+.create-button-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.create-button {
+    display: inline-block;
+    padding: 15px 25px;
+    background-color: #d9ecff;
+    color: #003366;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: "Paprika", system-ui;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+    .create-button:hover {
+        background-color: #b3d9ff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        color: #003366;
+    }
+
+/* Tabla principal */
+.clients-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: rgba(166, 200, 255, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+    /* Encabezados de tabla */
+    .clients-table th {
+        background-color: #69c0ff;
+        color: #003366;
+        padding: 12px 6px;
+        text-align: left;
+        font-weight: 700;
+        font-size: 11px;
+        font-family: "Paprika", system-ui;
+        letter-spacing: 0.2px;
+        text-transform: uppercase;
+        border: none;
+        position: relative;
+        white-space: nowrap;
+    }
+
+        /* Ajustar ancho de columnas específicas */
+        .clients-table th:nth-child(1), /* FirstName */
+        .clients-table th:nth-child(2) { /* LastName */
+            width: 12%;
+        }
+
+        .clients-table th:nth-child(3) { /* Email */
+            width: 28%;
+        }
+
+        .clients-table th:nth-child(4) { /* BirthDate */
+            width: 13%;
+        }
+
+        .clients-table th:nth-child(5) { /* UserName */
+            width: 15%;
+        }
+
+        .clients-table th:nth-child(6) { /* Acciones */
+            width: 20%;
+        }
+
+        .clients-table th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        .clients-table th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+    /* Filas de datos */
+    .clients-table td {
+        padding: 10px 6px;
+        border: none;
+        color: #b3d9ff;
+        font-size: 12px;
+        font-family: "Paprika", system-ui;
+        transition: background-color 0.3s ease;
+        background-color: rgba(14, 55, 90, 0.3);
+        overflow: hidden;
+    }
+
+        /* Ajustar columnas específicas */
+        .clients-table td:nth-child(1), /* FirstName */
+        .clients-table td:nth-child(2) { /* LastName */
+            width: 12%;
+            white-space: nowrap;
+        }
+
+        .clients-table td:nth-child(3) { /* Email */
+            width: 28%;
+            font-size: 11px;
+            word-break: break-all;
+        }
+
+        .clients-table td:nth-child(4) { /* BirthDate */
+            width: 13%;
+            white-space: nowrap;
+            font-size: 11px;
+        }
+
+        .clients-table td:nth-child(5) { /* UserName */
+            width: 15%;
+            white-space: nowrap;
+            font-size: 12px;
+        }
+
+        .clients-table td:nth-child(6) { /* Acciones */
+            width: 20%;
+            white-space: nowrap;
+        }
+
+    /* Efecto hover en filas */
+    .clients-table tbody tr:hover td {
+        background-color: rgba(105, 192, 255, 0.15);
+        transform: scale(1.001);
+    }
+
+    /* Alternar colores de filas */
+    .clients-table tbody tr:nth-child(even) td {
+        background-color: rgba(166, 200, 255, 0.08);
+    }
+
+    .clients-table tbody tr:nth-child(odd) td {
+        background-color: rgba(14, 55, 90, 0.2);
+    }
+
+/* Enlaces de acciones */
+.action-links {
+    white-space: nowrap;
+}
+
+    .action-links a {
+        color: #69c0ff;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 600;
+        margin-right: 5px;
+        padding: 3px 6px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+        .action-links a:hover {
+            background-color: rgba(105, 192, 255, 0.2);
+            color: #d9ecff;
+            text-decoration: none;
+            transform: scale(1.05);
+        }
+
+/* Separadores entre acciones */
+.action-separator {
+    color: #4a7396;
+    margin: 0 2px;
+    font-size: 10px;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .index-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .index-title {
+        font-size: 32px;
+        margin-bottom: 25px;
+    }
+
+    .clients-table {
+        font-size: 12px;
+    }
+
+        .clients-table th,
+        .clients-table td {
+            padding: 8px;
+        }
+
+    .action-links a {
+        font-size: 11px;
+        padding: 3px 6px;
+        margin-right: 5px;
+    }
+}
+
+/* Mensaje cuando no hay datos */
+.no-data-message {
+    text-align: center;
+    padding: 40px;
+    color: #69c0ff;
+    font-size: 18px;
+    font-style: italic;
+    font-family: "Paprika", system-ui;
+}
+
+/* Estilo para el contenedor de la tabla */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ocultar elementos por defecto de MVC */
+h2:not(.index-title) {
+    display: none;
+}
+
+/* Ajustar espaciado general */
+.index-container > p {
+    display: none;
+}
+
+/* Estilo para fechas */
+.clients-table td:nth-child(4) {
+    font-weight: 600;
+    color: #a6c8ff;
+}

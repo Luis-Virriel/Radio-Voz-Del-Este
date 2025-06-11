@@ -3,8 +3,11 @@
     ViewBag.Title = "Create";
 }
 
-@* Enlazar el archivo CSS *@
-<link href="~/Content/StyleCrearClient.css" rel="stylesheet" type="text/css" />
+@* Enlaces de fuentes y CSS corregidos *@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
+<link href="@Url.Content("~/Content/StyleCrearClient.css")" rel="stylesheet" type="text/css" />
 
 <h2 class="page-title"><i class="fas fa-user-plus"></i> Crear cliente</h2>
 
@@ -12,8 +15,7 @@
 {
     @Html.AntiForgeryToken()
     <div class="form-containerClient">
-        <h4 class="form-titleClient">Voz del Este<br>Creación Cliente <i class="fas fa-microphone"></i></h4>
-
+        <h4 class="form-titleClient">Creación Cliente </h4>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
@@ -55,12 +57,12 @@
         <div class="form-group">
             <input type="submit" value="CREAR CLIENTE" class="submit-button" />
         </div>
+
+        <div class="back-link">
+            @Html.ActionLink("← Volver a la lista", "Index")
+        </div>
     </div>
 }
-
-<div class="back-link">
-    @Html.ActionLink("← Volver a la lista", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

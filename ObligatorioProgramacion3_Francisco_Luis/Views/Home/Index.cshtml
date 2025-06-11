@@ -1,57 +1,57 @@
-﻿@{
-	ViewBag.Title = "Inicio - Voz del Este";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+﻿﻿@{
+    ViewBag.Title = "Inicio - Voz del Este";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <nav class="navbar navbar-dark bg-dark fixed-top px-4">
-	<div class="container-fluid d-flex justify-content-between align-items-center">
-		<div class="bg-secondary bg-opacity-10 rounded d-flex flex-column justify-content-center align-items-center" style="height: 160px; width: 150px;">
-			<h6 class="text-uppercase mb-1">Dólar</h6>
-			<h5 class="fw-bold" id="dolar-value">Cargando...</h5>
-		</div>
-		<div class="bg-secondary bg-opacity-10 rounded d-flex flex-column justify-content-center align-items-center" style="height: 160px; width: 150px;">
-			<img src="/images/clima-icon.png" alt="Clima" style="width: 30px;" class="mb-1" />
-			<h5 class="fw-bold" id="clima-value">Cargando...</h5>
-		</div>
-	</div>
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="bg-secondary bg-opacity-10 rounded d-flex flex-column justify-content-center align-items-center" style="height: 160px; width: 150px;">
+            <h6 class="text-uppercase mb-1">Dólar</h6>
+            <h5 class="fw-bold" id="dolar-value">Cargando...</h5>
+        </div>
+        <div class="bg-secondary bg-opacity-10 rounded d-flex flex-column justify-content-center align-items-center" style="height: 160px; width: 150px;">
+            <img src="/images/clima-icon.png" alt="Clima" style="width: 30px;" class="mb-1" />
+            <h5 class="fw-bold" id="clima-value">Cargando...</h5>
+        </div>
+    </div>
 </nav>
 
 <!-- Contenido principal, con padding para no quedar oculto bajo la navbar fija -->
 <div class="container-fluid bg-dark text-light min-vh-100 py-4" style="font-family: sans-serif; color: #E4D4B3; padding-top: 180px;">
-	<!-- BLOQUE DE AUDIO (NO DENTRO DEL COLLAPSE), más pequeño y centrado -->
-	<div class="row mt-4">
-		<div class="col text-center">
-			<h3 class="fw-bold mb-3">DALE PLAY QUE ESTAMOS EN VIVO</h3>
-			<audio id="radio-player" controls style="width: 50%; max-width: 400px;">
-				<source src="https://metropolis-web-1.nty.uy" type="audio/mpeg" />
-				Tu navegador no soporta audio.
-			</audio>
-		</div>
-	</div>
+    <!-- BLOQUE DE AUDIO (NO DENTRO DEL COLLAPSE), más pequeño y centrado -->
+    <div class="row mt-4">
+        <div class="col text-center">
+            <h3 class="fw-bold mb-3">DALE PLAY QUE ESTAMOS EN VIVO</h3>
+            <audio id="radio-player" controls style="width: 50%; max-width: 400px;">
+                <source src="https://metropolis-web-1.nty.uy" type="audio/mpeg" />
+                Tu navegador no soporta audio.
+            </audio>
+        </div>
+    </div>
 
-	<!-- BLOQUE INFERIOR: Programación y Auspiciantes -->
-	<div class="row px-3 mt-5">
-		<div class="col-md-6">
-			<h5 class="fw-bold text-uppercase">Programación</h5>
-			<ul>
-				<li>Programa 1</li>
-				<li>Programa 2</li>
-				<li>Programa 3</li>
-				<li>Programa 4</li>
-				<li>Programa 5</li>
-				<li>Programa 6</li>
-				<li>Programa 7</li>
-				<li>Programa 8</li>
-				<li>Programa 9</li>
-			</ul>
-		</div>
+    <!-- BLOQUE INFERIOR: Programación y Auspiciantes -->
+    <div class="row px-3 mt-5">
+        <div class="col-md-6">
+            <h5 class="fw-bold text-uppercase">Programación</h5>
+            <ul>
+                <li>Programa 1</li>
+                <li>Programa 2</li>
+                <li>Programa 3</li>
+                <li>Programa 4</li>
+                <li>Programa 5</li>
+                <li>Programa 6</li>
+                <li>Programa 7</li>
+                <li>Programa 8</li>
+                <li>Programa 9</li>
+            </ul>
+        </div>
 
-		<div class="col-md-6 text-center">
-			<h5 class="fw-bold text-uppercase">Auspiciantes</h5>
-			<div class="border border-light rounded p-3 mt-2">
-				<!-- Aquí puedes poner los logos o un carrusel -->
-				<h3 class="fw-bold">LOGOS de auspiciantes</h3>
-			</div>
-		</div>
-	</div>
+        <div class="col-md-6 text-center">
+            <h5 class="fw-bold text-uppercase">Auspiciantes</h5>
+            <div class="border border-light rounded p-3 mt-2">
+                <!-- Aquí puedes poner los logos o un carrusel -->
+                <h3 class="fw-bold">LOGOS de auspiciantes</h3>
+            </div>
+        </div>
+    </div>
 </div>

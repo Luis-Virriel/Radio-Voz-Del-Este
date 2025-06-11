@@ -207,6 +207,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\StyleCrearClient.css" />
+    <Content Include="Content\StyleDeleteClient.css" />
+    <Content Include="Content\StyleDetailsClient.css" />
+    <Content Include="Content\StyleEditClient.css" />
+    <Content Include="Content\StyleIndexClient.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

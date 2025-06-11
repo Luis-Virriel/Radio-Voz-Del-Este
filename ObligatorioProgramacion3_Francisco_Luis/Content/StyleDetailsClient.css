@@ -1,0 +1,124 @@
+﻿/* ClientDetails.css - Estilos para vista Details de clientes */
+
+body {
+    background-color: #1a2332 !important;
+    margin: 0;
+    padding: 10px;
+    font-family: "Paprika", system-ui;
+    overflow-x: hidden;
+    color: #b3d9ff;
+}
+
+.details-container {
+    background-color: #0e375a;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+}
+
+.details-title {
+    text-align: center;
+    font-size: 48px;
+    color: #69c0ff;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.details-subtitle {
+    font-size: 28px;
+    color: #a6c8ff;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #69c0ff, transparent);
+    margin-bottom: 30px;
+}
+
+.dl-horizontal dt {
+    font-weight: bold;
+    color: #69c0ff;
+    width: 180px;
+    float: left;
+    clear: left;
+    text-align: right;
+    margin-right: 20px;
+    font-size: 16px;
+    padding-top: 10px;
+}
+
+.dl-horizontal dd {
+    margin-left: 200px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #d9ecff;
+    padding-top: 10px;
+}
+
+/* Enlaces de acciones */
+.details-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+    .details-actions a {
+        background-color: #d9ecff;
+        color: #003366;
+        border: 2px solid #69c0ff;
+        border-radius: 10px;
+        padding: 12px 25px;
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin: 0 10px;
+        display: inline-block;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+
+        .details-actions a:hover {
+            background-color: #69c0ff;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .details-container {
+        padding: 25px 20px;
+        margin: 15px;
+    }
+
+    .details-title {
+        font-size: 32px;
+    }
+
+    .dl-horizontal dt {
+        float: none;
+        text-align: left;
+        margin: 0 0 5px 0;
+    }
+
+    .dl-horizontal dd {
+        margin-left: 0;
+    }
+
+    .details-actions a {
+        display: block;
+        margin: 10px auto;
+        width: 100%;
+        max-width: 300px;
+    }
+}
+     
