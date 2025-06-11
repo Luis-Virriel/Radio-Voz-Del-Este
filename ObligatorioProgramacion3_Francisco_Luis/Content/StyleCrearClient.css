@@ -1,0 +1,124 @@
+﻿/* ClientForm.css - Estilos para formulario de creación de cliente */
+
+.form-containerClient {
+    background-color: #0e375a;
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 15px;
+    color: #b3d9ff;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+}
+
+.form-titleClient {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 35px;
+    font-style: normal;
+    color: #69c0ff;
+    font-weight: 700;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+}
+
+.input-field {
+    width: 75%;
+    padding: 12px;
+    margin: 8px auto 20px auto;
+    border: none;
+    border-radius: 10px;
+    background-color: #a6c8ff;
+    color: #003366;
+    font-size: 16px;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    box-sizing: border-box;
+    display: block;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .input-field:focus {
+        outline: none;
+        box-shadow: 0 0 8px rgba(105, 192, 255, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        transform: scale(1.02);
+    }
+
+.submit-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #d9ecff;
+    color: #003366;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+    .submit-button:hover {
+        background-color: #b3d9ff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+    .form-group label {
+        display: block;
+        font-size: 18px;
+        color: #69c0ff;
+        margin-bottom: 8px;
+        font-style: normal;
+        font-weight: 600;
+        font-family: 'Georgia', 'Times New Roman', serif;
+        letter-spacing: 0.5px;
+    }
+
+/* Ocultar elementos que no queremos mostrar */
+.page-title {
+    display: none;
+}
+
+/* Ajustar validación */
+.text-danger {
+    color: #ff6b6b !important;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Estilo para el enlace de regreso */
+.back-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .back-link a {
+        color: #69c0ff;
+        text-decoration: none;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+        .back-link a:hover {
+            color: #b3d9ff;
+            text-decoration: underline;
+        }
+
+/* Placeholder styling */
+.input-field::placeholder {
+    color: #4a7396;
+    opacity: 0.8;
+    font-style: italic;
+    font-family: 'Georgia', 'Times New Roman', serif;
+}

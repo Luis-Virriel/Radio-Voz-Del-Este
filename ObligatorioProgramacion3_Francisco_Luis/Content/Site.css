@@ -206,3 +206,55 @@ ul {
     }
 }
 
+.form-containerClient {
+    background-color: #0e375a;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    color: #b3d9ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.form-titleClient {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 25px;
+    font-style: italic;
+    color: #69c0ff;
+}
+
+.input-fieldClient {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #a6c8ff;
+    color: #003366;
+    font-size: 16px;
+}
+
+.submit-buttonClient {
+    width: 100%;
+    padding: 10px;
+    background-color: #d9ecff;
+    color: #003366;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    .submit-buttonClient:hover {
+        background-color: #b3d9ff;
+    }
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: #cce6ff;
+}
