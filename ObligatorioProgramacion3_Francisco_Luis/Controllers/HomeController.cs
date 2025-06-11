@@ -31,5 +31,10 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult VistaPrueba()
+        {
+            return View();
+        }
     }
 }
