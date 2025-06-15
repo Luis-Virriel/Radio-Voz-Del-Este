@@ -4,18 +4,60 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<nav class="navbar navbar-dark bg-dark fixed-top px-4">
-	<div class="container-fluid d-flex justify-content-between align-items-center">
-		<div class="bg-secondary bg-opacity-10 rounded d-flex flex-column justify-content-center align-items-center" style="height: 160px; width: 150px;">
-			<h6 class="text-uppercase mb-1">Dólar</h6>
-			<h5 class="fw-bold" id="dolar-value">Cargando...</h5>
+<div class="bg-secondary bg-opacity-10 rounded p-3 d-flex flex-column align-items-center" style="width: 260px;">
+	<h6 class="text-uppercase text-light mb-2">Clima Actual</h6>
+
+	@if (Model.HasWeatherData)
+	{
+		<img src="@Model.CurrentWeatherIconUrl" alt="@Model.CurrentDescription" style="width: 60px;" class="mb-2" />
+		<h5 class="fw-bold text-light mb-1">@Model.CurrentTemperature</h5>
+		<small class="text-capitalize text-light">@Model.CurrentDescription</small>
+	}
+	else
+	{
+		<img src="/images/clima-icon.png" alt="Clima" style="width: 40px;" class="mb-2" />
+		<h6 class="fw-bold text-light mb-1">
+			@if (!string.IsNullOrEmpty(ViewBag.WeatherError as string))
+			{
+				<small>Sin datos</small>
+			}
+			else
+			{
+				<span>Cargando...</span>
+			}
+		</h6>
+	}
+
+	<hr class="bg-light w-100 my-2" />
+
+	<h6 class="text-uppercase text-light mb-2">Semana</h6>
+
+	@if (Model.HasForecastData)
+	{
+		<div class="w-100">
+			@foreach (var item in Model.WeatherForecast)
+			{
+				if (item.Date.HasValue)
+				{
+					<div class="d-flex justify-content-between align-items-center py-1 border-bottom border-light">
+						<small class="text-light fw-bold">
+							@item.Date.Value.ToString("ddd", new System.Globalization.CultureInfo("es-ES"))
+						</small>
+						<img src="@($"https://openweathermap.org/img/wn/{item.Icon}@2x.png")" alt="@item.Description" style="width: 30px;" />
+						<small class="text-light">
+							@($"{(item.TempMin.HasValue ? item.TempMin.Value.ToString("0") : "-")}° / {(item.TempMax.HasValue ? item.TempMax.Value.ToString("0") : "-")}°C")
+						</small>
+					</div>
+				}
+			}
 		</div>
-		<div class="bg-secondary bg-opacity-10 rounded d-flex flex-column justify-content-center align-items-center" style="height: 160px; width: 150px;">
-			<img src="/images/clima-icon.png" alt="Clima" style="width: 30px;" class="mb-1" />
-			<h5 class="fw-bold" id="clima-value">Cargando...</h5>
-		</div>
-	</div>
-</nav>
+	}
+	else
+	{
+		<small class="text-light">No hay pronóstico disponible.</small>
+	}
+</div>
+
 
 <div class="container-fluid bg-dark text-light min-vh-100 py-4" style="font-family: sans-serif; color: #E4D4B3; padding-top: 180px;">
 
@@ -97,13 +139,34 @@
 			</ul>
 		</div>
 
-		<div class="col-md-6 text-center">
-			<h5 class="fw-bold text-uppercase">Auspiciantes</h5>
-			<div class="border border-light rounded p-3 mt-2" style="color: #E4D4B3;">
-				<!-- Aquí podés poner logos o carrusel -->
-				<h3 class="fw-bold">LOGOS de auspiciantes</h3>
-			</div>
+		<div class="auspiciantes-slider" style="max-width: 300px; margin: auto; text-align: center;">
+			<p>Nuestros auspiciantes.</p>
+			@if (Model.AuspiciantesLogos != null && Model.AuspiciantesLogos.Any())
+			{
+				<img id="auspiciante-img" src="@Model.AuspiciantesLogos[0]" alt="Logo Auspiciante" style="max-height: 100px; object-fit: contain; width: 100%;" />
+			}
+			else
+			{
+				<p>No hay logos para mostrar.</p>
+			}
 		</div>
+
+		@section scripts {
+			<script>
+        (function(){
+            var logos = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.AuspiciantesLogos));
+            var index = 0;
+            var img = document.getElementById('auspiciante-img');
+            if (logos.length > 1 && img) {
+                setInterval(function() {
+                    index = (index + 1) % logos.length;
+                    img.src = logos[index];
+                }, 3000); 
+            }
+        })();
+			</script>
+		}
+
 	</div>
 
 </div>

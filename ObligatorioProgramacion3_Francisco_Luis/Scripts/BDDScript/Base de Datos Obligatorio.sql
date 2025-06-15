@@ -198,3 +198,16 @@ INSERT INTO News (Title, Content, PublishDate, ImageURL)
 VALUES 
 ('Nuevo estudio sobre el impacto de la música', 'Una investigación reciente sugiere que la música puede mejorar el estado de ánimo y la productividad.', GETDATE(), '/images/noticia1.jpg'),
 ('Anunciada nueva programación de invierno', 'La radio local lanza una nueva grilla de programas para la temporada invernal.', GETDATE(), '/images/noticia2.jpg');
+
+INSERT INTO Sponsors (SponsorsName, SponsorDescription, CantPlan)
+VALUES 
+('Microsoft', 'Líder mundial en software, servicios en la nube y soluciones empresariales.', 5),
+('Google', 'Empresa global de tecnología enfocada en servicios como búsqueda, nube e inteligencia artificial.', 5),
+('Amazon Web Services (AWS)', 'Proveedor de servicios en la nube usado por startups y grandes corporaciones.', 5),
+('Intel', 'Fabricante de microprocesadores y tecnologías de hardware de alto rendimiento.', 4),
+('GitHub', 'Plataforma de desarrollo colaborativo y control de versiones basada en Git.', 3),
+('NVIDIA', 'Especializada en unidades gráficas (GPU) para videojuegos, IA y data centers.', 4),
+('Oracle', 'Conocida por sus bases de datos y soluciones empresariales en la nube.', 3),
+('Red Hat', 'Proveedor líder de soluciones empresariales open source basadas en Linux.', 3),
+('IBM', 'Empresa pionera en innovación tecnológica, servicios de IA y nube híbrida.', 4),
+('Apple', 'Empresa líder en hardware, software y servicios tecnológicos de consumo y profesionales.', 5);
