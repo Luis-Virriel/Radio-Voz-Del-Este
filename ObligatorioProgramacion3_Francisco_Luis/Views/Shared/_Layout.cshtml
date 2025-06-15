@@ -1,15 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="~/Assets/favicon.ico" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <title>@ViewBag.Title Voz del Este</title>
-    @Styles.Render("~/Content/Site.css")
-    @Scripts.Render("~/bundles/modernizr")
-    
-
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="icon" type="image/x-icon" href="~/Assets/favicon.ico" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<title>@ViewBag.Title - Voz del Este</title>
+	@Styles.Render("~/Content/Site.css")
+	@Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
 	<!-- NAVBAR PRINCIPAL -->
@@ -17,11 +15,11 @@
 		<div class="container-fluid">
 			<!-- IZQUIERDA: LOGO + NOMBRE -->
 			<div class="d-flex align-items-center">
-				<img src="@Url.Content("~/Assets/Radio.png")" alt="Logo de la emisora Voz del Este" style="height: 40px;" class="me-2" />
+				<img src="@Url.Content("~/Assets/Radio.png")" alt="Logo Voz del Este" style="height: 40px;" class="me-2" />
 				@Html.ActionLink("Voz del Este", "Index", "Home", null, new { @class = "navbar-brand fw-bold mb-0" })
 			</div>
 
-			<!-- BOTÓN TOGGLER para pantallas pequeñas -->
+			<!-- TOGGLER para pantallas pequeñas -->
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
 					aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -29,22 +27,33 @@
 
 			<!-- DERECHA: LOGIN / LOGOUT -->
 			<div class="collapse navbar-collapse" id="navbarContent">
-				<ul class="navbar-nav ms-auto mb-2 mb-sm-0" style="flex-wrap: nowrap;">
-					<li class="nav-item">
-						@if (User.Identity.IsAuthenticated)
-						{
-							<a class="btn btn-outline-light" href="/Account/Logout" style="white-space: nowrap;" aria-label="Cerrar sesión">Logout</a>
-						}
-						else
-						{
-							<a class="btn btn-outline-light" href="/Home/Login" style="white-space: nowrap;" aria-label="Iniciar sesión">Login</a>
-						}
-					</li>
+				<ul class="navbar-nav ms-auto mb-2 mb-sm-0" style="align-items:center;">
+					@if (User.Identity.IsAuthenticated)
+					{
+						var role = Session["Role"] as string ?? "Sin rol";
+						<li class="nav-item me-3">
+							<span class="navbar-text text-light">
+								Hola, @User.Identity.Name (@role)
+							</span>
+						</li>
+						<li class="nav-item">
+							<a class="btn btn-outline-light" href="@Url.Action("Logout", "Account")">
+								<i class="fas fa-sign-out-alt"></i> Logout
+							</a>
+						</li>
+					}
+					else
+					{
+						<li class="nav-item">
+							<a class="btn btn-outline-light" href="@Url.Action("Login", "Account")" style="white-space: nowrap;" aria-label="Iniciar sesión">
+								<i class="fas fa-sign-in-alt"></i> Login
+							</a>
+						</li>
+					}
 				</ul>
 			</div>
 		</div>
 	</nav>
-
 
 	<!-- CUERPO PRINCIPAL -->
 	<div class="container body-content mt-4">
@@ -52,17 +61,17 @@
 
 		<hr />
 
-		<!-- Footer -->
+		<!-- FOOTER -->
 		<footer class="text-center mt-4 mb-3">
 			<p>&copy; @DateTime.Now.Year - Voz del Este</p>
 			<p>
-				<a href="https://www.linkedin.com/in/francisco-p%C3%A9rez-666433272/" target="_blank" rel="noopener noreferrer">
-					<i class="fab fa-linkedin"></i> Francisco Pérez en LinkedIn
+				<a href="https://www.linkedin.com/in/francisco-p%C3%A9rez-666433272/" target="_blank">
+					<i class="fab fa-linkedin"></i> Francisco Pérez
 				</a>
 			</p>
 			<p>
-				<a href="https://www.linkedin.com/in/luis-virriel/" target="_blank" rel="noopener noreferrer">
-					<i class="fab fa-linkedin"></i> Luis Virriel en LinkedIn
+				<a href="https://www.linkedin.com/in/luis-virriel/" target="_blank">
+					<i class="fab fa-linkedin"></i> Luis Virriel
 				</a>
 			</p>
 		</footer>

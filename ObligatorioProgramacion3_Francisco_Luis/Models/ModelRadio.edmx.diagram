@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="164c5f3b715c435db5a28f86d1570e25" Name="Diagram1">
-        <EntityTypeShape EntityType="RadioModel.Client" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadioModel.Comment" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadioModel.ExchangeRate" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadioModel.Host" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadioModel.News" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="164c5f3b715c435db5a28f86d1570e25" Name="Diagram1" ZoomLevel="79">
+        <EntityTypeShape EntityType="RadioModel.Client" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.Comment" Width="1.5" PointX="6.375" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.ExchangeRate" Width="1.5" PointX="10.375" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.Host" Width="1.5" PointX="7.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.News" Width="1.5" PointX="10.25" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="RadioModel.RadioProgram" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadioModel.Role" Width="1.5" PointX="1.5" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadioModel.Sponsor" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadioModel.User" Width="1.5" PointX="1.5" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadioModel.Weather" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.Role" Width="1.5" PointX="13.125" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.Sponsor" Width="1.5" PointX="12.875" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.User" Width="1.5" PointX="3.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioModel.Weather" Width="1.5" PointX="12.875" PointY="3" IsExpanded="true" />
         <AssociationConnector Association="RadioModel.FK__Clients__UserID__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="RadioModel.FK__Comments__Client__619B8048" ManuallyRouted="false" />
         <AssociationConnector Association="RadioModel.FK__Comments__Progra__628FA481" ManuallyRouted="false" />
