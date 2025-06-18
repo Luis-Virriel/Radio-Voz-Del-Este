@@ -150,6 +150,7 @@
     <Compile Include="Models\Comment.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CurrencyData.cs" />
     <Compile Include="Models\ExchangeRate.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
@@ -321,6 +322,8 @@
     <Content Include="Views\Home\AdminIndex.cshtml" />
     <Content Include="Views\Home\EditorIndex.cshtml" />
     <Content Include="Views\Home\ClientIndex.cshtml" />
+    <Content Include="Views\Home\Weather.cshtml" />
+    <Content Include="Views\Home\Currency.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
