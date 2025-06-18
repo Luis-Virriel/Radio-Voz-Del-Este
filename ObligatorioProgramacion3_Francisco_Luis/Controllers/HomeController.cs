@@ -13,7 +13,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
     public class HomeController : Controller
     {
-        // Página principal accesible para todos (anónimo y autenticado)
         private RadioEntities db = new RadioEntities();
         private readonly string _weatherApiKey = "40ed30cc4da04b0fed28c1dd01a0e483";
 
@@ -66,6 +65,8 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     NextProgram = nextProgram,
                     ProgramsList = programsList
                 };
+
+                // Logos de auspiciantes
                 var auspiciantesPath = HostingEnvironment.MapPath("~/Assets/auspiciantes");
                 var auspiciantesLogos = new List<string>();
 
@@ -78,8 +79,10 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                         auspiciantesLogos.Add(Url.Content("~/Assets/auspiciantes/" + fileName));
                     }
                 }
+
                 model.AuspiciantesLogos = auspiciantesLogos;
-                // Cargar datos del clima
+
+                // Datos del clima
                 try
                 {
                     model.CurrentWeather = await GetCurrentWeatherAsync();
@@ -87,11 +90,18 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // Log del error - el clima no se mostrará si falla
                     System.Diagnostics.Debug.WriteLine($"Error al obtener clima: {ex.Message}");
-                    // Puedes también agregar el error al ViewBag si quieres mostrarlo
                     ViewBag.WeatherError = "No se pudo cargar la información del clima";
                 }
+
+                // Cotización del dólar
+                var lastUsdRate = db.ExchangeRates
+                    .Where(r => r.CurrencyType == "USD")
+                    .OrderByDescending(r => r.ExchangeDate)
+                    .Select(r => r.ExchangeValue)
+                    .FirstOrDefault();
+
+                model.UsdExchangeRate = lastUsdRate;
 
                 ViewBag.Message = "Bienvenido visitante, por favor inicie sesión para más funciones";
                 return View("Index", model);
@@ -102,7 +112,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             using (var client = new HttpClient())
             {
-                // Coordenadas de Maldonado, Uruguay
                 var lat = -34.9;
                 var lon = -54.95;
 
@@ -127,7 +136,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
                 var forecast = new List<WeatherForecastItem>();
 
-                // Procesar solo un pronóstico por día (mediodía)
                 var dailyForecasts = ((Newtonsoft.Json.Linq.JArray)forecastData.list)
                     .Where(item => item["dt_txt"].ToString().Contains("12:00:00"))
                     .Take(5);
@@ -173,7 +181,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
-
+        public ActionResult Weather()
+        {
+            ViewBag.Message = "Información del clima actual y pronóstico.";
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Descripción de la aplicación.";
@@ -190,7 +202,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
-
+        public ActionResult Currency()
+        {
+            ViewBag.Message = "Información de cotizaciones de divisas.";
+            return View();
+        }
         public ActionResult EditorIndex()
         {
             return View();

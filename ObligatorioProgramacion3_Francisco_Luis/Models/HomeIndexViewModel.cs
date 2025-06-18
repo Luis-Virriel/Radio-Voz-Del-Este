@@ -23,6 +23,9 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
         public string CurrentWeatherIconUrl => HasWeatherData && !string.IsNullOrEmpty(CurrentWeatherIcon)
             ? $"https://openweathermap.org/img/wn/{CurrentWeatherIcon}@2x.png"
             : "";
+        public decimal? UsdExchangeRate { get; set; }
         public List<string> AuspiciantesLogos { get; set; }
+        public bool HasCurrencyData => CurrencyData != null && CurrencyData.Quotes != null;
+        public CurrencyData CurrencyData { get; set; } 
     }
 }
