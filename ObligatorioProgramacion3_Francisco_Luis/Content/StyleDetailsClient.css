@@ -4,7 +4,7 @@ body {
     background-color: #1a2332 !important;
     margin: 0;
     padding: 10px;
-    font-family: "Paprika", system-ui;
+    font-family: "Bona Nova SC", serif;
     overflow-x: hidden;
     color: #b3d9ff;
 }
@@ -83,7 +83,7 @@ hr {
         display: inline-block;
         transition: all 0.3s ease;
         text-decoration: none;
-        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        font-family: "Bona Nova SC", serif;
     }
 
         .details-actions a:hover {

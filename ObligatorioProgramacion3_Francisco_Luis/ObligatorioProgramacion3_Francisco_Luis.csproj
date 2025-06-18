@@ -216,6 +216,7 @@
     <Content Include="Content\StyleDetailsClient.css" />
     <Content Include="Content\StyleEditClient.css" />
     <Content Include="Content\StyleIndexClient.css" />
+    <Content Include="Content\StyleLogin.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

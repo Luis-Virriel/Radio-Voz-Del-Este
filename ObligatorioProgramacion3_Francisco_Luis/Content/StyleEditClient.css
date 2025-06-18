@@ -19,7 +19,7 @@ html {
     padding: 35px;
     border-radius: 15px;
     color: #b3d9ff;
-    font-family: "Paprika", system-ui;
+    font-family: "Bona Nova SC", serif;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
     min-height: 500px;
     box-sizing: border-box;
@@ -36,7 +36,7 @@ h2:not(.edit-title) {
     font-style: normal;
     color: #69c0ff;
     font-weight: 300;
-    font-family: "Paprika", system-ui;
+    font-family: "Bona Nova SC", serif;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
     letter-spacing: 1px;
 }
@@ -54,7 +54,7 @@ h2:not(.edit-title) {
         font-weight: 800;
         margin-bottom: 20px;
         text-align: center;
-        font-family: "Paprika", system-ui;
+        font-family: "Bona Nova SC", serif;
         letter-spacing: 0.5px;
     }
 
@@ -77,7 +77,7 @@ h2:not(.edit-title) {
     color: #69c0ff !important;
     font-weight: 600 !important;
     font-size: 14px !important;
-    font-family: "Paprika", system-ui;
+    font-family: "Bona Nova SC", serif;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 0 !important;
@@ -100,7 +100,7 @@ h2:not(.edit-title) {
     border-radius: 12px !important;
     color: #003366 !important;
     font-size: 15px !important;
-    font-family: "Paprika", system-ui;
+    font-family: "Bona Nova SC", serif;
     font-weight: 500 !important;
     padding: 15px 18px !important;
     transition: all 0.3s ease !important;
@@ -172,7 +172,7 @@ input[type="datetime-local"].form-control {
     font-size: 12px !important;
     font-weight: 600 !important;
     margin-top: 5px !important;
-    font-family: 'Georgia', 'Times New Roman', serif !important;
+    font-family: "Bona Nova SC", serif;
     display: block;
 }
 
@@ -193,7 +193,7 @@ input[type="datetime-local"].form-control {
     .validation-summary-errors li {
         font-size: 13px !important;
         font-weight: 600 !important;
-        font-family: 'Georgia', 'Times New Roman', serif !important;
+        font-family: "Bona Nova SC", serif;
     }
 
 /* Botón Save */
@@ -205,14 +205,20 @@ input[type="datetime-local"].form-control {
     padding: 15px 35px !important;
     font-size: 16px !important;
     font-weight: 700 !important;
-    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-family: "Bona Nova SC", serif;
     text-transform: uppercase !important;
     letter-spacing: 1px !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
-    min-width: 120px !important;
+    min-width: 200px !important;
     height: 50px !important;
+    max-height: 50px !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
     .btn-default:hover {
@@ -227,37 +233,62 @@ input[type="datetime-local"].form-control {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
     }
 
-.form-group .col-md-offset-2 {
-    text-align: center;
-    padding-top: 20px;
+/* Botón Secondary (Volver a la Lista) */
+.btn-secondary {
+    background-color: #d9ecff !important;
+    color: #003366 !important;
+    border: 2px solid #69c0ff !important;
+    border-radius: 10px !important;
+    padding: 15px 35px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    font-family: "Bona Nova SC", serif;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    min-width: 200px !important;
+    height: 50px !important;
+    max-height: 50px !important;
+    line-height: 1 !important;
+    margin-left: 40px !important;
+    box-sizing: border-box !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
-.back-link-container {
-    text-align: center;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(105, 192, 255, 0.3);
-}
-
-    .back-link-container a {
-        color: #69c0ff !important;
+    .btn-secondary:hover {
+        background-color: #69c0ff !important;
+        color: #ffffff !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
         text-decoration: none !important;
-        font-size: 16px !important;
-        font-weight: 600 !important;
-        font-family: "Paprika", system-ui;
-        padding: 10px 20px !important;
-        border-radius: 8px !important;
-        transition: all 0.3s ease !important;
-        display: inline-block !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.5px !important;
     }
 
-        .back-link-container a:hover {
-            background-color: rgba(105, 192, 255, 0.2) !important;
-            color: #d9ecff !important;
-            transform: scale(1.05) !important;
-        }
+    .btn-secondary:active {
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    }
+
+/* Para que los botones se vean bien juntos */
+.col-md-offset-2.col-md-10 {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+}
+
+.form-group .col-md-offset-2 {
+    text-align: left;
+    padding-top: 20px;
+}
+
+/* Remover el contenedor de abajo que ya no se usa */
+.back-link-container {
+    display: none;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -297,9 +328,19 @@ input[type="datetime-local"].form-control {
         max-width: 100% !important;
     }
 
-    .btn-default {
+    .btn-default, .btn-secondary {
         width: 100% !important;
         margin-top: 10px !important;
+        margin-left: 0 !important;
+        min-width: 100% !important;
+        max-height: 50px !important;
+        height: 50px !important;
+    }
+
+    .col-md-offset-2.col-md-10 {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
     }
 }
 
@@ -346,5 +387,6 @@ input[type="datetime-local"].form-control {
 
     to {
         opacity: 1;
+        transform: translateY(0);
     }
 }

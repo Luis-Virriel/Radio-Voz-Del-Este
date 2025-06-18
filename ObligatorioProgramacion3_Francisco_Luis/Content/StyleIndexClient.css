@@ -21,7 +21,7 @@ html {
     padding: 25px;
     border-radius: 15px;
     color: #b3d9ff;
-    font-family: "Paprika", system-ui;
+    font-family: "Bona Nova SC", serif;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
     min-height: 400px;
     box-sizing: border-box;
@@ -35,7 +35,7 @@ html {
     font-style: normal;
     color: #69c0ff;
     font-weight: 400;
-    font-family: "Paprika", system-ui;
+    font-family: "Bona Nova SC", serif;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     letter-spacing: 1px;
 }
@@ -55,7 +55,7 @@ html {
     text-decoration: none;
     border-radius: 10px;
     font-size: 16px;
-    font-family: "Paprika", system-ui;
+    font-family: "Bona Nova SC", serif;
     cursor: pointer;
     transition: all 0.3s ease;
     letter-spacing: 1px;
@@ -91,7 +91,7 @@ html {
         text-align: left;
         font-weight: 700;
         font-size: 11px;
-        font-family: "Paprika", system-ui;
+        font-family: "Bona Nova SC", serif;
         letter-spacing: 0.2px;
         text-transform: uppercase;
         border: none;
@@ -135,7 +135,7 @@ html {
         border: none;
         color: #b3d9ff;
         font-size: 12px;
-        font-family: "Paprika", system-ui;
+        font-family: "Bona Nova SC", serif;
         transition: background-color 0.3s ease;
         background-color: rgba(14, 55, 90, 0.3);
         overflow: hidden;
@@ -252,7 +252,7 @@ html {
     color: #69c0ff;
     font-size: 18px;
     font-style: italic;
-    font-family: "Paprika", system-ui;
+    font-family: "Bona Nova SC", serif;
 }
 
 /* Estilo para el contenedor de la tabla */
