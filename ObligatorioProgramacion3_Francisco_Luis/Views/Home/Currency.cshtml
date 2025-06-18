@@ -1,0 +1,646 @@
+﻿
+@{
+    ViewBag.Title = "Divisas - Voz del Este";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-dark text-light min-vh-100">
+    <!-- Header elegante -->
+    <div class="container-fluid py-4">
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                    <i class="fas fa-arrow-left me-2"></i>Volver
+                </a>
+            </div>
+            <div class="col text-center">
+                <h1 class="page-title mb-0">
+                    <span class="currency-emoji">💰</span>
+                    Divisas Mundiales
+                    <span class="currency-emoji">💱</span>
+                </h1>
+                <p class="subtitle">Cotizaciones en tiempo real</p>
+            </div>
+            <div class="col-auto">
+                <div class="last-update">
+                    <small class="text-muted">
+                        <i class="fas fa-clock me-1"></i>
+                        Actualizado: @DateTime.Now.ToString("HH:mm")
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid px-4">
+        <!-- Divisas principales destacadas -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="section-title mb-4">
+                    <span class="title-accent"></span>
+                    Divisas Principales
+                </h3>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <!-- USD/UYU - Destacado -->
+            <div class="col-lg-4 col-md-6">
+                <div class="currency-card featured-card">
+                    <div class="currency-header">
+                        <div class="currency-flags">
+                            <span class="flag">🇺🇸</span>
+                            <span class="arrow">→</span>
+                            <span class="flag">🇺🇾</span>
+                        </div>
+                        <div class="currency-pair">USD/UYU</div>
+                    </div>
+                    <div class="currency-body">
+                        @if (Model.HasCurrencyData && Model.CurrencyData.Quotes.ContainsKey("USDUYU"))
+                        {
+                            <div class="rate-display featured-rate">$@Model.CurrencyData.Quotes["USDUYU"].ToString("0.00")</div>
+                            <div class="rate-change positive">+0.45%</div>
+                        }
+                        else
+                        {
+                            <div class="rate-display">--</div>
+                            <div class="rate-change neutral">Sin datos</div>
+                        }
+                    </div>
+                    <div class="currency-footer">
+                        <small class="currency-name">Dólar Estadounidense → Peso Uruguayo</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EUR/USD -->
+            <div class="col-lg-4 col-md-6">
+                <div class="currency-card">
+                    <div class="currency-header">
+                        <div class="currency-flags">
+                            <span class="flag">🇪🇺</span>
+                            <span class="arrow">→</span>
+                            <span class="flag">🇺🇸</span>
+                        </div>
+                        <div class="currency-pair">EUR/USD</div>
+                    </div>
+                    <div class="currency-body">
+                        <div class="rate-display">1.0847</div>
+                        <div class="rate-change negative">-0.12%</div>
+                    </div>
+                    <div class="currency-footer">
+                        <small class="currency-name">Euro → Dólar</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GBP/USD -->
+            <div class="col-lg-4 col-md-6">
+                <div class="currency-card">
+                    <div class="currency-header">
+                        <div class="currency-flags">
+                            <span class="flag">🇬🇧</span>
+                            <span class="arrow">→</span>
+                            <span class="flag">🇺🇸</span>
+                        </div>
+                        <div class="currency-pair">GBP/USD</div>
+                    </div>
+                    <div class="currency-body">
+                        <div class="rate-display">1.2634</div>
+                        <div class="rate-change positive">+0.23%</div>
+                    </div>
+                    <div class="currency-footer">
+                        <small class="currency-name">Libra Esterlina → Dólar</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Más divisas -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3 class="section-title mb-4">
+                    <span class="title-accent"></span>
+                    Otras Divisas
+                </h3>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-5">
+            <!-- JPY/USD -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="currency-card compact">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="currency-info">
+                            <div class="currency-flags-small">
+                                <span class="flag-small">🇯🇵</span>
+                                <span class="pair-small">JPY/USD</span>
+                            </div>
+                            <div class="rate-small">0.0067</div>
+                        </div>
+                        <div class="change-small negative">-0.08%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHF/USD -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="currency-card compact">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="currency-info">
+                            <div class="currency-flags-small">
+                                <span class="flag-small">🇨🇭</span>
+                                <span class="pair-small">CHF/USD</span>
+                            </div>
+                            <div class="rate-small">1.1045</div>
+                        </div>
+                        <div class="change-small positive">+0.15%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AUD/USD -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="currency-card compact">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="currency-info">
+                            <div class="currency-flags-small">
+                                <span class="flag-small">🇦🇺</span>
+                                <span class="pair-small">AUD/USD</span>
+                            </div>
+                            <div class="rate-small">0.6542</div>
+                        </div>
+                        <div class="change-small negative">-0.34%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAD/USD -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="currency-card compact">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="currency-info">
+                            <div class="currency-flags-small">
+                                <span class="flag-small">🇨🇦</span>
+                                <span class="pair-small">CAD/USD</span>
+                            </div>
+                            <div class="rate-small">0.7234</div>
+                        </div>
+                        <div class="change-small positive">+0.12%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BRL/USD -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="currency-card compact">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="currency-info">
+                            <div class="currency-flags-small">
+                                <span class="flag-small">🇧🇷</span>
+                                <span class="pair-small">BRL/USD</span>
+                            </div>
+                            <div class="rate-small">0.1834</div>
+                        </div>
+                        <div class="change-small negative">-0.67%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ARS/USD -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="currency-card compact">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="currency-info">
+                            <div class="currency-flags-small">
+                                <span class="flag-small">🇦🇷</span>
+                                <span class="pair-small">ARS/USD</span>
+                            </div>
+                            <div class="rate-small">0.0010</div>
+                        </div>
+                        <div class="change-small negative">-1.23%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CNY/USD -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="currency-card compact">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="currency-info">
+                            <div class="currency-flags-small">
+                                <span class="flag-small">🇨🇳</span>
+                                <span class="pair-small">CNY/USD</span>
+                            </div>
+                            <div class="rate-small">0.1378</div>
+                        </div>
+                        <div class="change-small positive">+0.08%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MXN/USD -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="currency-card compact">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="currency-info">
+                            <div class="currency-flags-small">
+                                <span class="flag-small">🇲🇽</span>
+                                <span class="pair-small">MXN/USD</span>
+                            </div>
+                            <div class="rate-small">0.0498</div>
+                        </div>
+                        <div class="change-small negative">-0.45%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="row justify-content-center pb-5">
+            <div class="col-lg-8">
+                <div class="info-card">
+                    <div class="info-header">
+                        <h4 class="info-title">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Información sobre las Cotizaciones
+                        </h4>
+                    </div>
+                    <div class="info-body">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="info-item">
+                                    <div class="info-icon">📊</div>
+                                    <div>
+                                        <h6>Datos en Tiempo Real</h6>
+                                        <p>Las cotizaciones se actualizan cada 15 minutos durante horarios de mercado.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-item">
+                                    <div class="info-icon">🌍</div>
+                                    <div>
+                                        <h6>Mercados Globales</h6>
+                                        <p>Incluye las principales divisas de los mercados financieros mundiales.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estilos para la página de divisas -->
+<style>
+    /* Variables */
+    :root {
+        --primary-gold: #f39c12;
+        --success-green: #27ae60;
+        --danger-red: #e74c3c;
+        --primary-blue: #3498db;
+        --bg-card: rgba(255, 255, 255, 0.05);
+        --bg-card-hover: rgba(255, 255, 255, 0.08);
+        --text-light: #ecf0f1;
+        --text-muted: #bdc3c7;
+        --border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Header */
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 300;
+        letter-spacing: 1px;
+        color: var(--text-light);
+    }
+
+    .currency-emoji {
+        font-size: 2rem;
+        margin: 0 15px;
+    }
+
+    .subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-top: 10px;
+    }
+
+    .last-update {
+        padding: 8px 15px;
+        background: var(--bg-card);
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+    }
+
+    /* Secciones */
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: var(--text-light);
+        position: relative;
+        padding-left: 20px;
+    }
+
+    .title-accent {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 25px;
+        background: linear-gradient(135deg, var(--primary-gold), var(--primary-blue));
+        border-radius: 2px;
+    }
+
+    /* Tarjetas de divisas principales */
+    .currency-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 25px;
+        height: 100%;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        cursor: pointer;
+    }
+
+        .currency-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+    .featured-card {
+        background: linear-gradient(135deg, rgba(243, 156, 18, 0.1), rgba(52, 152, 219, 0.1));
+        border: 2px solid var(--primary-gold);
+    }
+
+    .currency-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .currency-flags {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .flag {
+        font-size: 2rem;
+    }
+
+    .arrow {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+    }
+
+    .currency-pair {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--text-light);
+        letter-spacing: 1px;
+    }
+
+    .currency-body {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .rate-display {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 5px;
+    }
+
+    .featured-rate {
+        font-size: 2.8rem;
+        background: linear-gradient(135deg, var(--primary-gold), var(--primary-blue));
+        -webkit-text-fill-color: transparent;
+    }
+
+    .rate-change {
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 15px;
+        display: inline-block;
+    }
+
+        .rate-change.positive {
+            background: rgba(39, 174, 96, 0.2);
+            color: var(--success-green);
+        }
+
+        .rate-change.negative {
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--danger-red);
+        }
+
+        .rate-change.neutral {
+            background: rgba(189, 195, 199, 0.2);
+            color: var(--text-muted);
+        }
+
+    .currency-footer {
+        text-align: center;
+    }
+
+    .currency-name {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    /* Tarjetas compactas */
+    .currency-card.compact {
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    .currency-flags-small {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .flag-small {
+        font-size: 1.2rem;
+    }
+
+    .pair-small {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-light);
+    }
+
+    .rate-small {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text-light);
+    }
+
+    .change-small {
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: 10px;
+    }
+
+        .change-small.positive {
+            background: rgba(39, 174, 96, 0.2);
+            color: var(--success-green);
+        }
+
+        .change-small.negative {
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--danger-red);
+        }
+
+    /* Tarjeta de información */
+    .info-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 30px;
+        backdrop-filter: blur(10px);
+    }
+
+    .info-title {
+        color: var(--text-light);
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .info-icon {
+        font-size: 1.5rem;
+        margin-top: 5px;
+    }
+
+    .info-item h6 {
+        color: var(--text-light);
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .info-item p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .page-title {
+            font-size: 1.8rem;
+        }
+
+        .currency-emoji {
+            font-size: 1.5rem;
+            margin: 0 8px;
+        }
+
+        .rate-display {
+            font-size: 1.8rem;
+        }
+
+        .featured-rate {
+            font-size: 2.2rem;
+        }
+
+        .currency-card {
+            padding: 20px;
+        }
+
+        .info-card {
+            padding: 20px;
+        }
+
+        .last-update {
+            display: none;
+        }
+    }
+
+    /* Animaciones */
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    .currency-emoji {
+        animation: float 3s ease-in-out infinite;
+    }
+
+        .currency-emoji:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+</style>
+
+@section scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animaciones de hover para las tarjetas
+            const currencyCards = document.querySelectorAll('.currency-card');
+
+            currencyCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.borderColor = 'rgba(243, 156, 18, 0.5)';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('featured-card')) {
+                        this.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                    }
+                });
+            });
+
+            // Simulación de actualización de datos cada 30 segundos
+            setInterval(function() {
+                const timeElement = document.querySelector('.last-update small');
+                if (timeElement) {
+                    const now = new Date();
+                    const timeString = now.toLocaleTimeString('es-UY', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    timeElement.innerHTML = '<i class="fas fa-clock me-1"></i>Actualizado: ' + timeString;
+                }
+            }, 30000);
+
+            // Efecto de pulso en los cambios de precio
+            const changes = document.querySelectorAll('.rate-change, .change-small');
+            changes.forEach(change => {
+                change.addEventListener('animationend', function() {
+                    this.style.animation = '';
+                });
+
+                // Simular cambio de precio ocasionalmente
+                if (Math.random() > 0.7) {
+                    setTimeout(() => {
+                        change.style.animation = 'pulse 0.5s ease-in-out';
+                    }, Math.random() * 5000);
+                }
+            });
+        });
+    </script>
+}
