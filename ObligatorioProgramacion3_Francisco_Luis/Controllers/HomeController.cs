@@ -20,7 +20,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
 
 
-        private async Task<CurrencyData> GetCurrencyDataAsync()
+        public async Task<CurrencyData> GetCurrencyDataAsync()
         {
             using (var client = new HttpClient())
             {
@@ -154,7 +154,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
 
-        private async Task<WeatherViewModel> GetCurrentWeatherAsync()
+        public async Task<WeatherViewModel> GetCurrentWeatherAsync()
         {
             using (var client = new HttpClient())
             {
@@ -168,7 +168,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             }
         }
 
-        private async Task<List<WeatherForecastItem>> GetWeatherForecastAsync()
+        public async Task<List<WeatherForecastItem>> GetWeatherForecastAsync()
         {
             using (var client = new HttpClient())
             {
@@ -227,7 +227,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
-        private async Task<ActionResult> Weather()
+        public async Task<ActionResult> Weather()
         {
             try
             {
