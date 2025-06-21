@@ -25,7 +25,8 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
         public string Source { get; set; }
 
         [JsonProperty("quotes", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, double> Quotes { get; set; }
+        public Dictionary<string, double> Quotes { get; set; } = new Dictionary<string, double>();
+
 
         public static CurrencyData FromJson(string json) =>
             JsonConvert.DeserializeObject<CurrencyData>(json, Converter.Settings);
