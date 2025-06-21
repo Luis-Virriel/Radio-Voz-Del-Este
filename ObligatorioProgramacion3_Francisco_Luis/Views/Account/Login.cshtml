@@ -1,50 +1,44 @@
 ﻿@{
-	ViewBag.Title = "Login";
+    ViewBag.Title = "Login";
 }
-
-<section class="vh-100 gradient-custom">
-	<div class="container py-5 h-100">
-		<div class="row d-flex justify-content-center align-items-center h-100">
-			<div class="col-12 col-md-8 col-lg-6 col-xl-5">
-				<div class="card section">
-					<div class="card-body p-5 text-center">
-						<div class="mb-md-5 mt-md-4 pb-5">
-
-							<h2 class="fw-bold mb-2 text-uppercase">Ingreso de usuario</h2>
-							<p class="mb-5">Por favor ingresa usuario y tu contraseña</p>
-
-							@if (ViewBag.Error != null)
-							{
-								<div class="alert alert-danger">@ViewBag.Error</div>
-							}
-
-							@using (Html.BeginForm("Login", "Account", FormMethod.Post))
-							{
-								@Html.AntiForgeryToken()
-
-								<div class="mb-4">
-									<input type="text" name="username" class="form-control form-control-lg" placeholder="Usuario" required />
-								</div>
-
-								<div class="mb-4">
-									<input type="password" name="password" class="form-control form-control-lg" placeholder="Contraseña" required />
-								</div>
-
-								<button class="btn btn-outline-dark btn-lg px-5" type="submit">Login</button>
-							}
-
-							<br /><br />
-
-							<div class="d-flex justify-content-center text-center mt-4 pt-1">
-								<a href="/Home/VistaPrueba"><i class="fab fa-facebook-f fa-lg"></i></a>
-								<a href="/Home/VistaPrueba" class="mx-4 px-2"><i class="fab fa-twitter fa-lg"></i></a>
-								<a href="/Home/VistaPrueba"><i class="fab fa-google fa-lg"></i></a>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="@Url.Content("~/Content/StyleLogin.css")" rel="stylesheet" type="text/css" />
+<section class="gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="card section">
+                    <div class="card-body p-5 text-center">
+                        <div class="mb-md-5 mt-md-4 pb-5">
+                            <h2 class="fw-bold mb-2 text-uppercase">Ingreso de usuario</h2>
+                            <p class="mb-5">Por favor ingresa usuario y tu contraseña</p>
+                            @if (ViewBag.Error != null)
+                            {
+                                <div class="alert alert-danger">@ViewBag.Error</div>
+                            }
+                            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="mb-4">
+                                    <input type="text" name="username" class="form-control form-control-lg" placeholder="Usuario" required />
+                                </div>
+                                <div class="mb-4">
+                                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Contraseña" required />
+                                </div>
+                                <button class="btn btn-outline-dark btn-lg px-5" type="submit">Login</button>
+                            }
+                            <br /><br />
+                            <div class="d-flex justify-content-center text-center mt-4 pt-1">
+                                <a href="/Home/VistaPrueba"><i class="fab fa-facebook-f fa-lg"></i></a>
+                                <a href="/Home/VistaPrueba" class="mx-4 px-2"><i class="fab fa-twitter fa-lg"></i></a>
+                                <a href="/Home/VistaPrueba"><i class="fab fa-google fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

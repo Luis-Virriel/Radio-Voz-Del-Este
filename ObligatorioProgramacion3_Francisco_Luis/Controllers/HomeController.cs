@@ -13,11 +13,26 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
     public class HomeController : Controller
     {
-        // Página principal accesible para todos (anónimo y autenticado)
         private RadioEntities db = new RadioEntities();
         private readonly string _weatherApiKey = "40ed30cc4da04b0fed28c1dd01a0e483";
+        private readonly string currencyLayerApiKey = "ba030d742f03dfc719d832c8010a3f84";
 
-        [AllowAnonymous]
+
+
+
+        public async Task<CurrencyData> GetCurrencyDataAsync()
+        {
+            using (var client = new HttpClient())
+            {
+               
+                var url = $"http://api.currencylayer.com/live?access_key={currencyLayerApiKey}&currencies=EUR,UYU,BRL&source=USD&format=1";
+                var response = await client.GetStringAsync(url);
+                var data = Newtonsoft.Json.JsonConvert.DeserializeObject<CurrencyData>(response);
+                return data;
+            }
+        }
+
+
         public async Task<ActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -66,6 +81,8 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     NextProgram = nextProgram,
                     ProgramsList = programsList
                 };
+
+                // Logos de auspiciantes
                 var auspiciantesPath = HostingEnvironment.MapPath("~/Assets/auspiciantes");
                 var auspiciantesLogos = new List<string>();
 
@@ -78,8 +95,10 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                         auspiciantesLogos.Add(Url.Content("~/Assets/auspiciantes/" + fileName));
                     }
                 }
+
                 model.AuspiciantesLogos = auspiciantesLogos;
-                // Cargar datos del clima
+
+                // Datos del clima
                 try
                 {
                     model.CurrentWeather = await GetCurrentWeatherAsync();
@@ -87,10 +106,46 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // Log del error - el clima no se mostrará si falla
                     System.Diagnostics.Debug.WriteLine($"Error al obtener clima: {ex.Message}");
-                    // Puedes también agregar el error al ViewBag si quieres mostrarlo
                     ViewBag.WeatherError = "No se pudo cargar la información del clima";
+                }
+
+                // Cotización del dólar (desde base)
+                var lastUsdRate = db.ExchangeRates
+                    .Where(r => r.CurrencyType == "USD")
+                    .OrderByDescending(r => r.ExchangeDate)
+                    .Select(r => r.ExchangeValue)
+                    .FirstOrDefault();
+
+                model.UsdExchangeRate = lastUsdRate;
+
+                // Cotización del dólar (desde API CurrencyLayer)
+                try
+                {
+                    model.CurrencyData = await GetCurrencyDataAsync();
+
+                    if (model.CurrencyData != null && model.CurrencyData.Quotes != null)
+                    {
+                        model.SelectedCurrencyQuotes = new Dictionary<string, double>();
+
+                        // Claves esperadas (USD base, no es necesario USDUSD)
+                        var keys = new string[] { "USDEUR", "USDUYU", "USDBRL" };
+
+
+                        foreach (var key in keys)
+                        {
+                            if (model.CurrencyData.Quotes.ContainsKey(key))
+                            {
+                                model.SelectedCurrencyQuotes[key] = model.CurrencyData.Quotes[key];
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al obtener moneda: {ex.Message}");
+                    model.CurrencyData = null;
+                    model.SelectedCurrencyQuotes = null;
                 }
 
                 ViewBag.Message = "Bienvenido visitante, por favor inicie sesión para más funciones";
@@ -98,11 +153,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             }
         }
 
-        private async Task<WeatherViewModel> GetCurrentWeatherAsync()
+
+        public async Task<WeatherViewModel> GetCurrentWeatherAsync()
         {
             using (var client = new HttpClient())
             {
-                // Coordenadas de Maldonado, Uruguay
                 var lat = -34.9;
                 var lon = -54.95;
 
@@ -113,7 +168,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             }
         }
 
-        private async Task<List<WeatherForecastItem>> GetWeatherForecastAsync()
+        public async Task<List<WeatherForecastItem>> GetWeatherForecastAsync()
         {
             using (var client = new HttpClient())
             {
@@ -127,7 +182,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
                 var forecast = new List<WeatherForecastItem>();
 
-                // Procesar solo un pronóstico por día (mediodía)
                 var dailyForecasts = ((Newtonsoft.Json.Linq.JArray)forecastData.list)
                     .Where(item => item["dt_txt"].ToString().Contains("12:00:00"))
                     .Take(5);
@@ -173,7 +227,29 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
+        public async Task<ActionResult> Weather()
+        {
+            try
+            {
+                var weather = await GetCurrentWeatherAsync();
+                var forecast = await GetWeatherForecastAsync();
 
+                var model = new WeatherDetailsViewModel
+                {
+                    CurrentWeather = weather,
+                    Forecast = forecast
+                };
+
+                ViewBag.Message = "Información del clima actual y pronóstico.";
+                return View("Weather", model); // ← usa Weather.cshtml
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "No se pudo obtener la información del clima.";
+                return View("Weather", null);
+            }
+        }
+        
         public ActionResult About()
         {
             ViewBag.Message = "Descripción de la aplicación.";
@@ -190,6 +266,51 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
+        public async Task<ActionResult> Currency()
+        {
+            var model = new HomeIndexViewModel();
+
+            try
+            {
+                model.CurrencyData = await GetCurrencyDataAsync();
+
+                if (model.CurrencyData != null && model.CurrencyData.Quotes != null)
+                {
+                    var quotes = model.CurrencyData.Quotes;
+
+                    if (quotes.ContainsKey("USDUYU"))
+                    {
+                        double usdUYU = quotes["USDUYU"];
+                        model.SelectedCurrencyQuotes = new Dictionary<string, double>();
+
+                        // USD → UYU (se muestra como UYU/USD)
+                        model.SelectedCurrencyQuotes["UYU/USD"] = usdUYU;
+
+                        // EUR → UYU
+                        if (quotes.ContainsKey("USDEUR"))
+                        {
+                            double eurUYU = usdUYU / quotes["USDEUR"];
+                            model.SelectedCurrencyQuotes["UYU/EUR"] = eurUYU;
+                        }
+
+                        // BRL → UYU
+                        if (quotes.ContainsKey("USDBRL"))
+                        {
+                            double brlUYU = usdUYU / quotes["USDBRL"];
+                            model.SelectedCurrencyQuotes["UYU/BRL"] = brlUYU;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "No se pudo obtener información de cotizaciones.";
+                model.CurrencyData = null;
+                model.SelectedCurrencyQuotes = null;
+            }
+
+            return View(model);
+        }
 
         public ActionResult EditorIndex()
         {
@@ -200,5 +321,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
+        
     }
 }

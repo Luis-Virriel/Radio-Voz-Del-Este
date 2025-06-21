@@ -150,6 +150,7 @@
     <Compile Include="Models\Comment.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CurrencyData.cs" />
     <Compile Include="Models\ExchangeRate.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
@@ -190,6 +191,7 @@
     <Compile Include="Models\Weather.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WeatherDetailViewModel.cs" />
     <Compile Include="Models\WeatherForecastItem.cs" />
     <Compile Include="Models\WheaterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -216,6 +218,7 @@
     <Content Include="Content\StyleDetailsClient.css" />
     <Content Include="Content\StyleEditClient.css" />
     <Content Include="Content\StyleIndexClient.css" />
+    <Content Include="Content\StyleLogin.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -321,6 +324,8 @@
     <Content Include="Views\Home\AdminIndex.cshtml" />
     <Content Include="Views\Home\EditorIndex.cshtml" />
     <Content Include="Views\Home\ClientIndex.cshtml" />
+    <Content Include="Views\Home\Weather.cshtml" />
+    <Content Include="Views\Home\Currency.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

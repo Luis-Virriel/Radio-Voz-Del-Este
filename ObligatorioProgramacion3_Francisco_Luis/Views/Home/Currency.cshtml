@@ -1,0 +1,112 @@
+﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.HomeIndexViewModel
+
+@{
+	ViewBag.Title = "Cotizaciones en Pesos Uruguayos";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+	string GetFlagIcon(string key)
+	{
+		if (key.Contains("USD")) return "🇺🇸";
+		if (key.Contains("EUR")) return "🇪🇺";
+		if (key.Contains("BRL")) return "🇧🇷";
+		return "💱";
+	}
+
+	string GetLabel(string key)
+	{
+		if (key == "UYU/USD") return "Dólar (USD)";
+		if (key == "UYU/EUR") return "Euro (EUR)";
+		if (key == "UYU/BRL") return "Real (BRL)";
+		return key;
+	}
+}
+
+<div class="currency-container">
+	<h2 style="text-align:center; color:#2CA58D">Cotizaciones en Pesos Uruguayos (UYU)</h2>
+
+	@if (Model.CurrencyData?.Timestamp != null)
+	{
+		var date = DateTimeOffset.FromUnixTimeSeconds(Model.CurrencyData.Timestamp.Value).ToLocalTime();
+		<div class="updated-at">Última actualización: @date.ToString("dd/MM/yyyy HH:mm")</div>
+	}
+
+	@if (Model.SelectedCurrencyQuotes != null && Model.SelectedCurrencyQuotes.Count > 0)
+	{
+		<div class="currency-grid">
+			@foreach (var item in Model.SelectedCurrencyQuotes)
+			{
+				<div class="currency-card">
+					<div class="flag">@GetFlagIcon(item.Key)</div>
+					<strong>@GetLabel(item.Key)</strong>
+					<div class="rate">@item.Value.ToString("N2") UYU</div>
+				</div>
+			}
+		</div>
+	}
+	else
+	{
+		<div class="error-msg">No hay datos de cotizaciones disponibles.</div>
+	}
+</div>
+
+<style>
+	.currency-container {
+		max-width: 850px;
+		margin: 2rem auto;
+		padding: 2rem;
+		background: #0A2342;
+		border-radius: 12px;
+		font-family: 'Segoe UI', sans-serif;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+		color: #DFF3E4;
+	}
+
+	.updated-at {
+		text-align: center;
+		font-size: 0.95rem;
+		color: #8EA8C3;
+		margin-bottom: 1rem;
+	}
+
+	.currency-grid {
+		display: flex;
+		gap: 1.5rem;
+		justify-content: center;
+		flex-wrap: wrap;
+		margin-top: 2rem;
+	}
+
+	.currency-card {
+		background: #2CA58D;
+		border-radius: 12px;
+		padding: 1.2rem 1.6rem;
+		color: #FFFDF7;
+		text-align: center;
+		width: 180px;
+		box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.3);
+		transition: transform 0.3s ease, background 0.3s;
+	}
+
+		.currency-card:hover {
+			transform: scale(1.05);
+			background: #24987f;
+		}
+
+	.flag {
+		font-size: 2rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.rate {
+		font-size: 1.6rem;
+		margin-top: 0.6rem;
+		font-weight: bold;
+	}
+
+	.error-msg {
+		text-align: center;
+		color: #F46197;
+		font-weight: bold;
+		margin-top: 1rem;
+	}
+</style>
