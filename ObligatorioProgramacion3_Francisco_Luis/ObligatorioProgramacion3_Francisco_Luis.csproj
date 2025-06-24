@@ -191,6 +191,7 @@
     <Compile Include="Models\Weather.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WeatherDetailViewModel.cs" />
     <Compile Include="Models\WeatherForecastItem.cs" />
     <Compile Include="Models\WheaterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
