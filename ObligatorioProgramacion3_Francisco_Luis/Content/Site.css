@@ -26,9 +26,6 @@ body {
     padding: 2rem 1rem;
     margin: auto;
 }
-.containerCliente{
-
-}
 
 /* Secciones */
 .section {
@@ -78,10 +75,10 @@ a {
 .navbar-dark.bg-dark {
     width: 100%;
     background-color: rgba(27, 38, 59, 0.9);
-    padding: 1rem 3rem; /* Más padding a izquierda y derecha */
+    padding: 1rem 3rem;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    box-sizing: border-box; /* para que el padding no aumente el ancho total */
+    box-sizing: border-box;
 }
 
 .navbar .container-fluid {
@@ -119,7 +116,7 @@ audio {
     box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
-/* Lista */
+/* Listas */
 ul {
     padding: 0;
     list-style: none;
@@ -154,37 +151,7 @@ ul {
     h2 {
         font-size: 1.4rem;
     }
-}
 
-@media (max-width: 576px) {
-    .container-fluid.bg-dark {
-        padding: 1.5rem 1rem;
-    }
-
-    .btn-outline-light {
-        width: 100%;
-        text-align: center;
-        display: block;
-    }
-}
-/* Contenedor principal con barras laterales y centro */
-.d-flex.justify-content-between.align-items-start {
-    gap: 1rem;
-}
-
-/* Que las barras laterales no se reduzcan demasiado */
-.bg-secondary.bg-opacity-10 {
-    flex-shrink: 0;
-}
-
-/* Contenido central adaptable */
-.flex-grow-1 {
-    max-width: 600px;
-    margin: 0 1rem;
-}
-
-/* En pantallas pequeñas apilamos */
-@media (max-width: 768px) {
     .d-flex.justify-content-between.align-items-start {
         flex-direction: column;
         align-items: center;
@@ -196,6 +163,7 @@ ul {
         height: auto;
         padding: 1rem 0;
         margin-bottom: 1rem;
+        flex-shrink: 0;
     }
 
     .flex-grow-1 {
@@ -209,6 +177,30 @@ ul {
     }
 }
 
+@media (max-width: 576px) {
+    .container-fluid.bg-dark {
+        padding: 1.5rem 1rem;
+    }
+
+    .btn-outline-light {
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+}
+
+/* Contenedor principal con barras laterales y centro */
+.d-flex.justify-content-between.align-items-start {
+    gap: 1rem;
+}
+
+/* Contenido central adaptable */
+.flex-grow-1 {
+    max-width: 600px;
+    margin: 0 1rem;
+}
+
+/* Formulario cliente */
 .form-containerClient {
     background-color: #0e375a;
     max-width: 400px;

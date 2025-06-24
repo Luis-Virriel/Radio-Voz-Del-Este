@@ -1,0 +1,198 @@
+﻿/* UserDetails.css - Estilos para vista Details de usuarios */
+body {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    margin: 0;
+    padding: 20px;
+    font-family: "Bona Nova SC", serif;
+    min-height: 100vh;
+    color: #ffffff;
+}
+
+.details-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 40px;
+}
+
+.details-title {
+    text-align: center;
+    font-size: 48px;
+    color: #87ceeb;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 300;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.details-subtitle {
+    text-align: center;
+    font-size: 32px;
+    color: #ffffff;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: rgba(135, 206, 235, 0.5);
+    margin: 40px 0;
+    width: 100%;
+}
+
+/* Contenedor principal de información */
+.user-info {
+    background: none;
+    padding: 0;
+    border: none;
+    margin: 0;
+}
+
+/* Estilos para la lista de definiciones */
+.dl-horizontal {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.dl-horizontal dt {
+    color: #87ceeb;
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: auto;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    float: none;
+    clear: none;
+}
+
+.dl-horizontal dd {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+/* Estilos especiales para campos específicos */
+.password-field {
+    color: #ffb3ba !important;
+}
+
+.role-field {
+    color: #90ee90 !important;
+}
+
+.email-field {
+    color: #87ceeb !important;
+}
+
+.date-field {
+    color: #ffd700 !important;
+}
+
+/* Contenedor de botones */
+.details-actions {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 60px;
+}
+
+/* Botones estilo pill */
+.btn-pill {
+    background-color: rgba(173, 216, 230, 0.9);
+    color: #2c5aa0;
+    border: none;
+    border-radius: 50px;
+    padding: 18px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Bona Nova SC", serif;
+    text-decoration: none;
+    display: inline-block;
+    min-width: 200px;
+    text-align: center;
+}
+
+    .btn-pill:hover {
+        background-color: rgba(173, 216, 230, 1);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        color: #2c5aa0;
+        text-decoration: none;
+    }
+
+    .btn-pill:active {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+/* Ocultar los enlaces originales */
+p {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .details-container {
+        padding: 40px 20px;
+    }
+
+    .details-title {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .details-subtitle {
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
+
+    .detail-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+        padding: 0;
+    }
+
+    .dl-horizontal dt {
+        font-size: 16px;
+    }
+
+    .dl-horizontal dd {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .details-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .btn-pill {
+        width: 100%;
+        max-width: 300px;
+    }
+}
