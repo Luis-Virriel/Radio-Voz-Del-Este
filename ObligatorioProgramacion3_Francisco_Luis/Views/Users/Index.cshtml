@@ -2,33 +2,33 @@
 
 @{
     ViewBag.Title = "Index";
+    var permissions = Session["Permissions"] as List<string> ?? new List<string>();
 }
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link href="~/Content/Styles/StylesUsers/StyleIndexUser.css" rel="stylesheet" />
 
 <h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
 <div class="index-container">
-    <h1 class="index-title">Lista de Usuarios</h1>
+    <h1 class="index-title">Lista de Usuarios <i class="fas fa-microphone"></i></h1>
 
     <div class="create-button-container">
-        @Html.ActionLink("Crear Nuevo Usuario", "Create", null, new { @class = "create-button" })
+        @if (permissions.Contains("CreateUser"))
+        {
+            @Html.ActionLink("Crear Nuevo Usuario", "Create", null, new { @class = "create-button" })
+        }
     </div>
 
     <div class="table-wrapper">
         <table class="users-table">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.UserName)</th>
-                    <th>@Html.DisplayNameFor(model => model.Email)</th>
-                    <th>@Html.DisplayNameFor(model => model.UserPassword)</th>
-                    <th>@Html.DisplayNameFor(model => model.Role.RoleName)</th>
+                    <th>Usuario</th>
+                    <th>Correo Electronico</th>
+                    <th>Contraseña</th>
+                    <th>Rol</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -50,11 +50,22 @@
                             @Html.DisplayFor(modelItem => item.Role.RoleName)
                         </td>
                         <td class="action-links">
-                            @Html.ActionLink("Editar", "Edit", new { id = item.ID })
-                            <span class="action-separator">|</span>
-                            @Html.ActionLink("Detalles", "Details", new { id = item.ID })
-                            <span class="action-separator">|</span>
-                            @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+                            @if (permissions.Contains("EditUser"))
+                            {
+                                @Html.ActionLink("Editar", "Edit", new { id = item.ID })
+                                <span class="action-separator">|</span>
+                            }
+
+                            @if (permissions.Contains("ViewUser"))
+                            {
+                                @Html.ActionLink("Detalles", "Details", new { id = item.ID })
+                                <span class="action-separator">|</span>
+                            }
+
+                            @if (permissions.Contains("DeleteUser"))
+                            {
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+                            }
                         </td>
                     </tr>
                 }

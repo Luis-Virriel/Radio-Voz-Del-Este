@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
 using ObligatorioProgramacion3_Francisco_Luis.Models;
+using System.Data.Entity;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
@@ -31,17 +30,18 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 return View();
             }
 
-            string hashedPassword = HashPasswordSHA256(password);
-
             var user = db.Users
-                         .FirstOrDefault(u =>
-                             u.UserName.Equals(username, StringComparison.OrdinalIgnoreCase) &&
-                             u.UserPassword == hashedPassword);
+                         .Include(u => u.Role.Permissions)
+                         .FirstOrDefault(u => u.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
 
-            if (user != null)
+            if (user != null && BCrypt.Net.BCrypt.Verify(password, user.UserPassword))
             {
                 FormsAuthentication.SetAuthCookie(user.UserName, false);
-                Session["Role"] = user.Role.RoleName;
+
+                // Guardar en Session
+                Session["Role"] = user.Role.RoleName ?? "Sin rol";
+                Session["Permissions"] = user.Role.Permissions.Select(p => p.PermissionName).ToList();
+
                 return RedirectToAction("Index", "Home");
             }
 
@@ -57,18 +57,21 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return RedirectToAction("Login");
         }
 
-        // Helper: genera hash SHA256
-        private string HashPasswordSHA256(string password)
+        // OPCIONAL: Refrescar permisos sin cerrar sesión
+        [Authorize]
+        public ActionResult RefreshPermissions()
         {
-            using (var sha256 = SHA256.Create())
+            var userName = User.Identity.Name;
+            var user = db.Users.Include(u => u.Role.Permissions)
+                               .FirstOrDefault(u => u.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
+
+            if (user != null)
             {
-                var bytes = Encoding.UTF8.GetBytes(password);
-                var hash = sha256.ComputeHash(bytes);
-                var sb = new StringBuilder();
-                foreach (var b in hash)
-                    sb.Append(b.ToString("X2"));
-                return sb.ToString();
+                Session["Role"] = user.Role.RoleName ?? "Sin rol";
+                Session["Permissions"] = user.Role.Permissions.Select(p => p.PermissionName).ToList();
             }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

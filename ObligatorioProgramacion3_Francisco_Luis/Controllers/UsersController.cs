@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ObligatorioProgramacion3_Francisco_Luis.Models;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
         private RadioEntities db = new RadioEntities();
 
@@ -25,14 +22,12 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             User user = db.Users.Find(id);
             if (user == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(user);
         }
 
@@ -44,14 +39,14 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
         // POST: Users/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,UserName,Email,UserPassword,RoleID")] User user)
         {
             if (ModelState.IsValid)
             {
+                // Hashear la contraseña antes de guardar con BCrypt
+                user.UserPassword = HashPasswordBCrypt(user.UserPassword);
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -65,31 +60,46 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             User user = db.Users.Find(id);
             if (user == null)
-            {
                 return HttpNotFound();
-            }
+
+            // Dejar el campo contraseña vacío para que no muestre la contraseña actual
+            user.UserPassword = null;
+
             ViewBag.RoleID = new SelectList(db.Roles, "ID", "RoleName", user.RoleID);
             return View(user);
         }
 
         // POST: Users/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,UserName,Email,UserPassword,RoleID")] User user)
         {
             if (ModelState.IsValid)
             {
+                var userInDb = db.Users.AsNoTracking().FirstOrDefault(u => u.ID == user.ID);
+                if (userInDb == null)
+                    return HttpNotFound();
+
+                if (!string.IsNullOrWhiteSpace(user.UserPassword))
+                {
+                    // Si el usuario ingresó nueva contraseña, hashearla
+                    user.UserPassword = HashPasswordBCrypt(user.UserPassword);
+                }
+                else
+                {
+                    // Si el campo está vacío, mantener la contraseña anterior
+                    user.UserPassword = userInDb.UserPassword;
+                }
+
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.RoleID = new SelectList(db.Roles, "ID", "RoleName", user.RoleID);
             return View(user);
         }
@@ -98,14 +108,12 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             User user = db.Users.Find(id);
             if (user == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(user);
         }
 
@@ -123,10 +131,14 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
+        }
+
+        // Función para hashear contraseña usando BCrypt
+        private string HashPasswordBCrypt(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
     }
 }

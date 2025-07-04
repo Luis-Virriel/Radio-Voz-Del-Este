@@ -12,21 +12,18 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class Permission
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
+        public Permission()
         {
-            this.Users = new HashSet<User>();
-            this.Permissions = new HashSet<Permission>();
+            this.Roles = new HashSet<Role>();
         }
     
         public int ID { get; set; }
-        public string RoleName { get; set; }
+        public string PermissionName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Permission> Permissions { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
     }
 }

@@ -8,8 +8,8 @@
     <title>@ViewBag.Title - Voz del Este</title>
     @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
+
 <script>
     function navigateToPage(url) {
         if (url) {
@@ -17,6 +17,7 @@
         }
     }
 </script>
+
 <body>
     <!-- NAVBAR PRINCIPAL -->
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom box-shadow mb-0">
@@ -26,12 +27,14 @@
                 <img src="@Url.Content("~/Assets/Radio.png")" alt="Logo Voz del Este" style="height: 40px;" class="me-2" />
                 @Html.ActionLink("Voz del Este", "Index", "Home", null, new { @class = "navbar-brand fw-bold mb-0" })
             </div>
+
             <!-- DERECHA: LOGIN / LOGOUT -->
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-sm-0" style="align-items:center;">
                     @if (User.Identity.IsAuthenticated)
                     {
                         var role = Session["Role"] as string ?? "Sin rol";
+                        var permissions = Session["Permissions"] as List<string> ?? new List<string>();
 
                         <li class="nav-item me-3">
                             <span class="navbar-text text-light">
@@ -59,35 +62,36 @@
                                     background-size: 12px 7px;
                                     cursor: pointer;
                                     transition: all 0.3s ease;
-                                    "onmouseover="this.style.borderColor='#4f86f7'; this.style.boxShadow='0 0 6px rgba(79, 134, 247, 0.5)';"
+                                    "
+                                    onmouseover="this.style.borderColor='#4f86f7'; this.style.boxShadow='0 0 6px rgba(79, 134, 247, 0.5)';"
                                     onmouseout="this.style.borderColor='#5a7391'; this.style.boxShadow='none';"
                                     onfocus="this.style.borderColor='#4f86f7'; this.style.boxShadow='0 0 6px rgba(79, 134, 247, 0.5)'; this.style.outline='none';"
                                     onblur="this.style.borderColor='#5a7391'; this.style.boxShadow='none';">
-                                    <option value="" style="background-color: #1b263b; color: #e0e1dd;">Ir a...</option>
+                                <option value="">Ir a...</option>
 
-                                    @if (role == "Admin")
-                                    {
-                                        <option value="@Url.Action("Index", "Clients")" style="background-color: #1b263b; color: #e0e1dd;">Clients</option>
-                                        <option value="@Url.Action("Index", "Users")" style="background-color: #1b263b; color: #e0e1dd;">Users</option>
-                                        <option value="@Url.Action("Index", "Sponsors")" style="background-color: #1b263b; color: #e0e1dd;">Sponsors</option>
-                                        <option value="@Url.Action("Index", "RadioPrograms")" style="background-color: #1b263b; color: #e0e1dd;">Radio Programs</option>
-                                    }
-                                    else if (role == "Editor")
-                                    {
-                                        <option value="@Url.Action("Index", "RadioPrograms")" style="background-color: #1b263b; color: #e0e1dd;">Radio Programs</option>
-                                        <option value="@Url.Action("Index", "Sponsors")" style="background-color: #1b263b; color: #e0e1dd;">Sponsors</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@Url.Action("Index", "RadioPrograms")" style="background-color: #1b263b; color: #e0e1dd;">Radio Programs</option>
-                                    }
+                                @* Mostrar opciones basadas en permisos *@
+                                @if (permissions.Any(p => p.Contains("Client")))
+                                {
+                                    <option value="@Url.Action("Index", "Clients")">Clients</option>
+                                }
+                                @if (permissions.Any(p => p.Contains("User")))
+                                {
+                                    <option value="@Url.Action("Index", "Users")">Users</option>
+                                }
+                                @if (permissions.Any(p => p.Contains("Sponsor")))
+                                {
+                                    <option value="@Url.Action("Index", "Sponsors")">Sponsors</option>
+                                }
+                                @if (permissions.Any(p => p.Contains("Program")))
+                                {
+                                    <option value="@Url.Action("Index", "RadioPrograms")">Radio Programs</option>
+                                }
                             </select>
 
-                                <a class="btn btn-outline-light" href="@Url.Action("Logout", "Account")">
-                                    <i class="fas fa-sign-out-alt"></i> Logout
-                                </a>
+                            <a class="btn btn-outline-light" href="@Url.Action("Logout", "Account")">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
                         </li>
-
                     }
                     else
                     {
@@ -105,8 +109,6 @@
     <!-- CUERPO PRINCIPAL -->
     <div class="container body-content mt-4">
         @RenderBody()
-
-        <hr />
 
         <!-- FOOTER -->
         <footer class="text-center mt-4 mb-3">

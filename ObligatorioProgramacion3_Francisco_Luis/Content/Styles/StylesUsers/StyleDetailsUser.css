@@ -1,95 +1,70 @@
-﻿/* UserDetails.css - Estilos para vista Details de usuarios */
+﻿/* StyleDetailsUser.css - Estilos adaptados al diseño de ClientDetails.css para vista Details de usuarios */
+
 body {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background-color: #1a2332 !important;
     margin: 0;
-    padding: 20px;
+    padding: 10px;
     font-family: "Bona Nova SC", serif;
-    min-height: 100vh;
-    color: #ffffff;
+    overflow-x: hidden;
+    color: #b3d9ff;
 }
 
 .details-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 60px 40px;
+    background-color: #0e375a;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
 }
 
 .details-title {
     text-align: center;
     font-size: 48px;
-    color: #87ceeb;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    color: #69c0ff;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
     font-weight: 300;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
 }
 
 .details-subtitle {
+    font-size: 28px;
+    color: #a6c8ff;
     text-align: center;
-    font-size: 32px;
-    color: #ffffff;
-    margin-bottom: 60px;
-    text-transform: uppercase;
-    font-weight: 400;
-    letter-spacing: 1px;
+    margin-bottom: 20px;
+    font-weight: 600;
 }
 
 hr {
     border: none;
-    height: 1px;
-    background: rgba(135, 206, 235, 0.5);
-    margin: 40px 0;
-    width: 100%;
-}
-
-/* Contenedor principal de información */
-.user-info {
-    background: none;
-    padding: 0;
-    border: none;
-    margin: 0;
-}
-
-/* Estilos para la lista de definiciones */
-.dl-horizontal {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-bottom: 60px;
-}
-
-.detail-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #69c0ff, transparent);
+    margin-bottom: 30px;
 }
 
 .dl-horizontal dt {
-    color: #87ceeb;
-    font-size: 18px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    width: auto;
-    text-align: left;
-    margin: 0;
-    padding: 0;
-    float: none;
-    clear: none;
+    font-weight: bold;
+    color: #69c0ff;
+    width: 180px;
+    float: left;
+    clear: left;
+    text-align: right;
+    margin-right: 20px;
+    font-size: 16px;
+    padding-top: 10px;
 }
 
 .dl-horizontal dd {
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 500;
-    margin: 0;
-    padding: 0;
-    text-align: right;
+    margin-left: 200px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #d9ecff;
+    padding-top: 10px;
 }
 
-/* Estilos especiales para campos específicos */
+/* Campos con colores especiales */
 .password-field {
     color: #ffb3ba !important;
 }
@@ -102,97 +77,66 @@ hr {
     color: #87ceeb !important;
 }
 
-.date-field {
-    color: #ffd700 !important;
-}
-
-/* Contenedor de botones */
+/* Enlaces de acciones */
 .details-actions {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 60px;
-}
-
-/* Botones estilo pill */
-.btn-pill {
-    background-color: rgba(173, 216, 230, 0.9);
-    color: #2c5aa0;
-    border: none;
-    border-radius: 50px;
-    padding: 18px 40px;
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: "Bona Nova SC", serif;
-    text-decoration: none;
-    display: inline-block;
-    min-width: 200px;
     text-align: center;
+    margin-top: 30px;
 }
 
-    .btn-pill:hover {
-        background-color: rgba(173, 216, 230, 1);
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        color: #2c5aa0;
+    .details-actions a {
+        background-color: #d9ecff;
+        color: #003366;
+        border: 2px solid #69c0ff;
+        border-radius: 10px;
+        padding: 12px 25px;
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin: 0 10px;
+        display: inline-block;
+        transition: all 0.3s ease;
         text-decoration: none;
+        font-family: "Bona Nova SC", serif;
     }
 
-    .btn-pill:active {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-/* Ocultar los enlaces originales */
-p {
-    display: none;
-}
+        .details-actions a:hover {
+            background-color: #69c0ff;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
 
 /* Responsive */
 @media (max-width: 768px) {
     .details-container {
-        padding: 40px 20px;
+        padding: 25px 20px;
+        margin: 15px;
     }
 
     .details-title {
         font-size: 32px;
-        margin-bottom: 30px;
-    }
-
-    .details-subtitle {
-        font-size: 24px;
-        margin-bottom: 40px;
-    }
-
-    .detail-row {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 10px;
-        padding: 0;
     }
 
     .dl-horizontal dt {
-        font-size: 16px;
+        float: none;
+        
+        margin: 0 0 5px 0;
     }
 
     .dl-horizontal dd {
-        font-size: 16px;
-        text-align: center;
+        margin-left: 0;
     }
 
-    .details-actions {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .btn-pill {
+    .details-actions a {
+        display: block;
+        margin: 10px auto;
         width: 100%;
         max-width: 300px;
+    }
+    .password-field {
+        font-family: monospace;
+        font-size: 10px;
+        color: #a6c8ff;
+        letter-spacing: 2px;
     }
 }

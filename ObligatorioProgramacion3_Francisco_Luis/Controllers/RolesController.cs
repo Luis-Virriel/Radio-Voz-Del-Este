@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ObligatorioProgramacion3_Francisco_Luis.Models;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
-    public class RolesController : Controller
+    public class RolesController : BaseController
     {
         private RadioEntities db = new RadioEntities();
 
@@ -24,14 +22,12 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Role role = db.Roles.Find(id);
+
+            var role = db.Roles.Include(r => r.Permissions).FirstOrDefault(r => r.ID == id);
             if (role == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(role);
         }
 
@@ -42,8 +38,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
         // POST: Roles/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,RoleName")] Role role)
@@ -54,7 +48,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(role);
         }
 
@@ -62,45 +55,89 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Role role = db.Roles.Find(id);
+
+            var role = db.Roles.Include(r => r.Permissions).FirstOrDefault(r => r.ID == id);
             if (role == null)
-            {
                 return HttpNotFound();
-            }
-            return View(role);
+
+            var allPermissions = db.Permissions.ToList();
+            var rolePermissionsIds = role.Permissions.Select(p => p.ID).ToList();
+
+            var permissionCheckboxes = allPermissions.Select(p => new PermissionCheckbox
+            {
+                PermissionID = p.ID,
+                PermissionName = p.PermissionName,
+                IsAssigned = rolePermissionsIds.Contains(p.ID)
+            }).ToList();
+
+            var model = new EditRoleViewModel
+            {
+                ID = role.ID,
+                RoleName = role.RoleName,
+                Permissions = permissionCheckboxes
+            };
+
+            return View(model);
         }
 
         // POST: Roles/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,RoleName")] Role role)
+        public ActionResult Edit(EditRoleViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(role).State = EntityState.Modified;
+                var role = db.Roles.Include(r => r.Permissions).FirstOrDefault(r => r.ID == model.ID);
+                if (role == null)
+                    return HttpNotFound();
+
+                role.RoleName = model.RoleName;
+
+                // Limpiar permisos actuales
+                role.Permissions.Clear();
+
+                // Agregar permisos seleccionados
+                var selectedPermissionIds = model.Permissions
+                    .Where(p => p.IsAssigned)
+                    .Select(p => p.PermissionID)
+                    .ToList();
+
+                var selectedPermissions = db.Permissions
+                    .Where(p => selectedPermissionIds.Contains(p.ID))
+                    .ToList();
+
+                foreach (var permiso in selectedPermissions)
+                {
+                    role.Permissions.Add(permiso);
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(role);
+
+            // Si hay error, recargar permisos para que la vista los muestre bien
+            var allPermissions = db.Permissions.ToList();
+            model.Permissions = allPermissions.Select(p => new PermissionCheckbox
+            {
+                PermissionID = p.ID,
+                PermissionName = p.PermissionName,
+                IsAssigned = model.Permissions.Any(mp => mp.PermissionID == p.ID && mp.IsAssigned)
+            }).ToList();
+
+            return View(model);
         }
 
         // GET: Roles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Role role = db.Roles.Find(id);
             if (role == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(role);
         }
 
@@ -118,9 +155,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

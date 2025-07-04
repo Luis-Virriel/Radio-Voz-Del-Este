@@ -21,6 +21,8 @@
         <AssociationConnector Association="RadioModel.FK__Hosts__ProgramID__5629CD9C" ManuallyRouted="false" />
         <AssociationConnector Association="RadioModel.FK__Users__RoleID__4D94879B" ManuallyRouted="false" />
         <AssociationConnector Association="RadioModel.HostProgram" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RadioModel.Permission" Width="1.5" PointX="10.875" PointY="9.125" />
+        <AssociationConnector Association="RadioModel.RolePermission" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -60,10 +60,8 @@ html {
 
 /* Contenedor del formulario */
 .form-container {
-    background-color: rgba(166, 200, 255, 0.08);
+    background-color: #0e375a;
     padding: 25px;
-    border-radius: 12px;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.15);
     margin-bottom: 25px;
 }
 
@@ -76,7 +74,7 @@ html {
 
 /* Labels */
 .form-label {
-    color: #69c0ff;
+    color: #69c0ff !important;
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 8px;
@@ -94,7 +92,7 @@ html {
 .form-input {
     width: 100%;
     padding: 12px 15px;
-    background-color: rgba(26, 35, 50, 0.8);
+    background-color: #a6c8ff;
     border: 2px solid rgba(105, 192, 255, 0.3);
     border-radius: 8px;
     color: #d9ecff;
@@ -102,6 +100,7 @@ html {
     font-family: "Bona Nova SC", serif;
     transition: all 0.3s ease;
     box-sizing: border-box;
+    margin: 8px auto 20px auto;
 }
 
     .form-input:focus {
@@ -110,6 +109,7 @@ html {
         background-color: rgba(26, 35, 50, 0.9);
         box-shadow: 0 0 0 3px rgba(105, 192, 255, 0.2);
         transform: scale(1.01);
+        color: #a6c8ff !important;
     }
 
     .form-input::placeholder {
@@ -121,10 +121,10 @@ html {
 .form-select {
     width: 100%;
     padding: 12px 15px;
-    background-color: rgba(26, 35, 50, 0.8);
+    background-color: #a6c8ff;
     border: 2px solid rgba(105, 192, 255, 0.3);
     border-radius: 8px;
-    color: #d9ecff;
+    color: #003366;
     font-size: 14px;
     font-family: "Bona Nova SC", serif;
     transition: all 0.3s ease;
@@ -147,13 +147,12 @@ html {
 
 /* Input de contraseña */
 .password-input {
-    font-family: monospace;
     letter-spacing: 1px;
 }
 
 /* Mensajes de validación */
 .validation-error {
-    color: #ff9999;
+    color: #ff6b6b !important;
     font-size: 12px;
     margin-top: 5px;
     font-style: italic;
@@ -162,12 +161,12 @@ html {
 
 /* Resumen de validación */
 .validation-summary {
-    background-color: rgba(255, 153, 153, 0.15);
-    border: 1px solid #ff9999;
+    background-color: rgba(255, 107, 107, 0.1) !important;
+    border: 1px solid #ff6b6b !important;
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 20px;
-    color: #ff9999;
+    color: #ff6b6b !important;
     font-size: 14px;
 }
 
@@ -178,6 +177,9 @@ html {
 
 /* Contenedor de botones */
 .button-container {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 20px;
     text-align: center;
     margin-top: 30px;
     padding-top: 20px;
@@ -188,11 +190,11 @@ html {
 .submit-button {
     display: inline-block;
     padding: 14px 30px;
-    background: linear-gradient(135deg, #69c0ff, #4a90e2);
-    color: #003366;
+    background-color: #d9ecff !important;
+    color: #003366 !important;
     font-weight: 700;
     text-decoration: none;
-    border: none;
+    border: 2px solid #69c0ff !important;
     border-radius: 10px;
     font-size: 16px;
     font-family: "Bona Nova SC", serif;
@@ -200,45 +202,51 @@ html {
     transition: all 0.3s ease;
     letter-spacing: 1px;
     text-transform: uppercase;
-    box-shadow: 0 4px 12px rgba(105, 192, 255, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-right: 15px;
 }
 
     .submit-button:hover {
-        background: linear-gradient(135deg, #4a90e2, #69c0ff);
+        background-color: #69c0ff !important;
+        color: #ffffff !important;
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(105, 192, 255, 0.4);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     }
 
     .submit-button:active {
         transform: translateY(0);
-        box-shadow: 0 2px 8px rgba(105, 192, 255, 0.3);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
 /* Botón secundario (Back to List) */
 .back-button {
     display: inline-block;
     padding: 12px 25px;
-    background-color: transparent;
-    color: #69c0ff;
-    font-weight: 600;
+    background-color: #d9ecff !important;
+    color: #003366 !important;
+    font-weight: 700;
     text-decoration: none;
-    border: 2px solid #69c0ff;
-    border-radius: 8px;
-    font-size: 14px;
+    border: 2px solid #69c0ff !important;
+    border-radius: 10px;
+    font-size: 16px;
     font-family: "Bona Nova SC", serif;
     cursor: pointer;
     transition: all 0.3s ease;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     text-transform: uppercase;
 }
 
     .back-button:hover {
-        background-color: rgba(105, 192, 255, 0.1);
-        color: #d9ecff;
+        background-color: #69c0ff !important;
+        color: #ffffff !important;
         text-decoration: none;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(105, 192, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
 /* Contenedor de botón de regreso */
