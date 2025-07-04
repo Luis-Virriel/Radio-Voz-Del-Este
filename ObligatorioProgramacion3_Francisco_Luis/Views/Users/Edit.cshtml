@@ -1,24 +1,24 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.User
-
 @{
     ViewBag.Title = "Edit";
 }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="~/Content/Styles/StylesUsers/StyleEditUser.css" rel="stylesheet" />
 
-<h2>Edit</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>User</h4>
+<div class="edit-container">
+    <h2 class="edit-title">Información del Usuario</h2>
+    @using (Html.BeginForm())
+    {
+        <h4>Información del Usuario</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger validation-summary-errors" })
         @Html.HiddenFor(model => model.ID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UserName, "Usuario", htmlAttributes: new { @class = "control-label" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
@@ -26,39 +26,34 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Email, "Correo Electrónico", htmlAttributes: new { @class = "control-label" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group password-field">
+            @Html.LabelFor(model => model.UserPassword, "Contraseña", htmlAttributes: new { @class = "control-label" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
                 @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RoleID, "RoleID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group role-field">
+            @Html.LabelFor(model => model.RoleID, "Rol", htmlAttributes: new { @class = "control-label" })
             <div class="col-md-10">
-                @Html.DropDownList("RoleID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("RoleID", null, "Seleccione un rol", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        <hr />
+        <div class="form-actions">
+            <button type="submit" class="btn-rectangle">Guardar Cambios</button>
+            @Html.ActionLink("←Volver a la Lista", "Index", null, new { @class = "btn-rectangle btn-secondary" })
         </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>
 
 @section Scripts {

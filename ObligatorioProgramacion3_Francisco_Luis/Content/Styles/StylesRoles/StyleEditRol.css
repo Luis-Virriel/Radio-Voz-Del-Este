@@ -1,0 +1,284 @@
+﻿/* StyleEditRol.css - Estilos para Editar Rol */
+
+/* Fondo general */
+body {
+    background-color: #1a2332 !important;
+    margin: 0;
+    padding: 0;
+    font-family: "Bona Nova SC", serif;
+    overflow-x: hidden;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+/* Contenedor principal - adaptado para form-horizontal */
+.form-horizontal {
+    background-color: #0e375a;
+    max-width: 600px;
+    width: 90%;
+    margin: 30px auto;
+    padding: 40px;
+    border-radius: 15px;
+    color: #b3d9ff;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+}
+
+/* Título principal */
+h2 {
+    text-align: center;
+    font-size: 38px;
+    margin: 30px auto 10px auto;
+    color: #69c0ff;
+    font-weight: 400;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+    font-family: "Bona Nova SC", serif;
+    max-width: 600px;
+    width: 90%;
+}
+
+/* Subtítulo */
+h4 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #69c0ff;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+    padding-bottom: 8px;
+}
+
+/* Línea divisoria */
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #69c0ff, transparent);
+    margin: 20px 0 30px 0;
+}
+
+/* Grupo de campos */
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* Etiquetas */
+.control-label {
+    color: #69c0ff !important;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding-top: 12px;
+}
+
+/* Inputs de texto */
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #a6c8ff;
+    border: 2px solid rgba(105, 192, 255, 0.3);
+    border-radius: 8px;
+    color: #003366;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+    .form-control:focus {
+        outline: none;
+        border-color: #69c0ff;
+        background-color: rgba(26, 35, 50, 0.9);
+        color: #a6c8ff;
+        box-shadow: 0 0 0 3px rgba(105, 192, 255, 0.2);
+    }
+
+/* Checkbox permisos */
+.checkbox {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+}
+
+    .checkbox label {
+        color: #b3d9ff !important;
+        font-size: 14px;
+        margin-left: 10px;
+        cursor: pointer;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+    }
+
+    .checkbox input[type="checkbox"] {
+        transform: scale(1.3);
+        cursor: pointer;
+        margin-right: 5px;
+    }
+
+/* Contenedor de permisos */
+.col-md-offset-2.col-md-10 {
+    padding: 20px;
+    background-color: rgba(26, 35, 50, 0.3);
+    border-radius: 10px;
+    border: 1px solid rgba(105, 192, 255, 0.2);
+}
+
+/* Subtítulos de secciones de permisos */
+.permission-section {
+    color: #69c0ff;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 20px 0 12px 0;
+    padding: 8px 0 8px 0;
+    border-bottom: 1px solid rgba(105, 192, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+    .permission-section:first-child {
+        margin-top: 0;
+    }
+
+/* Botones */
+.btn {
+    display: inline-block;
+    padding: 14px 30px;
+    font-weight: 700;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-right: 15px;
+    text-decoration: none;
+    border: 2px solid;
+}
+
+.btn-primary {
+    background-color: #d9ecff !important;
+    color: #003366 !important;
+    border-color: #69c0ff !important;
+}
+
+    .btn-primary:hover {
+        background-color: #69c0ff !important;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+.btn-default {
+    background-color: #d9ecff !important;
+    color: #003366 !important;
+    border-color: #69c0ff !important;
+}
+
+    .btn-default:hover {
+        background-color: #69c0ff !important;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+    }
+
+/* Validaciones */
+.text-danger {
+    color: #ff6b6b !important;
+    font-size: 12px;
+    margin-top: 5px;
+    font-style: italic;
+    display: block;
+}
+
+/* Validación summary */
+.validation-summary-errors {
+    background-color: rgba(255, 107, 107, 0.1) !important;
+    border: 1px solid #ff6b6b !important;
+    border-radius: 8px !important;
+    padding: 15px !important;
+    margin-bottom: 20px !important;
+    color: #ff6b6b !important;
+    font-size: 14px !important;
+}
+
+    .validation-summary-errors ul {
+        margin: 0 !important;
+        padding-left: 20px !important;
+    }
+
+    .validation-summary-errors li {
+        color: #ff6b6b !important;
+    }
+
+/* Ajustes para columnas Bootstrap */
+.col-md-2, .col-md-10 {
+    padding: 0;
+}
+
+.col-md-offset-2 {
+    margin-left: 0;
+}
+
+/* Hidden fields */
+input[type="hidden"] {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-horizontal {
+        margin: 10px;
+        padding: 20px;
+        width: calc(100% - 20px);
+    }
+
+    h2 {
+        font-size: 28px;
+        margin: 10px auto;
+        width: calc(100% - 20px);
+    }
+
+    h4 {
+        font-size: 18px;
+    }
+
+    .col-md-2, .col-md-10, .col-md-offset-2 {
+        width: 100%;
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .control-label {
+        padding-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 12px 20px;
+        margin: 5px 5px 5px 0;
+        display: inline-block;
+        width: auto;
+    }
+
+    .checkbox {
+        margin-bottom: 10px;
+    }
+
+    .col-md-offset-2.col-md-10 {
+        padding: 10px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 using ObligatorioProgramacion3_Francisco_Luis.Models;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
@@ -42,17 +43,66 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
         // POST: RadioPrograms/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ProgramName,ImageURL,RadioDescription,Schedule")] RadioProgram radioProgram)
+        public ActionResult Create([Bind(Include = "ID,ProgramName,RadioDescription,Schedule")] RadioProgram radioProgram, HttpPostedFileBase ImageFile)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.RadioPrograms.Add(radioProgram);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    // Procesar la imagen si se subió un archivo
+                    if (ImageFile != null && ImageFile.ContentLength > 0)
+                    {
+                        // Validar el tipo de archivo
+                        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                        var extension = Path.GetExtension(ImageFile.FileName).ToLower();
+
+                        if (!allowedExtensions.Contains(extension))
+                        {
+                            ModelState.AddModelError("ImageFile", "Solo se permiten archivos de imagen (JPG, PNG, GIF)");
+                            return View(radioProgram);
+                        }
+
+                        // Validar el tamaño del archivo (5MB máximo)
+                        if (ImageFile.ContentLength > 5 * 1024 * 1024)
+                        {
+                            ModelState.AddModelError("ImageFile", "El archivo no puede ser mayor a 5MB");
+                            return View(radioProgram);
+                        }
+
+                        // Crear nombre único para el archivo
+                        var fileName = Guid.NewGuid().ToString() + extension;
+                        var uploadPath = Server.MapPath("~/Content/Images/");
+
+                        // Crear el directorio si no existe
+                        if (!Directory.Exists(uploadPath))
+                        {
+                            Directory.CreateDirectory(uploadPath);
+                        }
+
+                        var filePath = Path.Combine(uploadPath, fileName);
+
+                        // Guardar el archivo
+                        ImageFile.SaveAs(filePath);
+
+                        // Establecer la URL de la imagen
+                        radioProgram.ImageURL = "/Content/Images/" + fileName;
+                    }
+                    else
+                    {
+                        // Si no se subió imagen, usar una imagen por defecto o dejar vacío
+                        radioProgram.ImageURL = "/Content/Images/default-program.png";
+                    }
+
+                    db.RadioPrograms.Add(radioProgram);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al guardar: " + ex.Message);
             }
 
             return View(radioProgram);
@@ -74,18 +124,78 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
         // POST: RadioPrograms/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ProgramName,ImageURL,RadioDescription,Schedule")] RadioProgram radioProgram)
+        public ActionResult Edit([Bind(Include = "ID,ProgramName,RadioDescription,Schedule")] RadioProgram radioProgram, HttpPostedFileBase ImageFile)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(radioProgram).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    // Si se subió una nueva imagen
+                    if (ImageFile != null && ImageFile.ContentLength > 0)
+                    {
+                        // Validar el tipo de archivo
+                        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                        var extension = Path.GetExtension(ImageFile.FileName).ToLower();
+
+                        if (!allowedExtensions.Contains(extension))
+                        {
+                            ModelState.AddModelError("ImageFile", "Solo se permiten archivos de imagen (JPG, PNG, GIF)");
+                            return View(radioProgram);
+                        }
+
+                        // Validar el tamaño del archivo
+                        if (ImageFile.ContentLength > 5 * 1024 * 1024)
+                        {
+                            ModelState.AddModelError("ImageFile", "El archivo no puede ser mayor a 5MB");
+                            return View(radioProgram);
+                        }
+
+                        // Obtener el programa actual para eliminar la imagen anterior
+                        var currentProgram = db.RadioPrograms.AsNoTracking().FirstOrDefault(x => x.ID == radioProgram.ID);
+                        if (currentProgram != null && !string.IsNullOrEmpty(currentProgram.ImageURL))
+                        {
+                            var oldImagePath = Server.MapPath("~" + currentProgram.ImageURL);
+                            if (System.IO.File.Exists(oldImagePath) && !currentProgram.ImageURL.Contains("default-program.png"))
+                            {
+                                System.IO.File.Delete(oldImagePath);
+                            }
+                        }
+
+                        // Guardar nueva imagen
+                        var fileName = Guid.NewGuid().ToString() + extension;
+                        var uploadPath = Server.MapPath("~/Content/Images/");
+
+                        if (!Directory.Exists(uploadPath))
+                        {
+                            Directory.CreateDirectory(uploadPath);
+                        }
+
+                        var filePath = Path.Combine(uploadPath, fileName);
+                        ImageFile.SaveAs(filePath);
+                        radioProgram.ImageURL = "/Content/Images/" + fileName;
+                    }
+                    else
+                    {
+                        // Mantener la imagen actual
+                        var currentProgram = db.RadioPrograms.AsNoTracking().FirstOrDefault(x => x.ID == radioProgram.ID);
+                        if (currentProgram != null)
+                        {
+                            radioProgram.ImageURL = currentProgram.ImageURL;
+                        }
+                    }
+
+                    db.Entry(radioProgram).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al actualizar: " + ex.Message);
+            }
+
             return View(radioProgram);
         }
 
@@ -110,6 +220,17 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             RadioProgram radioProgram = db.RadioPrograms.Find(id);
+
+            // Eliminar la imagen del servidor si existe
+            if (!string.IsNullOrEmpty(radioProgram.ImageURL) && !radioProgram.ImageURL.Contains("default-program.png"))
+            {
+                var imagePath = Server.MapPath("~" + radioProgram.ImageURL);
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+            }
+
             db.RadioPrograms.Remove(radioProgram);
             db.SaveChanges();
             return RedirectToAction("Index");

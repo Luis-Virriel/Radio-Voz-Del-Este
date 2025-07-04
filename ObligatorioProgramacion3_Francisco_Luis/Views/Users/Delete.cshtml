@@ -1,56 +1,42 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.User
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar Usuario";
 }
 
-<h2>Delete</h2>
+<!-- Fonts y Estilos -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<link href="~/Content/Styles/StylesUsers/StyleDeleteUser.css" rel="stylesheet" />
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>User</h4>
+<div class="delete-container">
+    <h1 class="delete-title">Eliminar Usuario</h1>
+    <p class="confirm-text">¿Está seguro que desea eliminar este usuario?</p>
     <hr />
+
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
+        <dt>Usuario:</dt>
+        <dd>@Html.DisplayFor(m => m.UserName)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
+        <dt>Correo Electrónico:</dt>
+        <dd>@Html.DisplayFor(m => m.Email)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+        <dt>Contraseña:</dt>
+        <dd class="password-value">•••••••••••</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserPassword)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserPassword)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Role.RoleName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Role.RoleName)
-        </dd>
-
+        <dt>Rol:</dt>
+        <dd>@Html.DisplayFor(m => m.Role.RoleName)</dd>
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm("Delete", "User", FormMethod.Post))
+    {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ID)
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div class="button-container">
+            <input type="submit" value="Eliminar" class="btn" />
+            @Html.ActionLink("← Volver a la Lista", "Index", null, new { @class = "btn" })
         </div>
     }
 </div>

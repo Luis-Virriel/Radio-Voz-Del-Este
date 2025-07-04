@@ -1,4 +1,4 @@
-﻿/* ClientIndex.css - Estilos para vista Index de clientes */
+﻿/* RadioProgramIndex.css - Estilos para vista Index de programas de radio */
 
 /* Resetear estilos del body y html */
 body {
@@ -71,8 +71,8 @@ html {
         color: #003366;
     }
 
-/* Tabla principal */
-.clients-table {
+/* Tabla principal de programas de radio */
+.radio-programs-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
@@ -84,11 +84,10 @@ html {
 }
 
     /* Encabezados de tabla */
-    .clients-table th {
+    .radio-programs-table th {
         background-color: #69c0ff;
         color: #003366;
-        padding: 12px 6px;
-        text-align: left;
+        padding: 12px 8px;
         font-weight: 700;
         font-size: 11px;
         font-family: "Bona Nova SC", serif;
@@ -99,39 +98,38 @@ html {
         white-space: nowrap;
     }
 
-        /* Ajustar ancho de columnas específicas */
-        .clients-table th:nth-child(1), /* FirstName */
-        .clients-table th:nth-child(2) { /* LastName */
-            width: 12%;
+        /* Ajustar ancho de columnas específicas para programas de radio */
+        .radio-programs-table th:nth-child(1) { /* ProgramName */
+            width: 25%;
         }
 
-        .clients-table th:nth-child(3) { /* Email */
-            width: 28%;
-        }
-
-        .clients-table th:nth-child(4) { /* BirthDate */
-            width: 13%;
-        }
-
-        .clients-table th:nth-child(5) { /* UserName */
-            width: 15%;
-        }
-
-        .clients-table th:nth-child(6) { /* Acciones */
+        .radio-programs-table th:nth-child(2) { /* ImageURL */
             width: 20%;
         }
 
-        .clients-table th:first-child {
+        .radio-programs-table th:nth-child(3) { /* RadioDescription */
+            width: 35%;
+        }
+
+        .radio-programs-table th:nth-child(4) { /* Schedule */
+            width: 15%;
+        }
+
+        .radio-programs-table th:nth-child(5) { /* Acciones */
+            width: 20%;
+        }
+
+        .radio-programs-table th:first-child {
             border-top-left-radius: 10px;
         }
 
-        .clients-table th:last-child {
+        .radio-programs-table th:last-child {
             border-top-right-radius: 10px;
         }
 
     /* Filas de datos */
-    .clients-table td {
-        padding: 10px 6px;
+    .radio-programs-table td {
+        padding: 10px 8px;
         border: none;
         color: #b3d9ff;
         font-size: 12px;
@@ -139,50 +137,60 @@ html {
         transition: background-color 0.3s ease;
         background-color: rgba(14, 55, 90, 0.3);
         overflow: hidden;
+        vertical-align: top;
     }
 
-        /* Ajustar columnas específicas */
-        .clients-table td:nth-child(1), /* FirstName */
-        .clients-table td:nth-child(2) { /* LastName */
-            width: 12%;
+        /* Ajustar columnas específicas para programas de radio */
+        .radio-programs-table td:nth-child(1) { /* ProgramName */
+            width: 25%;
             white-space: nowrap;
+            font-weight: 600;
+            color: #d9ecff;
+            font-size: 13px;
         }
 
-        .clients-table td:nth-child(3) { /* Email */
-            width: 28%;
+        .radio-programs-table td:nth-child(2) { /* ImageURL */
+            width: 20%;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .radio-programs-table td:nth-child(3) { /* RadioDescription */
+            width: 35%;
             font-size: 11px;
-            word-break: break-all;
+            line-height: 1.4;
+            word-wrap: break-word;
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .clients-table td:nth-child(4) { /* BirthDate */
-            width: 13%;
-            white-space: nowrap;
-            font-size: 11px;
-        }
-
-        .clients-table td:nth-child(5) { /* UserName */
+        .radio-programs-table td:nth-child(4) { /* Schedule */
             width: 15%;
             white-space: nowrap;
             font-size: 12px;
+            font-weight: 600;
+            color: #69c0ff;
+            text-align: center;
         }
 
-        .clients-table td:nth-child(6) { /* Acciones */
+        .radio-programs-table td:nth-child(5) { /* Acciones */
             width: 20%;
             white-space: nowrap;
         }
 
     /* Efecto hover en filas */
-    .clients-table tbody tr:hover td {
+    .radio-programs-table tbody tr:hover td {
         background-color: rgba(105, 192, 255, 0.15);
         transform: scale(1.001);
     }
 
     /* Alternar colores de filas */
-    .clients-table tbody tr:nth-child(even) td {
+    .radio-programs-table tbody tr:nth-child(even) td {
         background-color: rgba(166, 200, 255, 0.08);
     }
 
-    .clients-table tbody tr:nth-child(odd) td {
+    .radio-programs-table tbody tr:nth-child(odd) td {
         background-color: rgba(14, 55, 90, 0.2);
     }
 
@@ -217,6 +225,57 @@ html {
     font-size: 10px;
 }
 
+/* Estilos específicos para campos de programas de radio */
+.program-name-field {
+    font-weight: 600;
+    color: #d9ecff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo para imágenes de programas */
+.program-image {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #69c0ff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+    .program-image:hover {
+        transform: scale(1.1);
+        border-color: #d9ecff;
+        box-shadow: 0 4px 12px rgba(105, 192, 255, 0.4);
+    }
+
+/* Fallback para URLs de texto */
+.image-url-field {
+    font-family: monospace;
+    font-size: 9px;
+    color: #a6c8ff;
+    word-break: break-all;
+    text-align: center;
+    padding: 8px 4px;
+    line-height: 1.2;
+}
+
+.description-field {
+    line-height: 1.4;
+    color: #b3d9ff;
+    text-align: justify;
+}
+
+.schedule-field {
+    font-weight: 600;
+    color: #69c0ff;
+    text-align: center;
+    font-size: 12px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 /* Responsive para pantallas pequeñas */
 @media (max-width: 768px) {
     .index-container {
@@ -229,19 +288,30 @@ html {
         margin-bottom: 25px;
     }
 
-    .clients-table {
+    .radio-programs-table {
         font-size: 12px;
     }
 
-        .clients-table th,
-        .clients-table td {
+        .radio-programs-table th,
+        .radio-programs-table td {
             padding: 8px;
         }
 
+    /* Ajustar imágenes en móvil */
+    .program-image {
+        width: 60px;
+        height: 45px;
+    }
+
+    .radio-programs-table th:nth-child(3),
+    .radio-programs-table td:nth-child(3) { /* Description */
+        width: 40%;
+    }
+
     .action-links a {
-        font-size: 11px;
-        padding: 3px 6px;
-        margin-right: 5px;
+        font-size: 10px;
+        padding: 2px 4px;
+        margin-right: 3px;
     }
 }
 
@@ -259,7 +329,6 @@ html {
 .table-wrapper {
     overflow-x: auto;
     border-radius: 10px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Ocultar elementos por defecto de MVC */
@@ -272,8 +341,49 @@ h2:not(.index-title) {
     display: none;
 }
 
-/* Estilo para fechas */
-.clients-table td:nth-child(4) {
-    font-weight: 600;
-    color: #a6c8ff;
+/* Estilo para tooltip en URLs largas */
+.image-url-field:hover {
+    position: relative;
+    overflow: visible;
+    white-space: normal;
+    background-color: rgba(105, 192, 255, 0.9);
+    color: #003366;
+    border-radius: 4px;
+    padding: 4px;
+    z-index: 10;
 }
+
+/* Estilo para descripciones expandibles */
+.description-field:hover {
+    max-height: none;
+    overflow: visible;
+    background-color: rgba(14, 55, 90, 0.8);
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+    position: relative;
+}
+
+/* Placeholder para imagen no encontrada */
+.image-placeholder {
+    width: 80px;
+    height: 60px;
+    background: linear-gradient(135deg, #4a7396, #69c0ff);
+    border-radius: 8px;
+    border: 2px solid #69c0ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #003366;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+    .image-placeholder:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(105, 192, 255, 0.4);
+    }

@@ -1,0 +1,144 @@
+﻿/* ClientDelete.css - Estilos para vista Delete de clientes (estilo sobrio) */
+
+body {
+    background-color: #1a2332 !important;
+    margin: 0;
+    padding: 10px;
+    overflow-x: hidden;
+    font-family: "Bona Nova SC", serif;
+    color: #b3d9ff;
+}
+
+.delete-container {
+    background-color: #0e375a;
+    max-width: 700px;
+    width: 95%;
+    margin: 40px auto;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+    text-align: center;
+    animation: fadeIn 0.8s ease;
+}
+
+.delete-title {
+    font-size: 48px;
+    font-weight: 400;
+    color: #69c0ff;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.confirm-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: #d9ecff;
+    margin-bottom: 30px;
+}
+
+h4 {
+    color: #69c0ff;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 25px 0 15px 0;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #69c0ff, transparent);
+    margin: 25px 0;
+}
+
+.dl-horizontal {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 12px 20px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+    .dl-horizontal dt {
+        color: #69c0ff;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 14px;
+        padding-top: 8px;
+        float: none;
+        width: auto;
+        clear: none;
+        margin-bottom: 0;
+    }
+
+    .dl-horizontal dd {
+        color: #d9ecff;
+        background-color: rgba(26, 35, 50, 0.5);
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin-left: 0;
+        margin-bottom: 0;
+    }
+
+.form-actions {
+    margin-top: 40px;
+    text-align: center;
+}
+
+/* ✅ Botón y link - UNIFICADO */
+.btn {
+    background-color: #d9ecff !important;
+    color: #003366 !important;
+    border: 2px solid #69c0ff !important;
+    border-radius: 10px !important;
+    padding: 12px 30px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    font-family: "Bona Nova SC", serif;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    min-width: 120px !important;
+    margin: 5px;
+    text-decoration: none !important;
+    display: inline-block;
+}
+
+    .btn:hover {
+        background-color: #69c0ff !important;
+        color: #ffffff !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
+    }
+
+@media (max-width: 768px) {
+    .delete-title {
+        font-size: 32px;
+    }
+
+    .dl-horizontal {
+        grid-template-columns: 1fr;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

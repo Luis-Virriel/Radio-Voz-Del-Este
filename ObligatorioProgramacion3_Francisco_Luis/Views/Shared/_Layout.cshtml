@@ -1,77 +1,133 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="icon" type="image/x-icon" href="~/Assets/favicon.ico" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-	<title>@ViewBag.Title - Voz del Este</title>
-	@Styles.Render("~/Content/Site.css")
-	@Scripts.Render("~/bundles/modernizr")
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="~/Assets/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>@ViewBag.Title - Voz del Este</title>
+    @Styles.Render("~/Content/Site.css")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
+
+<script>
+    function navigateToPage(url) {
+        if (url) {
+            window.location.href = url;
+        }
+    }
+</script>
+
 <body>
-	<!-- NAVBAR PRINCIPAL -->
-	<nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom box-shadow mb-0">
-		<div class="container-fluid">
-			<!-- IZQUIERDA: LOGO + NOMBRE -->
-			<div class="d-flex align-items-center">
-				<img src="@Url.Content("~/Assets/Radio.png")" alt="Logo Voz del Este" style="height: 40px;" class="me-2" />
-				@Html.ActionLink("Voz del Este", "Index", "Home", null, new { @class = "navbar-brand fw-bold mb-0" })
-			</div>
-			<!-- DERECHA: LOGIN / LOGOUT -->
-			<div class="collapse navbar-collapse" id="navbarContent">
-				<ul class="navbar-nav ms-auto mb-2 mb-sm-0" style="align-items:center;">
-					@if (User.Identity.IsAuthenticated)
-					{
-						var role = Session["Role"] as string ?? "Sin rol";
-						<li class="nav-item me-3">
-							<span class="navbar-text text-light">
-								Hola, @User.Identity.Name (@role)
-							</span>
-						</li>
-						<li class="nav-item">
-							<a class="btn btn-outline-light" href="@Url.Action("Logout", "Account")">
-								<i class="fas fa-sign-out-alt"></i> Logout
-							</a>
-						</li>
-					}
-					else
-					{
-						<li class="nav-item">
-							<a class="btn btn-outline-light" href="@Url.Action("Login", "Account")" style="white-space: nowrap;" aria-label="Iniciar sesión">
-								<i class="fas fa-sign-in-alt"></i> Login
-							</a>
-						</li>
-					}
-				</ul>
-			</div>
-		</div>
-	</nav>
+    <!-- NAVBAR PRINCIPAL -->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom box-shadow mb-0">
+        <div class="container-fluid">
+            <!-- IZQUIERDA: LOGO + NOMBRE -->
+            <div class="d-flex align-items-center">
+                <img src="@Url.Content("~/Assets/Radio.png")" alt="Logo Voz del Este" style="height: 40px;" class="me-2" />
+                @Html.ActionLink("Voz del Este", "Index", "Home", null, new { @class = "navbar-brand fw-bold mb-0" })
+            </div>
 
-	<!-- CUERPO PRINCIPAL -->
-	<div class="container body-content mt-4">
-		@RenderBody()
+            <!-- DERECHA: LOGIN / LOGOUT -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-sm-0" style="align-items:center;">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        var role = Session["Role"] as string ?? "Sin rol";
+                        var permissions = Session["Permissions"] as List<string> ?? new List<string>();
 
-		<hr />
+                        <li class="nav-item me-3">
+                            <span class="navbar-text text-light">
+                                Hola, @User.Identity.Name (@role)
+                            </span>
+                        </li>
 
-		<!-- FOOTER -->
-		<footer class="text-center mt-4 mb-3">
-			<p>&copy; @DateTime.Now.Year - Voz del Este</p>
-			<p>
-				<a href="https://www.linkedin.com/in/francisco-p%C3%A9rez-666433272/" target="_blank">
-					<i class="fab fa-linkedin"></i> Francisco Pérez
-				</a>
-			</p>
-			<p>
-				<a href="https://www.linkedin.com/in/luis-virriel/" target="_blank">
-					<i class="fab fa-linkedin"></i> Luis Virriel
-				</a>
-			</p>
-		</footer>
-	</div>
+                        <li class="nav-item d-flex align-items-center me-3">
+                            <select onchange="navigateToPage(this.value)"
+                                    style="
+                                    background-color: #1b263b;
+                                    color: #e0e1dd;
+                                    border: 1.5px solid #5a7391;
+                                    border-radius: 8px;
+                                    padding: 8px 32px 8px 12px;
+                                    font-size: 0.9rem;
+                                    min-width: 160px;
+                                    margin-right: 0.5rem;
+                                    appearance: none;
+                                    -webkit-appearance: none;
+                                    -moz-appearance: none;
+                                    background-image: url('data:image /svg+xml;utf8,<svg width=12 height=7 viewBox=0 0 12 7 fill=none xmlns=http://www.w3.org/2000/svg><path d=M1 1L6 6L11 1 stroke=%23e0e1dd stroke-width=2 stroke-linecap=round stroke-linejoin=round/></svg>');
+                                    background-repeat: no-repeat;
+                                    background-position: right 12px center;
+                                    background-size: 12px 7px;
+                                    cursor: pointer;
+                                    transition: all 0.3s ease;
+                                    "
+                                    onmouseover="this.style.borderColor='#4f86f7'; this.style.boxShadow='0 0 6px rgba(79, 134, 247, 0.5)';"
+                                    onmouseout="this.style.borderColor='#5a7391'; this.style.boxShadow='none';"
+                                    onfocus="this.style.borderColor='#4f86f7'; this.style.boxShadow='0 0 6px rgba(79, 134, 247, 0.5)'; this.style.outline='none';"
+                                    onblur="this.style.borderColor='#5a7391'; this.style.boxShadow='none';">
+                                <option value="">Ir a...</option>
 
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
-	@RenderSection("scripts", required: false)
+                                @* Mostrar opciones basadas en permisos *@
+                                @if (permissions.Any(p => p.Contains("Client")))
+                                {
+                                    <option value="@Url.Action("Index", "Clients")">Clients</option>
+                                }
+                                @if (permissions.Any(p => p.Contains("User")))
+                                {
+                                    <option value="@Url.Action("Index", "Users")">Users</option>
+                                }
+                                @if (permissions.Any(p => p.Contains("Sponsor")))
+                                {
+                                    <option value="@Url.Action("Index", "Sponsors")">Sponsors</option>
+                                }
+                                @if (permissions.Any(p => p.Contains("Program")))
+                                {
+                                    <option value="@Url.Action("Index", "RadioPrograms")">Radio Programs</option>
+                                }
+                            </select>
+
+                            <a class="btn btn-outline-light" href="@Url.Action("Logout", "Account")">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light" href="@Url.Action("Login", "Account")" style="white-space: nowrap;" aria-label="Iniciar sesión">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CUERPO PRINCIPAL -->
+    <div class="container body-content mt-4">
+        @RenderBody()
+
+        <!-- FOOTER -->
+        <footer class="text-center mt-4 mb-3">
+            <p>&copy; @DateTime.Now.Year - Voz del Este</p>
+            <p>
+                <a href="https://www.linkedin.com/in/francisco-p%C3%A9rez-666433272/" target="_blank">
+                    <i class="fab fa-linkedin"></i> Francisco Pérez
+                </a>
+            </p>
+            <p>
+                <a href="https://www.linkedin.com/in/luis-virriel/" target="_blank">
+                    <i class="fab fa-linkedin"></i> Luis Virriel
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

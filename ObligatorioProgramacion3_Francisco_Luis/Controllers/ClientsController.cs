@@ -10,6 +10,7 @@ using ObligatorioProgramacion3_Francisco_Luis.Models;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
+    [Authorize]
     public class ClientsController : Controller
     {
         private RadioEntities db = new RadioEntities();
@@ -17,114 +18,309 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Clients
         public ActionResult Index()
         {
-            var clients = db.Clients.Include(c => c.User);
-            return View(clients.ToList());
+            try
+            {
+                var clients = db.Clients.Include(c => c.User);
+                return View(clients.ToList());
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error en Index: " + ex.Message);
+                ViewBag.ErrorMessage = "Error al cargar la lista de clientes.";
+                return View(new List<Client>());
+            }
         }
 
         // GET: Clients/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
-            if (client == null)
+
+            try
             {
+                Client client = db.Clients.Find(id);
+                if (client == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(client);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error en Details: " + ex.Message);
                 return HttpNotFound();
             }
-            return View(client);
         }
 
         // GET: Clients/Create
         public ActionResult Create()
         {
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName");
-            return View();
+            try
+            {
+                ViewBag.UserID = new SelectList(db.Users, "ID", "UserName");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error al cargar Create: " + ex.Message);
+                ViewBag.ErrorMessage = "Error al cargar el formulario de creación.";
+                return View();
+            }
         }
 
+  
         // POST: Clients/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDNumber,FirstName,LastName,Email,BirthDate,UserID")] Client client)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Clients.Add(client);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                // Validar que el IDNumber no exista ya
+                if (!string.IsNullOrEmpty(client.IDNumber))
+                {
+                    var existingClient = db.Clients.Find(client.IDNumber);
+                    if (existingClient != null)
+                    {
+                        ModelState.AddModelError("IDNumber", "Ya existe un cliente con este número de identificación.");
+                    }
+                }
+
+                // Validar que el Email no exista ya
+                if (!string.IsNullOrEmpty(client.Email))
+                {
+                    var existingEmail = db.Clients.FirstOrDefault(c => c.Email == client.Email);
+                    if (existingEmail != null)
+                    {
+                        ModelState.AddModelError("Email", "Ya existe un cliente con este correo electrónico.");
+                    }
+                }
+
+                // Validar que el UserID no esté asociado a otro cliente
+                if (client.UserID.HasValue)
+                {
+                    var existingUser = db.Clients.FirstOrDefault(c => c.UserID == client.UserID);
+                    if (existingUser != null)
+                    {
+                        ModelState.AddModelError("UserID", "El usuario seleccionado ya está asociado a otro cliente.");
+                    }
+                }
+
+                if (ModelState.IsValid)
+                {
+                    db.Clients.Add(client);
+                    db.SaveChanges();
+                    TempData["SuccessMessage"] = "Cliente creado exitosamente.";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                // Manejar errores de validación de Entity Framework
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    System.Diagnostics.Debug.WriteLine("Entidad con error: {0}", eve.Entry.Entity.GetType().Name);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        System.Diagnostics.Debug.WriteLine("- Propiedad: {0}, Error: {1}", ve.PropertyName, ve.ErrorMessage);
+                        ModelState.AddModelError(ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error de actualización de BD: " + ex.Message);
+                if (ex.InnerException != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                }
+                ModelState.AddModelError("", "Error al guardar en la base de datos. Verifique que los datos sean correctos.");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error general en Create: " + ex.Message);
+                ModelState.AddModelError("", "Ocurrió un error inesperado al guardar el cliente. Por favor, inténtelo nuevamente.");
             }
 
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", client.UserID);
+            // Si hubo errores, recargar ViewBag.UserID y devolver la vista
+            try
+            {
+                ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", client.UserID);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error al recargar Users: " + ex.Message);
+                ViewBag.UserID = new SelectList(new List<SelectListItem>());
+            }
+
             return View(client);
         }
+    
 
         // GET: Clients/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
-            if (client == null)
+
+            try
             {
+                Client client = db.Clients.Find(id);
+                if (client == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", client.UserID);
+                return View(client);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error en Edit GET: " + ex.Message);
                 return HttpNotFound();
             }
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", client.UserID);
-            return View(client);
         }
 
         // POST: Clients/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IDNumber,FirstName,LastName,Email,BirthDate,UserID")] Client client)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(client).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                // Validar que el Email no esté usado por otro cliente
+                if (!string.IsNullOrEmpty(client.Email))
+                {
+                    var existingEmail = db.Clients.FirstOrDefault(c => c.Email == client.Email && c.IDNumber != client.IDNumber);
+                    if (existingEmail != null)
+                    {
+                        ModelState.AddModelError("Email", "Ya existe otro cliente con este correo electrónico.");
+                    }
+                }
+
+                // Validar que el UserID no esté usado por otro cliente
+                if (client.UserID.HasValue)
+                {
+                    var existingUser = db.Clients.FirstOrDefault(c => c.UserID == client.UserID && c.IDNumber != client.IDNumber);
+                    if (existingUser != null)
+                    {
+                        ModelState.AddModelError("UserID", "El usuario seleccionado ya está asociado a otro cliente.");
+                    }
+                }
+
+                if (ModelState.IsValid)
+                {
+                    db.Entry(client).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["SuccessMessage"] = "Cliente actualizado exitosamente.";
+                    return RedirectToAction("Index");
+                }
             }
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", client.UserID);
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    System.Diagnostics.Debug.WriteLine("Entidad con error: {0}", eve.Entry.Entity.GetType().Name);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        System.Diagnostics.Debug.WriteLine("- Propiedad: {0}, Error: {1}", ve.PropertyName, ve.ErrorMessage);
+                        ModelState.AddModelError(ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error de actualización de BD: " + ex.Message);
+                ModelState.AddModelError("", "Error al actualizar en la base de datos. Verifique que los datos sean correctos.");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error general en Edit: " + ex.Message);
+                ModelState.AddModelError("", "Ocurrió un error inesperado al actualizar el cliente.");
+            }
+
+            // Si hubo error, recargar ViewBag.UserID
+            try
+            {
+                ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", client.UserID);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error al recargar Users en Edit: " + ex.Message);
+                ViewBag.UserID = new SelectList(new List<SelectListItem>());
+            }
+
             return View(client);
         }
 
         // GET: Clients/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
-            if (client == null)
+
+            try
             {
+                Client client = db.Clients.Find(id);
+                if (client == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(client);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error en Delete GET: " + ex.Message);
                 return HttpNotFound();
             }
-            return View(client);
         }
 
-        // POST: Clients/Delete/5holaa
+        // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Client client = db.Clients.Find(id);
-            db.Clients.Remove(client);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Client client = db.Clients.Find(id);
+                if (client == null)
+                {
+                    return HttpNotFound();
+                }
+
+                db.Clients.Remove(client);
+                db.SaveChanges();
+                TempData["SuccessMessage"] = "Cliente eliminado exitosamente.";
+                return RedirectToAction("Index");
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error al eliminar cliente: " + ex.Message);
+                TempData["ErrorMessage"] = "No se puede eliminar el cliente porque tiene registros relacionados.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error general en Delete: " + ex.Message);
+                TempData["ErrorMessage"] = "Ocurrió un error al eliminar el cliente.";
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                if (db != null)
+                {
+                    db.Dispose();
+                }
             }
             base.Dispose(disposing);
         }
