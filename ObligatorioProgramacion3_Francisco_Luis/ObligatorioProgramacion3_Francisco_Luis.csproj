@@ -198,18 +198,21 @@
     <Compile Include="Models\News.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NewsViewModel.cs" />
     <Compile Include="Models\Permission.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RadioProgram.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RadioProgramsViewModel.cs" />
     <Compile Include="Models\Role.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sponsor.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SponsorsViewModel.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
@@ -239,6 +242,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Currency.css" />
+    <Content Include="Content\Index.css" />
     <Content Include="Content\Styles\StyleRadioPrograms\StyleRadioProgram.css" />
     <Content Include="Content\Styles\StylesRoles\StyleEditRol.css" />
     <Content Include="Content\Styles\StylesClients\StyleCrearClient.css" />
@@ -252,6 +257,7 @@
     <Content Include="Content\Styles\StylesUsers\StyleIndexUser.css" />
     <Content Include="Content\StyleLogin.css" />
     <Content Include="Content\Styles\StylesUsers\StyleCreateUser.css" />
+    <Content Include="Content\Wather.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -359,6 +365,9 @@
     <Content Include="Views\Home\ClientIndex.cshtml" />
     <Content Include="Views\Home\Weather.cshtml" />
     <Content Include="Views\Home\Currency.cshtml" />
+    <Content Include="Views\Home\Sponsors.cshtml" />
+    <Content Include="Views\Home\RadioPrograms.cshtml" />
+    <Content Include="Views\Home\News.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -135,7 +135,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comments__Client__60A75C0F">
+        <Association Name="FK__Comments__Client__619B8048">
           <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
           <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -147,7 +147,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comments__Progra__619B8048">
+        <Association Name="FK__Comments__Progra__628FA481">
           <End Role="RadioPrograms" Type="Self.RadioPrograms" Multiplicity="0..1" />
           <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -249,11 +249,11 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Clients" EntitySet="Clients" />
           </AssociationSet>
-          <AssociationSet Name="FK__Comments__Client__60A75C0F" Association="Self.FK__Comments__Client__60A75C0F">
+          <AssociationSet Name="FK__Comments__Client__619B8048" Association="Self.FK__Comments__Client__619B8048">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Comments__Progra__619B8048" Association="Self.FK__Comments__Progra__619B8048">
+          <AssociationSet Name="FK__Comments__Progra__628FA481" Association="Self.FK__Comments__Progra__628FA481">
             <End Role="RadioPrograms" EntitySet="RadioPrograms" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>

@@ -18,5 +18,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
         public string SponsorsName { get; set; }
         public string SponsorDescription { get; set; }
         public Nullable<int> CantPlan { get; set; }
+        public string SponsorsDescription { get; internal set; }
     }
 }
