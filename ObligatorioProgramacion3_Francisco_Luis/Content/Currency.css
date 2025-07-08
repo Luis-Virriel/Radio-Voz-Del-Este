@@ -421,3 +421,294 @@ body {
 		font-size: 2.5rem;
 	}
 }
+/* Dashboard de Cotizaciones - Estilos CSS */
+
+.dashboard-container {
+	max-width: 1200px;
+	margin: 2rem auto;
+	padding: 2rem;
+	background: #0A2342;
+	border-radius: 12px;
+	font-family: 'Segoe UI', sans-serif;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+	color: #DFF3E4;
+}
+
+.dashboard-header {
+	margin-bottom: 2rem;
+	text-align: center;
+}
+
+	.dashboard-header h3 {
+		color: #2CA58D;
+		margin-bottom: 1.5rem;
+		font-size: 1.8rem;
+		font-weight: 600;
+	}
+
+.dashboard-stats {
+	display: flex;
+	gap: 1.5rem;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-bottom: 2rem;
+}
+
+.stat-card {
+	background: linear-gradient(135deg, #2CA58D, #24987f);
+	border-radius: 12px;
+	padding: 1.5rem;
+	color: #FFFDF7;
+	text-align: center;
+	min-width: 160px;
+	box-shadow: 0 4px 15px rgba(44, 165, 141, 0.3);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+	.stat-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 8px 25px rgba(44, 165, 141, 0.4);
+	}
+
+.stat-icon {
+	font-size: 2rem;
+}
+
+.stat-content {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+}
+
+.stat-value {
+	font-size: 1.8rem;
+	font-weight: bold;
+	line-height: 1.2;
+}
+
+.stat-label {
+	font-size: 0.9rem;
+	opacity: 0.9;
+	margin-top: 0.2rem;
+}
+
+.dashboard-content {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+	margin-bottom: 2rem;
+}
+
+.chart-section {
+	grid-column: 1 / -1;
+	background: #123456;
+	border-radius: 12px;
+	padding: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+	.chart-section h4 {
+		color: #2CA58D;
+		margin-bottom: 1rem;
+		font-size: 1.3rem;
+	}
+
+.chart-container {
+	height: 300px;
+	position: relative;
+}
+
+.table-section {
+	background: #123456;
+	border-radius: 12px;
+	padding: 1.5rem;
+}
+
+	.table-section h4 {
+		color: #2CA58D;
+		margin-bottom: 1rem;
+		font-size: 1.3rem;
+	}
+
+.table-container {
+	overflow-x: auto;
+}
+
+.currency-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: transparent;
+}
+
+	.currency-table th,
+	.currency-table td {
+		padding: 0.75rem;
+		text-align: left;
+		border-bottom: 1px solid #8EA8C3;
+	}
+
+	.currency-table th {
+		background: #2CA58D;
+		color: #FFFDF7;
+		font-weight: 600;
+		text-transform: uppercase;
+		font-size: 0.9rem;
+	}
+
+	.currency-table tr:hover {
+		background: rgba(44, 165, 141, 0.1);
+	}
+
+.currency-flag {
+	margin-right: 0.5rem;
+	font-size: 1.2rem;
+}
+
+.rate-cell {
+	font-weight: 600;
+	font-size: 1.1rem;
+}
+
+.variation-cell {
+	font-weight: 600;
+}
+
+	.variation-cell.positive {
+		color: #4CAF50;
+	}
+
+	.variation-cell.negative {
+		color: #F44336;
+	}
+
+.status-badge {
+	padding: 0.25rem 0.75rem;
+	border-radius: 20px;
+	font-size: 0.8rem;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+	.status-badge.high {
+		background: #4CAF50;
+		color: white;
+	}
+
+	.status-badge.low {
+		background: #FF9800;
+		color: white;
+	}
+
+.alerts-section {
+	background: #123456;
+	border-radius: 12px;
+	padding: 1.5rem;
+}
+
+	.alerts-section h4 {
+		color: #2CA58D;
+		margin-bottom: 1rem;
+		font-size: 1.3rem;
+	}
+
+.alerts-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.alert {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem;
+	border-radius: 8px;
+	border-left: 4px solid;
+}
+
+.alert-info {
+	background: rgba(33, 150, 243, 0.1);
+	border-left-color: #2196F3;
+}
+
+.alert-warning {
+	background: rgba(255, 152, 0, 0.1);
+	border-left-color: #FF9800;
+}
+
+.alert-success {
+	background: rgba(76, 175, 80, 0.1);
+	border-left-color: #4CAF50;
+}
+
+.alert-icon {
+	font-size: 1.5rem;
+}
+
+.alert-content {
+	flex: 1;
+}
+
+.dashboard-footer {
+	text-align: center;
+	padding-top: 1rem;
+	border-top: 1px solid #8EA8C3;
+	color: #8EA8C3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.dashboard-content {
+		grid-template-columns: 1fr;
+	}
+
+	.dashboard-stats {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.stat-card {
+		width: 100%;
+		max-width: 300px;
+	}
+
+	.chart-container {
+		height: 250px;
+	}
+
+	.currency-table {
+		font-size: 0.9rem;
+	}
+
+		.currency-table th,
+		.currency-table td {
+			padding: 0.5rem;
+		}
+}
+
+@media (max-width: 480px) {
+	.dashboard-container {
+		margin: 1rem;
+		padding: 1rem;
+	}
+
+	.dashboard-header h3 {
+		font-size: 1.5rem;
+	}
+
+	.stat-card {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.stat-icon {
+		font-size: 1.5rem;
+	}
+
+	.stat-value {
+		font-size: 1.4rem;
+	}
+}
