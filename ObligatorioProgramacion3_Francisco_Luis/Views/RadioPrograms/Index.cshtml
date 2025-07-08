@@ -1,51 +1,49 @@
 ﻿@model IEnumerable<ObligatorioProgramacion3_Francisco_Luis.Models.RadioProgram>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Radio Programs";
 }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="~/Content/Styles/StyleRadioPrograms/StyleRadioProgram.css" rel="stylesheet" />
+<div class="index-container">
+    <h2 class="index-title">Radio Programs</h2>
 
-<h2>Index</h2>
+    <div class="create-button-container">
+        @Html.ActionLink("Create New", "Create", null, new { @class = "create-button" })
+    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProgramName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImageURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RadioDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Schedule)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProgramName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImageURL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RadioDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Schedule)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+    <div class="table-wrapper">
+        <table class="radio-programs-table">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.ProgramName)</th>
+                <th>@Html.DisplayNameFor(model => model.ImageURL)</th>
+                <th>@Html.DisplayNameFor(model => model.RadioDescription)</th>
+                <th>@Html.DisplayNameFor(model => model.Schedule)</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="program-name-field">
+                        @Html.DisplayFor(modelItem => item.ProgramName)
+                    </td>
+                    <td class="image-url-field">
+                        @Html.DisplayFor(modelItem => item.ImageURL)
+                    </td>
+                    <td class="description-field">
+                        @Html.DisplayFor(modelItem => item.RadioDescription)
+                    </td>
+                    <td class="schedule-field">
+                        @Html.DisplayFor(modelItem => item.Schedule)
+                    </td>
+                    <td class="action-links">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) <span class="action-separator">|</span>
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) <span class="action-separator">|</span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

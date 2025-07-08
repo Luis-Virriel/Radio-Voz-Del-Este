@@ -1,35 +1,36 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.Client
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles del Cliente";
 }
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link href="~/Content/Styles/StylesClients/StyleDetailsClient.css" rel="stylesheet" />
+
 <div class="details-container">
     <h2 class="details-title">Detalles del Cliente</h2>
     <h4 class="details-subtitle">Cliente</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>@Html.DisplayNameFor(model => model.FirstName)</dt>
+        <dt>Nombre:</dt>
         <dd>@Html.DisplayFor(model => model.FirstName)</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.LastName)</dt>
+        <dt>Apellido:</dt>
         <dd>@Html.DisplayFor(model => model.LastName)</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+        <dt>Correo Electrónico:</dt>
         <dd>@Html.DisplayFor(model => model.Email)</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.BirthDate)</dt>
+        <dt>Fecha de Nacimiento:</dt>
         <dd>@Html.DisplayFor(model => model.BirthDate)</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.User.UserName)</dt>
+        <dt>Usuario Asignado:</dt>
         <dd>@Html.DisplayFor(model => model.User.UserName)</dd>
     </dl>
 
     <div class="details-actions">
         @Html.ActionLink("Editar", "Edit", new { id = Model.IDNumber }) |
-        @Html.ActionLink("←Volver a la Lista", "Index")
+        @Html.ActionLink("← Volver a la Lista", "Index")
     </div>
 </div>

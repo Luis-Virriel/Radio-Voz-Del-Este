@@ -1,16 +1,12 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.RadioProgram
-
 @{
     ViewBag.Title = "Create";
 }
-
 <h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "RadioPrograms", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>RadioProgram</h4>
         <hr />
@@ -23,11 +19,21 @@
             </div>
         </div>
 
+        <!-- Campo modificado para carga de archivos -->
         <div class="form-group">
-            @Html.LabelFor(model => model.ImageURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">Imagen del Programa</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ImageURL, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ImageURL, "", new { @class = "text-danger" })
+                <div class="input-group">
+                    <input type="text" id="imageFileName" class="form-control" readonly placeholder="Selecciona una imagen..." />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" onclick="document.getElementById('imageFile').click();">
+                            <i class="glyphicon glyphicon-folder-open"></i> Buscar
+                        </button>
+                    </span>
+                </div>
+                <input type="file" id="imageFile" name="ImageFile" accept="image/*" style="display: none;" onchange="updateFileName()" />
+                <small class="text-muted">Formatos permitidos: JPG, PNG, GIF (máximo 5MB)</small>
+                @Html.ValidationMessage("ImageFile", "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -38,7 +44,6 @@
                 @Html.ValidationMessageFor(model => model.RadioDescription, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Schedule, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -46,7 +51,6 @@
                 @Html.ValidationMessageFor(model => model.Schedule, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -54,10 +58,22 @@
         </div>
     </div>
 }
-
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+    function updateFileName() {
+        var fileInput = document.getElementById('imageFile');
+        var fileNameInput = document.getElementById('imageFileName');
+
+        if (fileInput.files.length > 0) {
+            fileNameInput.value = fileInput.files[0].name;
+        } else {
+            fileNameInput.value = '';
+        }
+    }
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

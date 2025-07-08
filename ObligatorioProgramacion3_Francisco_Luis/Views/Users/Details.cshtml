@@ -3,9 +3,9 @@
     ViewBag.Title = "Details";
 }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
 <link href="~/Content/Styles/StylesUsers/StyleDetailsUser.css" rel="stylesheet" />
 
 <div class="details-container">
@@ -17,39 +17,23 @@
 
         <div class="user-info">
             <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.UserName)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.UserName)
-                </dd>
+                <dt>Usuario</dt>
+                <dd>@Html.DisplayFor(model => model.UserName)</dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Email)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Email)
-                </dd>
+                <dt>Correo Electrónico</dt>
+                <dd>@Html.DisplayFor(model => model.Email)</dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.UserPassword)
-                </dt>
-                <dd class="password-field">
-                    @Html.DisplayFor(model => model.UserPassword)
-                </dd>
+                <dt>Contraseña</dt>
+                <dd class="password-field">••••••••</dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Role.RoleName)
-                </dt>
-                <dd class="role-field">
-                    @Html.DisplayFor(model => model.Role.RoleName)
-                </dd>
+                <dt>Rol</dt>
+                <dd class="role-field">@Html.DisplayFor(model => model.Role.RoleName)</dd>
             </dl>
         </div>
     </div>
 
     <div class="details-actions">
         @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
-        @Html.ActionLink("Volver a la Lista", "Index")
+        @Html.ActionLink("←Volver a la Lista", "Index")
     </div>
 </div>

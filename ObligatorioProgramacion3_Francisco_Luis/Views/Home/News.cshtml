@@ -1,0 +1,727 @@
+﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.NewsViewModel
+@{
+	ViewBag.Title = "Noticias - Voz del Este";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		min-height: 100vh;
+		color: #333;
+	}
+
+	.container.body-content {
+		background: transparent;
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+	}
+
+	/* Header Section */
+	.news-header {
+		background: rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(10px);
+		border-radius: 20px;
+		padding: 3rem 2rem;
+		margin-bottom: 3rem;
+		text-align: center;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+	}
+
+	.news-title {
+		color: white;
+		font-size: 3rem;
+		font-weight: 300;
+		margin-bottom: 1rem;
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	.news-subtitle {
+		color: rgba(255, 255, 255, 0.9);
+		font-size: 1.2rem;
+		margin-bottom: 2rem;
+	}
+
+	.back-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		background: rgba(255, 255, 255, 0.2);
+		color: white;
+		padding: 12px 24px;
+		border-radius: 25px;
+		text-decoration: none;
+		transition: all 0.3s ease;
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.3);
+	}
+
+		.back-button:hover {
+			background: rgba(255, 255, 255, 0.3);
+			transform: translateY(-2px);
+			color: white;
+			text-decoration: none;
+		}
+
+	/* Filter Section */
+	.filter-section {
+		background: white;
+		border-radius: 20px;
+		padding: 2rem;
+		margin-bottom: 3rem;
+		box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+	}
+
+	.filter-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1.5rem;
+	}
+
+	.filter-title {
+		color: #2c3e50;
+		font-size: 1.5rem;
+		font-weight: 600;
+		margin: 0;
+	}
+
+	.news-count {
+		color: #7f8c8d;
+		font-size: 1rem;
+	}
+
+	.filter-buttons {
+		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.filter-btn {
+		padding: 10px 20px;
+		border: 2px solid #e74c3c;
+		background: transparent;
+		color: #e74c3c;
+		border-radius: 25px;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		font-weight: 500;
+		text-decoration: none;
+		display: inline-block;
+	}
+
+		.filter-btn:hover,
+		.filter-btn.active {
+			background: #e74c3c;
+			color: white;
+			text-decoration: none;
+		}
+
+	/* News Grid */
+	.news-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+		gap: 2rem;
+		margin-bottom: 3rem;
+	}
+
+	/* Featured News (Larger card) */
+	.news-card.featured {
+		grid-column: span 2;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		background: white;
+		border-radius: 20px;
+		overflow: hidden;
+		box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+		transition: all 0.3s ease;
+	}
+
+		.news-card.featured:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+		}
+
+		.news-card.featured .news-image {
+			height: 100%;
+			min-height: 300px;
+		}
+
+		.news-card.featured .news-content {
+			padding: 2.5rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.news-card.featured .news-title-card {
+			font-size: 2rem;
+			line-height: 1.3;
+			margin-bottom: 1.5rem;
+		}
+
+		.news-card.featured .news-excerpt {
+			font-size: 1.1rem;
+			line-height: 1.6;
+			margin-bottom: 2rem;
+		}
+
+	/* Regular News Cards */
+	.news-card {
+		background: white;
+		border-radius: 20px;
+		overflow: hidden;
+		box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+		transition: all 0.3s ease;
+		cursor: pointer;
+		text-decoration: none;
+		color: inherit;
+	}
+
+		.news-card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+			text-decoration: none;
+			color: inherit;
+		}
+
+	.news-image {
+		width: 100%;
+		height: 220px;
+		object-fit: cover;
+		transition: transform 0.3s ease;
+	}
+
+	.news-card:hover .news-image {
+		transform: scale(1.05);
+	}
+
+	.news-content {
+		padding: 1.5rem;
+	}
+
+	.news-meta {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
+
+	.news-category-badge {
+		display: inline-block;
+		background: #e74c3c;
+		color: white;
+		font-size: 0.75rem;
+		padding: 0.3rem 0.8rem;
+		border-radius: 15px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+
+		.news-category-badge.local {
+			background: #e74c3c;
+		}
+
+		.news-category-badge.deportes {
+			background: #3498db;
+		}
+
+		.news-category-badge.internacional {
+			background: #9b59b6;
+		}
+
+		.news-category-badge.turismo {
+			background: #f39c12;
+		}
+
+		.news-category-badge.clima {
+			background: #27ae60;
+		}
+
+		.news-category-badge.cultura {
+			background: #e67e22;
+		}
+
+	.news-date {
+		color: #7f8c8d;
+		font-size: 0.85rem;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
+
+	.news-title-card {
+		color: #2c3e50;
+		font-size: 1.3rem;
+		font-weight: 600;
+		line-height: 1.4;
+		margin-bottom: 1rem;
+		transition: color 0.2s ease;
+	}
+
+	.news-card:hover .news-title-card {
+		color: #e74c3c;
+	}
+
+	.news-excerpt {
+		color: #7f8c8d;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		margin-bottom: 1rem;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.news-author {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding-top: 1rem;
+		border-top: 1px solid #ecf0f1;
+	}
+
+	.author-avatar {
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background: #e74c3c;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		font-weight: 600;
+		font-size: 0.8rem;
+	}
+
+	.author-info {
+		flex: 1;
+	}
+
+	.author-name {
+		color: #2c3e50;
+		font-size: 0.85rem;
+		font-weight: 600;
+		margin: 0;
+	}
+
+	.author-role {
+		color: #7f8c8d;
+		font-size: 0.75rem;
+		margin: 0;
+	}
+
+	/* Loading More Section */
+	.load-more-section {
+		text-align: center;
+		margin: 3rem 0;
+	}
+
+	.load-more-btn {
+		background: linear-gradient(135deg, #667eea, #764ba2);
+		color: white;
+		border: none;
+		padding: 15px 40px;
+		border-radius: 25px;
+		font-size: 1rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+	}
+
+		.load-more-btn:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+		}
+
+	/* Sidebar */
+	.news-layout {
+		display: grid;
+		grid-template-columns: 1fr 300px;
+		gap: 3rem;
+	}
+
+	.trending-sidebar {
+		background: white;
+		border-radius: 20px;
+		padding: 2rem;
+		height: fit-content;
+		box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+		position: sticky;
+		top: 2rem;
+	}
+
+	.sidebar-title {
+		color: #2c3e50;
+		font-size: 1.3rem;
+		font-weight: 600;
+		margin-bottom: 1.5rem;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.trending-item {
+		display: block;
+		padding: 1rem 0;
+		border-bottom: 1px solid #ecf0f1;
+		text-decoration: none;
+		color: inherit;
+		transition: all 0.2s ease;
+	}
+
+		.trending-item:last-child {
+			border-bottom: none;
+		}
+
+		.trending-item:hover {
+			background: rgba(231, 76, 60, 0.05);
+			margin: 0 -1rem;
+			padding: 1rem;
+			border-radius: 8px;
+			text-decoration: none;
+			color: inherit;
+		}
+
+	.trending-number {
+		display: inline-block;
+		width: 25px;
+		height: 25px;
+		background: #e74c3c;
+		color: white;
+		border-radius: 50%;
+		text-align: center;
+		line-height: 25px;
+		font-size: 0.8rem;
+		font-weight: 600;
+		margin-right: 10px;
+	}
+
+	.trending-title {
+		font-size: 0.9rem;
+		color: #2c3e50;
+		font-weight: 500;
+		line-height: 1.3;
+	}
+
+	/* Responsive */
+	@@media (max-width: 1024px) {
+		.news-layout {
+			grid-template-columns: 1fr;
+		}
+
+		.trending-sidebar {
+			order: -1;
+			position: static;
+		}
+
+		.news-card.featured {
+			grid-column: span 1;
+			grid-template-columns: 1fr;
+		}
+
+			.news-card.featured .news-image {
+				height: 250px;
+			}
+	}
+
+	@@media (max-width: 768px) {
+		.container.body-content {
+			padding: 1rem 0.5rem;
+		}
+
+		.news-header {
+			padding: 2rem 1rem;
+		}
+
+		.news-title {
+			font-size: 2rem;
+		}
+
+		.filter-buttons {
+			justify-content: center;
+		}
+
+		.news-grid {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+
+		.filter-header {
+			flex-direction: column;
+			gap: 1rem;
+			text-align: center;
+		}
+	}
+</style>
+
+<div class="news-layout">
+	<main class="news-main">
+		<!-- Header -->
+		<section class="news-header">
+			<h1 class="news-title">📰 Noticias</h1>
+			<p class="news-subtitle">Mantente informado con las últimas noticias de Maldonado y el mundo</p>
+			<a href="@Url.Action("Index", "Home")" class="back-button">
+				<i class="fas fa-arrow-left"></i>
+				Volver al inicio
+			</a>
+		</section>
+
+		<!-- Filters -->
+		<section class="filter-section">
+			<div class="filter-header">
+				<h2 class="filter-title">Filtrar noticias</h2>
+				<span class="news-count">Mostrando 12 noticias</span>
+			</div>
+			<div class="filter-buttons">
+				<a href="@Url.Action("News", "Home")" class="filter-btn @(string.IsNullOrEmpty(ViewBag.SelectedCategory) ? "active" : "")">
+					Todas
+				</a>
+				<a href="@Url.Action("News", "Home", new { category = "Local" })" class="filter-btn @(ViewBag.SelectedCategory == "Local" ? "active" : "")">
+					Local
+				</a>
+				<a href="@Url.Action("News", "Home", new { category = "Deportes" })" class="filter-btn @(ViewBag.SelectedCategory == "Deportes" ? "active" : "")">
+					Deportes
+				</a>
+				<a href="@Url.Action("News", "Home", new { category = "Internacional" })" class="filter-btn @(ViewBag.SelectedCategory == "Internacional" ? "active" : "")">
+					Internacional
+				</a>
+				<a href="@Url.Action("News", "Home", new { category = "Turismo" })" class="filter-btn @(ViewBag.SelectedCategory == "Turismo" ? "active" : "")">
+					Turismo
+				</a>
+				<a href="@Url.Action("News", "Home", new { category = "Clima" })" class="filter-btn @(ViewBag.SelectedCategory == "Clima" ? "active" : "")">
+					Clima
+				</a>
+			</div>
+		</section>
+
+		<!-- News Grid -->
+		<section class="news-grid">
+			<!-- Featured News -->
+			<article class="news-card featured">
+				<img src="https://images.unsplash.com/photo-1581553673739-c4908841d3b5?w=600&h=400&fit=crop"
+					 alt="Centro Cultural Maldonado" class="news-image">
+				<div class="news-content">
+					<div class="news-meta">
+						<span class="news-category-badge local">Local</span>
+						<div class="news-date">
+							<i class="fas fa-clock"></i>
+							Hace 2 horas
+						</div>
+					</div>
+					<h2 class="news-title-card">Inauguración del nuevo centro cultural en Maldonado marca un hito para la comunidad</h2>
+					<p class="news-excerpt">
+						El moderno espacio de 2,500 metros cuadrados incluye salas de exposiciones, un auditorio para 300 personas,
+						talleres de arte y una biblioteca digital. La inversión de $2.5 millones de dólares promete revolucionar
+						la oferta cultural de la región este del país.
+					</p>
+					<div class="news-author">
+						<div class="author-avatar">MR</div>
+						<div class="author-info">
+							<p class="author-name">María Rodríguez</p>
+							<p class="author-role">Periodista Cultural</p>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<!-- Regular News Cards -->
+			<article class="news-card">
+				<img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=220&fit=crop"
+					 alt="Fútbol uruguayo" class="news-image">
+				<div class="news-content">
+					<div class="news-meta">
+						<span class="news-category-badge deportes">Deportes</span>
+						<div class="news-date">
+							<i class="fas fa-clock"></i>
+							Hace 4 horas
+						</div>
+					</div>
+					<h3 class="news-title-card">Peñarol vence 2-1 a Nacional en el clásico uruguayo</h3>
+					<p class="news-excerpt">
+						En un partido lleno de emociones en el Estadio Centenario, los aurinegros se impusieron
+						con goles de Fernández y Silva ante 45,000 espectadores.
+					</p>
+					<div class="news-author">
+						<div class="author-avatar">JL</div>
+						<div class="author-info">
+							<p class="author-name">Juan López</p>
+							<p class="author-role">Corresponsal Deportivo</p>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<article class="news-card">
+				<img src="https://images.unsplash.com/photo-1494790108755-2616c27d8090?w=400&h=220&fit=crop"
+					 alt="Unión Europea" class="news-image">
+				<div class="news-content">
+					<div class="news-meta">
+						<span class="news-category-badge internacional">Internacional</span>
+						<div class="news-date">
+							<i class="fas fa-clock"></i>
+							Hace 6 horas
+						</div>
+					</div>
+					<h3 class="news-title-card">Acuerdo comercial entre Uruguay y la Unión Europea</h3>
+					<p class="news-excerpt">
+						El tratado beneficiará las exportaciones de carne y productos lácteos uruguayos,
+						eliminando aranceles por un valor estimado de $300 millones anuales.
+					</p>
+					<div class="news-author">
+						<div class="author-avatar">AS</div>
+						<div class="author-info">
+							<p class="author-name">Ana Silva</p>
+							<p class="author-role">Editora Internacional</p>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<article class="news-card">
+				<img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=220&fit=crop"
+					 alt="Punta del Este" class="news-image">
+				<div class="news-content">
+					<div class="news-meta">
+						<span class="news-category-badge turismo">Turismo</span>
+						<div class="news-date">
+							<i class="fas fa-clock"></i>
+							Hace 8 horas
+						</div>
+					</div>
+					<h3 class="news-title-card">Punta del Este espera récord de visitantes este verano</h3>
+					<p class="news-excerpt">
+						Las reservas hoteleras superan el 85% para la temporada alta, con turistas principalmente
+						de Argentina, Brasil y Estados Unidos confirmando su visita.
+					</p>
+					<div class="news-author">
+						<div class="author-avatar">CM</div>
+						<div class="author-info">
+							<p class="author-name">Carlos Méndez</p>
+							<p class="author-role">Especialista en Turismo</p>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<article class="news-card">
+				<img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=220&fit=crop"
+					 alt="Tormenta" class="news-image">
+				<div class="news-content">
+					<div class="news-meta">
+						<span class="news-category-badge clima">Clima</span>
+						<div class="news-date">
+							<i class="fas fa-clock"></i>
+							Hace 10 horas
+						</div>
+					</div>
+					<h3 class="news-title-card">Alerta meteorológica por tormentas en la región este</h3>
+					<p class="news-excerpt">
+						El Instituto Nacional de Meteorología advierte sobre precipitaciones intensas y vientos
+						de hasta 80 km/h para las próximas 24 horas en Maldonado y Rocha.
+					</p>
+					<div class="news-author">
+						<div class="author-avatar">LF</div>
+						<div class="author-info">
+							<p class="author-name">Laura Fernández</p>
+							<p class="author-role">Meteoróloga</p>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<article class="news-card">
+				<img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=220&fit=crop"
+					 alt="Festival de música" class="news-image">
+				<div class="news-content">
+					<div class="news-meta">
+						<span class="news-category-badge cultura">Cultura</span>
+						<div class="news-date">
+							<i class="fas fa-clock"></i>
+							Hace 12 horas
+						</div>
+					</div>
+					<h3 class="news-title-card">Festival de Jazz de Maldonado anuncia su programación 2025</h3>
+					<p class="news-excerpt">
+						Artistas internacionales como Brad Mehldau y Esperanza Spalding encabezarán el evento
+						que se realizará del 15 al 20 de febrero en diferentes espacios de la ciudad.
+					</p>
+					<div class="news-author">
+						<div class="author-avatar">DR</div>
+						<div class="author-info">
+							<p class="author-name">Diego Ruiz</p>
+							<p class="author-role">Crítico Musical</p>
+						</div>
+					</div>
+				</div>
+			</article>
+		</section>
+
+
+	</main>
+
+	<!-- Sidebar -->
+	<aside class="trending-sidebar">
+		<h3 class="sidebar-title">
+			<i class="fas fa-fire" style="color: #e74c3c;"></i>
+			Tendencias
+		</h3>
+
+		<a href="#" class="trending-item">
+			<span class="trending-number">1</span>
+			<span class="trending-title">Nuevo shopping center en Maldonado genera 800 empleos</span>
+		</a>
+
+		<a href="#" class="trending-item">
+			<span class="trending-number">2</span>
+			<span class="trending-title">Suárez confirma su permanencia en Inter de Miami hasta 2026</span>
+		</a>
+
+		<a href="#" class="trending-item">
+			<span class="trending-number">3</span>
+			<span class="trending-title">Récord histórico de turistas brasileños en Punta del Este</span>
+		</a>
+
+		<a href="#" class="trending-item">
+			<span class="trending-number">4</span>
+			<span class="trending-title">Nueva ruta costera conectará Maldonado con Rocha</span>
+		</a>
+
+		<a href="#" class="trending-item">
+			<span class="trending-number">5</span>
+			<span class="trending-title">Festival de cine latinoamericano llega a Punta del Este</span>
+		</a>
+	</aside>
+</div>
+
+@section scripts {
+	<script>
+
+        // Animación de entrada para las tarjetas
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.news-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+	</script>
+}

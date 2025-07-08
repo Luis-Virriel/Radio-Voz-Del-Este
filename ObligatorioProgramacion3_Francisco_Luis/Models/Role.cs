@@ -18,6 +18,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
         public Role()
         {
             this.Users = new HashSet<User>();
+            this.Permissions = new HashSet<Permission>();
         }
     
         public int ID { get; set; }
@@ -25,5 +26,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Permission> Permissions { get; set; }
     }
 }

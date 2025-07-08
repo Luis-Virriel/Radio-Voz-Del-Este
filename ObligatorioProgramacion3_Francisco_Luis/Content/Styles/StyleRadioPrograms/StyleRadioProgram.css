@@ -1,0 +1,389 @@
+﻿/* RadioProgramIndex.css - Estilos para vista Index de programas de radio */
+
+/* Resetear estilos del body y html */
+body {
+    background-color: #1a2332 !important;
+    margin: 0;
+    padding: 10px;
+    overflow-x: hidden;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+/* Contenedor principal */
+.index-container {
+    background-color: #0e375a;
+    max-width: 98%;
+    width: 98%;
+    margin: 10px auto;
+    padding: 25px;
+    border-radius: 15px;
+    color: #b3d9ff;
+    font-family: "Bona Nova SC", serif;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    min-height: 400px;
+    box-sizing: border-box;
+}
+
+/* Título principal */
+.index-title {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 35px;
+    font-style: normal;
+    color: #69c0ff;
+    font-weight: 400;
+    font-family: "Bona Nova SC", serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+}
+
+/* Botón Create New */
+.create-button-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.create-button {
+    display: inline-block;
+    padding: 15px 25px;
+    background-color: #d9ecff;
+    color: #003366;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: "Bona Nova SC", serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+    .create-button:hover {
+        background-color: #b3d9ff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        color: #003366;
+    }
+
+/* Tabla principal de programas de radio */
+.radio-programs-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: rgba(166, 200, 255, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+    /* Encabezados de tabla */
+    .radio-programs-table th {
+        background-color: #69c0ff;
+        color: #003366;
+        padding: 12px 8px;
+        font-weight: 700;
+        font-size: 11px;
+        font-family: "Bona Nova SC", serif;
+        letter-spacing: 0.2px;
+        text-transform: uppercase;
+        border: none;
+        position: relative;
+        white-space: nowrap;
+    }
+
+        /* Ajustar ancho de columnas específicas para programas de radio */
+        .radio-programs-table th:nth-child(1) { /* ProgramName */
+            width: 25%;
+        }
+
+        .radio-programs-table th:nth-child(2) { /* ImageURL */
+            width: 20%;
+        }
+
+        .radio-programs-table th:nth-child(3) { /* RadioDescription */
+            width: 35%;
+        }
+
+        .radio-programs-table th:nth-child(4) { /* Schedule */
+            width: 15%;
+        }
+
+        .radio-programs-table th:nth-child(5) { /* Acciones */
+            width: 20%;
+        }
+
+        .radio-programs-table th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        .radio-programs-table th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+    /* Filas de datos */
+    .radio-programs-table td {
+        padding: 10px 8px;
+        border: none;
+        color: #b3d9ff;
+        font-size: 12px;
+        font-family: "Bona Nova SC", serif;
+        transition: background-color 0.3s ease;
+        background-color: rgba(14, 55, 90, 0.3);
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+        /* Ajustar columnas específicas para programas de radio */
+        .radio-programs-table td:nth-child(1) { /* ProgramName */
+            width: 25%;
+            white-space: nowrap;
+            font-weight: 600;
+            color: #d9ecff;
+            font-size: 13px;
+        }
+
+        .radio-programs-table td:nth-child(2) { /* ImageURL */
+            width: 20%;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .radio-programs-table td:nth-child(3) { /* RadioDescription */
+            width: 35%;
+            font-size: 11px;
+            line-height: 1.4;
+            word-wrap: break-word;
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .radio-programs-table td:nth-child(4) { /* Schedule */
+            width: 15%;
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: 600;
+            color: #69c0ff;
+            text-align: center;
+        }
+
+        .radio-programs-table td:nth-child(5) { /* Acciones */
+            width: 20%;
+            white-space: nowrap;
+        }
+
+    /* Efecto hover en filas */
+    .radio-programs-table tbody tr:hover td {
+        background-color: rgba(105, 192, 255, 0.15);
+        transform: scale(1.001);
+    }
+
+    /* Alternar colores de filas */
+    .radio-programs-table tbody tr:nth-child(even) td {
+        background-color: rgba(166, 200, 255, 0.08);
+    }
+
+    .radio-programs-table tbody tr:nth-child(odd) td {
+        background-color: rgba(14, 55, 90, 0.2);
+    }
+
+/* Enlaces de acciones */
+.action-links {
+    white-space: nowrap;
+}
+
+    .action-links a {
+        color: #69c0ff;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 600;
+        margin-right: 5px;
+        padding: 3px 6px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+        .action-links a:hover {
+            background-color: rgba(105, 192, 255, 0.2);
+            color: #d9ecff;
+            text-decoration: none;
+            transform: scale(1.05);
+        }
+
+/* Separadores entre acciones */
+.action-separator {
+    color: #4a7396;
+    margin: 0 2px;
+    font-size: 10px;
+}
+
+/* Estilos específicos para campos de programas de radio */
+.program-name-field {
+    font-weight: 600;
+    color: #d9ecff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo para imágenes de programas */
+.program-image {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #69c0ff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+    .program-image:hover {
+        transform: scale(1.1);
+        border-color: #d9ecff;
+        box-shadow: 0 4px 12px rgba(105, 192, 255, 0.4);
+    }
+
+/* Fallback para URLs de texto */
+.image-url-field {
+    font-family: monospace;
+    font-size: 9px;
+    color: #a6c8ff;
+    word-break: break-all;
+    text-align: center;
+    padding: 8px 4px;
+    line-height: 1.2;
+}
+
+.description-field {
+    line-height: 1.4;
+    color: #b3d9ff;
+    text-align: justify;
+}
+
+.schedule-field {
+    font-weight: 600;
+    color: #69c0ff;
+    text-align: center;
+    font-size: 12px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .index-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .index-title {
+        font-size: 32px;
+        margin-bottom: 25px;
+    }
+
+    .radio-programs-table {
+        font-size: 12px;
+    }
+
+        .radio-programs-table th,
+        .radio-programs-table td {
+            padding: 8px;
+        }
+
+    /* Ajustar imágenes en móvil */
+    .program-image {
+        width: 60px;
+        height: 45px;
+    }
+
+    .radio-programs-table th:nth-child(3),
+    .radio-programs-table td:nth-child(3) { /* Description */
+        width: 40%;
+    }
+
+    .action-links a {
+        font-size: 10px;
+        padding: 2px 4px;
+        margin-right: 3px;
+    }
+}
+
+/* Mensaje cuando no hay datos */
+.no-data-message {
+    text-align: center;
+    padding: 40px;
+    color: #69c0ff;
+    font-size: 18px;
+    font-style: italic;
+    font-family: "Bona Nova SC", serif;
+}
+
+/* Estilo para el contenedor de la tabla */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 10px;
+}
+
+/* Ocultar elementos por defecto de MVC */
+h2:not(.index-title) {
+    display: none;
+}
+
+/* Ajustar espaciado general */
+.index-container > p {
+    display: none;
+}
+
+/* Estilo para tooltip en URLs largas */
+.image-url-field:hover {
+    position: relative;
+    overflow: visible;
+    white-space: normal;
+    background-color: rgba(105, 192, 255, 0.9);
+    color: #003366;
+    border-radius: 4px;
+    padding: 4px;
+    z-index: 10;
+}
+
+/* Estilo para descripciones expandibles */
+.description-field:hover {
+    max-height: none;
+    overflow: visible;
+    background-color: rgba(14, 55, 90, 0.8);
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+    position: relative;
+}
+
+/* Placeholder para imagen no encontrada */
+.image-placeholder {
+    width: 80px;
+    height: 60px;
+    background: linear-gradient(135deg, #4a7396, #69c0ff);
+    border-radius: 8px;
+    border: 2px solid #69c0ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #003366;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+    .image-placeholder:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(105, 192, 255, 0.4);
+    }

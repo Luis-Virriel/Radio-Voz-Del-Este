@@ -1,0 +1,554 @@
+﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.SponsorsViewModel
+@{
+	ViewBag.Title = "Nuestros Patrocinadores - Voz del Este";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="sponsors-container">
+	<div class="sponsors-header">
+		<div class="header-content">
+			<h1 class="page-title">
+				<i class="fas fa-handshake"></i>
+				Nuestros Patrocinadores
+			</h1>
+			<p class="page-subtitle">Empresas que confían en Radio Voz del Este</p>
+		</div>
+
+		<!-- Estadísticas -->
+		<div class="sponsors-stats">
+			<div class="stat-item">
+				<div class="stat-icon">
+					<i class="fas fa-building"></i>
+				</div>
+				<div class="stat-info">
+					<div class="stat-number">@Model.TotalSponsors</div>
+					<div class="stat-label">Patrocinadores</div>
+				</div>
+			</div>
+
+			<div class="stat-item">
+				<div class="stat-icon">
+					<i class="fas fa-star"></i>
+				</div>
+				<div class="stat-info">
+					<div class="stat-number">@Model.TotalPlans</div>
+					<div class="stat-label">Planes Activos</div>
+				</div>
+			</div>
+
+			<div class="stat-item">
+				<div class="stat-icon">
+					<i class="fas fa-chart-line"></i>
+				</div>
+				<div class="stat-info">
+					<div class="stat-number">@Model.AveragePlans.ToString("F1")</div>
+					<div class="stat-label">Promedio por Empresa</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Sponsors Grid Simplificado -->
+	<div class="sponsors-grid">
+		@if (Model.Sponsors != null && Model.Sponsors.Any())
+		{
+			foreach (var sponsor in Model.Sponsors)
+			{
+				<div class="sponsor-card" onclick="showSponsorDetails(@sponsor.ID)">
+					<h3 class="sponsor-name">@sponsor.SponsorsName</h3>
+				</div>
+			}
+		}
+		else
+		{
+			<div class="no-sponsors">
+				<i class="fas fa-handshake"></i>
+				<h3>No hay patrocinadores registrados</h3>
+				<p>Estamos trabajando para conseguir más patrocinadores. ¡Vuelve pronto!</p>
+			</div>
+		}
+	</div>
+
+	<!-- Call to Action -->
+	<div class="cta-section">
+		<div class="cta-content">
+			<h3>¿Quieres ser nuestro patrocinador?</h3>
+			<p>Únete a las empresas que confían en Radio Voz del Este para llegar a su audiencia</p>
+			<a href="mailto:patrocinios@vozdel-este.com" class="cta-button">
+				<i class="fas fa-paper-plane"></i>
+				Contáctanos
+			</a>
+		</div>
+	</div>
+
+	<!-- Botón de regreso -->
+	<div class="back-to-home">
+		<a href="@Url.Action("Index", "Home")" class="back-btn">
+			<i class="fas fa-arrow-left"></i>
+			Volver al Inicio
+		</a>
+	</div>
+</div>
+
+<!-- Modal para detalles del sponsor -->
+<div id="sponsorModal" class="modal hidden">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h4 id="modalTitle">Detalles del Patrocinador</h4>
+			<button class="close-btn" onclick="closeModal()">
+				<i class="fas fa-times"></i>
+			</button>
+		</div>
+		<div class="modal-body">
+			<div id="modalContent">
+				<!-- Contenido dinámico -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	/* Estilos generales */
+	.sponsors-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 20px;
+	}
+
+	.sponsors-header {
+		text-align: center;
+		margin-bottom: 40px;
+	}
+
+	.header-content {
+		margin-bottom: 30px;
+	}
+
+	.page-title {
+		font-size: 2.5rem;
+		color: #2c3e50;
+		margin-bottom: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 15px;
+	}
+
+	.page-subtitle {
+		font-size: 1.2rem;
+		color: #7f8c8d;
+	}
+
+	/* Estadísticas */
+	.sponsors-stats {
+		display: flex;
+		justify-content: center;
+		gap: 30px;
+		margin-bottom: 30px;
+		flex-wrap: wrap;
+	}
+
+	.stat-item {
+		display: flex;
+		align-items: center;
+		gap: 15px;
+		background: white;
+		padding: 20px;
+		border-radius: 15px;
+		box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+		transition: all 0.3s ease;
+	}
+
+		.stat-item:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+		}
+
+	.stat-icon {
+		width: 50px;
+		height: 50px;
+		background: #f39c12;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		font-size: 1.3rem;
+	}
+
+	.stat-number {
+		font-size: 1.8rem;
+		font-weight: bold;
+		color: #2c3e50;
+		margin-bottom: 5px;
+	}
+
+	.stat-label {
+		color: #7f8c8d;
+		font-size: 0.9rem;
+	}
+
+	/* Grid de patrocinadores simplificado */
+	.sponsors-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		gap: 20px;
+		margin-bottom: 40px;
+	}
+
+	.sponsor-card {
+		background: linear-gradient(135deg, #f39c12, #e67e22);
+		border-radius: 15px;
+		padding: 30px 20px;
+		text-align: center;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		animation: fadeInUp 0.5s ease-out;
+		color: white;
+		min-height: 100px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+		.sponsor-card:hover {
+			transform: translateY(-5px) scale(1.02);
+			box-shadow: 0 15px 30px rgba(243, 156, 18, 0.3);
+		}
+
+	.sponsor-name {
+		font-size: 1.3rem;
+		font-weight: 600;
+		margin: 0;
+		line-height: 1.3;
+		text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	}
+
+	.no-sponsors {
+		grid-column: 1 / -1;
+		text-align: center;
+		padding: 60px 20px;
+		color: #7f8c8d;
+	}
+
+		.no-sponsors i {
+			font-size: 4rem;
+			margin-bottom: 20px;
+			color: #bdc3c7;
+		}
+
+	/* Call to Action */
+	.cta-section {
+		background: linear-gradient(135deg, #667eea, #764ba2);
+		border-radius: 20px;
+		padding: 40px;
+		text-align: center;
+		margin-bottom: 40px;
+		color: white;
+	}
+
+	.cta-content h3 {
+		font-size: 2rem;
+		margin-bottom: 15px;
+	}
+
+	.cta-content p {
+		font-size: 1.1rem;
+		margin-bottom: 25px;
+		opacity: 0.9;
+	}
+
+	.cta-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		background: white;
+		color: #667eea;
+		padding: 15px 30px;
+		border-radius: 25px;
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.3s ease;
+	}
+
+		.cta-button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+			text-decoration: none;
+			color: #667eea;
+		}
+
+	/* Botón de regreso */
+	.back-to-home {
+		text-align: center;
+		margin-top: 40px;
+	}
+
+	.back-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		background: #3498db;
+		color: white;
+		padding: 15px 30px;
+		border-radius: 25px;
+		text-decoration: none;
+		font-size: 1.1rem;
+		transition: all 0.3s ease;
+	}
+
+		.back-btn:hover {
+			background: #2980b9;
+			text-decoration: none;
+			color: white;
+			transform: translateY(-2px);
+		}
+
+	/* Modal */
+	.modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0,0,0,0.5);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1000;
+		animation: fadeIn 0.3s ease;
+	}
+
+		.modal.hidden {
+			display: none;
+		}
+
+	.modal-content {
+		background: white;
+		border-radius: 20px;
+		padding: 0;
+		max-width: 500px;
+		width: 90%;
+		max-height: 80vh;
+		overflow: hidden;
+		animation: slideIn 0.3s ease;
+	}
+
+	.modal-header {
+		background: #f39c12;
+		color: white;
+		padding: 20px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.modal-body {
+		padding: 20px;
+	}
+
+	.close-btn {
+		background: none;
+		border: none;
+		color: white;
+		font-size: 1.2rem;
+		cursor: pointer;
+		padding: 5px;
+		border-radius: 50%;
+		transition: background-color 0.3s ease;
+	}
+
+		.close-btn:hover {
+			background: rgba(255,255,255,0.1);
+		}
+
+	/* Estilos del modal de detalles */
+	.sponsor-details-modal h4 {
+		color: #2c3e50;
+		margin-bottom: 20px;
+		font-size: 1.3rem;
+	}
+
+	.sponsor-details-modal p {
+		margin-bottom: 10px;
+		line-height: 1.5;
+	}
+
+	.sponsor-details-modal strong {
+		color: #f39c12;
+	}
+
+	/* Animaciones */
+	@@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
+
+	@@keyframes slideIn {
+		from {
+			opacity: 0;
+			transform: translateY(-50px);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Responsive */
+	@@media (max-width: 768px) {
+		.sponsors-grid {
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			gap: 15px;
+		}
+
+		.sponsors-stats {
+			flex-direction: column;
+			align-items: center;
+			gap: 20px;
+		}
+
+		.page-title {
+			font-size: 2rem;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		.cta-content h3 {
+			font-size: 1.5rem;
+		}
+
+		.sponsor-card {
+			padding: 20px 15px;
+			min-height: 80px;
+		}
+
+		.sponsor-name {
+			font-size: 1.1rem;
+		}
+	}
+
+	@@media (max-width: 480px) {
+		.sponsors-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.sponsor-name {
+			font-size: 1rem;
+		}
+	}
+</style>
+
+<script>
+    // Datos de los sponsors (generados desde el servidor)
+    const sponsorsData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Sponsors));
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initializePage();
+    });
+
+    function initializePage() {
+        animateCards();
+        animateStatistics();
+    }
+
+    function animateCards() {
+        const cards = document.querySelectorAll('.sponsor-card');
+        cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    }
+
+    function animateStatistics() {
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            const finalValue = parseFloat(stat.textContent);
+            if (finalValue > 0) {
+                animateCounter(stat, finalValue);
+            }
+        });
+    }
+
+    function animateCounter(element, finalValue) {
+        let currentValue = 0;
+        const increment = finalValue / 20;
+
+        const counter = setInterval(() => {
+            currentValue += increment;
+            if (currentValue >= finalValue) {
+                currentValue = finalValue;
+                clearInterval(counter);
+            }
+
+            element.textContent = Number.isInteger(finalValue)
+                ? Math.floor(currentValue)
+                : currentValue.toFixed(1);
+        }, 50);
+    }
+
+    function showSponsorDetails(sponsorId) {
+        const sponsor = sponsorsData.find(s => s.ID === sponsorId);
+        if (!sponsor) {
+            console.error('Sponsor no encontrado');
+            return;
+        }
+
+        updateModalContent(sponsor);
+        showModal();
+    }
+
+    function updateModalContent(sponsor) {
+        document.getElementById('modalTitle').textContent = sponsor.SponsorsName;
+        document.getElementById('modalContent').innerHTML = `
+            <div class="sponsor-details-modal">
+                <h4>Información del Patrocinador</h4>
+                <p><strong>Nombre:</strong> ${sponsor.SponsorsName}</p>
+                <p><strong>Descripción:</strong> ${sponsor.SponsorsDescription}</p>
+                <p><strong>Planes Activos:</strong> ${sponsor.CantPlan}</p>
+                <p><strong>ID:</strong> ${sponsor.ID}</p>
+            </div>
+        `;
+    }
+
+    function showModal() {
+        document.getElementById('sponsorModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevenir scroll
+    }
+
+    function closeModal() {
+        document.getElementById('sponsorModal').classList.add('hidden');
+        document.body.style.overflow = 'auto'; // Restaurar scroll
+    }
+
+    // Event listeners para cerrar modal
+    document.addEventListener('click', function(e) {
+        const modal = document.getElementById('sponsorModal');
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+</script>

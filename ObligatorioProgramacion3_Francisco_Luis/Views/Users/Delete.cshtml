@@ -1,63 +1,42 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.User
+
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar Usuario";
 }
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<!-- Fonts y Estilos -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
 <link href="~/Content/Styles/StylesUsers/StyleDeleteUser.css" rel="stylesheet" />
+
 <div class="delete-container">
     <h1 class="delete-title">Eliminar Usuario</h1>
-    <p class="delete-subtitle">¿Está seguro que desea eliminar este usuario?</p>
-    <hr class="delete-divider" />
+    <p class="confirm-text">¿Está seguro que desea eliminar este usuario?</p>
+    <hr />
 
-    <div class="warning-section">
-        <span class="warning-icon">⚠️</span>
-        <div class="warning-text">¡ATENCIÓN!</div>
-        <div class="warning-subtext">Esta acción no se puede deshacer</div>
-    </div>
+    <dl class="dl-horizontal">
+        <dt>Usuario:</dt>
+        <dd>@Html.DisplayFor(m => m.UserName)</dd>
 
-    <div class="user-info-container">
-        <h3 class="section-title">Información del Usuario</h3>
+        <dt>Correo Electrónico:</dt>
+        <dd>@Html.DisplayFor(m => m.Email)</dd>
 
-        <dl class="user-details">
-            <dt class="detail-label">
-                @Html.DisplayNameFor(model => model.UserName):
-            </dt>
-            <dd class="detail-value">
-                @Html.DisplayFor(model => model.UserName)
-            </dd>
+        <dt>Contraseña:</dt>
+        <dd class="password-value">•••••••••••</dd>
 
-            <dt class="detail-label">
-                @Html.DisplayNameFor(model => model.Email):
-            </dt>
-            <dd class="detail-value email-value">
-                @Html.DisplayFor(model => model.Email)
-            </dd>
+        <dt>Rol:</dt>
+        <dd>@Html.DisplayFor(m => m.Role.RoleName)</dd>
+    </dl>
 
-            <dt class="detail-label">
-                @Html.DisplayNameFor(model => model.UserPassword):
-            </dt>
-            <dd class="detail-value password-value">
-                ••••••••••••
-            </dd>
-
-            <dt class="detail-label">
-                @Html.DisplayNameFor(model => model.Role.RoleName):
-            </dt>
-            <dd class="detail-value role-value">
-                @Html.DisplayFor(model => model.Role.RoleName)
-            </dd>
-        </dl>
-    </div>
-
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Delete", "User", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ID)
+
         <div class="button-container">
-            <input type="submit" value="Confirmar Eliminación" class="delete-button" />
-            <span class="button-separator">|</span>
-            @Html.ActionLink("Cancelar", "Index", null, new { @class = "cancel-button" })
+            <input type="submit" value="Eliminar" class="btn" />
+            @Html.ActionLink("← Volver a la Lista", "Index", null, new { @class = "btn" })
         </div>
     }
 </div>

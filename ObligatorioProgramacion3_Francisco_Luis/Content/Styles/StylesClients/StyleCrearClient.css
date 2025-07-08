@@ -1,7 +1,7 @@
 ﻿/* ClientForm.css - Estilos para formulario de creación de cliente */
 .form-containerClient {
     background-color: #0e375a;
-    max-width: 600px; /* Aumentado de 450px a 600px */
+    max-width: 600px;
     margin: 40px auto;
     padding: 40px;
     border-radius: 15px;
@@ -10,14 +10,21 @@
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
 }
 
+.create-divider {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #69c0ff, transparent);
+    margin: 20px 0 30px 0;
+}
+
 .form-titleClient {
     text-align: center;
     font-size: 42px;
     margin-bottom: 35px;
     font-style: normal;
     color: #69c0ff;
-    font-weight: 400 !important; /* Paprika solo tiene peso 400, forzamos con !important */
-    font-family: "Bona Nova SC", serif; /* Forzamos con !important */
+    font-weight: 400 !important;
+    font-family: "Bona Nova SC", serif;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     letter-spacing: 1px;
 }
@@ -26,7 +33,7 @@
     width: 75%;
     padding: 12px;
     margin: 8px auto 20px auto;
-    border: none;
+    border: 2px solid transparent;
     border-radius: 10px;
     background-color: #a6c8ff;
     color: #003366;
@@ -39,19 +46,21 @@
 }
 
     .input-field:focus {
-        outline: none;
-        box-shadow: 0 0 8px rgba(105, 192, 255, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.1);
-        transform: scale(1.02);
+        outline: none !important;
+        border: 2px solid #69c0ff !important;
+        background-color: rgba(26, 35, 50, 0.9) !important;
+        box-shadow: 0 0 8px rgba(105, 192, 255, 0.4) !important;
+        transform: scale(1.01) !important;
+        color: #b3d9ff !important;
     }
 
-/* CONTENEDOR PARA BOTONES LADO A LADO */
 .buttons-container {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
     margin-top: 30px;
-    flex-wrap: wrap; /* Para que se adapte en pantallas pequeñas */
+    flex-wrap: wrap;
     width: 100%;
     text-align: center;
 }
@@ -80,7 +89,7 @@
     justify-content: center !important;
     width: auto !important;
     margin: 0 !important;
-    flex: 0 0 auto; /* No crece ni se encoge */
+    flex: 0 0 auto;
 }
 
     .submit-button:hover {
@@ -100,7 +109,6 @@
     text-align: center;
 }
 
-/* Clase específica para el form-group que contiene el botón submit */
 .buttons-container .form-group {
     margin-bottom: 0 !important;
     text-align: center;
@@ -112,17 +120,15 @@
     color: #69c0ff;
     margin-bottom: 8px;
     font-style: normal;
-    font-weight: 400 !important; /* Ajustado para Paprika y forzado */
+    font-weight: 400 !important;
     font-family: "Bona Nova SC", serif;
     letter-spacing: 0.5px;
 }
 
-/* Ocultar elementos que no queremos mostrar */
 .page-title {
     display: none;
 }
 
-/* Ajustar validación */
 .text-danger {
     color: #ff6b6b !important;
     font-size: 12px;
@@ -131,10 +137,9 @@
     font-family: "Bona Nova SC", serif;
 }
 
-/* Estilo para el enlace de regreso - MEJORADO y alineado con el botón */
 .back-link {
     text-align: center;
-    margin: 0; /* Sin margen ya que está en flex container */
+    margin: 0;
 }
 
     .back-link a {
@@ -160,7 +165,7 @@
         align-items: center !important;
         justify-content: center !important;
         text-decoration: none !important;
-        flex: 0 0 auto; /* No crece ni se encoge */
+        flex: 0 0 auto;
     }
 
         .back-link a:hover {
@@ -176,7 +181,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
         }
 
-/* Placeholder styling */
 .input-field::placeholder {
     color: #4a7396;
     opacity: 0.8;
@@ -184,19 +188,16 @@
     font-family: "Bona Nova SC", serif;
 }
 
-/* Asegurar que todos los elementos h4 usen la fuente */
 h4 {
     font-family: "Bona Nova SC", serif;
     font-weight: 400 !important;
 }
 
-/* Asegurar que todos los labels usen la fuente */
 label {
     font-family: "Bona Nova SC", serif;
     font-weight: 400 !important;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .form-containerClient {
         margin: 20px 10px;
@@ -213,7 +214,6 @@ label {
         width: 90%;
     }
 
-    /* En pantallas pequeñas, los botones se apilan verticalmente */
     .buttons-container {
         flex-direction: column;
         gap: 15px;

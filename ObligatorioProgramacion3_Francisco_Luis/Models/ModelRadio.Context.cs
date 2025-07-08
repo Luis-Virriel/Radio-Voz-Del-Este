@@ -35,5 +35,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
         public virtual DbSet<Sponsor> Sponsors { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Weather> Weathers { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
     }
 }
