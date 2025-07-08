@@ -16,6 +16,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         private RadioEntities db = new RadioEntities();
         private readonly string _weatherApiKey = "40ed30cc4da04b0fed28c1dd01a0e483";
         private readonly string currencyLayerApiKey = "ba030d742f03dfc719d832c8010a3f84";
+        //private readonly string currencyLayerApiKey = "da05f51aa5fa48102ba10b58210d8b57";
 
 
 

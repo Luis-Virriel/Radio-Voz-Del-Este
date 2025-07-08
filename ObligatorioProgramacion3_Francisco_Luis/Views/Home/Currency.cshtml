@@ -1,112 +1,610 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.HomeIndexViewModel
 
 @{
-	ViewBag.Title = "Cotizaciones en Pesos Uruguayos";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Cotizaciones en Pesos Uruguayos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
-	string GetFlagIcon(string key)
-	{
-		if (key.Contains("USD")) return "🇺🇸";
-		if (key.Contains("EUR")) return "🇪🇺";
-		if (key.Contains("BRL")) return "🇧🇷";
-		return "💱";
-	}
+    string GetFlagIcon(string key)
+    {
+        if (key.Contains("USD")) return "🇺🇸";
+        if (key.Contains("EUR")) return "🇪🇺";
+        if (key.Contains("BRL")) return "🇧🇷";
+        return "💱";
+    }
 
-	string GetLabel(string key)
-	{
-		if (key == "UYU/USD") return "Dólar (USD)";
-		if (key == "UYU/EUR") return "Euro (EUR)";
-		if (key == "UYU/BRL") return "Real (BRL)";
-		return key;
-	}
+    string GetLabel(string key)
+    {
+        if (key == "UYU/USD") return "Dólar (USD)";
+        if (key == "UYU/EUR") return "Euro (EUR)";
+        if (key == "UYU/BRL") return "Real (BRL)";
+        return key;
+    }
 }
 
 <div class="currency-container">
-	<h2 style="text-align:center; color:#2CA58D">Cotizaciones en Pesos Uruguayos (UYU)</h2>
+    <h2 style="text-align:center; color:#2CA58D">Cotizaciones en Pesos Uruguayos (UYU)</h2>
 
-	@if (Model.CurrencyData?.Timestamp != null)
-	{
-		var date = DateTimeOffset.FromUnixTimeSeconds(Model.CurrencyData.Timestamp.Value).ToLocalTime();
-		<div class="updated-at">Última actualización: @date.ToString("dd/MM/yyyy HH:mm")</div>
-	}
+    @if (Model.CurrencyData?.Timestamp != null)
+    {
+        var date = DateTimeOffset.FromUnixTimeSeconds(Model.CurrencyData.Timestamp.Value).ToLocalTime();
+        <div class="updated-at">Última actualización: @date.ToString("dd/MM/yyyy HH:mm")</div>
+    }
 
-	@if (Model.SelectedCurrencyQuotes != null && Model.SelectedCurrencyQuotes.Count > 0)
-	{
-		<div class="currency-grid">
-			@foreach (var item in Model.SelectedCurrencyQuotes)
-			{
-				<div class="currency-card">
-					<div class="flag">@GetFlagIcon(item.Key)</div>
-					<strong>@GetLabel(item.Key)</strong>
-					<div class="rate">@item.Value.ToString("N2") UYU</div>
-				</div>
-			}
-		</div>
-	}
-	else
-	{
-		<div class="error-msg">No hay datos de cotizaciones disponibles.</div>
-	}
+    @if (Model.SelectedCurrencyQuotes != null && Model.SelectedCurrencyQuotes.Count > 0)
+    {
+        <div class="currency-grid">
+            @foreach (var item in Model.SelectedCurrencyQuotes)
+            {
+                <div class="currency-card">
+                    <div class="flag">@GetFlagIcon(item.Key)</div>
+                    <strong>@GetLabel(item.Key)</strong>
+                    <div class="rate">@item.Value.ToString("N2") UYU</div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="error-msg">No hay datos de cotizaciones disponibles.</div>
+    }
+</div>
+
+<!-- Dashboard de Análisis de Cotizaciones -->
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h3>Dashboard de Análisis</h3>
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon">📈</div>
+                <div class="stat-content">
+                    <span class="stat-value">@(Model.SelectedCurrencyQuotes?.Count.ToString() ?? "0")</span>
+                    <span class="stat-label">Monedas Activas</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-content">
+                    <span class="stat-value">@(Model.SelectedCurrencyQuotes?.Values.Average().ToString("N2") ?? "0.00")</span>
+                    <span class="stat-label">Promedio UYU</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔄</div>
+                <div class="stat-content">
+                    <span class="stat-value">@(Model.SelectedCurrencyQuotes?.Values.Max().ToString("N2") ?? "0.00")</span>
+                    <span class="stat-label">Máximo UYU</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-content">
+        <!-- Gráfica de Barras -->
+        <div class="chart-section">
+            <h4>Comparación de Cotizaciones</h4>
+            <div class="chart-container">
+                <canvas id="currencyChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Tabla de Detalles -->
+        <div class="table-section">
+            <h4>Detalles de Cotizaciones</h4>
+            <div class="table-container">
+                <table class="currency-table">
+                    <thead>
+                        <tr>
+                            <th>Moneda</th>
+                            <th>Cotización</th>
+                            <th>Variación*</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.SelectedCurrencyQuotes != null)
+                        {
+                            foreach (var item in Model.SelectedCurrencyQuotes)
+                            {
+                                var isHigh = item.Value > Model.SelectedCurrencyQuotes.Values.Average();
+                                var variation = (item.Value - Model.SelectedCurrencyQuotes.Values.Average()) / Model.SelectedCurrencyQuotes.Values.Average() * 100;
+                                <tr>
+                                    <td>
+                                        <span class="currency-flag">@GetFlagIcon(item.Key)</span>
+                                        @GetLabel(item.Key)
+                                    </td>
+                                    <td class="rate-cell">@item.Value.ToString("N2") UYU</td>
+                                    <td class="variation-cell @(variation > 0 ? "positive" : "negative")">
+                                        @(variation > 0 ? "+" : "")@variation.ToString("N1")%
+                                    </td>
+                                    <td>
+                                        <span class="status-badge @(isHigh ? "high" : "low")">
+                                            @(isHigh ? "Alto" : "Bajo")
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Sección de Alertas -->
+        <div class="alerts-section">
+            <h4>Alertas y Notificaciones</h4>
+            <div class="alerts-container">
+                @if (Model.SelectedCurrencyQuotes != null && Model.SelectedCurrencyQuotes.Any())
+                {
+                    var maxCurrency = Model.SelectedCurrencyQuotes.OrderByDescending(x => x.Value).First();
+                    var minCurrency = Model.SelectedCurrencyQuotes.OrderBy(x => x.Value).First();
+
+                    <div class="alert alert-info">
+                        <div class="alert-icon">ℹ️</div>
+                        <div class="alert-content">
+                            <strong>Cotización más alta:</strong> @GetLabel(maxCurrency.Key) - @maxCurrency.Value.ToString("N2") UYU
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <div class="alert-icon">⚠️</div>
+                        <div class="alert-content">
+                            <strong>Cotización más baja:</strong> @GetLabel(minCurrency.Key) - @minCurrency.Value.ToString("N2") UYU
+                        </div>
+                    </div>
+                }
+
+                <div class="alert alert-success">
+                    <div class="alert-icon">✅</div>
+                    <div class="alert-content">
+                        <strong>Sistema activo:</strong> Datos actualizados correctamente
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer con información adicional -->
+    <div class="dashboard-footer">
+        <p><small>*Variación calculada respecto al promedio | Datos proporcionados por API externa</small></p>
+    </div>
 </div>
 
 <style>
-	.currency-container {
-		max-width: 850px;
-		margin: 2rem auto;
-		padding: 2rem;
-		background: #0A2342;
-		border-radius: 12px;
-		font-family: 'Segoe UI', sans-serif;
-		box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-		color: #DFF3E4;
-	}
+/* Estilos originales para cotizaciones */
+.currency-container {
+    max-width: 850px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #0A2342;
+    border-radius: 12px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    color: #DFF3E4;
+}
 
-	.updated-at {
-		text-align: center;
-		font-size: 0.95rem;
-		color: #8EA8C3;
-		margin-bottom: 1rem;
-	}
+.updated-at {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #8EA8C3;
+    margin-bottom: 1rem;
+}
 
-	.currency-grid {
-		display: flex;
-		gap: 1.5rem;
-		justify-content: center;
-		flex-wrap: wrap;
-		margin-top: 2rem;
-	}
+.currency-grid {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
 
-	.currency-card {
-		background: #2CA58D;
-		border-radius: 12px;
-		padding: 1.2rem 1.6rem;
-		color: #FFFDF7;
-		text-align: center;
-		width: 180px;
-		box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.3);
-		transition: transform 0.3s ease, background 0.3s;
-	}
+.currency-card {
+    background: #2CA58D;
+    border-radius: 12px;
+    padding: 1.2rem 1.6rem;
+    color: #FFFDF7;
+    text-align: center;
+    width: 180px;
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, background 0.3s;
+}
 
-		.currency-card:hover {
-			transform: scale(1.05);
-			background: #24987f;
-		}
+.currency-card:hover {
+    transform: scale(1.05);
+    background: #24987f;
+}
 
-	.flag {
-		font-size: 2rem;
-		margin-bottom: 0.5rem;
-	}
+.flag {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
 
-	.rate {
-		font-size: 1.6rem;
-		margin-top: 0.6rem;
-		font-weight: bold;
-	}
+.rate {
+    font-size: 1.6rem;
+    margin-top: 0.6rem;
+    font-weight: bold;
+}
 
-	.error-msg {
-		text-align: center;
-		color: #F46197;
-		font-weight: bold;
-		margin-top: 1rem;
-	}
+.error-msg {
+    text-align: center;
+    color: #F46197;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+/* Estilos del Dashboard */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #0A2342;
+    border-radius: 12px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    color: #DFF3E4;
+}
+
+.dashboard-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.dashboard-header h3 {
+    color: #2CA58D;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.dashboard-stats {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #2CA58D, #24987f);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: #FFFDF7;
+    text-align: center;
+    min-width: 160px;
+    box-shadow: 0 4px 15px rgba(44, 165, 141, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(44, 165, 141, 0.4);
+}
+
+.stat-icon {
+    font-size: 2rem;
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-top: 0.2rem;
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.chart-section {
+    grid-column: 1 / -1;
+    background: #123456;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.chart-section h4 {
+    color: #2CA58D;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.chart-container {
+    height: 300px;
+    position: relative;
+}
+
+.table-section {
+    background: #123456;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.table-section h4 {
+    color: #2CA58D;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.currency-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+.currency-table th,
+.currency-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #8EA8C3;
+}
+
+.currency-table th {
+    background: #2CA58D;
+    color: #FFFDF7;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.currency-table tr:hover {
+    background: rgba(44, 165, 141, 0.1);
+}
+
+.currency-flag {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.rate-cell {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.variation-cell {
+    font-weight: 600;
+}
+
+.variation-cell.positive {
+    color: #4CAF50;
+}
+
+.variation-cell.negative {
+    color: #F44336;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-badge.high {
+    background: #4CAF50;
+    color: white;
+}
+
+.status-badge.low {
+    background: #FF9800;
+    color: white;
+}
+
+.alerts-section {
+    background: #123456;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.alerts-section h4 {
+    color: #2CA58D;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.alerts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+
+.alert-info {
+    background: rgba(33, 150, 243, 0.1);
+    border-left-color: #2196F3;
+}
+
+.alert-warning {
+    background: rgba(255, 152, 0, 0.1);
+    border-left-color: #FF9800;
+}
+
+.alert-success {
+    background: rgba(76, 175, 80, 0.1);
+    border-left-color: #4CAF50;
+}
+
+.alert-icon {
+    font-size: 1.5rem;
+}
+
+.alert-content {
+    flex: 1;
+}
+
+.dashboard-footer {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid #8EA8C3;
+    color: #8EA8C3;
+}
+
+/* Responsive Design */
+@@media (max-width: 768px) {
+    .dashboard-content {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-card {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .chart-container {
+        height: 250px;
+    }
+
+    .currency-table {
+        font-size: 0.9rem;
+    }
+
+    .currency-table th,
+    .currency-table td {
+        padding: 0.5rem;
+    }
+}
+
+@@media (max-width: 480px) {
+    .dashboard-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .dashboard-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stat-icon {
+        font-size: 1.5rem;
+    }
+
+    .stat-value {
+        font-size: 1.4rem;
+    }
+}
 </style>
+
+<!-- Script para la gráfica -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('currencyChart').getContext('2d');
+
+    // Datos para la gráfica
+    var currencyData = {};
+    @if (Model.SelectedCurrencyQuotes != null)
+    {
+        <text>
+        currencyData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SelectedCurrencyQuotes));
+        </text>
+    }
+
+    const labels = Object.keys(currencyData).map(key => {
+        if (key === 'UYU/USD') return 'Dólar USD';
+        if (key === 'UYU/EUR') return 'Euro EUR';
+        if (key === 'UYU/BRL') return 'Real BRL';
+        return key;
+    });
+
+    const values = Object.values(currencyData);
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Cotización en UYU',
+                data: values,
+                backgroundColor: [
+                    '#2CA58D',
+                    '#F46197',
+                    '#FF6B35'
+                ],
+                borderColor: [
+                    '#24987f',
+                    '#d4537f',
+                    '#e55a2b'
+                ],
+                borderWidth: 2,
+                borderRadius: 8,
+                borderSkipped: false
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: '#0A2342',
+                    titleColor: '#DFF3E4',
+                    bodyColor: '#DFF3E4',
+                    borderColor: '#2CA58D',
+                    borderWidth: 1
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#8EA8C3',
+                        lineWidth: 0.5
+                    },
+                    ticks: {
+                        color: '#DFF3E4'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#DFF3E4'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
