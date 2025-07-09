@@ -1,97 +1,115 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.IO;
 using ObligatorioProgramacion3_Francisco_Luis.Models;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
-    public class RadioProgramsController : Controller
+    [Authorize]
+    public class RadioProgramsController : BaseController
     {
         private RadioEntities db = new RadioEntities();
 
         // GET: RadioPrograms
         public ActionResult Index()
         {
-            return View(db.RadioPrograms.ToList());
+            var permisos = Session["Permissions"] as List<string>;
+
+            if (permisos == null || permisos.Count == 0)
+            {
+                return new HttpUnauthorizedResult("No tiene permisos para acceder a esta sección.");
+            }
+
+            try
+            {
+                var radioPrograms = db.RadioPrograms.ToList();
+
+                ViewBag.Permissions = permisos;
+
+                System.Diagnostics.Debug.WriteLine("Permisos cargados: " + string.Join(", ", permisos));
+
+                return View(radioPrograms);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error en Index RadioPrograms: " + ex.Message);
+                ViewBag.ErrorMessage = "Error al cargar la lista de programas de radio.";
+                ViewBag.Permissions = permisos ?? new List<string>();
+                return View(new List<RadioProgram>());
+            }
         }
 
         // GET: RadioPrograms/Details/5
         public ActionResult Details(int? id)
         {
+            if (!HasPermission("ViewProgram"))
+                return new HttpUnauthorizedResult("No tiene permiso para ver detalles.");
+
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RadioProgram radioProgram = db.RadioPrograms.Find(id);
+
+            var radioProgram = db.RadioPrograms.Find(id);
             if (radioProgram == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(radioProgram);
         }
 
         // GET: RadioPrograms/Create
         public ActionResult Create()
         {
+            if (!HasPermission("CreateProgram"))
+                return new HttpUnauthorizedResult("No tiene permiso para crear programas.");
+
             return View();
         }
 
         // POST: RadioPrograms/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ProgramName,RadioDescription,Schedule")] RadioProgram radioProgram, HttpPostedFileBase ImageFile)
+        public ActionResult Create([Bind(Include = "ProgramName,RadioDescription,Schedule")] RadioProgram radioProgram, HttpPostedFileBase ImageFile)
         {
+            if (!HasPermission("CreateProgram"))
+                return new HttpUnauthorizedResult("No tiene permiso para crear programas.");
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    // Procesar la imagen si se subió un archivo
                     if (ImageFile != null && ImageFile.ContentLength > 0)
                     {
-                        // Validar el tipo de archivo
                         var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
-                        var extension = Path.GetExtension(ImageFile.FileName).ToLower();
+                        var ext = Path.GetExtension(ImageFile.FileName).ToLower();
 
-                        if (!allowedExtensions.Contains(extension))
+                        if (!allowedExtensions.Contains(ext))
                         {
-                            ModelState.AddModelError("ImageFile", "Solo se permiten archivos de imagen (JPG, PNG, GIF)");
+                            ModelState.AddModelError("ImageFile", "Solo se permiten imágenes JPG, PNG, GIF.");
                             return View(radioProgram);
                         }
 
-                        // Validar el tamaño del archivo (5MB máximo)
                         if (ImageFile.ContentLength > 5 * 1024 * 1024)
                         {
-                            ModelState.AddModelError("ImageFile", "El archivo no puede ser mayor a 5MB");
+                            ModelState.AddModelError("ImageFile", "El archivo no puede superar los 5MB.");
                             return View(radioProgram);
                         }
 
-                        // Crear nombre único para el archivo
-                        var fileName = Guid.NewGuid().ToString() + extension;
+                        var fileName = Guid.NewGuid() + ext;
                         var uploadPath = Server.MapPath("~/Content/Images/");
-
-                        // Crear el directorio si no existe
                         if (!Directory.Exists(uploadPath))
-                        {
                             Directory.CreateDirectory(uploadPath);
-                        }
 
-                        var filePath = Path.Combine(uploadPath, fileName);
+                        var path = Path.Combine(uploadPath, fileName);
+                        ImageFile.SaveAs(path);
 
-                        // Guardar el archivo
-                        ImageFile.SaveAs(filePath);
-
-                        // Establecer la URL de la imagen
                         radioProgram.ImageURL = "/Content/Images/" + fileName;
                     }
                     else
                     {
-                        // Si no se subió imagen, usar una imagen por defecto o dejar vacío
                         radioProgram.ImageURL = "/Content/Images/default-program.png";
                     }
 
@@ -111,79 +129,70 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: RadioPrograms/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!HasPermission("EditProgram"))
+                return new HttpUnauthorizedResult("No tiene permiso para editar programas.");
+
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RadioProgram radioProgram = db.RadioPrograms.Find(id);
+
+            var radioProgram = db.RadioPrograms.Find(id);
             if (radioProgram == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(radioProgram);
         }
 
         // POST: RadioPrograms/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ProgramName,RadioDescription,Schedule")] RadioProgram radioProgram, HttpPostedFileBase ImageFile)
+        public ActionResult Edit([Bind(Include = "ID,ProgramName,RadioDescription,Schedule,ImageURL")] RadioProgram radioProgram, HttpPostedFileBase ImageFile)
         {
+            if (!HasPermission("EditProgram"))
+                return new HttpUnauthorizedResult("No tiene permiso para editar programas.");
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    // Si se subió una nueva imagen
                     if (ImageFile != null && ImageFile.ContentLength > 0)
                     {
-                        // Validar el tipo de archivo
                         var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
-                        var extension = Path.GetExtension(ImageFile.FileName).ToLower();
+                        var ext = Path.GetExtension(ImageFile.FileName).ToLower();
 
-                        if (!allowedExtensions.Contains(extension))
+                        if (!allowedExtensions.Contains(ext))
                         {
-                            ModelState.AddModelError("ImageFile", "Solo se permiten archivos de imagen (JPG, PNG, GIF)");
+                            ModelState.AddModelError("ImageFile", "Solo se permiten imágenes JPG, PNG, GIF.");
                             return View(radioProgram);
                         }
 
-                        // Validar el tamaño del archivo
                         if (ImageFile.ContentLength > 5 * 1024 * 1024)
                         {
-                            ModelState.AddModelError("ImageFile", "El archivo no puede ser mayor a 5MB");
+                            ModelState.AddModelError("ImageFile", "El archivo no puede superar los 5MB.");
                             return View(radioProgram);
                         }
 
-                        // Obtener el programa actual para eliminar la imagen anterior
-                        var currentProgram = db.RadioPrograms.AsNoTracking().FirstOrDefault(x => x.ID == radioProgram.ID);
-                        if (currentProgram != null && !string.IsNullOrEmpty(currentProgram.ImageURL))
+                        var old = db.RadioPrograms.AsNoTracking().FirstOrDefault(r => r.ID == radioProgram.ID);
+                        if (old != null && !string.IsNullOrEmpty(old.ImageURL) && !old.ImageURL.Contains("default-program.png"))
                         {
-                            var oldImagePath = Server.MapPath("~" + currentProgram.ImageURL);
-                            if (System.IO.File.Exists(oldImagePath) && !currentProgram.ImageURL.Contains("default-program.png"))
-                            {
-                                System.IO.File.Delete(oldImagePath);
-                            }
+                            var oldPath = Server.MapPath("~" + old.ImageURL);
+                            if (System.IO.File.Exists(oldPath))
+                                System.IO.File.Delete(oldPath);
                         }
 
-                        // Guardar nueva imagen
-                        var fileName = Guid.NewGuid().ToString() + extension;
+                        var fileName = Guid.NewGuid() + ext;
                         var uploadPath = Server.MapPath("~/Content/Images/");
-
                         if (!Directory.Exists(uploadPath))
-                        {
                             Directory.CreateDirectory(uploadPath);
-                        }
 
-                        var filePath = Path.Combine(uploadPath, fileName);
-                        ImageFile.SaveAs(filePath);
+                        var path = Path.Combine(uploadPath, fileName);
+                        ImageFile.SaveAs(path);
                         radioProgram.ImageURL = "/Content/Images/" + fileName;
                     }
                     else
                     {
-                        // Mantener la imagen actual
-                        var currentProgram = db.RadioPrograms.AsNoTracking().FirstOrDefault(x => x.ID == radioProgram.ID);
-                        if (currentProgram != null)
-                        {
-                            radioProgram.ImageURL = currentProgram.ImageURL;
-                        }
+                        var current = db.RadioPrograms.AsNoTracking().FirstOrDefault(r => r.ID == radioProgram.ID);
+                        if (current != null)
+                            radioProgram.ImageURL = current.ImageURL;
                     }
 
                     db.Entry(radioProgram).State = EntityState.Modified;
@@ -202,15 +211,16 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: RadioPrograms/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!HasPermission("DeleteProgram"))
+                return new HttpUnauthorizedResult("No tiene permiso para eliminar programas.");
+
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RadioProgram radioProgram = db.RadioPrograms.Find(id);
+
+            var radioProgram = db.RadioPrograms.Find(id);
             if (radioProgram == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(radioProgram);
         }
 
@@ -219,26 +229,30 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            RadioProgram radioProgram = db.RadioPrograms.Find(id);
+            if (!HasPermission("DeleteProgram"))
+                return new HttpUnauthorizedResult("No tiene permiso para eliminar programas.");
 
-            // Eliminar la imagen del servidor si existe
-            if (!string.IsNullOrEmpty(radioProgram.ImageURL) && !radioProgram.ImageURL.Contains("default-program.png"))
+            var radioProgram = db.RadioPrograms.Find(id);
+
+            if (radioProgram != null)
             {
-                var imagePath = Server.MapPath("~" + radioProgram.ImageURL);
-                if (System.IO.File.Exists(imagePath))
+                if (!string.IsNullOrEmpty(radioProgram.ImageURL) && !radioProgram.ImageURL.Contains("default-program.png"))
                 {
-                    System.IO.File.Delete(imagePath);
+                    var imgPath = Server.MapPath("~" + radioProgram.ImageURL);
+                    if (System.IO.File.Exists(imgPath))
+                        System.IO.File.Delete(imgPath);
                 }
+
+                db.RadioPrograms.Remove(radioProgram);
+                db.SaveChanges();
             }
 
-            db.RadioPrograms.Remove(radioProgram);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposing && db != null)
             {
                 db.Dispose();
             }

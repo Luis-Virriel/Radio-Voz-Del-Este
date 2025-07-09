@@ -1,45 +1,51 @@
 ﻿@model IEnumerable<ObligatorioProgramacion3_Francisco_Luis.Models.Host>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Hosts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var permissions = Session["Permissions"] as List<string> ?? new List<string>();
 }
 
-<h2>Index</h2>
+<h2>Hosts</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (permissions.Contains("CreateHost"))
+    {
+        @Html.ActionLink("Crear Nuevo Host", "Create", null, new { @class = "btn btn-primary" })
+    }
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.HostName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RadioProgram.ProgramName)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.HostName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RadioProgram.ProgramName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.HostName)</th>
+            <th>@Html.DisplayNameFor(model => model.Bio)</th>
+            <th>@Html.DisplayNameFor(model => model.RadioProgram.ProgramName)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => item.HostName)</td>
+                <td>@Html.DisplayFor(m => item.Bio)</td>
+                <td>@Html.DisplayFor(m => item.RadioProgram.ProgramName)</td>
+                <td>
+                    @if (permissions.Contains("EditHost"))
+                    {
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }) <text> | </text>
+                    }
+                    @if (permissions.Contains("ViewHost"))
+                    {
+                        @Html.ActionLink("Detalles", "Details", new { id = item.ID }) <text> | </text>
+                    }
+                    @if (permissions.Contains("DeleteHost"))
+                    {
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

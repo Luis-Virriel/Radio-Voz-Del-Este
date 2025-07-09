@@ -113,6 +113,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 }
 
                 db.SaveChanges();
+
+                // **ACTUALIZAR SESIÓN CON EL ROL Y PERMISOS NUEVOS**
+                Session["Role"] = role.RoleName;
+                Session["Permissions"] = selectedPermissions.Select(p => p.PermissionName).ToList();
+
                 return RedirectToAction("Index");
             }
 

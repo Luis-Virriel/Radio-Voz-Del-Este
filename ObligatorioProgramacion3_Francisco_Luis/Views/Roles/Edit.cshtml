@@ -2,163 +2,162 @@
 @{
     ViewBag.Title = "Editar Rol";
 }
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
 <link href="~/Content/Styles/StylesRoles/StyleEditRol.css" rel="stylesheet" />
-
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.ID)
 
-<div class="form-horizontal">
-    <h2>Editar Rol</h2>
-    <h4>Rol</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h2>Editar Rol</h2>
+        <h4>Rol</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.RoleName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.RoleName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.RoleName, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.RoleName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.RoleName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.RoleName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <h4>Permisos</h4>
+        <div class="form-group col-md-offset-2 col-md-10">
+
+            <!-- Sección Usuario -->
+            <div class="permission-section">Usuario</div>
+            @for (int i = 0; i < Model.Permissions.Count; i++)
+            {
+                if (Model.Permissions[i].PermissionName.Contains("User"))
+                {
+                    <div class="checkbox">
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionID)
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionName)
+                        <label>
+                            @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
+                            @Model.Permissions[i].PermissionName
+                        </label>
+                    </div>
+                }
+            }
+
+            <!-- Sección Cliente -->
+            <div class="permission-section">Cliente</div>
+            @for (int i = 0; i < Model.Permissions.Count; i++)
+            {
+                if (Model.Permissions[i].PermissionName.Contains("Client"))
+                {
+                    <div class="checkbox">
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionID)
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionName)
+                        <label>
+                            @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
+                            @Model.Permissions[i].PermissionName
+                        </label>
+                    </div>
+                }
+            }
+
+            <!-- Sección Programa -->
+            <div class="permission-section">Programa</div>
+            @for (int i = 0; i < Model.Permissions.Count; i++)
+            {
+                if (Model.Permissions[i].PermissionName.Contains("Program"))
+                {
+                    <div class="checkbox">
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionID)
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionName)
+                        <label>
+                            @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
+                            @Model.Permissions[i].PermissionName
+                        </label>
+                    </div>
+                }
+            }
+            <!-- Sección Hosts -->
+            <div class="permission-section">Hosts</div>
+            @for (int i = 0; i < Model.Permissions.Count; i++)
+            {
+                if (Model.Permissions[i].PermissionName.Contains("Host"))
+                {
+                    <div class="checkbox">
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionID)
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionName)
+                        <label>
+                            @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
+                            @Model.Permissions[i].PermissionName
+                        </label>
+                    </div>
+                }
+            }
+
+            <!-- Sección Sponsors -->
+            <div class="permission-section">Sponsors</div>
+            @for (int i = 0; i < Model.Permissions.Count; i++)
+            {
+                if (Model.Permissions[i].PermissionName.Contains("Sponsor"))
+                {
+                    <div class="checkbox">
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionID)
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionName)
+                        <label>
+                            @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
+                            @Model.Permissions[i].PermissionName
+                        </label>
+                    </div>
+                }
+            }
+            <!-- Sección Noticias -->
+            <div class="permission-section">Noticias</div>
+            @for (int i = 0; i < Model.Permissions.Count; i++)
+            {
+                if (Model.Permissions[i].PermissionName.Contains("News"))
+                {
+                    <div class="checkbox">
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionID)
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionName)
+                        <label>
+                            @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
+                            @Model.Permissions[i].PermissionName
+                        </label>
+                    </div>
+                }
+            }
+
+            <!-- Sección Comentarios -->
+            <div class="permission-section">Comentarios</div>
+            @for (int i = 0; i < Model.Permissions.Count; i++)
+            {
+                if (Model.Permissions[i].PermissionName.Contains("Comments"))
+                {
+                    <div class="checkbox">
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionID)
+                        @Html.HiddenFor(m => m.Permissions[i].PermissionName)
+                        <label>
+                            @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
+                            @Model.Permissions[i].PermissionName
+                        </label>
+                    </div>
+                }
+            }
+
+            
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+            </div>
         </div>
     </div>
-
-    <h4>Permisos</h4>
-    <div class="form-group col-md-offset-2 col-md-10">
-
-        <!-- Sección Usuario -->
-        <div class="permission-section">Usuario</div>
-        @for (int i = 0; i < Model.Permissions.Count; i++)
-        {
-            if (Model.Permissions[i].PermissionName.Contains("User"))
-            {
-                <div class="checkbox">
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionID)
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionName)
-                    <label>
-                        @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
-                        @Model.Permissions[i].PermissionName
-                    </label>
-                </div>
-            }
-        }
-
-        <!-- Sección Cliente -->
-        <div class="permission-section">Cliente</div>
-        @for (int i = 0; i < Model.Permissions.Count; i++)
-        {
-            if (Model.Permissions[i].PermissionName.Contains("Client"))
-            {
-                <div class="checkbox">
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionID)
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionName)
-                    <label>
-                        @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
-                        @Model.Permissions[i].PermissionName
-                    </label>
-                </div>
-            }
-        }
-
-        <!-- Sección Programa -->
-        <div class="permission-section">Programa</div>
-        @for (int i = 0; i < Model.Permissions.Count; i++)
-        {
-            if (Model.Permissions[i].PermissionName.Contains("Program"))
-            {
-                <div class="checkbox">
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionID)
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionName)
-                    <label>
-                        @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
-                        @Model.Permissions[i].PermissionName
-                    </label>
-                </div>
-            }
-        }
-
-        <!-- Sección Noticias -->
-        <div class="permission-section">Noticias</div>
-        @for (int i = 0; i < Model.Permissions.Count; i++)
-        {
-            if (Model.Permissions[i].PermissionName.Contains("News"))
-            {
-                <div class="checkbox">
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionID)
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionName)
-                    <label>
-                        @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
-                        @Model.Permissions[i].PermissionName
-                    </label>
-                </div>
-            }
-        }
-
-        <!-- Sección Comentarios -->
-        <div class="permission-section">Comentarios</div>
-        @for (int i = 0; i < Model.Permissions.Count; i++)
-        {
-            if (Model.Permissions[i].PermissionName.Contains("Comments"))
-            {
-                <div class="checkbox">
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionID)
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionName)
-                    <label>
-                        @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
-                        @Model.Permissions[i].PermissionName
-                    </label>
-                </div>
-            }
-        }
-
-        <!-- Sección Tipo de Cambio -->
-        <div class="permission-section">Tipo de Cambio</div>
-        @for (int i = 0; i < Model.Permissions.Count; i++)
-        {
-            if (Model.Permissions[i].PermissionName.Contains("ExchangeRate"))
-            {
-                <div class="checkbox">
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionID)
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionName)
-                    <label>
-                        @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
-                        @Model.Permissions[i].PermissionName
-                    </label>
-                </div>
-            }
-        }
-
-        <!-- Sección Clima -->
-        <div class="permission-section">Clima</div>
-        @for (int i = 0; i < Model.Permissions.Count; i++)
-        {
-            if (Model.Permissions[i].PermissionName.Contains("Weather"))
-            {
-                <div class="checkbox">
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionID)
-                    @Html.HiddenFor(m => m.Permissions[i].PermissionName)
-                    <label>
-                        @Html.CheckBoxFor(m => m.Permissions[i].IsAssigned)
-                        @Model.Permissions[i].PermissionName
-                    </label>
-                </div>
-            }
-        }
-
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Guardar" class="btn btn-primary" />
-            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
-        </div>
-    </div>
-</div>
 }
 
 @section Scripts {

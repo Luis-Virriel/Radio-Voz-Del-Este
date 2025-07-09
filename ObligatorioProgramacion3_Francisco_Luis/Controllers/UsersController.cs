@@ -14,6 +14,10 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Users
         public ActionResult Index()
         {
+            // Permite acceso a la página si tiene al menos 1 permiso
+            if (Session["Permissions"] == null || ((System.Collections.Generic.List<string>)Session["Permissions"]).Count == 0)
+                return RedirectToAction("Login", "Account");
+
             var users = db.Users.Include(u => u.Role);
             return View(users.ToList());
         }
@@ -21,6 +25,10 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
+            // Requiere permiso específico ViewUser para detalles
+            if (!HasPermission("ViewUser"))
+                return RedirectToAction("Login", "Account");
+
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
@@ -34,6 +42,9 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
+            if (!HasPermission("CreateUser"))
+                return RedirectToAction("Login", "Account");
+
             ViewBag.RoleID = new SelectList(db.Roles, "ID", "RoleName");
             return View();
         }
@@ -43,9 +54,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,UserName,Email,UserPassword,RoleID")] User user)
         {
+            if (!HasPermission("CreateUser"))
+                return RedirectToAction("Login", "Account");
+
             if (ModelState.IsValid)
             {
-                // Hashear la contraseña antes de guardar con BCrypt
                 user.UserPassword = HashPasswordBCrypt(user.UserPassword);
                 db.Users.Add(user);
                 db.SaveChanges();
@@ -59,6 +72,9 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!HasPermission("EditUser"))
+                return RedirectToAction("Login", "Account");
+
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
@@ -66,8 +82,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             if (user == null)
                 return HttpNotFound();
 
-            // Dejar el campo contraseña vacío para que no muestre la contraseña actual
-            user.UserPassword = null;
+            user.UserPassword = null; // no mostrar contraseña actual
 
             ViewBag.RoleID = new SelectList(db.Roles, "ID", "RoleName", user.RoleID);
             return View(user);
@@ -78,6 +93,9 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,UserName,Email,UserPassword,RoleID")] User user)
         {
+            if (!HasPermission("EditUser"))
+                return RedirectToAction("Login", "Account");
+
             if (ModelState.IsValid)
             {
                 var userInDb = db.Users.AsNoTracking().FirstOrDefault(u => u.ID == user.ID);
@@ -86,12 +104,10 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
                 if (!string.IsNullOrWhiteSpace(user.UserPassword))
                 {
-                    // Si el usuario ingresó nueva contraseña, hashearla
                     user.UserPassword = HashPasswordBCrypt(user.UserPassword);
                 }
                 else
                 {
-                    // Si el campo está vacío, mantener la contraseña anterior
                     user.UserPassword = userInDb.UserPassword;
                 }
 
@@ -107,6 +123,9 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Users/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!HasPermission("DeleteUser"))
+                return RedirectToAction("Login", "Account");
+
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
@@ -122,6 +141,9 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (!HasPermission("DeleteUser"))
+                return RedirectToAction("Login", "Account");
+
             User user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
@@ -135,7 +157,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             base.Dispose(disposing);
         }
 
-        // Función para hashear contraseña usando BCrypt
         private string HashPasswordBCrypt(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);

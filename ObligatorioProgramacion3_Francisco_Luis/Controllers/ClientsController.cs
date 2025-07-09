@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ObligatorioProgramacion3_Francisco_Luis.Models;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
     [Authorize]
-    public class ClientsController : Controller
+    public class ClientsController : BaseController
     {
         private RadioEntities db = new RadioEntities();
 
         // GET: Clients
         public ActionResult Index()
         {
+            var permisos = Session["Permissions"] as List<string>;
+            if (permisos == null || permisos.Count == 0)
+            {
+                return new HttpUnauthorizedResult("No tiene permisos para acceder a esta sección.");
+            }
+
             try
             {
                 var clients = db.Clients.Include(c => c.User);
@@ -34,6 +38,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Clients/Details/5
         public ActionResult Details(string id)
         {
+            if (!HasPermission("View"))
+            {
+                return new HttpUnauthorizedResult("No tiene permiso para ver detalles de clientes.");
+            }
+
             if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -58,6 +67,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Clients/Create
         public ActionResult Create()
         {
+            if (!HasPermission("CreateClient"))
+            {
+                return new HttpUnauthorizedResult("No tiene permiso para crear clientes.");
+            }
+
             try
             {
                 ViewBag.UserID = new SelectList(db.Users, "ID", "UserName");
@@ -71,15 +85,19 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             }
         }
 
-  
         // POST: Clients/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDNumber,FirstName,LastName,Email,BirthDate,UserID")] Client client)
         {
+            if (!HasPermission("CreateClient"))
+            {
+                return new HttpUnauthorizedResult("No tiene permiso para crear clientes.");
+            }
+
             try
             {
-                // Validar que el IDNumber no exista ya
+                // Validaciones únicas
                 if (!string.IsNullOrEmpty(client.IDNumber))
                 {
                     var existingClient = db.Clients.Find(client.IDNumber);
@@ -89,7 +107,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     }
                 }
 
-                // Validar que el Email no exista ya
                 if (!string.IsNullOrEmpty(client.Email))
                 {
                     var existingEmail = db.Clients.FirstOrDefault(c => c.Email == client.Email);
@@ -99,7 +116,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     }
                 }
 
-                // Validar que el UserID no esté asociado a otro cliente
                 if (client.UserID.HasValue)
                 {
                     var existingUser = db.Clients.FirstOrDefault(c => c.UserID == client.UserID);
@@ -119,7 +135,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException ex)
             {
-                // Manejar errores de validación de Entity Framework
                 foreach (var eve in ex.EntityValidationErrors)
                 {
                     System.Diagnostics.Debug.WriteLine("Entidad con error: {0}", eve.Entry.Entity.GetType().Name);
@@ -133,19 +148,15 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error de actualización de BD: " + ex.Message);
-                if (ex.InnerException != null)
-                {
-                    System.Diagnostics.Debug.WriteLine("Inner Exception: " + ex.InnerException.Message);
-                }
                 ModelState.AddModelError("", "Error al guardar en la base de datos. Verifique que los datos sean correctos.");
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error general en Create: " + ex.Message);
-                ModelState.AddModelError("", "Ocurrió un error inesperado al guardar el cliente. Por favor, inténtelo nuevamente.");
+                ModelState.AddModelError("", "Ocurrió un error inesperado al guardar el cliente.");
             }
 
-            // Si hubo errores, recargar ViewBag.UserID y devolver la vista
+            // Recargar ViewBag para el dropdown de usuarios
             try
             {
                 ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", client.UserID);
@@ -158,11 +169,15 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
             return View(client);
         }
-    
 
         // GET: Clients/Edit/5
         public ActionResult Edit(string id)
         {
+            if (!HasPermission("EditClient"))
+            {
+                return new HttpUnauthorizedResult("No tiene permiso para editar clientes.");
+            }
+
             if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -190,9 +205,13 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IDNumber,FirstName,LastName,Email,BirthDate,UserID")] Client client)
         {
+            if (!HasPermission("EditClient"))
+            {
+                return new HttpUnauthorizedResult("No tiene permiso para editar clientes.");
+            }
+
             try
             {
-                // Validar que el Email no esté usado por otro cliente
                 if (!string.IsNullOrEmpty(client.Email))
                 {
                     var existingEmail = db.Clients.FirstOrDefault(c => c.Email == client.Email && c.IDNumber != client.IDNumber);
@@ -202,7 +221,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     }
                 }
 
-                // Validar que el UserID no esté usado por otro cliente
                 if (client.UserID.HasValue)
                 {
                     var existingUser = db.Clients.FirstOrDefault(c => c.UserID == client.UserID && c.IDNumber != client.IDNumber);
@@ -235,7 +253,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error de actualización de BD: " + ex.Message);
-                ModelState.AddModelError("", "Error al actualizar en la base de datos. Verifique que los datos sean correctos.");
+                ModelState.AddModelError("", "Error al actualizar en la base de datos.");
             }
             catch (Exception ex)
             {
@@ -243,7 +261,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 ModelState.AddModelError("", "Ocurrió un error inesperado al actualizar el cliente.");
             }
 
-            // Si hubo error, recargar ViewBag.UserID
             try
             {
                 ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", client.UserID);
@@ -260,6 +277,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Clients/Delete/5
         public ActionResult Delete(string id)
         {
+            if (!HasPermission("DeleteClient"))
+            {
+                return new HttpUnauthorizedResult("No tiene permiso para eliminar clientes.");
+            }
+
             if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -286,6 +308,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            if (!HasPermission("DeleteClient"))
+            {
+                return new HttpUnauthorizedResult("No tiene permiso para eliminar clientes.");
+            }
+
             try
             {
                 Client client = db.Clients.Find(id);

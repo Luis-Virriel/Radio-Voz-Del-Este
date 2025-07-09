@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<ObligatorioProgramacion3_Francisco_Luis.Models.Client>
+
 @{
     ViewBag.Title = "Clientes";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var permissions = Session["Permissions"] as List<string> ?? new List<string>();
 }
 
 @* Incluir el CSS personalizado *@
@@ -14,7 +16,10 @@
     <h2 class="index-title">Lista de Clientes <i class="fas fa-microphone"></i></h2>
 
     <div class="create-button-container">
-        @Html.ActionLink("Crear Nuevo Cliente", "Create", null, new { @class = "create-button" })
+        @if (permissions.Contains("CreateClient"))
+        {
+            @Html.ActionLink("Crear Nuevo Cliente", "Create", null, new { @class = "create-button" })
+        }
     </div>
 
     @if (Model != null && Model.Any())
@@ -41,11 +46,20 @@
                             <td>@Html.DisplayFor(modelItem => item.BirthDate)</td>
                             <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
                             <td class="action-links">
-                                @Html.ActionLink("Editar", "Edit", new { id = item.IDNumber })
-                                <span class="action-separator">|</span>
-                                @Html.ActionLink("Detalles", "Details", new { id = item.IDNumber })
-                                <span class="action-separator">|</span>
-                                @Html.ActionLink("Eliminar", "Delete", new { id = item.IDNumber })
+                                @if (permissions.Contains("EditClient"))
+                                {
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.IDNumber })
+                                    <span class="action-separator">|</span>
+                                }
+                                @if (permissions.Contains("ViewClient"))
+                                {
+                                    @Html.ActionLink("Detalles", "Details", new { id = item.IDNumber })
+                                    <span class="action-separator">|</span>
+                                }
+                                @if (permissions.Contains("DeleteClient"))
+                                {
+                                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IDNumber })
+                                }
                             </td>
                         </tr>
                     }
