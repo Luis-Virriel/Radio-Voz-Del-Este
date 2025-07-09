@@ -1,426 +1,742 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.HomeIndexViewModel
 @{
-    ViewBag.Title = "Voz del Este";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Voz del Este";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="bg-dark text-light min-vh-100">
-    <!-- Header minimalista con widgets en extremos -->
-    <div class="container-fluid py-4">
-        <div class="row align-items-center">
-            <!-- Widget del Clima - Extremo izquierdo -->
-            <div class="col-auto">
-                <a href="@Url.Action("Weather", "Home")" class="text-decoration-none">
-                    <div class="widget-minimal clima-widget">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="weather-icon">🌤️</span>
-                            <div>
-                                @if (Model.HasWeatherData)
-                                {
-                                    <div class="temp-display">@Model.CurrentTemperature</div>
-                                    <small class="weather-desc">@Model.CurrentDescription</small>
-                                }
-                                else
-                                {
-                                    <div class="temp-display">--°</div>
-                                    <small class="weather-desc">Sin datos</small>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+<div class="main-layout">
+	<!-- News Sidebar -->
+	<aside class="news-sidebar">
+		<div class="sidebar-card">
+			<div class="sidebar-header">
+				<div class="sidebar-icon news-icon">
+					<i class="fas fa-newspaper"></i>
+				</div>
+				<h3 class="sidebar-title">Últimas Noticias</h3>
+			</div>
 
-            <!-- Logo/Título centrado -->
-            <div class="col text-center">
-                <h1 class="radio-title">Voz del Este</h1>
-            </div>
+			<a href="@Url.Action("News", "Home", new { category = "Local", title = "Inauguración del nuevo centro cultural en Maldonado" })" class="news-item">
+				<span class="news-category">Local</span>
+				<h4 class="news-title">Inauguración del nuevo centro cultural en Maldonado</h4>
+				<div class="news-time">
+					<i class="fas fa-clock"></i>
+					Hace 2 horas
+				</div>
+			</a>
 
-            <!-- Widget de Moneda - Extremo derecho -->
-            <div class="col-auto">
-                <a href="@Url.Action("Currency", "Home")" class="text-decoration-none">
-                    <div class="widget-minimal moneda-widget">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="currency-icon">💲</span>
-                            <div>
-                                @if (Model.HasCurrencyData && Model.CurrencyData.Quotes.ContainsKey("USDUYU"))
-                                {
-                                    <div class="currency-display">$@Model.CurrencyData.Quotes["USDUYU"].ToString("0.00")</div>
-                                    <small class="currency-desc">USD/UYU</small>
-                                }
-                                else
-                                {
-                                    <div class="currency-display">$--</div>
-                                    <small class="currency-desc">Sin datos</small>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
+			<a href="@Url.Action("News", "Home", new { category = "Deportes", title = "Peñarol vence 2-1 a Nacional en el clásico uruguayo" })" class="news-item">
+				<span class="news-category">Deportes</span>
+				<h4 class="news-title">Peñarol vence 2-1 a Nacional en el clásico uruguayo</h4>
+				<div class="news-time">
+					<i class="fas fa-clock"></i>
+					Hace 4 horas
+				</div>
+			</a>
 
-    <!-- Sección principal - Audio centrado -->
-    <div class="container-fluid">
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-6 col-lg-4 text-center">
-                <div class="audio-container">
-                    <div class="live-indicator mb-3">
-                        <span class="live-dot"></span>
-                        <span class="live-text">EN VIVO</span>
-                    </div>
-                    <audio id="radio-player" controls class="modern-audio">
-                        <source src="https://metropolis-web-1.nty.uy" type="audio/mpeg" />
-                        Tu navegador no soporta audio.
-                    </audio>
-                </div>
-            </div>
-        </div>
+			<a href="@Url.Action("News", "Home", new { category = "Internacional", title = "Acuerdo comercial entre Uruguay y la Unión Europea" })" class="news-item">
+				<span class="news-category">Internacional</span>
+				<h4 class="news-title">Acuerdo comercial entre Uruguay y la Unión Europea</h4>
+				<div class="news-time">
+					<i class="fas fa-clock"></i>
+					Hace 6 horas
+				</div>
+			</a>
 
-        <!-- Programa actual - Minimalista -->
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-8 col-lg-6">
-                @if (Model.CurrentProgram != null)
-                {
-                    <div class="current-program">
-                        <div class="program-info text-center">
-                            <h3 class="program-title">@Model.CurrentProgram.ProgramName</h3>
-                            <p class="program-desc">@Model.CurrentProgram.RadioDescription</p>
-                            <div class="program-time">@(Model.CurrentProgram.Schedule.HasValue ? Model.CurrentProgram.Schedule.Value.ToString("HH:mm") : "")</div>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="current-program text-center">
-                        <h3 class="program-title text-muted">Sin programa en vivo</h3>
-                    </div>
-                }
-            </div>
-        </div>
+			<a href="@Url.Action("News", "Home", new { category = "Turismo", title = "Punta del Este espera record de visitantes este verano" })" class="news-item">
+				<span class="news-category">Turismo</span>
+				<h4 class="news-title">Punta del Este espera record de visitantes este verano</h4>
+				<div class="news-time">
+					<i class="fas fa-clock"></i>
+					Hace 8 horas
+				</div>
+			</a>
 
-        <!-- Próximo programa -->
-        @if (Model.NextProgram != null)
-        {
-            <div class="row justify-content-center mb-5">
-                <div class="col-md-6 col-lg-4 text-center">
-                    <div class="next-program">
-                        <small class="next-label">PRÓXIMO</small>
-                        <div class="next-title">@Model.NextProgram.ProgramName</div>
-                        <div class="next-time">@(Model.NextProgram.Schedule.HasValue ? Model.NextProgram.Schedule.Value.ToString("HH:mm") : "")</div>
-                    </div>
-                </div>
-            </div>
-        }
+			<a href="@Url.Action("News", "Home", new { category = "Clima", title = "Alerta meteorológica por tormentas en la región este" })" class="news-item">
+				<span class="news-category">Clima</span>
+				<h4 class="news-title">Alerta meteorológica por tormentas en la región este</h4>
+				<div class="news-time">
+					<i class="fas fa-clock"></i>
+					Hace 10 horas
+				</div>
+			</a>
 
-        <!-- Programación simplificada -->
-        @if (Model.ProgramsList != null && Model.ProgramsList.Any())
-        {
-            <div class="row justify-content-center mb-5">
-                <div class="col-md-8 col-lg-6">
-                    <div class="schedule-minimal">
-                        <h4 class="schedule-title text-center mb-4">Programación de Hoy</h4>
-                        <div class="schedule-list">
-                            @foreach (var program in Model.ProgramsList.Take(5))
-                            {
-                                <div class="schedule-item-minimal">
-                                    <span class="schedule-name">@program.ProgramName</span>
-                                    <span class="schedule-time">@(program.Schedule.HasValue ? program.Schedule.Value.ToString("HH:mm") : "--:--")</span>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
+			<!-- Botón para ver todas las noticias -->
+			<a href="@Url.Action("News", "Home")" class="view-all-news">
+				<i class="fas fa-newspaper"></i> Ver todas las noticias
+			</a>
+		</div>
+	</aside>
 
-        <!-- Auspiciantes minimalista -->
-        @if (Model.AuspiciantesLogos != null && Model.AuspiciantesLogos.Any())
-        {
-            <div class="row justify-content-center pb-5">
-                <div class="col-auto text-center">
-                    <div class="sponsors-minimal">
-                        <img id="sponsor-logo" src="@Model.AuspiciantesLogos[0]" alt="Auspiciante" class="sponsor-img">
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+	<!-- Main Content -->
+	<main class="main-content">
+		<!-- Widgets Header -->
+		<section class="widgets-header">
+			<div class="widgets-row">
+				<!-- Widget del Clima -->
+				<a href="@Url.Action("Weather", "Home")" class="widget-minimal">
+					<div class="widget-content">
+						<i class="fas fa-cloud-sun widget-icon"></i>
+						<div class="widget-info">
+							@if (Model.HasWeatherData)
+							{
+								<div class="widget-value">@Model.CurrentTemperature</div>
+								<div class="widget-label">@Model.CurrentDescription</div>
+							}
+							else
+							{
+								<div class="widget-value">--°</div>
+								<div class="widget-label">Sin datos</div>
+							}
+						</div>
+					</div>
+				</a>
+
+				<!-- Título Central -->
+				<h1 class="radio-title-center">🎵 Tu Radio en Maldonado 🎵</h1>
+
+				<!-- Widget de Moneda -->
+				<a href="@Url.Action("Currency", "Home")" class="widget-minimal">
+					<div class="widget-content">
+						<i class="fas fa-dollar-sign widget-icon"></i>
+						<div class="widget-info">
+							@if (Model.HasCurrencyData && Model.CurrencyData.Quotes.ContainsKey("USDUYU"))
+							{
+								<div class="widget-value">$@Model.CurrencyData.Quotes["USDUYU"].ToString("0.00")</div>
+								<div class="widget-label">USD/UYU</div>
+							}
+							else
+							{
+								<div class="widget-value">$--</div>
+								<div class="widget-label">Sin datos</div>
+							}
+						</div>
+					</div>
+				</a>
+			</div>
+		</section>
+
+		<!-- Audio Section -->
+		<section class="audio-section">
+			<div class="live-indicator-large">
+				<span class="live-dot"></span>
+				<span class="live-text">EN VIVO</span>
+			</div>
+
+			<!-- Reproductor simple y visible -->
+			<div class="simple-player">
+				<div class="player-info">
+					<div class="radio-icon">📻</div>
+					<div class="radio-details">
+						<audio id="radio-player" controls class="modern-audio">
+							<source src="https://metropolis-web-1.nty.uy" type="audio/mpeg" />
+							Tu navegador no soporta audio.
+						</audio>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Current Program -->
+		@if (Model.CurrentProgram != null)
+		{
+			<section class="current-program">
+				<a href="@Url.Action("Index", "RadioPrograms")" class="current-program-link">
+					<div class="program-header">
+						<div class="program-image">
+							<img src="@Model.CurrentProgram.ImageURL" alt="@Model.CurrentProgram.ProgramName" class="program-img" />
+							<div class="live-badge">
+								<span class="live-dot"></span>
+								EN VIVO
+							</div>
+						</div>
+						<div class="program-info">
+							<h3 class="program-title">@Model.CurrentProgram.ProgramName</h3>
+							<p class="program-desc">@Model.CurrentProgram.RadioDescription</p>
+							<div class="program-details">
+								<span class="program-time">
+									<i class="fas fa-clock"></i>
+									@(Model.CurrentProgram.Schedule.HasValue ? Model.CurrentProgram.Schedule.Value.ToString("HH:mm") : DateTime.Now.ToString("HH:mm"))
+								</span>
+								<span class="view-all-programs">
+									<i class="fas fa-list"></i>
+									Ver todos los programas
+								</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</section>
+		}
+		else
+		{
+			<section class="current-program">
+				<a href="@Url.Action("RadioPrograms", "Home")" class="current-program-link">
+					<div class="program-header">
+						<div class="program-image">
+							<img src="https://images.unsplash.com/photo-1586902279476-3244d8d18285?w=400&h=300&fit=crop" alt="Radio en vivo" class="program-img" />
+							<div class="live-badge">
+								<span class="live-dot"></span>
+								EN VIVO
+							</div>
+						</div>
+						<div class="program-info">
+							<h3 class="program-title">Radio Voz del Este</h3>
+							<p class="program-desc">Transmisión en vivo - Música y entretenimiento</p>
+							<div class="program-details">
+								<span class="program-time">
+									<i class="fas fa-clock"></i>
+									@DateTime.Now.ToString("HH:mm")
+								</span>
+								<span class="view-all-programs">
+									<i class="fas fa-list"></i>
+									Ver todos los programas
+								</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</section>
+		}
+
+		<!-- Next Program -->
+		@if (Model.NextProgram != null)
+		{
+			<section class="next-program">
+				<small class="next-label">PRÓXIMO</small>
+				<div class="next-title">@Model.NextProgram.ProgramName</div>
+				<div class="next-time">@(Model.NextProgram.Schedule.HasValue ? Model.NextProgram.Schedule.Value.ToString("HH:mm") : "")</div>
+			</section>
+		}
+
+		<!-- Dashboard Grid -->
+		<div class="dashboard-grid">
+			<!-- Schedule Card -->
+			@if (Model.ProgramsList != null && Model.ProgramsList.Any())
+			{
+				<div class="dashboard-card">
+					<div class="card-header">
+						<div class="card-icon schedule-icon">
+							<i class="fas fa-calendar-alt"></i>
+						</div>
+						<h3 class="card-title">Programación de Hoy</h3>
+					</div>
+					<div class="schedule-list">
+						@foreach (var program in Model.ProgramsList.Take(5))
+						{
+							<div class="schedule-item-card">
+								<span class="schedule-name">@program.ProgramName</span>
+								<span class="schedule-time">@(program.Schedule.HasValue ? program.Schedule.Value.ToString("HH:mm") : "--:--")</span>
+							</div>
+						}
+					</div>
+				</div>
+			}
+
+			<!-- Sponsors Card -->
+			@if (Model.AuspiciantesLogos != null && Model.AuspiciantesLogos.Any())
+			{
+				<div class="dashboard-card">
+					<div class="card-header">
+						<div class="card-icon sponsors-icon">
+							<i class="fas fa-handshake"></i>
+						</div>
+						<h3 class="card-title">Nuestros Auspiciantes</h3>
+					</div>
+					<div class="sponsors-container">
+						<img id="sponsor-logo" src="@Model.AuspiciantesLogos[0]" alt="Auspiciante" class="sponsor-img" />
+					</div>
+				</div>
+			}
+		</div>
+
+		<!-- Newsletter Section -->
+		<section class="newsletter">
+			<h3>📧 ¡Mantente Conectado!</h3>
+			<p>Suscríbete a nuestro boletín y recibe las últimas noticias, programación especial y eventos exclusivos</p>
+			<form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
+				@Html.AntiForgeryToken()
+				<input type="email" name="email" id="emailInput" class="newsletter-input" placeholder="Tu email aquí..." required />
+				<button type="submit" class="newsletter-btn">Suscribirse</button>
+			</form>
+		</section>
+	</main>
+
+	<!-- Stats Sidebar -->
+	<aside class="stats-sidebar">
+		<div class="sidebar-card">
+			<div class="sidebar-header">
+				<div class="sidebar-icon stats-icon">
+					<i class="fas fa-chart-line"></i>
+				</div>
+				<h3 class="sidebar-title">Estadísticas en Vivo</h3>
+			</div>
+
+			<div class="stat-item">
+				<span class="stat-label">
+					<i class="fas fa-headphones"></i>
+					Oyentes en línea
+				</span>
+				<span class="stat-value live-count" id="live-listeners">1,247</span>
+			</div>
+
+			<div class="stat-item">
+				<span class="stat-label">
+					<i class="fas fa-users"></i>
+					Oyentes hoy
+				</span>
+				<span class="stat-value">8,923</span>
+			</div>
+
+			<div class="stat-item">
+				<span class="stat-label">
+					<i class="fas fa-heart"></i>
+					Total seguidores
+				</span>
+				<span class="stat-value">45,892</span>
+			</div>
+
+			<div class="stat-item">
+				<span class="stat-label">
+					<i class="fas fa-globe-americas"></i>
+					Países conectados
+				</span>
+				<span class="stat-value">23</span>
+			</div>
+		</div>
+
+		<div class="sidebar-card">
+			<div class="sidebar-header">
+				<div class="sidebar-icon" style="background: #8e44ad;">
+					<i class="fab fa-instagram"></i>
+				</div>
+				<h3 class="sidebar-title">Redes Sociales</h3>
+			</div>
+
+			<div class="social-stats">
+				<div class="social-item">
+					<div class="social-platform">
+						<i class="fab fa-facebook" style="color: #3b5998;"></i>
+						Facebook
+					</div>
+					<span class="social-count">12,4K</span>
+				</div>
+
+				<div class="social-item">
+					<div class="social-platform">
+						<i class="fab fa-instagram" style="color: #e4405f;"></i>
+						Instagram
+					</div>
+					<span class="social-count">8,7K</span>
+				</div>
+
+				<div class="social-item">
+					<div class="social-platform">
+						<i class="fab fa-twitter" style="color: #1da1f2;"></i>
+						Twitter
+					</div>
+					<span class="social-count">5,2K</span>
+				</div>
+
+				<div class="social-item">
+					<div class="social-platform">
+						<i class="fab fa-youtube" style="color: #ff0000;"></i>
+						YouTube
+					</div>
+					<span class="social-count">3,1K</span>
+				</div>
+			</div>
+		</div>
+	</aside>
 </div>
 
-<!-- Estilos minimalistas -->
-<style>
-    /* Variables CSS */
-    :root {
-        --primary-blue: #3498db;
-        --primary-green: #2ecc71;
-        --text-light: #ecf0f1;
-        --text-muted: #95a5a6;
-        --bg-dark: #1a1a1a;
-        --accent: #e74c3c;
-    }
+<!-- Popup de confirmación de suscripción -->
+<div id="subscriptionPopup" class="subscription-popup hidden">
+	<div class="popup-content">
+		<div class="popup-icon">
+			<i class="fas fa-check-circle"></i>
+		</div>
+		<h4>¡Gracias por suscribirte!</h4>
+		<p>Te has suscrito exitosamente a nuestro boletín. Pronto recibirás las últimas noticias y eventos exclusivos.</p>
+		<button onclick="closePopup()" class="popup-close-btn">Entendido</button>
+	</div>
+</div>
 
-    /* Título principal */
-    .radio-title {
-        font-size: 2.5rem;
-        font-weight: 300;
-        letter-spacing: 2px;
-        color: var(--text-light);
-        margin: 0;
-    }
-
-    /* Widgets minimalistas */
-    .widget-minimal {
-        padding: 15px 20px;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 50px;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-
-    .widget-minimal:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translateY(-2px);
-    }
-
-    .clima-widget .weather-icon,
-    .moneda-widget .currency-icon {
-        font-size: 1.5rem;
-    }
-
-    .temp-display,
-    .currency-display {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: var(--text-light);
-        line-height: 1;
-    }
-
-    .weather-desc,
-    .currency-desc {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    /* Indicador en vivo */
-    .live-indicator {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .live-dot {
-        width: 8px;
-        height: 8px;
-        background: var(--accent);
-        border-radius: 50%;
-        animation: pulse 1.5s infinite;
-    }
-
-    .live-text {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--accent);
-        letter-spacing: 1px;
-    }
-
-    @@keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.3; }
-    }
-
-    /* Audio moderno */
-    .modern-audio {
-        width: 100%;
-        max-width: 350px;
-        height: 50px;
-        border-radius: 25px;
-        background: rgba(255, 255, 255, 0.1);
-        outline: none;
-    }
-
-    /* Programa actual */
-    .current-program {
-        padding: 30px;
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .program-title {
-        font-size: 1.8rem;
-        font-weight: 300;
-        color: var(--text-light);
-        margin-bottom: 15px;
-    }
-
-    .program-desc {
-        color: var(--text-muted);
-        font-size: 1rem;
-        margin-bottom: 20px;
-        line-height: 1.5;
-    }
-
-    .program-time {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: var(--primary-blue);
-    }
-
-    /* Próximo programa */
-    .next-program {
-        padding: 20px;
-        background: rgba(46, 204, 113, 0.1);
-        border-radius: 15px;
-        border: 1px solid rgba(46, 204, 113, 0.2);
-    }
-
-    .next-label {
-        font-size: 0.7rem;
-        color: var(--primary-green);
-        font-weight: 600;
-        letter-spacing: 1px;
-    }
-
-    .next-title {
-        font-size: 1.2rem;
-        color: var(--text-light);
-        margin: 8px 0;
-    }
-
-    .next-time {
-        font-size: 1rem;
-        color: var(--primary-green);
-        font-weight: 600;
-    }
-
-    /* Programación */
-    .schedule-title {
-        font-size: 1.5rem;
-        font-weight: 300;
-        color: var(--text-light);
-    }
-
-    .schedule-list {
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 15px;
-        padding: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .schedule-item-minimal {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        transition: all 0.2s ease;
-    }
-
-    .schedule-item-minimal:last-child {
-        border-bottom: none;
-    }
-
-    .schedule-item-minimal:hover {
-        background: rgba(255, 255, 255, 0.05);
-        margin: 0 -10px;
-        padding: 12px 10px;
-        border-radius: 8px;
-    }
-
-    .schedule-name {
-        color: var(--text-light);
-        font-size: 0.95rem;
-    }
-
-    .schedule-time {
-        color: var(--primary-blue);
-        font-weight: 600;
-        font-size: 0.9rem;
-    }
-
-    /* Auspiciantes */
-    .sponsor-img {
-        max-height: 60px;
-        max-width: 150px;
-        object-fit: contain;
-        opacity: 0.7;
-        transition: all 0.3s ease;
-        filter: grayscale(100%);
-    }
-
-    .sponsor-img:hover {
-        opacity: 1;
-        filter: grayscale(0%);
-        transform: scale(1.05);
-    }
-
-    /* Responsive */
-    @@media (max-width: 768px) {
-        .radio-title {
-            font-size: 1.8rem;
-        }
-
-        .widget-minimal {
-            padding: 10px 15px;
-        }
-
-        .temp-display,
-        .currency-display {
-            font-size: 1rem;
-        }
-
-        .program-title {
-            font-size: 1.4rem;
-        }
-
-        .schedule-item-minimal {
-            flex-direction: column;
-            gap: 5px;
-            text-align: center;
-        }
-    }
-</style>
-
+<!-- Floating Action Buttons -->
+<div class="floating-actions">
+	<a href="https://wa.me/59899123456" class="fab-button fab-whatsapp" title="Contáctanos por WhatsApp" target="_blank">
+		<i class="fab fa-whatsapp"></i>
+	</a>
+	<button class="fab-button fab-request" title="Pedir una canción" onclick="openRequestModal()">
+		<i class="fas fa-music"></i>
+	</button>
+	<a href="@Url.Action("Sponsors", "Home")" class="fab-button fab-sponsor" title="Ver patrocinadores">
+		<i class="fas fa-handshake"></i>
+	</a>
+</div>
 @section scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animación de logos de auspiciantes
-            var logos = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.AuspiciantesLogos));
-            var index = 0;
-            var img = document.getElementById('sponsor-logo');
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			// Animación de logos de auspiciantes
+			@if (Model.AuspiciantesLogos != null && Model.AuspiciantesLogos.Any())
+			{
+				@:var logos = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.AuspiciantesLogos));
+				@:var index = 0;
+				@:var img = document.getElementById('sponsor-logo');
+				@:
+				@:if (logos && logos.length > 1 && img) {
+					@:setInterval(function() {
+						@:index = (index + 1) % logos.length;
+						@:
+						@:img.style.opacity = '0';
+						@:img.style.transition = 'opacity 0.5s ease';
+						@:
+						@:setTimeout(function() {
+							@:img.src = logos[index];
+							@:img.style.opacity = '0.8';
+						@:}, 500);
+					@:}, 5000);
+				@:}
+			}
 
-            if (logos && logos.length > 1 && img) {
-                setInterval(function() {
-                    index = (index + 1) % logos.length;
+			// Efectos para el sidebar de noticias
+			const sidebarHeader = document.querySelector('.sidebar-header');
+			const newsItems = document.querySelectorAll('.news-item');
+			const viewAllButton = document.querySelector('.view-all-news');
 
-                    img.style.opacity = '0';
-                    img.style.transition = 'opacity 0.5s ease';
+			// Efecto de hover mejorado para el header
+			if (sidebarHeader) {
+				sidebarHeader.addEventListener('mouseenter', function() {
+					this.style.background = 'rgba(231, 76, 60, 0.05)';
+					this.style.borderColor = 'rgba(231, 76, 60, 0.3)';
 
-                    setTimeout(function() {
-                        img.src = logos[index];
-                        img.style.opacity = '0.7';
-                    }, 500);
-                }, 5000);
-            }
+					// Añadir efecto de brillo
+					const sparkle = document.createElement('div');
+					sparkle.className = 'sparkle-effect';
+					sparkle.style.cssText = `
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						width: 4px;
+						height: 4px;
+						background: white;
+						border-radius: 50%;
+						transform: translate(-50%, -50%);
+						animation: sparkle 0.6s ease-out;
+						pointer-events: none;
+						z-index: 10;
+					`;
 
-            // Efecto de hover suave en widgets
-            const widgets = document.querySelectorAll('.widget-minimal');
-            widgets.forEach(widget => {
-                widget.addEventListener('mouseenter', function() {
-                    this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
-                });
+					this.appendChild(sparkle);
+					setTimeout(() => sparkle.remove(), 600);
+				});
 
-                widget.addEventListener('mouseleave', function() {
-                    this.style.boxShadow = 'none';
-                });
+				sidebarHeader.addEventListener('mouseleave', function() {
+					this.style.background = '';
+					this.style.borderColor = '#f8f9fa';
+				});
+			}
+
+			// Efectos para cada noticia
+			newsItems.forEach((item, index) => {
+				// Efecto de hover personalizado
+				item.addEventListener('mouseenter', function() {
+					// Animar el icono del tiempo
+					const timeIcon = this.querySelector('.news-time i');
+					if (timeIcon) {
+						timeIcon.style.transform = 'rotate(360deg)';
+						timeIcon.style.transition = 'transform 0.5s ease';
+					}
+
+					// Efecto de escala en la categoría
+					const category = this.querySelector('.news-category');
+					if (category) {
+						category.style.transform = 'scale(1.05)';
+						category.style.boxShadow = '0 4px 12px rgba(231, 76, 60, 0.3)';
+					}
+
+					// Efecto de deslizamiento en el título
+					const title = this.querySelector('.news-title');
+					if (title) {
+						title.style.transform = 'translateX(5px)';
+						title.style.color = '#e74c3c';
+					}
+
+					// Añadir efecto de pulso en el borde izquierdo
+					this.style.borderLeft = '4px solid #e74c3c';
+				});
+
+				item.addEventListener('mouseleave', function() {
+					// Restaurar efectos
+					const timeIcon = this.querySelector('.news-time i');
+					if (timeIcon) {
+						timeIcon.style.transform = 'rotate(0deg)';
+					}
+
+					const category = this.querySelector('.news-category');
+					if (category) {
+						category.style.transform = 'scale(1)';
+						category.style.boxShadow = '0 2px 5px rgba(231, 76, 60, 0.2)';
+					}
+
+					const title = this.querySelector('.news-title');
+					if (title) {
+						title.style.transform = 'translateX(0)';
+						title.style.color = '#2c3e50';
+					}
+
+					this.style.borderLeft = 'none';
+				});
+
+				// Efecto de clic
+				item.addEventListener('click', function(e) {
+					e.preventDefault();
+
+					// Efecto de "loading" temporal
+					this.classList.add('loading');
+
+					// Simular navegación con un pequeño delay
+					setTimeout(() => {
+						this.classList.remove('loading');
+						// Aquí iría la navegación real
+						if (this.href) {
+							window.location.href = this.href;
+						}
+					}, 300);
+				});
+			});
+
+			// Efectos para el botón "Ver todas las noticias"
+			if (viewAllButton) {
+				viewAllButton.addEventListener('mouseenter', function() {
+					// Efecto de ondas
+					const ripple = document.createElement('div');
+					ripple.className = 'ripple-effect';
+					ripple.style.cssText = `
+						position: absolute;
+						border-radius: 50%;
+						background: rgba(255, 255, 255, 0.3);
+						transform: scale(0);
+						animation: ripple 0.6s linear;
+						pointer-events: none;
+					`;
+
+					this.appendChild(ripple);
+					setTimeout(() => ripple.remove(), 600);
+				});
+
+				viewAllButton.addEventListener('click', function(e) {
+					e.preventDefault();
+
+					// Efecto de clic con escala
+					this.style.transform = 'scale(0.98)';
+					setTimeout(() => {
+						this.style.transform = 'translateY(-3px)';
+						if (this.href) {
+							window.location.href = this.href;
+						}
+					}, 150);
+				});
+			}
+
+			// Efecto de hover suave en widgets
+			const widgets = document.querySelectorAll('.widget-minimal');
+			widgets.forEach(widget => {
+				widget.addEventListener('mouseenter', function() {
+					this.style.boxShadow = '0 15px 40px rgba(0,0,0,0.3)';
+				});
+
+				widget.addEventListener('mouseleave', function() {
+					this.style.boxShadow = 'none';
+				});
+			});
+
+			// Actualizar título con hora
+			function updateTime() {
+				const now = new Date();
+				const timeString = now.toLocaleTimeString('es-UY', {
+					hour: '2-digit',
+					minute: '2-digit',
+					hour12: false
+				});
+				document.title = '🔴 VIVO - Radio Voz del Este (' + timeString + ')';
+			}
+
+			setInterval(updateTime, 1000);
+			updateTime();
+
+			// Simular cambio de oyentes en línea
+			function updateListeners() {
+				const listenersElement = document.getElementById('live-listeners');
+				if (listenersElement) {
+					const currentCount = parseInt(listenersElement.textContent.replace(',', ''));
+					const variation = Math.floor(Math.random() * 21) - 10; // +/- 10
+					const newCount = Math.max(1000, currentCount + variation);
+					listenersElement.textContent = newCount.toLocaleString();
+				}
+			}
+
+			setInterval(updateListeners, 15000); // Cada 15 segundos
+
+			// Simulación de noticias "en tiempo real"
+			function simulateRealTimeUpdates() {
+				const updateIndicator = document.createElement('div');
+				updateIndicator.className = 'update-indicator';
+				updateIndicator.innerHTML = '<i class="fas fa-circle"></i>';
+				updateIndicator.style.cssText = `
+					position: absolute;
+					top: 10px;
+					right: 10px;
+					color: #e74c3c;
+					font-size: 0.5rem;
+					animation: pulse-dot 1.5s infinite;
+				`;
+
+				// Añadir indicador a una noticia aleatoria
+				const randomNews = newsItems[Math.floor(Math.random() * newsItems.length)];
+				if (randomNews) {
+					randomNews.style.position = 'relative';
+					randomNews.appendChild(updateIndicator);
+
+					// Remover después de unos segundos
+					setTimeout(() => {
+						if (updateIndicator.parentNode) {
+							updateIndicator.remove();
+						}
+					}, 5000);
+				}
+			}
+
+			// Simular actualizaciones cada 30 segundos
+			setInterval(simulateRealTimeUpdates, 30000);
+
+			// Modal para pedir canciones
+			function openRequestModal() {
+				alert('Función de pedido de canciones - Por implementar');
+			}
+
+			// Hacer la función global
+			window.openRequestModal = openRequestModal;
+		});
+
+		// Funciones para el newsletter
+		function handleNewsletterSubmit(event) {
+			event.preventDefault(); // Evita que se envíe el formulario
+
+			const emailInput = document.getElementById('emailInput');
+			const email = emailInput.value.trim();
+
+			// Validar que el email no esté vacío
+			if (!email) {
+				alert('Por favor, ingresa tu email.');
+				return;
+			}
+
+			// Validar formato básico del email
+			const emailPattern = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+			if (!emailPattern.test(email)) {
+				alert('Por favor, ingresa un email válido.');
+				return;
+			}
+
+			// Limpiar el input
+			emailInput.value = '';
+
+			// Mostrar popup de confirmación
+			showSubscriptionPopup();
+		}
+
+		function showSubscriptionPopup() {
+			const popup = document.getElementById('subscriptionPopup');
+			popup.classList.remove('hidden');
+
+			// Auto-cerrar después de 5 segundos
+			setTimeout(() => {
+				closePopup();
+			}, 5000);
+		}
+
+		function closePopup() {
+			const popup = document.getElementById('subscriptionPopup');
+			popup.classList.add('hidden');
+		}
+
+		// Cerrar popup al hacer click fuera del contenido
+		document.addEventListener('click', function(e) {
+			const popup = document.getElementById('subscriptionPopup');
+			if (e.target === popup) {
+				closePopup();
+			}
+		});
+
+		// Cerrar popup con tecla Escape
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape') {
+				closePopup();
+			}
+		});
+		document.addEventListener('DOMContentLoaded', function() {
+        const programLink = document.querySelector('.current-program-link');
+
+        if (programLink) {
+            programLink.addEventListener('click', function(e) {
+                // Efecto de loading antes de navegar
+                const programSection = document.querySelector('.current-program');
+                programSection.style.transform = 'scale(0.98)';
+                programSection.style.opacity = '0.8';
+
+                setTimeout(() => {
+                    // La navegación continuará normalmente
+                }, 200);
             });
-        });
-    </script>
+
+            // Efecto de partículas en hover
+            programLink.addEventListener('mouseenter', function() {
+                createSparkles(this);
+            });
+        }
+
+        function createSparkles(element) {
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.style.cssText = `
+                        position: absolute;
+                        top: ${Math.random() * 100}%;
+                        left: ${Math.random() * 100}%;
+                        width: 4px;
+                        height: 4px;
+                        background: rgba(255,255,255,0.8);
+                        border-radius: 50%;
+                        animation: sparkle-float 1s ease-out forwards;
+                        pointer-events: none;
+                        z-index: 10;
+                    `;
+
+                    element.appendChild(sparkle);
+
+                    setTimeout(() => {
+                        if (sparkle.parentNode) {
+                            sparkle.remove();
+                        }
+                    }, 1000);
+                }, i * 200);
+            }
+        }
+
+		const style = document.createElement('style');
+        style.textContent = `
+            @@keyframes sparkle-float {
+                0% {
+                    transform: translateY(0) scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-20px) scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    });
+	</script>
 }

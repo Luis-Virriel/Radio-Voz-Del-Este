@@ -1,4 +1,4 @@
-﻿:root {
+﻿/*:root {
     --color-bg: #0d1b2a;
     --color-bg-secondary: #1b263b;
     --color-bg-tertiary: rgba(65, 90, 119, 0.1);
@@ -19,15 +19,18 @@ body {
     text-align: center;
 }
 
-/* Contenedor general */
+/ Contenedor general 
 .container {
     max-width: 900px;
     width: 100%;
     padding: 2rem 1rem;
     margin: auto;
 }
+.containerCliente{
 
-/* Secciones */
+}
+
+/* Secciones 
 .section {
     background-color: var(--color-bg-tertiary);
     padding: 2rem;
@@ -36,14 +39,14 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Títulos */
+/* Títulos 
 h1, h2 {
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--color-text);
 }
 
-/* Enlaces */
+/* Enlaces 
 a {
     color: var(--color-accent);
     text-decoration: none;
@@ -53,7 +56,7 @@ a {
         text-decoration: underline;
     }
 
-/* Botones */
+/* Botones 
 .btn-outline-light {
     background: none;
     border: 2px solid var(--color-accent);
@@ -71,14 +74,14 @@ a {
         color: var(--color-bg);
     }
 
-/* Navbar */
+/* Navbar 
 .navbar-dark.bg-dark {
     width: 100%;
     background-color: rgba(27, 38, 59, 0.9);
-    padding: 1rem 3rem;
+    padding: 1rem 3rem; /* Más padding a izquierda y derecha 
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    box-sizing: border-box;
+    box-sizing: border-box; /* para que el padding no aumente el ancho total 
 }
 
 .navbar .container-fluid {
@@ -99,7 +102,7 @@ a {
     border: none;
 }
 
-/* Footer */
+/* Footer 
 footer {
     text-align: center;
     padding: 1rem 0;
@@ -107,7 +110,7 @@ footer {
     color: var(--color-text);
 }
 
-/* Audio */
+/* Audio 
 audio {
     width: 100%;
     max-width: 600px;
@@ -116,7 +119,7 @@ audio {
     box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
-/* Listas */
+/* Lista 
 ul {
     padding: 0;
     list-style: none;
@@ -127,7 +130,7 @@ ul {
         font-size: 1.1rem;
     }
 
-/* Tarjeta o bloque con borde leve */
+/* Tarjeta o bloque con borde leve 
 .border-light {
     border: none;
     padding: 1rem;
@@ -138,7 +141,7 @@ ul {
     border-radius: 0.5rem;
 }
 
-/* Responsive */
+/* Responsive 
 @media (max-width: 768px) {
     .section {
         padding: 1.5rem;
@@ -150,30 +153,6 @@ ul {
 
     h2 {
         font-size: 1.4rem;
-    }
-
-    .d-flex.justify-content-between.align-items-start {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .bg-secondary.bg-opacity-10 {
-        width: 100%;
-        max-width: 300px;
-        height: auto;
-        padding: 1rem 0;
-        margin-bottom: 1rem;
-        flex-shrink: 0;
-    }
-
-    .flex-grow-1 {
-        max-width: 100%;
-        margin: 0;
-        padding: 0 1rem;
-    }
-
-    audio {
-        max-width: 100%;
     }
 }
 
@@ -188,19 +167,48 @@ ul {
         display: block;
     }
 }
-
-/* Contenedor principal con barras laterales y centro */
+/* Contenedor principal con barras laterales y centro 
 .d-flex.justify-content-between.align-items-start {
     gap: 1rem;
 }
 
-/* Contenido central adaptable */
+/* Que las barras laterales no se reduzcan demasiado 
+.bg-secondary.bg-opacity-10 {
+    flex-shrink: 0;
+}
+
+/* Contenido central adaptable 
 .flex-grow-1 {
     max-width: 600px;
     margin: 0 1rem;
 }
 
-/* Formulario cliente */
+/* En pantallas pequeñas apilamos 
+@media (max-width: 768px) {
+    .d-flex.justify-content-between.align-items-start {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bg-secondary.bg-opacity-10 {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        padding: 1rem 0;
+        margin-bottom: 1rem;
+    }
+
+    .flex-grow-1 {
+        max-width: 100%;
+        margin: 0;
+        padding: 0 1rem;
+    }
+
+    audio {
+        max-width: 100%;
+    }
+}
+
 .form-containerClient {
     background-color: #0e375a;
     max-width: 400px;
@@ -253,3 +261,4 @@ ul {
     font-size: 14px;
     color: #cce6ff;
 }
+*/

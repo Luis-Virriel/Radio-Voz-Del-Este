@@ -1,129 +1,143 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.WeatherDetailsViewModel
-
 @{
 	ViewBag.Title = "Clima";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 @if (Model == null)
 {
-	<div class="text-danger text-center mt-4">
-		@ViewBag.Error
+	<div class="weather-header">
+		<h1 class="weather-title">🌤️ Clima</h1>
+		<p class="weather-subtitle">Información meteorológica no disponible</p>
+	</div>
+
+	<div class="error-container">
+		<div class="error-icon">⚠️</div>
+		<div class="error-message">@ViewBag.Error</div>
+		<div class="back-button-container">
+			<a href="@Url.Action("Index", "Home")" class="back-button">
+				<i class="fas fa-arrow-left"></i>
+				Volver al inicio
+			</a>
+		</div>
 	</div>
 }
 else
 {
-<style>
-		.weather-container {
-			max-width: 900px;
-			margin: 2rem auto;
-			padding: 2rem;
-			background: #0A2342;
-			color: #DFF3E4;
-			border-radius: 12px;
-			font-family: 'Segoe UI', sans-serif;
-			box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-		}
+	<div class="weather-header">
+		<h1 class="weather-title">🌤️ Clima</h1>
+		<p class="weather-subtitle">Información meteorológica actualizada</p>
+	</div>
 
-		.weather-container h2,
-		.weather-container h3 {
-			text-align: center;
-			color: #DFF3E4;
-		}
+	<div class="weather-main">
+		<!-- Current Weather Card -->
+		<div class="current-weather-card">
+			<h2 class="weather-location">
+				<i class="fas fa-map-marker-alt"></i>
+				@Model.CurrentWeather.Name
+			</h2>
 
-		.weather-icon-main {
-			text-align: center;
-			margin: 1rem 0;
-		}
-
-		.weather-data p {
-			font-size: 1.1rem;
-			margin: 0.3rem 0;
-		}
-
-		.forecast-container {
-			display: flex;
-			overflow-x: auto;
-			gap: 1rem;
-			padding: 1rem 0;
-			scroll-behavior: smooth;
-		}
-
-		.forecast-card {
-			flex: 0 0 150px;
-			background: #2CA58D;
-			border-radius: 10px;
-			padding: 1rem;
-			text-align: center;
-			color: #FFFDF7;
-			box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
-			transition: transform 0.3s ease;
-		}
-
-		.forecast-card:hover {
-			transform: scale(1.05);
-		}
-
-		.back-link {
-			text-align: center;
-			margin-top: 2rem;
-		}
-
-		.back-link a {
-			color: #DFF3E4;
-			text-decoration: underline;
-			font-size: 1rem;
-		}
-
-		@@media screen and (max-width: 600px) {
-			.weather-container {
-				padding: 1rem;
-			}
-
-			.forecast-card {
-				flex: 0 0 120px;
-				font-size: 0.9rem;
-			}
-		}
-</style>
-
-	<div class="weather-container">
-		<h2>Clima en @Model.CurrentWeather.Name</h2>
-
-		@if (Model.CurrentWeather.Weather != null && Model.CurrentWeather.Weather.Any())
-		{
-			var iconCode = Model.CurrentWeather.Weather.First().Icon;
-			<div class="weather-icon-main">
-				<img src="@($"https://openweathermap.org/img/wn/{iconCode}@2x.png")" alt="@Model.CurrentWeather.Weather.First().Description" style="width: 100px;" />
-			</div>
-		}
-
-		<div class="weather-data">
-			<p><strong>🌡️ Temperatura actual:</strong> @(Model.CurrentWeather.Main.Temp.HasValue ? Model.CurrentWeather.Main.Temp.Value.ToString("0.0") + " °C" : "Sin datos")</p>
-			<p><strong>🌥️ Descripción:</strong> @(Model.CurrentWeather.Weather?.FirstOrDefault()?.Description ?? "Sin datos")</p>
-			<p><strong>💧 Humedad:</strong> @Model.CurrentWeather.Main.Humidity %</p>
-			<p><strong>🌬️ Viento:</strong> @Model.CurrentWeather.Wind.Speed m/s</p>
-			<p><strong>📈 Presión:</strong> @Model.CurrentWeather.Main.Pressure hPa</p>
-		</div>
-
-		<h3>Pronóstico</h3>
-		<div class="forecast-container">
-			@foreach (var day in Model.Forecast)
+			@if (Model.CurrentWeather.Weather != null && Model.CurrentWeather.Weather.Any())
 			{
-				<div class="forecast-card">
-					<strong>
-						@(day.Date.HasValue ? day.Date.Value.ToString("ddd dd/MM", new System.Globalization.CultureInfo("es-ES")) : "")
-					</strong>
-					<img src="@($"https://openweathermap.org/img/wn/{day.Icon}@2x.png")" alt="@day.Description" style="width: 60px;" />
-					<div>@day.Description</div>
-					<div><small>⬆ Max: @(day.TempMax.HasValue ? day.TempMax.Value.ToString("0.0") + " °C" : "—")</small></div>
-					<div><small>⬇ Min: @(day.TempMin.HasValue ? day.TempMin.Value.ToString("0.0") + " °C" : "—")</small></div>
+				var iconCode = Model.CurrentWeather.Weather.First().Icon;
+				<div class="weather-icon-container">
+					<div class="weather-icon-main">
+						<img src="@($"https://openweathermap.org/img/wn/{iconCode}@2x.png")" alt="@Model.CurrentWeather.Weather.First().Description" />
+					</div>
 				</div>
 			}
+
+			<div class="current-temp">
+				@(Model.CurrentWeather.Main.Temp.HasValue ? Model.CurrentWeather.Main.Temp.Value.ToString("0.0") + "°C" : "--°C")
+			</div>
+
+			<div class="weather-description">
+				@(Model.CurrentWeather.Weather?.FirstOrDefault()?.Description ?? "Sin datos")
+			</div>
 		</div>
 
-		<div class="back-link">
-			<a href="@Url.Action("Index", "Home")">← Volver</a>
+		<!-- Weather Details Card -->
+		<div class="weather-details-card">
+			<h3 class="details-title">
+				<i class="fas fa-info-circle"></i>
+				Detalles del clima
+			</h3>
+
+			<div class="weather-details-grid">
+				<div class="detail-item">
+					<span class="detail-icon">💧</span>
+					<div class="detail-value">@Model.CurrentWeather.Main.Humidity%</div>
+					<div class="detail-label">Humedad</div>
+				</div>
+
+				<div class="detail-item">
+					<span class="detail-icon">🌬️</span>
+					<div class="detail-value">@Model.CurrentWeather.Wind.Speed m/s</div>
+					<div class="detail-label">Viento</div>
+				</div>
+
+				<div class="detail-item">
+					<span class="detail-icon">📈</span>
+					<div class="detail-value">@Model.CurrentWeather.Main.Pressure hPa</div>
+					<div class="detail-label">Presión</div>
+				</div>
+
+				<div class="detail-item">
+					<span class="detail-icon">🌡️</span>
+					<div class="detail-value">
+						@(Model.CurrentWeather.Main.FeelsLike.HasValue ? Model.CurrentWeather.Main.FeelsLike.Value.ToString("0.0") + "°C" : "--°C")
+					</div>
+					<div class="detail-label">Sensación térmica</div>
+				</div>
+			</div>
 		</div>
+	</div>
+
+	<!-- Forecast Section -->
+	if (Model.Forecast != null && Model.Forecast.Any())
+	{
+		<div class="forecast-section">
+			<h3 class="forecast-title">
+				<i class="fas fa-calendar-week"></i>
+				Pronóstico extendido
+			</h3>
+
+			<div class="forecast-container">
+				@foreach (var day in Model.Forecast)
+				{
+					<div class="forecast-card">
+						<div class="forecast-date">
+							@(day.Date.HasValue ? day.Date.Value.ToString("dddd dd/MM", new System.Globalization.CultureInfo("es-ES")) : "")
+						</div>
+
+						<div class="forecast-icon">
+							<img src="@($"https://openweathermap.org/img/wn/{day.Icon}@2x.png")" alt="@day.Description" />
+						</div>
+
+						<div class="forecast-description">@day.Description</div>
+
+						<div class="forecast-temps">
+							<div class="temp-max">
+								<small>↑ Máx</small><br>
+								@(day.TempMax.HasValue ? day.TempMax.Value.ToString("0.0") + "°C" : "—")
+							</div>
+							<div class="temp-min">
+								<small>↓ Mín</small><br>
+								@(day.TempMin.HasValue ? day.TempMin.Value.ToString("0.0") + "°C" : "—")
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	}
+
+	<div class="back-button-container">
+		<a href="@Url.Action("Index", "Home")" class="back-button">
+			<i class="fas fa-arrow-left"></i>
+			Volver al inicio
+		</a>
 	</div>
 }
