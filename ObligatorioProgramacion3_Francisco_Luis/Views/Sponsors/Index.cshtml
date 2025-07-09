@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<ObligatorioProgramacion3_Francisco_Luis.Models.Sponsor>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Sponsors";
+    var permissions = Session["Permissions"] as List<string> ?? new List<string>();
 }
 
-<h2>Index</h2>
+<h2>Patrocinadores</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (permissions.Contains("CreateSponsor"))
+{
+    <p>
+        @Html.ActionLink("Crear Nuevo", "Create")
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -23,23 +28,34 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SponsorsName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SponsorDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CantPlan)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SponsorsName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SponsorDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantPlan)
+            </td>
+            <td>
+                @if (permissions.Contains("EditSponsor"))
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = item.ID })
+                    <text> | </text>
+                }
+                @if (permissions.Contains("ViewSponsor"))
+                {
+                    @Html.ActionLink("Detalles", "Details", new { id = item.ID })
+                    <text> | </text>
+                }
+                @if (permissions.Contains("DeleteSponsor"))
+                {
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+                }
+            </td>
+        </tr>
+    }
 </table>
