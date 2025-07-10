@@ -1,7 +1,7 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.Client
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear Cliente";
 }
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,45 +14,90 @@
     @Html.AntiForgeryToken()
 
     <div class="form-containerClient">
-        <h4 class="form-titleClient">Creación Cliente</h4>
+        <h4 class="form-titleClient">Creación de Cliente</h4>
         <p class="create-subtitle">Complete los campos para registrar un nuevo cliente</p>
         <hr class="create-divider" />
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IDNumber)
-            @Html.EditorFor(model => model.IDNumber, new { htmlAttributes = new { @class = "input-field", placeholder = "Número de identificación" } })
+            @Html.LabelFor(model => model.IDNumber, "Cédula de Identidad")
+            @Html.EditorFor(model => model.IDNumber, new
+            {
+                htmlAttributes = new
+                {
+                    @class = "input-field",
+                    placeholder = "Ej: 12345678 o 1.234.567-8"
+                }
+            })
             @Html.ValidationMessageFor(model => model.IDNumber, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FirstName)
-            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input-field", placeholder = "Nombre" } })
+            @Html.LabelFor(model => model.FirstName, "Nombre")
+            @Html.EditorFor(model => model.FirstName, new
+            {
+                htmlAttributes = new
+                {
+                    @class = "input-field",
+                    placeholder = "Nombre"
+                }
+            })
             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LastName)
-            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input-field", placeholder = "Apellido" } })
+            @Html.LabelFor(model => model.LastName, "Apellido")
+            @Html.EditorFor(model => model.LastName, new
+            {
+                htmlAttributes = new
+                {
+                    @class = "input-field",
+                    placeholder = "Apellido"
+                }
+            })
             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email)
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input-field", placeholder = "Correo electrónico" } })
+            @Html.LabelFor(model => model.Email, "Correo Electrónico")
+            @Html.EditorFor(model => model.Email, new
+            {
+                htmlAttributes = new
+                {
+                    @class = "input-field",
+                    placeholder = "ejemplo@correo.com"
+                }
+            })
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BirthDate)
-            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "input-field", type = "date" } })
+            @Html.LabelFor(model => model.BirthDate, "Fecha de Nacimiento")
+            @Html.EditorFor(model => model.BirthDate, new
+            {
+                htmlAttributes = new
+                {
+                    @class = "input-field",
+                    type = "date"
+                }
+            })
             @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UserID)
-            @Html.DropDownListFor(model => model.UserID, (SelectList)ViewBag.UserID, "Selecciona un usuario", new { @class = "input-field" })
+            @Html.Label("Usuario Asociado")
+
+            @if (ViewBag.UserID != null)
+            {
+                <p class="form-control-static"><strong>@ViewBag.UserName</strong></p>
+                @Html.HiddenFor(model => model.UserID, new { Value = ViewBag.UserID })
+            }
+            else
+            {
+                @Html.DropDownListFor(model => model.UserID, (SelectList)ViewBag.Users, "Seleccione un usuario", new { @class = "input-field" })
+            }
+
             @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
         </div>
 

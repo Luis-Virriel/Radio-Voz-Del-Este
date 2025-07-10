@@ -12,6 +12,15 @@
 
 <div class="delete-container">
     <h1 class="delete-title">Eliminar Usuario</h1>
+
+    @* Mostrar errores si hay *@
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+    }
+
     <p class="confirm-text">¿Está seguro que desea eliminar este usuario?</p>
     <hr />
 
@@ -29,7 +38,7 @@
         <dd>@Html.DisplayFor(m => m.Role.RoleName)</dd>
     </dl>
 
-    @using (Html.BeginForm("Delete", "User", FormMethod.Post))
+    @using (Html.BeginForm("Delete", "Users", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.ID)

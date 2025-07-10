@@ -15,17 +15,23 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         private RadioEntities db = new RadioEntities();
 
         // GET: Sponsors
+        // GET: Sponsors
         public ActionResult Index()
         {
             var permisos = Session["Permissions"] as List<string> ?? new List<string>();
 
-            if (!permisos.Contains("ViewSponsor"))
+            bool tienePermisoSponsor = permisos.Any(p =>
+                p.Contains("Sponsor")
+            );
+
+            if (!tienePermisoSponsor)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
 
             return View(db.Sponsors.ToList());
         }
+
 
         // GET: Sponsors/Details/5
         public ActionResult Details(int? id)
