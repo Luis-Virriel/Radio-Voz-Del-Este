@@ -1,11 +1,12 @@
-﻿/* ClientIndex.css - Estilos para vista Index de clientes */
+﻿/* ClientIndex.css - Estilos para vista Index de clientes con tema Radio FM */
 
 /* Resetear estilos del body y html */
 body {
-    background-color: #1a2332 !important;
+    background: linear-gradient(135deg, #4a6cf7 0%, #667eea 50%, #764ba2 100%) !important;
     margin: 0;
     padding: 10px;
     overflow-x: hidden;
+    min-height: 100vh;
 }
 
 html {
@@ -14,15 +15,17 @@ html {
 
 /* Contenedor principal */
 .index-container {
-    background-color: #0e375a;
+    background: rgba(74, 108, 247, 0.35);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     max-width: 98%;
     width: 98%;
     margin: 10px auto;
-    padding: 25px;
-    border-radius: 15px;
-    color: #b3d9ff;
+    padding: 30px;
+    border-radius: 20px;
+    color: white;
     font-family: "Bona Nova SC", serif;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     min-height: 400px;
     box-sizing: border-box;
 }
@@ -33,10 +36,10 @@ html {
     font-size: 42px;
     margin-bottom: 35px;
     font-style: normal;
-    color: #69c0ff;
-    font-weight: 400;
+    color: white;
+    font-weight: 700;
     font-family: "Bona Nova SC", serif;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
     letter-spacing: 1px;
 }
 
@@ -48,27 +51,28 @@ html {
 
 .create-button {
     display: inline-block;
-    padding: 15px 25px;
-    background-color: #d9ecff;
-    color: #003366;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
     font-weight: 700;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 25px;
     font-size: 16px;
     font-family: "Bona Nova SC", serif;
     cursor: pointer;
     transition: all 0.3s ease;
     letter-spacing: 1px;
     text-transform: uppercase;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+    border: none;
 }
 
     .create-button:hover {
-        background-color: #b3d9ff;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(135deg, #ff5252, #ff7979);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
         text-decoration: none;
-        color: #003366;
+        color: white;
     }
 
 /* Tabla principal */
@@ -76,26 +80,27 @@ html {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    background-color: rgba(166, 200, 255, 0.15);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
 }
 
     /* Encabezados de tabla */
     .clients-table th {
-        background-color: #69c0ff;
-        color: #003366;
-        padding: 12px 6px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 15px 12px;
         font-weight: 700;
-        font-size: 11px;
+        font-size: 12px;
         font-family: "Bona Nova SC", serif;
-        letter-spacing: 0.2px;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
         border: none;
         position: relative;
         white-space: nowrap;
+        text-align: center;
     }
 
         /* Ajustar ancho de columnas específicas */
@@ -121,23 +126,24 @@ html {
         }
 
         .clients-table th:first-child {
-            border-top-left-radius: 10px;
+            border-top-left-radius: 15px;
         }
 
         .clients-table th:last-child {
-            border-top-right-radius: 10px;
+            border-top-right-radius: 15px;
         }
 
     /* Filas de datos */
     .clients-table td {
-        padding: 10px 6px;
+        padding: 12px 12px;
         border: none;
-        color: #b3d9ff;
-        font-size: 12px;
+        color: white;
+        font-size: 13px;
         font-family: "Bona Nova SC", serif;
-        transition: background-color 0.3s ease;
-        background-color: rgba(14, 55, 90, 0.3);
+        transition: all 0.3s ease;
+        background-color: rgba(102, 126, 234, 0.6);
         overflow: hidden;
+        text-align: center;
     }
 
         /* Ajustar columnas específicas */
@@ -145,44 +151,56 @@ html {
         .clients-table td:nth-child(2) { /* LastName */
             width: 12%;
             white-space: nowrap;
+            font-weight: 600;
+            color: white;
+            text-align: center;
         }
 
         .clients-table td:nth-child(3) { /* Email */
             width: 28%;
-            font-size: 11px;
+            font-size: 12px;
             word-break: break-all;
+            color: #e8f4ff;
+            text-align: center;
         }
 
         .clients-table td:nth-child(4) { /* BirthDate */
             width: 13%;
             white-space: nowrap;
-            font-size: 11px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #f0f8ff;
+            text-align: center;
         }
 
         .clients-table td:nth-child(5) { /* UserName */
             width: 15%;
             white-space: nowrap;
             font-size: 12px;
+            color: #ffffff;
+            text-align: center;
         }
 
         .clients-table td:nth-child(6) { /* Acciones */
             width: 20%;
             white-space: nowrap;
+            text-align: center;
         }
 
     /* Efecto hover en filas */
     .clients-table tbody tr:hover td {
-        background-color: rgba(105, 192, 255, 0.15);
-        transform: scale(1.001);
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
+        transform: scale(1.002);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     /* Alternar colores de filas */
     .clients-table tbody tr:nth-child(even) td {
-        background-color: rgba(166, 200, 255, 0.08);
+        background: rgba(102, 126, 234, 0.7);
     }
 
     .clients-table tbody tr:nth-child(odd) td {
-        background-color: rgba(14, 55, 90, 0.2);
+        background: rgba(118, 75, 162, 0.6);
     }
 
 /* Enlaces de acciones */
@@ -191,29 +209,32 @@ html {
 }
 
     .action-links a {
-        color: #69c0ff;
+        color: white;
         text-decoration: none;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 600;
-        margin-right: 5px;
-        padding: 3px 6px;
-        border-radius: 4px;
+        margin-right: 8px;
+        padding: 6px 12px;
+        border-radius: 20px;
         transition: all 0.3s ease;
         display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
         .action-links a:hover {
-            background-color: rgba(105, 192, 255, 0.2);
-            color: #d9ecff;
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
             text-decoration: none;
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
         }
 
 /* Separadores entre acciones */
 .action-separator {
-    color: #4a7396;
-    margin: 0 2px;
-    font-size: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 4px;
+    font-size: 12px;
 }
 
 /* Responsive para pantallas pequeñas */
@@ -234,12 +255,12 @@ html {
 
         .clients-table th,
         .clients-table td {
-            padding: 8px;
+            padding: 10px 8px;
         }
 
     .action-links a {
         font-size: 11px;
-        padding: 3px 6px;
+        padding: 5px 8px;
         margin-right: 5px;
     }
 }
@@ -247,17 +268,21 @@ html {
 /* Mensaje cuando no hay datos */
 .no-data-message {
     text-align: center;
-    padding: 40px;
-    color: #69c0ff;
-    font-size: 18px;
+    padding: 50px;
+    color: white;
+    font-size: 20px;
     font-style: italic;
     font-family: "Bona Nova SC", serif;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
 }
 
 /* Estilo para el contenedor de la tabla */
 .table-wrapper {
     overflow-x: auto;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 /* Ocultar elementos por defecto de MVC */
@@ -273,5 +298,33 @@ h2:not(.index-title) {
 /* Estilo para fechas */
 .clients-table td:nth-child(4) {
     font-weight: 600;
-    color: #a6c8ff;
+    color: #f0f8ff;
+    text-align: center;
 }
+
+/* Efecto de glassmorphism para las tarjetas */
+.index-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+/* Animaciones suaves */
+* {
+    transition: all 0.3s ease;
+}
+
+/* Efectos de hover mejorados */
+.clients-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+    .clients-table tbody tr:hover {
+        transform: translateY(-2px);
+    }

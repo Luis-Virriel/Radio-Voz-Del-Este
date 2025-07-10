@@ -18,51 +18,47 @@
     {
         @Html.AntiForgeryToken()
 
-        @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
-
-<div class="form-container">
-    <div class="form-group">
-        @Html.LabelFor(model => model.UserName, "Nombre de Usuario", new { @class = "form-label" })
-        <div class="input-container">
-            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-input", @placeholder = "Ingrese el nombre de usuario" } })
-            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "validation-error" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Email, "Correo Electrónico", new { @class = "form-label" })
-        <div class="input-container">
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-input", @placeholder = "usuario@ejemplo.com", @type = "email" } })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "validation-error" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.UserPassword, "Contraseña", new { @class = "form-label" })
-        <div class="input-container">
-            @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-input password-input", @placeholder = "Ingrese una contraseña segura", @type = "password" } })
-            @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "validation-error" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.RoleID, "Rol de Usuario", new { @class = "form-label" })
-        <div class="input-container">
-            @Html.DropDownList("RoleID", null, "-- Seleccione un rol --", new { @class = "form-select" })
-            @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "validation-error" })
-        </div>
-    </div>
-
-    <div class="button-container">
-        <input type="submit" value="Crear Usuario" class="submit-button" />}
-        @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "back-button" })
-    </div>
-    
-</div>
         
+
+        <div class="form-container">
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserName, "Nombre de Usuario", new { @class = "form-label" })
+                <div class="input-container">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-input", @placeholder = "Ingrese el nombre de usuario" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "validation-error" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, "Correo Electrónico", new { @class = "form-label" })
+                <div class="input-container">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-input", @placeholder = "usuario@ejemplo.com", @type = "email" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "validation-error" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserPassword, "Contraseña", new { @class = "form-label" })
+                <div class="input-container">
+                    @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-input password-input", @placeholder = "Ingrese una contraseña segura", @type = "password" } })
+                    @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "validation-error" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RoleID, "Rol de Usuario", new { @class = "form-label" })
+                <div class="input-container">
+                    @Html.DropDownList("RoleID", null, "-- Seleccione un rol --", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "validation-error" })
+                </div>
+            </div>
+
+            <div class="button-container">
+                <input type="submit" value="Crear Usuario" class="submit-button" />
+                @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "back-button" })
+            </div>
+        </div>
     }
-
-
 </div>
 
 @section Scripts {

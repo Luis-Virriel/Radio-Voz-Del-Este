@@ -14,7 +14,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            // Permite acceso a la página si tiene al menos 1 permiso
             if (Session["Permissions"] == null || ((System.Collections.Generic.List<string>)Session["Permissions"]).Count == 0)
                 return RedirectToAction("Login", "Account");
 
@@ -25,7 +24,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
-            // Requiere permiso específico ViewUser para detalles
             if (!HasPermission("ViewUser"))
                 return RedirectToAction("Login", "Account");
 
@@ -57,17 +55,38 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             if (!HasPermission("CreateUser"))
                 return RedirectToAction("Login", "Account");
 
+            // Validar unicidad UserName
+            if (db.Users.Any(u => u.UserName == user.UserName))
+            {
+                ModelState.AddModelError("UserName", "El nombre de usuario ya existe.");
+            }
+
+            // Validar unicidad Email
+            if (db.Users.Any(u => u.Email == user.Email))
+            {
+                ModelState.AddModelError("Email", "El correo electrónico ya está registrado.");
+            }
+
             if (ModelState.IsValid)
             {
                 user.UserPassword = HashPasswordBCrypt(user.UserPassword);
                 db.Users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                if (user.RoleID == 3)
+                {
+                    return RedirectToAction("Create", "Clients", new { userId = user.ID });
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.RoleID = new SelectList(db.Roles, "ID", "RoleName", user.RoleID);
             return View(user);
         }
+
 
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
@@ -82,7 +101,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             if (user == null)
                 return HttpNotFound();
 
-            user.UserPassword = null; // no mostrar contraseña actual
+            user.UserPassword = null;
 
             ViewBag.RoleID = new SelectList(db.Roles, "ID", "RoleName", user.RoleID);
             return View(user);
@@ -137,6 +156,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
         // POST: Users/Delete/5
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -144,11 +164,34 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             if (!HasPermission("DeleteUser"))
                 return RedirectToAction("Login", "Account");
 
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var user = db.Users.Find(id);
+            if (user == null)
+                return HttpNotFound();
+
+            var clienteVinculado = db.Clients.Any(c => c.UserID == id);
+            if (clienteVinculado)
+            {
+                ModelState.AddModelError("", "No se puede eliminar el usuario porque tiene un cliente vinculado.");
+                // Devolver la misma vista Delete para mostrar el error
+                return View(user);
+            }
+
+            try
+            {
+                db.Users.Remove(user);
+                db.SaveChanges();
+                TempData["SuccessMessage"] = "Usuario eliminado exitosamente.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error al eliminar usuario: " + ex.Message);
+                ModelState.AddModelError("", "Ocurrió un error al eliminar el usuario.");
+                return View(user);
+            }
         }
+
+
 
         protected override void Dispose(bool disposing)
         {

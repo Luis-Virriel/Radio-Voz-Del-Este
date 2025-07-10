@@ -504,8 +504,16 @@
         <div class="container-fluid">
             <!-- ZONA 1: IZQUIERDA - LOGO + NOMBRE -->
             <div class="navbar-section navbar-left">
+                @{
+                    var currentPath = Request.Url.AbsolutePath.ToLower();
+                    var homeWelcomeUrl = Url.Action("Welcome", "Home").ToLower();
+                    var homeIndexUrl = Url.Action("Index", "Home").ToLower();
+                    var isActive = currentPath == homeWelcomeUrl || currentPath == homeIndexUrl;
+                }
                 <img src="@Url.Content("~/Assets/Radio.png")" alt="Logo Voz del Este" />
-                @Html.ActionLink("Voz del Este FM", "Index", "Home", null, new { @class = "navbar-brand" })
+                <a href="@Url.Action("Welcome", "Home")" class="navbar-brand @(isActive ? "active" : "")">Voz del Este FM</a>
+
+
             </div>
 
             @if (User.Identity.IsAuthenticated)
@@ -517,25 +525,50 @@
                 <div class="navbar-section navbar-center-left">
                     <select onchange="navigateToPage(this.value)" class="nav-dropdown">
                         <option value="">Ir a...</option>
-                        @* Mostrar opciones basadas en permisos *@
+
                         @if (permissions.Any(p => p.Contains("Client")))
                         {
-                            <option value="@Url.Action("Index", "Clients")">Clients</option>
+                            <option value="@Url.Action("Index", "Clients")">Clientes</option>
                         }
                         @if (permissions.Any(p => p.Contains("User")))
                         {
-                            <option value="@Url.Action("Index", "Users")">Users</option>
+                            <option value="@Url.Action("Index", "Users")">Usuarios</option>
                         }
                         @if (permissions.Any(p => p.Contains("Sponsor")))
                         {
-                            <option value="@Url.Action("Index", "Sponsors")">Sponsors</option>
+                            <option value="@Url.Action("Index", "Sponsors")">Patrocinadores</option>
+                        }
+                        @if (permissions.Any(p => p.Contains("Host")))
+                        {
+                            <option value="@Url.Action("Index", "Hosts")">Conductores</option>
                         }
                         @if (permissions.Any(p => p.Contains("Program")))
                         {
-                            <option value="@Url.Action("Index", "RadioPrograms")">Radio Programs</option>
+                            <option value="@Url.Action("Index", "RadioPrograms")">Programas</option>
                         }
+                        @if (permissions.Any(p => p.Contains("News")))
+                        {
+                            <option value="@Url.Action("Index", "News")">Noticias</option>
+                        }
+                        @if (permissions.Any(p => p.Contains("Comments")))
+                        {
+                            <option value="@Url.Action("Index", "Comments")">Comentarios</option>
+                        }
+                        @* Roles solo para Admin *@
+                        @if (role == "Admin")
+                        {
+                            <option value="@Url.Action("Index", "Roles")">Roles</option>
+
+                        }
+                        @if (role == "Admin" || role == "Editors" || role == "Clients")
+                        {
+                            <option value="@Url.Action("Weather", "Home")">Clima</option>
+                            <option value="@Url.Action("Currency", "Home")">Cambio Moneda</option>
+                        }
+
                     </select>
                 </div>
+
 
                 <!-- ZONA 3: CENTRO-DERECHA - USUARIO -->
                 <div class="navbar-section navbar-center-right">
