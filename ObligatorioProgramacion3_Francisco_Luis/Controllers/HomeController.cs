@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
+    
     public class HomeController : Controller
     {
         private RadioEntities db = new RadioEntities();
@@ -27,7 +28,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 return data;
             }
         }
-
+        [Authorize]
         public ActionResult Sponsors()
         {
             try
@@ -175,7 +176,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 return View("Index", model);
             }
         }
-
+        [Authorize]
         public async Task<WeatherViewModel> GetCurrentWeatherAsync()
         {
             using (var client = new HttpClient())
@@ -249,6 +250,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
+        [Authorize]
 
         public async Task<ActionResult> Weather()
         {
@@ -290,6 +292,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
+        [Authorize]
 
         public async Task<ActionResult> Currency()
         {
@@ -344,6 +347,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
+        [Authorize]
 
         public ActionResult News(string category = null, string title = null)
         {
@@ -423,6 +427,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 return View(emptyViewModel);
             }
         }
+        [Authorize]
 
         public ActionResult RadioPrograms()
         {
