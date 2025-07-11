@@ -167,6 +167,7 @@
     <Compile Include="Models\Comment.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\CurrencyData.cs" />
     <Compile Include="Models\EdtirRolePermision.cs" />
     <Compile Include="Models\ExchangeRate.cs">
