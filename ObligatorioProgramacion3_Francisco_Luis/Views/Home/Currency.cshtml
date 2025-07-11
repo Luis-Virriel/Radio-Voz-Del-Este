@@ -22,7 +22,7 @@
 }
 
 <div class="currency-container">
-    <h2 style="text-align:center; color:#2CA58D">Cotizaciones en Pesos Uruguayos (UYU)</h2>
+    <h2 style="text-align:center; color:whitesmoke">Cotizaciones en Pesos Uruguayos (UYU)</h2>
 
     @if (Model.CurrencyData?.Timestamp != null)
     {
@@ -171,16 +171,16 @@
 
 <style>
 /* Estilos originales para cotizaciones */
-.currency-container {
-    max-width: 850px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #0A2342;
-    border-radius: 12px;
-    font-family: 'Segoe UI', sans-serif;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-    color: #DFF3E4;
-}
+	.currency-container {
+		max-width: 850px;
+		margin: 2rem auto;
+		padding: 2rem;
+		background: linear-gradient(135deg, #667eea 0%, #007bff7a 100%);
+		border-radius: 12px;
+		font-family: 'Segoe UI', sans-serif;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+		color: #DFF3E4;
+	}
 
 .updated-at {
     text-align: center;
@@ -197,16 +197,16 @@
     margin-top: 2rem;
 }
 
-.currency-card {
-    background: #2CA58D;
-    border-radius: 12px;
-    padding: 1.2rem 1.6rem;
-    color: #FFFDF7;
-    text-align: center;
-    width: 180px;
-    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, background 0.3s;
-}
+	.currency-card {
+		background: linear-gradient(135deg, #667eea 0%, #007bff7a 100%);
+		border-radius: 12px;
+		padding: 1.2rem 1.6rem;
+		color: #FFFDF7;
+		text-align: center;
+		width: 180px;
+		box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.3);
+		transition: transform 0.3s ease, background 0.3s;
+	}
 
 .currency-card:hover {
     transform: scale(1.05);
@@ -249,7 +249,7 @@
 }
 
 .dashboard-header h3 {
-    color: #2CA58D;
+    color: whitesmoke;
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
     font-weight: 600;
@@ -263,19 +263,19 @@
     margin-bottom: 2rem;
 }
 
-.stat-card {
-    background: linear-gradient(135deg, #2CA58D, #24987f);
-    border-radius: 12px;
-    padding: 1.5rem;
-    color: #FFFDF7;
-    text-align: center;
-    min-width: 160px;
-    box-shadow: 0 4px 15px rgba(44, 165, 141, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
+	.stat-card {
+		background: linear-gradient(135deg, #667eea 0%, #007bff7a 100%)		;
+		border-radius: 12px;
+		padding: 1.5rem;
+		color: #FFFDF7;
+		text-align: center;
+		min-width: 160px;
+		box-shadow: 0 4px 15px rgba(44, 165, 141, 0.3);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
 
 .stat-card:hover {
     transform: translateY(-5px);
@@ -311,30 +311,30 @@
     margin-bottom: 2rem;
 }
 
-.chart-section {
-    grid-column: 1 / -1;
-    background: #123456;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-}
+	.chart-section {
+		grid-column: 1 / -1;
+		background: linear-gradient(135deg, #667eea 0%, #007bff7a 100%);
+		border-radius: 12px;
+		padding: 1.5rem;
+		margin-bottom: 1rem;
+	}
 
-.chart-section h4 {
-    color: #2CA58D;
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-}
+		.chart-section h4 {
+			color: #007bff7a;
+			margin-bottom: 1rem;
+			font-size: 1.3rem;
+		}
 
 .chart-container {
     height: 300px;
     position: relative;
 }
 
-.table-section {
-    background: #123456;
-    border-radius: 12px;
-    padding: 1.5rem;
-}
+	.table-section {
+		background: linear-gradient(135deg, #667eea 0%, #007bff7a 100%);
+		border-radius: 12px;
+		padding: 1.5rem;
+	}
 
 .table-section h4 {
     color: #2CA58D;
@@ -359,13 +359,13 @@
     border-bottom: 1px solid #8EA8C3;
 }
 
-.currency-table th {
-    background: #2CA58D;
-    color: #FFFDF7;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-}
+	.currency-table th {
+		background: linear-gradient(135deg, #667eea 0%, #007bff7a 100%);
+		color: #FFFDF7;
+		font-weight: 600;
+		text-transform: uppercase;
+		font-size: 0.9rem;
+	}
 
 .currency-table tr:hover {
     background: rgba(44, 165, 141, 0.1);
@@ -401,21 +401,21 @@
     text-transform: uppercase;
 }
 
-.status-badge.high {
-    background: #4CAF50;
-    color: white;
-}
+	.status-badge.high {
+		background: linear-gradient(135deg, #667eea 0%, #007bff7a 100%);
+		color: white;
+	}
 
-.status-badge.low {
-    background: #FF9800;
-    color: white;
-}
+	.status-badge.low {
+		background: linear-gradient(135deg, #667eea 0%, #007bff7a 100%);
+		color: white;
+	}
 
-.alerts-section {
-    background: #123456;
-    border-radius: 12px;
-    padding: 1.5rem;
-}
+	.alerts-section {
+		background: linear-gradient(135deg, #667eea 0%, #007bff7a 100%);
+		border-radius: 12px;
+		padding: 1.5rem;
+	}
 
 .alerts-section h4 {
     color: #2CA58D;
@@ -448,10 +448,10 @@
     border-left-color: #FF9800;
 }
 
-.alert-success {
-    background: rgba(76, 175, 80, 0.1);
-    border-left-color: #4CAF50;
-}
+	.alert-success {
+		background: linear-gradient(135deg, #667eea 0%, #007bff7a 100%);
+        border-left-color: #4CAF50;
+	}
 
 .alert-icon {
     font-size: 1.5rem;

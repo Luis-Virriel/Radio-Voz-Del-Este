@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="164c5f3b715c435db5a28f86d1570e25" Name="Diagram1" ZoomLevel="79">
+      <Diagram DiagramId="164c5f3b715c435db5a28f86d1570e25" Name="Diagram1" ZoomLevel="77">
         <EntityTypeShape EntityType="RadioModel.Client" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="RadioModel.Comment" Width="1.5" PointX="6.375" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="RadioModel.ExchangeRate" Width="1.5" PointX="10.375" PointY="2.75" IsExpanded="true" />

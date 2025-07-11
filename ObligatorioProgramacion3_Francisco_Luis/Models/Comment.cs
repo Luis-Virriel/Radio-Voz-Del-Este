@@ -22,5 +22,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
     
         public virtual Client Client { get; set; }
         public virtual RadioProgram RadioProgram { get; set; }
+
+      
     }
 }

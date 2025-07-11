@@ -13,7 +13,7 @@
 
 	body {
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		background: linear-gradient(135deg, #667eea 0%, #5ebdff 100% 100%);
 		min-height: 100vh;
 		color: #333;
 	}
@@ -270,7 +270,7 @@
 	}
 
 	.news-card:hover .news-title-card {
-		color: #e74c3c;
+		color: #5ebdff;
 	}
 
 	.news-excerpt {
@@ -296,7 +296,7 @@
 		width: 30px;
 		height: 30px;
 		border-radius: 50%;
-		background: #e74c3c;
+		background: #5ebdff;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -322,31 +322,7 @@
 		margin: 0;
 	}
 
-	/* Loading More Section */
-	.load-more-section {
-		text-align: center;
-		margin: 3rem 0;
-	}
-
-	.load-more-btn {
-		background: linear-gradient(135deg, #667eea, #764ba2);
-		color: white;
-		border: none;
-		padding: 15px 40px;
-		border-radius: 25px;
-		font-size: 1rem;
-		font-weight: 600;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-	}
-
-		.load-more-btn:hover {
-			transform: translateY(-3px);
-			box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-		}
-
-	/* Sidebar */
+	/* News Layout */
 	.news-layout {
 		display: grid;
 		grid-template-columns: 1fr 300px;
@@ -380,6 +356,7 @@
 		text-decoration: none;
 		color: inherit;
 		transition: all 0.2s ease;
+		cursor: pointer;
 	}
 
 		.trending-item:last-child {
@@ -416,6 +393,174 @@
 		line-height: 1.3;
 	}
 
+	/* MODAL STYLES */
+	.news-modal {
+		display: none;
+		position: fixed;
+		z-index: 1000;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #5ebdff;
+		backdrop-filter: blur(5px);
+	}
+
+	.modal-content {
+		background-color: white;
+		margin: 2% auto;
+		padding: 0;
+		border-radius: 20px;
+		width: 90%;
+		max-width: 900px;
+		max-height: 90vh;
+		overflow: hidden;
+		box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+		animation: modalSlideIn 0.3s ease-out;
+	}
+
+	@@keyframes modalSlideIn {
+		from {
+			transform: translateY(-50px);
+			opacity: 0;
+		}
+
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	.modal-header {
+		position: relative;
+		height: 300px;
+		overflow: hidden;
+	}
+
+	.modal-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.modal-overlay {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+		color: white;
+		padding: 3rem 2rem 2rem;
+	}
+
+	.modal-category {
+		background: rgba(255, 255, 255, 0.2);
+		color: white;
+		padding: 0.5rem 1rem;
+		border-radius: 20px;
+		font-size: 0.8rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		display: inline-block;
+		margin-bottom: 1rem;
+	}
+
+	.modal-title {
+		font-size: 2rem;
+		font-weight: 700;
+		line-height: 1.2;
+		margin-bottom: 0.5rem;
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	.modal-meta {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		font-size: 0.9rem;
+		opacity: 0.9;
+	}
+
+	.modal-body {
+		padding: 2rem;
+		max-height: 400px;
+		overflow-y: auto;
+	}
+
+	.modal-excerpt {
+		font-size: 1.1rem;
+		line-height: 1.6;
+		color: #2c3e50;
+		margin-bottom: 2rem;
+		font-weight: 500;
+	}
+
+	.modal-content-text {
+		font-size: 1rem;
+		line-height: 1.8;
+		color: #34495e;
+		margin-bottom: 2rem;
+	}
+
+	.modal-author {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 1.5rem 2rem;
+		background: #f8f9fa;
+		border-top: 1px solid #ecf0f1;
+	}
+
+	.modal-author-avatar {
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		background: #e74c3c;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		font-weight: 600;
+		font-size: 1.2rem;
+	}
+
+	.modal-author-info h4 {
+		color: #2c3e50;
+		margin: 0 0 0.25rem 0;
+		font-size: 1rem;
+	}
+
+	.modal-author-info p {
+		color: #7f8c8d;
+		margin: 0;
+		font-size: 0.9rem;
+	}
+
+	.close-modal {
+		color: white;
+		position: absolute;
+		top: 15px;
+		right: 20px;
+		font-size: 2rem;
+		font-weight: bold;
+		cursor: pointer;
+		z-index: 1001;
+		background: rgba(0, 0, 0, 0.5);
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.3s ease;
+	}
+
+		.close-modal:hover {
+			background: rgba(0, 0, 0, 0.8);
+			transform: scale(1.1);
+		}
+
 	/* Responsive */
 	@@media (max-width: 1024px) {
 		.news-layout {
@@ -435,6 +580,15 @@
 			.news-card.featured .news-image {
 				height: 250px;
 			}
+
+		.modal-content {
+			margin: 5% auto;
+			width: 95%;
+		}
+
+		.modal-title {
+			font-size: 1.5rem;
+		}
 	}
 
 	@@media (max-width: 768px) {
@@ -464,6 +618,17 @@
 			gap: 1rem;
 			text-align: center;
 		}
+
+		.modal-content {
+			margin: 0;
+			width: 100%;
+			height: 100vh;
+			border-radius: 0;
+		}
+
+		.modal-body {
+			max-height: none;
+		}
 	}
 </style>
 
@@ -483,192 +648,83 @@
 		<section class="filter-section">
 			<div class="filter-header">
 				<h2 class="filter-title">Filtrar noticias</h2>
-				<span class="news-count">Mostrando 12 noticias</span>
+				<span class="news-count">Mostrando @Model.TotalCount noticias</span>
 			</div>
 			<div class="filter-buttons">
-				<a href="@Url.Action("News", "Home")" class="filter-btn @(string.IsNullOrEmpty(ViewBag.SelectedCategory) ? "active" : "")">
+				<a href="@Url.Action("News", "Home")" class="filter-btn @(string.IsNullOrEmpty(Model.SelectedCategory) ? "active" : "")">
 					Todas
 				</a>
-				<a href="@Url.Action("News", "Home", new { category = "Local" })" class="filter-btn @(ViewBag.SelectedCategory == "Local" ? "active" : "")">
+				<a href="@Url.Action("News", "Home", new { category = "Local" })" class="filter-btn @(Model.SelectedCategory == "Local" ? "active" : "")">
 					Local
 				</a>
-				<a href="@Url.Action("News", "Home", new { category = "Deportes" })" class="filter-btn @(ViewBag.SelectedCategory == "Deportes" ? "active" : "")">
+				<a href="@Url.Action("News", "Home", new { category = "Deportes" })" class="filter-btn @(Model.SelectedCategory == "Deportes" ? "active" : "")">
 					Deportes
 				</a>
-				<a href="@Url.Action("News", "Home", new { category = "Internacional" })" class="filter-btn @(ViewBag.SelectedCategory == "Internacional" ? "active" : "")">
+				<a href="@Url.Action("News", "Home", new { category = "Internacional" })" class="filter-btn @(Model.SelectedCategory == "Internacional" ? "active" : "")">
 					Internacional
 				</a>
-				<a href="@Url.Action("News", "Home", new { category = "Turismo" })" class="filter-btn @(ViewBag.SelectedCategory == "Turismo" ? "active" : "")">
+				<a href="@Url.Action("News", "Home", new { category = "Turismo" })" class="filter-btn @(Model.SelectedCategory == "Turismo" ? "active" : "")">
 					Turismo
 				</a>
-				<a href="@Url.Action("News", "Home", new { category = "Clima" })" class="filter-btn @(ViewBag.SelectedCategory == "Clima" ? "active" : "")">
+				<a href="@Url.Action("News", "Home", new { category = "Clima" })" class="filter-btn @(Model.SelectedCategory == "Clima" ? "active" : "")">
 					Clima
+				</a>
+				<a href="@Url.Action("News", "Home", new { category = "Cultura" })" class="filter-btn @(Model.SelectedCategory == "Cultura" ? "active" : "")">
+					Cultura
 				</a>
 			</div>
 		</section>
 
 		<!-- News Grid -->
 		<section class="news-grid">
-			<!-- Featured News -->
-			<article class="news-card featured">
-				<img src="https://images.unsplash.com/photo-1581553673739-c4908841d3b5?w=600&h=400&fit=crop"
-					 alt="Centro Cultural Maldonado" class="news-image">
-				<div class="news-content">
-					<div class="news-meta">
-						<span class="news-category-badge local">Local</span>
-						<div class="news-date">
-							<i class="fas fa-clock"></i>
-							Hace 2 horas
-						</div>
-					</div>
-					<h2 class="news-title-card">Inauguración del nuevo centro cultural en Maldonado marca un hito para la comunidad</h2>
-					<p class="news-excerpt">
-						El moderno espacio de 2,500 metros cuadrados incluye salas de exposiciones, un auditorio para 300 personas,
-						talleres de arte y una biblioteca digital. La inversión de $2.5 millones de dólares promete revolucionar
-						la oferta cultural de la región este del país.
-					</p>
-					<div class="news-author">
-						<div class="author-avatar">MR</div>
-						<div class="author-info">
-							<p class="author-name">María Rodríguez</p>
-							<p class="author-role">Periodista Cultural</p>
-						</div>
-					</div>
-				</div>
-			</article>
+			@if (Model.NewsItems != null && Model.NewsItems.Any())
+			{
+				foreach (var news in Model.NewsItems)
+				{
+					<article class="news-card @(news.IsFeatured ? "featured" : "")" onclick="openNewsModal(@news.Id)">
+						<img src="@(string.IsNullOrEmpty(news.ImageURL) ? "/Assets/default-news.jpg" : news.ImageURL)"
+							 alt="@news.Title" class="news-image"
+							 onerror="this.src='https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=400&h=220&fit=crop'">
 
-			<!-- Regular News Cards -->
-			<article class="news-card">
-				<img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=220&fit=crop"
-					 alt="Fútbol uruguayo" class="news-image">
-				<div class="news-content">
-					<div class="news-meta">
-						<span class="news-category-badge deportes">Deportes</span>
-						<div class="news-date">
-							<i class="fas fa-clock"></i>
-							Hace 4 horas
-						</div>
-					</div>
-					<h3 class="news-title-card">Peñarol vence 2-1 a Nacional en el clásico uruguayo</h3>
-					<p class="news-excerpt">
-						En un partido lleno de emociones en el Estadio Centenario, los aurinegros se impusieron
-						con goles de Fernández y Silva ante 45,000 espectadores.
-					</p>
-					<div class="news-author">
-						<div class="author-avatar">JL</div>
-						<div class="author-info">
-							<p class="author-name">Juan López</p>
-							<p class="author-role">Corresponsal Deportivo</p>
-						</div>
-					</div>
-				</div>
-			</article>
+						<div class="news-content">
+							<div class="news-meta">
+								<span class="news-category-badge @(news.Category?.ToLower() ?? "sin-categoria")">@news.Category</span>
+								<div class="news-date">
+									<i class="fas fa-clock"></i>
+									@news.TimeAgo
+								</div>
+							</div>
 
-			<article class="news-card">
-				<img src="https://images.unsplash.com/photo-1494790108755-2616c27d8090?w=400&h=220&fit=crop"
-					 alt="Unión Europea" class="news-image">
-				<div class="news-content">
-					<div class="news-meta">
-						<span class="news-category-badge internacional">Internacional</span>
-						<div class="news-date">
-							<i class="fas fa-clock"></i>
-							Hace 6 horas
-						</div>
-					</div>
-					<h3 class="news-title-card">Acuerdo comercial entre Uruguay y la Unión Europea</h3>
-					<p class="news-excerpt">
-						El tratado beneficiará las exportaciones de carne y productos lácteos uruguayos,
-						eliminando aranceles por un valor estimado de $300 millones anuales.
-					</p>
-					<div class="news-author">
-						<div class="author-avatar">AS</div>
-						<div class="author-info">
-							<p class="author-name">Ana Silva</p>
-							<p class="author-role">Editora Internacional</p>
-						</div>
-					</div>
-				</div>
-			</article>
+							@if (news.IsFeatured)
+							{
+								<h2 class="news-title-card">@news.Title</h2>
+							}
+							else
+							{
+								<h3 class="news-title-card">@news.Title</h3>
+							}
 
-			<article class="news-card">
-				<img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=220&fit=crop"
-					 alt="Punta del Este" class="news-image">
-				<div class="news-content">
-					<div class="news-meta">
-						<span class="news-category-badge turismo">Turismo</span>
-						<div class="news-date">
-							<i class="fas fa-clock"></i>
-							Hace 8 horas
-						</div>
-					</div>
-					<h3 class="news-title-card">Punta del Este espera récord de visitantes este verano</h3>
-					<p class="news-excerpt">
-						Las reservas hoteleras superan el 85% para la temporada alta, con turistas principalmente
-						de Argentina, Brasil y Estados Unidos confirmando su visita.
-					</p>
-					<div class="news-author">
-						<div class="author-avatar">CM</div>
-						<div class="author-info">
-							<p class="author-name">Carlos Méndez</p>
-							<p class="author-role">Especialista en Turismo</p>
-						</div>
-					</div>
-				</div>
-			</article>
+							<p class="news-excerpt">@news.Excerpt</p>
 
-			<article class="news-card">
-				<img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=220&fit=crop"
-					 alt="Tormenta" class="news-image">
-				<div class="news-content">
-					<div class="news-meta">
-						<span class="news-category-badge clima">Clima</span>
-						<div class="news-date">
-							<i class="fas fa-clock"></i>
-							Hace 10 horas
+							<div class="news-author">
+								<div class="author-avatar">@news.AuthorInitials</div>
+								<div class="author-info">
+									<p class="author-name">@news.Author</p>
+									<p class="author-role">@news.AuthorRole</p>
+								</div>
+							</div>
 						</div>
-					</div>
-					<h3 class="news-title-card">Alerta meteorológica por tormentas en la región este</h3>
-					<p class="news-excerpt">
-						El Instituto Nacional de Meteorología advierte sobre precipitaciones intensas y vientos
-						de hasta 80 km/h para las próximas 24 horas en Maldonado y Rocha.
-					</p>
-					<div class="news-author">
-						<div class="author-avatar">LF</div>
-						<div class="author-info">
-							<p class="author-name">Laura Fernández</p>
-							<p class="author-role">Meteoróloga</p>
-						</div>
-					</div>
+					</article>
+				}
+			}
+			else
+			{
+				<div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+					<h3>No hay noticias disponibles</h3>
+					<p>Intenta con otra categoría o vuelve más tarde.</p>
 				</div>
-			</article>
-
-			<article class="news-card">
-				<img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=220&fit=crop"
-					 alt="Festival de música" class="news-image">
-				<div class="news-content">
-					<div class="news-meta">
-						<span class="news-category-badge cultura">Cultura</span>
-						<div class="news-date">
-							<i class="fas fa-clock"></i>
-							Hace 12 horas
-						</div>
-					</div>
-					<h3 class="news-title-card">Festival de Jazz de Maldonado anuncia su programación 2025</h3>
-					<p class="news-excerpt">
-						Artistas internacionales como Brad Mehldau y Esperanza Spalding encabezarán el evento
-						que se realizará del 15 al 20 de febrero en diferentes espacios de la ciudad.
-					</p>
-					<div class="news-author">
-						<div class="author-avatar">DR</div>
-						<div class="author-info">
-							<p class="author-name">Diego Ruiz</p>
-							<p class="author-role">Crítico Musical</p>
-						</div>
-					</div>
-				</div>
-			</article>
+			}
 		</section>
-
 
 	</main>
 
@@ -679,49 +735,200 @@
 			Tendencias
 		</h3>
 
-		<a href="#" class="trending-item">
-			<span class="trending-number">1</span>
-			<span class="trending-title">Nuevo shopping center en Maldonado genera 800 empleos</span>
-		</a>
-
-		<a href="#" class="trending-item">
-			<span class="trending-number">2</span>
-			<span class="trending-title">Suárez confirma su permanencia en Inter de Miami hasta 2026</span>
-		</a>
-
-		<a href="#" class="trending-item">
-			<span class="trending-number">3</span>
-			<span class="trending-title">Récord histórico de turistas brasileños en Punta del Este</span>
-		</a>
-
-		<a href="#" class="trending-item">
-			<span class="trending-number">4</span>
-			<span class="trending-title">Nueva ruta costera conectará Maldonado con Rocha</span>
-		</a>
-
-		<a href="#" class="trending-item">
-			<span class="trending-number">5</span>
-			<span class="trending-title">Festival de cine latinoamericano llega a Punta del Este</span>
-		</a>
+		@if (Model.TrendingNews != null && Model.TrendingNews.Any())
+		{
+			for (int i = 0; i < Math.Min(5, Model.TrendingNews.Count); i++)
+			{
+				var trending = Model.TrendingNews[i];
+				<div class="trending-item" onclick="openNewsModal(@trending.Id)">
+					<span class="trending-number">@(i + 1)</span>
+					<span class="trending-title">@trending.Title</span>
+				</div>
+			}
+		}
+		else
+		{
+			<p style="color: #7f8c8d; font-style: italic;">No hay noticias trending disponibles.</p>
+		}
 	</aside>
+</div>
+
+<!-- MODAL PARA MOSTRAR NOTICIA COMPLETA -->
+<div id="newsModal" class="news-modal">
+	<div class="modal-content">
+		<span class="close-modal" onclick="closeNewsModal()">&times;</span>
+
+		<div class="modal-header">
+			<img id="modalImage" src="" alt="" class="modal-image">
+			<div class="modal-overlay">
+				<span id="modalCategory" class="modal-category"></span>
+				<h2 id="modalTitle" class="modal-title"></h2>
+				<div class="modal-meta">
+					<span id="modalDate"></span>
+					<span>•</span>
+					<span id="modalAuthorName"></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-body">
+			<p id="modalExcerpt" class="modal-excerpt"></p>
+			<div id="modalContent" class="modal-content-text"></div>
+		</div>
+
+		<div class="modal-author">
+			<div id="modalAuthorAvatar" class="modal-author-avatar"></div>
+			<div class="modal-author-info">
+				<h4 id="modalAuthorFullName"></h4>
+				<p id="modalAuthorRole"></p>
+			</div>
+		</div>
+	</div>
 </div>
 
 @section scripts {
 	<script>
+		// Función para decodificar UTF-8 correctamente
+		function decodeUTF8(str) {
+			try {
+				return decodeURIComponent(escape(atob(str)));
+			} catch (e) {
+				return atob(str);
+			}
+		}
 
-        // Animación de entrada para las tarjetas
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.news-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
+		// Datos de noticias para el modal - Codificados en Base64 para evitar problemas de caracteres
+		var newsDataEncoded = [
+			@if (Model.NewsItems != null && Model.NewsItems.Any())
+			{
+				foreach (var news in Model.NewsItems)
+				{
+					<text>
+					{
+						id: @news.Id,
+						title: "@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(news.Title ?? ""))",
+						excerpt: "@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(news.Excerpt ?? ""))",
+						content: "@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(news.Content ?? "Contenido completo de la noticia..."))",
+						category: "@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(news.Category ?? ""))",
+						imageURL: "@(news.ImageURL ?? "")",
+						author: "@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(news.Author ?? ""))",
+						authorRole: "@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(news.AuthorRole ?? ""))",
+						authorInitials: "@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(news.AuthorInitials ?? ""))",
+						timeAgo: "@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(news.TimeAgo ?? ""))"
+					},
+					</text>
+				}
+			}
+		];
 
-                setTimeout(() => {
-                    card.style.transition = 'all 0.6s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-        });
+		// Decodificar los datos con UTF-8 correcto
+		var newsData = newsDataEncoded.map(function(item) {
+			return {
+				id: item.id,
+				title: decodeUTF8(item.title),
+				excerpt: decodeUTF8(item.excerpt),
+				content: decodeUTF8(item.content),
+				category: decodeUTF8(item.category),
+				imageURL: item.imageURL,
+				author: decodeUTF8(item.author),
+				authorRole: decodeUTF8(item.authorRole),
+				authorInitials: decodeUTF8(item.authorInitials),
+				timeAgo: decodeUTF8(item.timeAgo)
+			};
+		});
+
+		// Función para abrir el modal con la noticia
+		function openNewsModal(newsId) {
+			var news = newsData.find(n => n.id === newsId);
+			if (!news) return;
+
+			// Llenar datos del modal
+			document.getElementById('modalImage').src = news.imageURL || 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=900&h=300&fit=crop';
+			document.getElementById('modalCategory').textContent = news.category;
+			document.getElementById('modalTitle').textContent = news.title;
+			document.getElementById('modalDate').textContent = news.timeAgo;
+			document.getElementById('modalAuthorName').textContent = news.author;
+			document.getElementById('modalExcerpt').textContent = news.excerpt;
+			document.getElementById('modalContent').innerHTML = generateFullContent(news);
+			document.getElementById('modalAuthorAvatar').textContent = news.authorInitials;
+			document.getElementById('modalAuthorFullName').textContent = news.author;
+			document.getElementById('modalAuthorRole').textContent = news.authorRole;
+
+			// Mostrar modal
+			document.getElementById('newsModal').style.display = 'block';
+			document.body.style.overflow = 'hidden';
+		}
+
+		// Función para cerrar el modal
+		function closeNewsModal() {
+			document.getElementById('newsModal').style.display = 'none';
+			document.body.style.overflow = 'auto';
+		}
+
+		// Función para generar contenido completo
+		function generateFullContent(news) {
+			if (news.content && news.content !== 'Sin contenido') {
+				return news.content;
+			}
+
+			// Generar contenido basado en categoría
+			var content = '<p>' + news.excerpt + '</p>';
+
+			switch(news.category.toLowerCase()) {
+				case 'local':
+					content += '<p>Esta iniciativa representa un paso importante para el desarrollo económico de nuestra región. Las autoridades municipales han expresado su satisfacción por el interés mostrado en establecerse en Maldonado.</p>';
+					content += '<p>Se espera que estos desarrollos generen empleos de calidad y contribuyan al crecimiento sostenible del departamento.</p>';
+					break;
+				case 'deportes':
+					content += '<p>El encuentro se disputó en un ambiente festivo, con la participación de miles de espectadores. La actuación destacada mantuvo a los fanáticos atentos durante todo el evento.</p>';
+					content += '<p>Este resultado marca un hito importante en la temporada actual y genera expectativas para los próximos encuentros.</p>';
+					break;
+				case 'turismo':
+					content += '<p>Esta noticia representa un impulso significativo para el sector turístico de la región. Los operadores locales han expresado su optimismo sobre el impacto positivo esperado.</p>';
+					content += '<p>Las nuevas propuestas prometen diversificar la oferta existente y atraer a diferentes segmentos de visitantes.</p>';
+					break;
+				case 'cultura':
+					content += '<p>Esta iniciativa cultural representa el compromiso continuo de preservar y promover las artes en nuestra comunidad. Los organizadores han preparado una programación diversa y de calidad.</p>';
+					content += '<p>El evento promete enriquecer la vida cultural de la región y brindar oportunidades para el intercambio artístico.</p>';
+					break;
+				default:
+					content += '<p>Esta noticia representa un desarrollo importante para nuestra comunidad. Los responsables continúan monitoreando la situación de cerca.</p>';
+					content += '<p>Se esperan más detalles en los próximos días sobre las implicaciones de este acontecimiento.</p>';
+			}
+
+			content += '<p><strong>Voz del Este</strong> continuará siguiendo de cerca este tema para mantener informada a la comunidad.</p>';
+
+			return content;
+		}
+
+		// Cerrar modal al hacer clic fuera
+		window.onclick = function(event) {
+			var modal = document.getElementById('newsModal');
+			if (event.target == modal) {
+				closeNewsModal();
+			}
+		}
+
+		// Cerrar modal con tecla Escape
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape') {
+				closeNewsModal();
+			}
+		});
+
+		// Animación de entrada para las tarjetas
+		document.addEventListener('DOMContentLoaded', function () {
+			const cards = document.querySelectorAll('.news-card');
+			cards.forEach((card, index) => {
+				card.style.opacity = '0';
+				card.style.transform = 'translateY(30px)';
+
+				setTimeout(() => {
+					card.style.transition = 'all 0.6s ease';
+					card.style.opacity = '1';
+					card.style.transform = 'translateY(0)';
+				}, index * 100);
+			});
+		});
 	</script>
 }
