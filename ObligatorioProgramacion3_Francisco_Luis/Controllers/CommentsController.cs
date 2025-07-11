@@ -114,15 +114,40 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
         // POST: Comments/Delete/5
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Comment comment = db.Comments.Find(id);
-            db.Comments.Remove(comment);
-            db.SaveChanges();
+
+            var user = db.Users.Find(id);
+            if (user == null)
+                return HttpNotFound();
+
+            // Verificar si existe cliente vinculado a este usuario
+            var clienteVinculado = db.Clients.Any(c => c.UserID == id);
+            if (clienteVinculado)
+            {
+                TempData["ErrorMessage"] = "No se puede eliminar el usuario porque tiene un cliente vinculado.";
+                return RedirectToAction("Index");
+            }
+
+            try
+            {
+                db.Users.Remove(user);
+                db.SaveChanges();
+                TempData["SuccessMessage"] = "Usuario eliminado exitosamente.";
+            }
+            catch (Exception ex)
+            {
+                // Loguear el error en consola o sistema de logs
+                System.Diagnostics.Debug.WriteLine("Error al eliminar usuario: " + ex.Message);
+                TempData["ErrorMessage"] = "Ocurrió un error al eliminar el usuario.";
+            }
+
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {

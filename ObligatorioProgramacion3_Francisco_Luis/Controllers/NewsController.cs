@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ObligatorioProgramacion3_Francisco_Luis.Models;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
-    public class NewsController : Controller
+    [Authorize]
+    public class NewsController : BaseController // <--- ¡HEREDA BaseController!
     {
         private RadioEntities db = new RadioEntities();
 
@@ -23,31 +22,36 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: News/Details/5
         public ActionResult Details(int? id)
         {
+            if (!HasPermission("ViewNews"))
+                return new HttpUnauthorizedResult("No tiene permiso para ver noticias.");
+
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             News news = db.News.Find(id);
             if (news == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(news);
         }
 
         // GET: News/Create
         public ActionResult Create()
         {
+            if (!HasPermission("CreateNews"))
+                return new HttpUnauthorizedResult("No tiene permiso para crear noticias.");
+
             return View();
         }
 
         // POST: News/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Title,Content,PublishDate,ImageURL")] News news)
         {
+            if (!HasPermission("CreateNews"))
+                return new HttpUnauthorizedResult("No tiene permiso para crear noticias.");
+
             if (ModelState.IsValid)
             {
                 db.News.Add(news);
@@ -61,25 +65,27 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: News/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!HasPermission("EditNews"))
+                return new HttpUnauthorizedResult("No tiene permiso para editar noticias.");
+
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             News news = db.News.Find(id);
             if (news == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(news);
         }
 
         // POST: News/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Title,Content,PublishDate,ImageURL")] News news)
         {
+            if (!HasPermission("EditNews"))
+                return new HttpUnauthorizedResult("No tiene permiso para editar noticias.");
+
             if (ModelState.IsValid)
             {
                 db.Entry(news).State = EntityState.Modified;
@@ -92,15 +98,16 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: News/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!HasPermission("DeleteNews"))
+                return new HttpUnauthorizedResult("No tiene permiso para eliminar noticias.");
+
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             News news = db.News.Find(id);
             if (news == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(news);
         }
 
@@ -109,6 +116,9 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (!HasPermission("DeleteNews"))
+                return new HttpUnauthorizedResult("No tiene permiso para eliminar noticias.");
+
             News news = db.News.Find(id);
             db.News.Remove(news);
             db.SaveChanges();
@@ -118,9 +128,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

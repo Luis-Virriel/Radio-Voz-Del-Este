@@ -11,35 +11,30 @@ using System.Web.Mvc;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
+    
     public class HomeController : Controller
     {
         private RadioEntities db = new RadioEntities();
         private readonly string _weatherApiKey = "40ed30cc4da04b0fed28c1dd01a0e483";
         private readonly string currencyLayerApiKey = "ba030d742f03dfc719d832c8010a3f84";
-        //private readonly string currencyLayerApiKey = "da05f51aa5fa48102ba10b58210d8b57";
-
-
-
 
         public async Task<CurrencyData> GetCurrencyDataAsync()
         {
             using (var client = new HttpClient())
             {
-
                 var url = $"http://api.currencylayer.com/live?access_key={currencyLayerApiKey}&currencies=EUR,UYU,BRL&source=USD&format=1";
                 var response = await client.GetStringAsync(url);
                 var data = Newtonsoft.Json.JsonConvert.DeserializeObject<CurrencyData>(response);
                 return data;
             }
         }
+        [Authorize]
         public ActionResult Sponsors()
         {
             try
             {
-                // Cargar todos los sponsors de la base de datos
                 var sponsorsFromDb = db.Sponsors.OrderBy(s => s.SponsorsName).ToList();
 
-                // Crear el ViewModel
                 var viewModel = new SponsorsViewModel
                 {
                     Sponsors = sponsorsFromDb.Select(s => new SponsorItem
@@ -63,12 +58,10 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 System.Diagnostics.Debug.WriteLine($"Error cargando sponsors: {ex.Message}");
                 ViewBag.Error = "Error al cargar los patrocinadores. Por favor, intenta nuevamente.";
 
-                // Crear ViewModel vacío en caso de error
                 var emptyViewModel = new SponsorsViewModel();
                 return View(emptyViewModel);
             }
         }
-
 
         public async Task<ActionResult> Index()
         {
@@ -119,7 +112,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     ProgramsList = programsList
                 };
 
-                // Logos de auspiciantes
                 var auspiciantesPath = HostingEnvironment.MapPath("~/Assets/auspiciantes");
                 var auspiciantesLogos = new List<string>();
 
@@ -135,7 +127,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
                 model.AuspiciantesLogos = auspiciantesLogos;
 
-                // Datos del clima
                 try
                 {
                     model.CurrentWeather = await GetCurrentWeatherAsync();
@@ -147,7 +138,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     ViewBag.WeatherError = "No se pudo cargar la información del clima";
                 }
 
-                // Cotización del dólar (desde base)
                 var lastUsdRate = db.ExchangeRates
                     .Where(r => r.CurrencyType == "USD")
                     .OrderByDescending(r => r.ExchangeDate)
@@ -156,7 +146,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
                 model.UsdExchangeRate = lastUsdRate;
 
-                // Cotización del dólar (desde API CurrencyLayer)
                 try
                 {
                     model.CurrencyData = await GetCurrencyDataAsync();
@@ -165,9 +154,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     {
                         model.SelectedCurrencyQuotes = new Dictionary<string, double>();
 
-                        // Claves esperadas (USD base, no es necesario USDUSD)
                         var keys = new string[] { "USDEUR", "USDUYU", "USDBRL" };
-
 
                         foreach (var key in keys)
                         {
@@ -189,8 +176,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 return View("Index", model);
             }
         }
-
-
+        [Authorize]
         public async Task<WeatherViewModel> GetCurrentWeatherAsync()
         {
             using (var client = new HttpClient())
@@ -264,6 +250,8 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
+        [Authorize]
+
         public async Task<ActionResult> Weather()
         {
             try
@@ -278,7 +266,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 };
 
                 ViewBag.Message = "Información del clima actual y pronóstico.";
-                return View("Weather", model); // ← usa Weather.cshtml
+                return View("Weather", model);
             }
             catch (Exception ex)
             {
@@ -304,6 +292,8 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
+        [Authorize]
+
         public async Task<ActionResult> Currency()
         {
             var model = new HomeIndexViewModel();
@@ -321,17 +311,14 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                         double usdUYU = quotes["USDUYU"];
                         model.SelectedCurrencyQuotes = new Dictionary<string, double>();
 
-                        // USD → UYU (se muestra como UYU/USD)
                         model.SelectedCurrencyQuotes["UYU/USD"] = usdUYU;
 
-                        // EUR → UYU
                         if (quotes.ContainsKey("USDEUR"))
                         {
                             double eurUYU = usdUYU / quotes["USDEUR"];
                             model.SelectedCurrencyQuotes["UYU/EUR"] = eurUYU;
                         }
 
-                        // BRL → UYU
                         if (quotes.ContainsKey("USDBRL"))
                         {
                             double brlUYU = usdUYU / quotes["USDBRL"];
@@ -360,24 +347,24 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             return View();
         }
+        [Authorize]
+
         public ActionResult News(string category = null, string title = null)
         {
             try
             {
-                // Obtener noticias de la base de datos
                 var newsFromDb = db.News.OrderByDescending(n => n.PublishDate).ToList();
 
                 var newsItems = newsFromDb.Select(n => {
                     var newsItem = new Models.NewsItem
                     {
-                        Id = (int)(n.Id ?? 0),  // ← CAMBIO: Maneja null values
-                        Title = n.Title ?? "Sin título",  // ← También protege el título
-                        Content = n.Content ?? "Sin contenido",  // ← También protege el contenido
+                        Id = (int)(n.Id ?? 0),
+                        Title = n.Title ?? "Sin título",
+                        Content = n.Content ?? "Sin contenido",
                         PublishDate = n.PublishDate ?? DateTime.MinValue,
                         ImageURL = n.ImageURL
                     };
 
-                    // Enriquecer con datos adicionales
                     newsItem.SetCategoryFromTitle();
                     newsItem.SetRandomAuthor();
                     newsItem.SetDefaultImageIfEmpty();
@@ -385,21 +372,16 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     return newsItem;
                 }).ToList();
 
-
-                // Agregar algunas noticias inventadas adicionales para demostración
                 var additionalNews = GetAdditionalDemoNews();
                 newsItems.AddRange(additionalNews);
 
-                // Ordenar todas las noticias por fecha
                 newsItems = newsItems.OrderByDescending(n => n.PublishDate).ToList();
 
-                // Filtrar por categoría si se especifica
                 if (!string.IsNullOrEmpty(category))
                 {
                     newsItems = newsItems.Where(n => n.Category.Equals(category, StringComparison.OrdinalIgnoreCase)).ToList();
                 }
 
-                // Marcar la primera noticia como destacada si no se filtra por categoría
                 if (string.IsNullOrEmpty(category) && newsItems.Any())
                 {
                     newsItems.First().IsFeatured = true;
@@ -408,7 +390,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 var allNews = newsFromDb.Select(n => {
                     var newsItem = new Models.NewsItem
                     {
-                        Id = (int)(n.Id ?? 0),  // ← CAMBIO: Maneja null values
+                        Id = (int)(n.Id ?? 0),
                         Title = n.Title ?? "Sin título",
                         Content = n.Content ?? "Sin contenido",
                         PublishDate = n.PublishDate ?? DateTime.MinValue,
@@ -417,7 +399,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     newsItem.SetCategoryFromTitle();
                     return newsItem;
                 }).ToList();
-
 
                 allNews.AddRange(GetAdditionalDemoNews());
                 var trendingNews = allNews.OrderByDescending(n => n.PublishDate).Take(5).ToList();
@@ -438,38 +419,35 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             }
             catch (Exception ex)
             {
-                // Log del error
                 System.Diagnostics.Debug.WriteLine($"Error en News: {ex.Message}");
 
-                // Crear ViewModel vacío en caso de error
                 var emptyViewModel = new NewsViewModel();
                 ViewBag.Error = "Error al cargar las noticias. Por favor, intenta nuevamente.";
 
                 return View(emptyViewModel);
             }
         }
+        [Authorize]
+
         public ActionResult RadioPrograms()
         {
             try
             {
                 var model = new RadioProgramsViewModel();
 
-                // Cargar todos los programas de la base de datos
                 var allPrograms = db.RadioPrograms.OrderBy(p => p.ProgramName).ToList();
 
-                // Obtener programa actual
                 DateTime ahora = DateTime.Now;
                 var currentProgram = db.RadioPrograms
                     .Where(p => p.Schedule <= ahora && DbFunctions.AddHours(p.Schedule, 1) > ahora)
                     .OrderBy(p => p.Schedule)
                     .FirstOrDefault();
 
-                // Si no hay programa actual, tomar uno aleatorio para simular
                 if (currentProgram == null && allPrograms.Any())
                 {
                     var random = new Random();
                     currentProgram = allPrograms[random.Next(allPrograms.Count)];
-                    currentProgram.Schedule = DateTime.Now; // Simular que está en vivo
+                    currentProgram.Schedule = DateTime.Now;
                 }
 
                 model.AllPrograms = allPrograms;
@@ -484,7 +462,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 System.Diagnostics.Debug.WriteLine($"Error cargando programas: {ex.Message}");
                 ViewBag.Error = "Error al cargar los programas. Por favor, intenta nuevamente.";
 
-                // Crear modelo vacío en caso de error
                 var emptyModel = new RadioProgramsViewModel
                 {
                     AllPrograms = new List<RadioProgram>(),
@@ -495,13 +472,14 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 return View(emptyModel);
             }
         }
+
         private List<NewsItem> GetAdditionalDemoNews()
         {
             var demoNews = new List<NewsItem>
             {
                 new NewsItem
                 {
-                    Id = -1, // ID negativo para distinguir de BD
+                    Id = -1,
                     Title = "Festival de Jazz de Maldonado anuncia su programación 2025",
                     Content = "Artistas internacionales como Brad Mehldau y Esperanza Spalding encabezarán el evento que se realizará del 15 al 20 de febrero en diferentes espacios de la ciudad. El festival incluirá masterclasses gratuitas y conciertos al aire libre en el puerto de Punta del Este.",
                     PublishDate = DateTime.Now.AddHours(-12),
@@ -549,7 +527,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     Title = "Nueva ruta costera conectará Maldonado con Rocha",
                     Content = "El proyecto vial de $25 millones incluye 45 kilómetros de autopista moderna con miradores panorámicos. La obra beneficiará el turismo regional y reducirá los tiempos de viaje en un 40%. El inicio de construcción está previsto para abril con finalización en 18 meses.",
                     PublishDate = DateTime.Now.AddDays(-2),
-                    ImageURL = "https://images.unsplash.com/photo-1516205651411-aef33a44f7c2?w=400&h=220&fit=crop",
+                    ImageURL = "https://images.unsplash.com/photo-1516205651411-aef33a44f7c2d?w=400&h=220&fit=crop",
                     Category = "Local",
                     Author = "Roberto Santos",
                     AuthorRole = "Corresponsal"
@@ -558,16 +536,104 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 {
                     Id = -6,
                     Title = "Festival de cine latinoamericano llega a Punta del Este",
-                    Content = "Del 5 al 12 de marzo se realizará la primera edición del Festival Internacional de Cine Latinoamericano. Se proyectarán 60 películas de 15 países en el Enjoy Conrad y el nuevo centro cultural. Directores reconocidos como Alejandro González Iñárritu integrarán el jurado.",
+                    Content = "Del 5 al 12 de marzo se realizará la primera edición del Festival Internacional de Cine Latinoamericano. Se proyectarán 60 películas de 15 países en el Enjoy Conrad y el nuevo centro cultural. Habrá competencias, talleres y charlas con directores reconocidos.",
                     PublishDate = DateTime.Now.AddDays(-3),
-                    ImageURL = "https://images.unsplash.com/photo-1489599511344-9e9362c71db8?w=400&h=220&fit=crop",
+                    ImageURL = "https://images.unsplash.com/photo-1494526585095-c41746248156?w=400&h=220&fit=crop",
                     Category = "Cultura",
-                    Author = "María Rodríguez",
-                    AuthorRole = "Periodista Cultural"
+                    Author = "María Pérez",
+                    AuthorRole = "Editora Cultural"
                 }
             };
 
             return demoNews;
+        }
+
+        // NUEVA ACCIÓN para mostrar siempre la vista general Voz del Este
+        public async Task<ActionResult> Welcome()
+        {
+            DateTime ahora = DateTime.Now;
+            var currentProgram = db.RadioPrograms
+                .Where(p => p.Schedule <= ahora && DbFunctions.AddHours(p.Schedule, 1) > ahora)
+                .OrderBy(p => p.Schedule)
+                .FirstOrDefault();
+
+            var nextProgram = db.RadioPrograms
+                .Where(p => p.Schedule > ahora)
+                .OrderBy(p => p.Schedule)
+                .FirstOrDefault();
+
+            var today = ahora.Date;
+            var programsList = db.RadioPrograms
+                .Where(p => DbFunctions.TruncateTime(p.Schedule) == today)
+                .OrderBy(p => p.Schedule)
+                .ToList();
+
+            var model = new HomeIndexViewModel
+            {
+                CurrentProgram = currentProgram,
+                NextProgram = nextProgram,
+                ProgramsList = programsList
+            };
+
+            var auspiciantesPath = HostingEnvironment.MapPath("~/Assets/auspiciantes");
+            var auspiciantesLogos = new List<string>();
+
+            if (Directory.Exists(auspiciantesPath))
+            {
+                var files = Directory.GetFiles(auspiciantesPath);
+                foreach (var file in files)
+                {
+                    var fileName = Path.GetFileName(file);
+                    auspiciantesLogos.Add(Url.Content("~/Assets/auspiciantes/" + fileName));
+                }
+            }
+
+            model.AuspiciantesLogos = auspiciantesLogos;
+
+            try
+            {
+                model.CurrentWeather = await GetCurrentWeatherAsync();
+                model.WeatherForecast = await GetWeatherForecastAsync();
+            }
+            catch
+            {
+                ViewBag.WeatherError = "No se pudo cargar la información del clima";
+            }
+
+            var lastUsdRate = db.ExchangeRates
+                .Where(r => r.CurrencyType == "USD")
+                .OrderByDescending(r => r.ExchangeDate)
+                .Select(r => r.ExchangeValue)
+                .FirstOrDefault();
+
+            model.UsdExchangeRate = lastUsdRate;
+
+            try
+            {
+                model.CurrencyData = await GetCurrencyDataAsync();
+
+                if (model.CurrencyData != null && model.CurrencyData.Quotes != null)
+                {
+                    model.SelectedCurrencyQuotes = new Dictionary<string, double>();
+                    var keys = new string[] { "USDEUR", "USDUYU", "USDBRL" };
+
+                    foreach (var key in keys)
+                    {
+                        if (model.CurrencyData.Quotes.ContainsKey(key))
+                        {
+                            model.SelectedCurrencyQuotes[key] = model.CurrencyData.Quotes[key];
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                model.CurrencyData = null;
+                model.SelectedCurrencyQuotes = null;
+            }
+
+            ViewBag.Message = "Bienvenido visitante, por favor inicie sesión para más funciones";
+            return View("Index", model);
         }
     }
 }

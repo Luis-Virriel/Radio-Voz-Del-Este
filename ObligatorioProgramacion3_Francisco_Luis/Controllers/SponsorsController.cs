@@ -4,25 +4,45 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ObligatorioProgramacion3_Francisco_Luis.Models;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
-    public class SponsorsController : Controller
+    [Authorize]
+    public class SponsorsController : BaseController // hereda de BaseController
     {
         private RadioEntities db = new RadioEntities();
 
         // GET: Sponsors
+        // GET: Sponsors
         public ActionResult Index()
         {
+            var permisos = Session["Permissions"] as List<string> ?? new List<string>();
+
+            bool tienePermisoSponsor = permisos.Any(p =>
+                p.Contains("Sponsor")
+            );
+
+            if (!tienePermisoSponsor)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             return View(db.Sponsors.ToList());
         }
+
 
         // GET: Sponsors/Details/5
         public ActionResult Details(int? id)
         {
+            var permisos = Session["Permissions"] as List<string> ?? new List<string>();
+
+            if (!permisos.Contains("ViewSponsor"))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,16 +58,28 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Sponsors/Create
         public ActionResult Create()
         {
+            var permisos = Session["Permissions"] as List<string> ?? new List<string>();
+
+            if (!permisos.Contains("CreateSponsor"))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             return View();
         }
 
         // POST: Sponsors/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,SponsorsName,SponsorDescription,CantPlan")] Sponsor sponsor)
         {
+            var permisos = Session["Permissions"] as List<string> ?? new List<string>();
+
+            if (!permisos.Contains("CreateSponsor"))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Sponsors.Add(sponsor);
@@ -61,6 +93,13 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Sponsors/Edit/5
         public ActionResult Edit(int? id)
         {
+            var permisos = Session["Permissions"] as List<string> ?? new List<string>();
+
+            if (!permisos.Contains("EditSponsor"))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -74,12 +113,17 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
         // POST: Sponsors/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,SponsorsName,SponsorDescription,CantPlan")] Sponsor sponsor)
         {
+            var permisos = Session["Permissions"] as List<string> ?? new List<string>();
+
+            if (!permisos.Contains("EditSponsor"))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(sponsor).State = EntityState.Modified;
@@ -92,6 +136,13 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Sponsors/Delete/5
         public ActionResult Delete(int? id)
         {
+            var permisos = Session["Permissions"] as List<string> ?? new List<string>();
+
+            if (!permisos.Contains("DeleteSponsor"))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +160,13 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var permisos = Session["Permissions"] as List<string> ?? new List<string>();
+
+            if (!permisos.Contains("DeleteSponsor"))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             Sponsor sponsor = db.Sponsors.Find(id);
             db.Sponsors.Remove(sponsor);
             db.SaveChanges();
