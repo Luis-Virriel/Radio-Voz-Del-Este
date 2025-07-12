@@ -4,53 +4,55 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+<link href="~/Content/Styles/StylesSponsors/StyleEditSponsors.css" rel="stylesheet" />
 
+<div class="edit-container">
+    <h2 class="edit-title">Editar Patrocinador</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Sponsor</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SponsorsName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SponsorsName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SponsorsName, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID)
+
+            <div class="form-group">
+                Nombre
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SponsorsName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SponsorsName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+               Descripcion
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SponsorDescription, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SponsorDescription, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Plan
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CantPlan, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CantPlan, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10" style="text-align:center;">
+                    <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                    @Html.ActionLink("← Volver a la Lista", "Index", null, new { @class = "btn btn-secondary" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SponsorDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SponsorDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SponsorDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CantPlan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CantPlan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CantPlan, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>
 
 @section Scripts {

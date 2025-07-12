@@ -15,23 +15,20 @@
 
     <div class="form-horizontal">
         <h2>Editar Rol</h2>
-        <h4>Rol</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            @Html.LabelFor(m => m.RoleName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.RoleName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => m.RoleName, "", new { @class = "text-danger" })
-            </div>
+            Nombre Rol
+            @Html.EditorFor(m => m.RoleName, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese el nombre del rol" } })
+            @Html.ValidationMessageFor(m => m.RoleName, "", new { @class = "text-danger" })
         </div>
 
         <h4>Permisos</h4>
-        <div class="form-group col-md-offset-2 col-md-10">
+        <div class="form-group">
 
             <!-- Sección Usuario -->
-            <div class="permission-section">Usuario</div>
+            <div class="permission-section">Usuarios</div>
             @for (int i = 0; i < Model.Permissions.Count; i++)
             {
                 if (Model.Permissions[i].PermissionName.Contains("User"))
@@ -48,7 +45,7 @@
             }
 
             <!-- Sección Cliente -->
-            <div class="permission-section">Cliente</div>
+            <div class="permission-section">Clientes</div>
             @for (int i = 0; i < Model.Permissions.Count; i++)
             {
                 if (Model.Permissions[i].PermissionName.Contains("Client"))
@@ -65,7 +62,7 @@
             }
 
             <!-- Sección Programa -->
-            <div class="permission-section">Programa</div>
+            <div class="permission-section">Programas</div>
             @for (int i = 0; i < Model.Permissions.Count; i++)
             {
                 if (Model.Permissions[i].PermissionName.Contains("Program"))
@@ -80,8 +77,9 @@
                     </div>
                 }
             }
+
             <!-- Sección Hosts -->
-            <div class="permission-section">Hosts</div>
+            <div class="permission-section">Conductores</div>
             @for (int i = 0; i < Model.Permissions.Count; i++)
             {
                 if (Model.Permissions[i].PermissionName.Contains("Host"))
@@ -98,7 +96,7 @@
             }
 
             <!-- Sección Sponsors -->
-            <div class="permission-section">Sponsors</div>
+            <div class="permission-section">Patrocinadores</div>
             @for (int i = 0; i < Model.Permissions.Count; i++)
             {
                 if (Model.Permissions[i].PermissionName.Contains("Sponsor"))
@@ -113,6 +111,7 @@
                     </div>
                 }
             }
+
             <!-- Sección Noticias -->
             <div class="permission-section">Noticias</div>
             @for (int i = 0; i < Model.Permissions.Count; i++)
@@ -147,14 +146,12 @@
                 }
             }
 
-            
-
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-10">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
-                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                @Html.ActionLink("← Volver a la lista", "Index", null, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>

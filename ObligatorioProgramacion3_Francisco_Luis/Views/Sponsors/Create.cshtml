@@ -3,52 +3,45 @@
 @{
     ViewBag.Title = "Create";
 }
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+<link href="~/Content/Styles/StylesSponsors/StyleCreateSponsors.css" rel="stylesheet" />
+<div class="form-containerSponsor">
+    <h2 class="form-titleSponsor">Crear Patrocinador</h2>
+    <hr class="create-divider" />
 
-<h2>Create</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
+        @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Sponsor</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.SponsorsName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SponsorsName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SponsorsName, "", new { @class = "text-danger" })
-            </div>
+            Nombre
+            @Html.EditorFor(model => model.SponsorsName, new { htmlAttributes = new { @class = "input-field" } })
+            @Html.ValidationMessageFor(model => model.SponsorsName, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SponsorDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SponsorDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SponsorDescription, "", new { @class = "text-danger" })
-            </div>
+            Descripcion
+            @Html.EditorFor(model => model.SponsorDescription, new { htmlAttributes = new { @class = "input-field" } })
+            @Html.ValidationMessageFor(model => model.SponsorDescription, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CantPlan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CantPlan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CantPlan, "", new { @class = "text-danger" })
-            </div>
+            Plan
+            @Html.EditorFor(model => model.CantPlan, new { htmlAttributes = new { @class = "input-field" } })
+            @Html.ValidationMessageFor(model => model.CantPlan, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+        <div class="buttons-container">
+            <input type="submit" value="Crear" class="submit-button" />
+            <div class="back-link">
+                @Html.ActionLink("← Volver a la Lista", "Index")
             </div>
         </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>
 
 @section Scripts {

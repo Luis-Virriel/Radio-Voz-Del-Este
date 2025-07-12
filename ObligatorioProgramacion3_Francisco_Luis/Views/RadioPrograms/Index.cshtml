@@ -8,15 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-<link href="~/Content/Styles/StyleRadioPrograms/StyleRadioProgram.css" rel="stylesheet" />
-
+<link href="~/Content/Styles/StyleRadioPrograms/StyleIndexRadioProgram.css" rel="stylesheet" />
 <div class="index-container">
-    <h2 class="index-title">Radio Programs</h2>
-
+    <h2 class="index-title">Programas de Radio</h2>
     @if (permissions.Contains("CreateProgram"))
     {
         <div class="create-button-container">
-            @Html.ActionLink("Crear Programa", "Create", null, new { @class = "create-button" })
+            @Html.ActionLink("Crear Nuevo Programa", "Create", null, new { @class = "create-button" })
         </div>
     }
 
@@ -26,11 +24,11 @@
             <table class="radio-programs-table">
                 <thead>
                     <tr>
-                        <th>@Html.DisplayNameFor(m => m.First().ProgramName)</th>
-                        <th>@Html.DisplayNameFor(m => m.First().ImageURL)</th>
-                        <th>@Html.DisplayNameFor(m => m.First().RadioDescription)</th>
-                        <th>@Html.DisplayNameFor(m => m.First().Schedule)</th>
-                        <th>Actions</th>
+                        <th>Nombre</th>
+                        <th>Portada </th>
+                        <th>Descripcion </th>
+                        <th>Programacion </th>
+                        <th>Acciones </th>
                     </tr>
                 </thead>
                 <tbody>

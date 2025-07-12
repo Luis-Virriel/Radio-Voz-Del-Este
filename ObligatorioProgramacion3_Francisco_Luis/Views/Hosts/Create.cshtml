@@ -1,54 +1,49 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.Host
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Host";
 }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="~/Content/Styles/StyleHost/StyleCreateHost.css" rel="stylesheet" />
 
-<h2>Create</h2>
+<div class="form-containerClient">
+    <h2 class="form-titleClient">Crear Host</h2>
+    <p class="create-subtitle">Complete los datos para registrar un nuevo host</p>
+    <hr class="create-divider" />
 
+    @using (Html.BeginForm("Create", "Hosts", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Host</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+
         <div class="form-group">
-            @Html.LabelFor(model => model.HostName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HostName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HostName, "", new { @class = "text-danger" })
-            </div>
+            @Html.LabelFor(model => model.HostName)
+            @Html.EditorFor(model => model.HostName, new { htmlAttributes = new { @class = "input-field", placeholder = "Nombre del Host" } })
+            @Html.ValidationMessageFor(model => model.HostName, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Bio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Bio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
-            </div>
+            @Html.LabelFor(model => model.Bio)
+            @Html.EditorFor(model => model.Bio, new { htmlAttributes = new { @class = "input-field", placeholder = "Biografía" } })
+            @Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProgramID, "ProgramID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ProgramID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProgramID, "", new { @class = "text-danger" })
-            </div>
+            @Html.LabelFor(model => model.ProgramID, "Programa")
+            @Html.DropDownList("ProgramID", (SelectList)ViewBag.ProgramID, "-- Seleccione un programa --", new { @class = "input-field" })
+            @Html.ValidationMessageFor(model => model.ProgramID, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+        <div class="buttons-container">
+            <input type="submit" value="Crear" class="submit-button" />
+            <div class="back-link">
+                @Html.ActionLink("← Volver a la Lista", "Index")
             </div>
         </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>
 
 @section Scripts {

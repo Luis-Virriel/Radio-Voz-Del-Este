@@ -21,6 +21,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
         public Nullable<System.DateTime> CommentDate { get; set; }
     
         public virtual Client Client { get; set; }
-        public virtual RadioProgram RadioProgram { get; set; }
-    }
+        public virtual RadioProgram RadioProgram { get; set; }
+    }
 }

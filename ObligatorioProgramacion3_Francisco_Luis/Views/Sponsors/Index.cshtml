@@ -1,61 +1,69 @@
 ﻿@model IEnumerable<ObligatorioProgramacion3_Francisco_Luis.Models.Sponsor>
 
 @{
-    ViewBag.Title = "Sponsors";
+    ViewBag.Title = "Patrocinadores";
     var permissions = Session["Permissions"] as List<string> ?? new List<string>();
 }
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+<link href="~/Content/Styles/StylesSponsors/StyleIndexSponsors.css" rel="stylesheet" />
 
-<h2>Patrocinadores</h2>
+<div class="index-container">
+    <h2 class="index-title">Patrocinadores</h2>
 
-@if (permissions.Contains("CreateSponsor"))
-{
-    <p>
-        @Html.ActionLink("Crear Nuevo", "Create")
-    </p>
-}
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SponsorsName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SponsorDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CantPlan)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    @if (permissions.Contains("CreateSponsor"))
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SponsorsName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SponsorDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CantPlan)
-            </td>
-            <td>
-                @if (permissions.Contains("EditSponsor"))
-                {
-                    @Html.ActionLink("Editar", "Edit", new { id = item.ID })
-                    <text> | </text>
-                }
-                @if (permissions.Contains("ViewSponsor"))
-                {
-                    @Html.ActionLink("Detalles", "Details", new { id = item.ID })
-                    <text> | </text>
-                }
-                @if (permissions.Contains("DeleteSponsor"))
-                {
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
-                }
-            </td>
-        </tr>
+        <div class="create-button-container">
+            @Html.ActionLink("Crear Nuevo Patrocinador", "Create", null, new { @class = "create-button" })
+        </div>
     }
-</table>
+
+    <div class="table-wrapper">
+        <table class="sponsor-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Plan</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.SponsorsName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.SponsorDescription)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CantPlan)</td>
+                            <td class="action-links">
+                                @if (permissions.Contains("EditSponsor"))
+                                {
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.ID })
+                                    <span class="action-separator">|</span>
+                                }
+                                @if (permissions.Contains("ViewSponsor"))
+                                {
+                                    @Html.ActionLink("Detalles", "Details", new { id = item.ID })
+                                    <span class="action-separator">|</span>
+                                }
+                                @if (permissions.Contains("DeleteSponsor"))
+                                {
+                                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="no-data-message">No hay patrocinadores registrados.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

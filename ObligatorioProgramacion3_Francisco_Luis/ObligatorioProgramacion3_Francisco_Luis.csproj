@@ -167,6 +167,7 @@
     <Compile Include="Models\Comment.cs">
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\CurrencyData.cs" />
     <Compile Include="Models\EdtirRolePermision.cs" />
     <Compile Include="Models\ExchangeRate.cs">
@@ -244,13 +245,34 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Currency.css" />
     <Content Include="Content\Index.css" />
-    <Content Include="Content\Styles\StyleRadioPrograms\StyleRadioProgram.css" />
+    <Content Include="Content\Styles\StyleHost\StyleCreateHost.css" />
+    <Content Include="Content\Styles\StyleHost\StyleDeleteHost.css" />
+    <Content Include="Content\Styles\StyleHost\StyleDetailsHost.css" />
+    <Content Include="Content\Styles\StyleHost\StyleEditHost.css" />
+    <Content Include="Content\Styles\StyleHost\StyleIndexHost.css" />
+    <Content Include="Content\Styles\StyleRadioPrograms\StyleCreateRadioProgram.css" />
+    <Content Include="Content\Styles\StyleRadioPrograms\StyleDeleteRadioProgram.css" />
+    <Content Include="Content\Styles\StyleRadioPrograms\StyleDetailsRadioProgram.css" />
+    <Content Include="Content\Styles\StyleRadioPrograms\StyleEditRadioProgram.css" />
+    <Content Include="Content\Styles\StyleRadioPrograms\StyleIndexRadioProgram.css" />
+    <Content Include="Content\Styles\StylesNews\StyleCrearNews.css" />
+    <Content Include="Content\Styles\StylesNews\StyleDeletenews.css" />
+    <Content Include="Content\Styles\StylesNews\StyleDetailsNews.css" />
+    <Content Include="Content\Styles\StylesNews\StyleEditNews.css" />
+    <Content Include="Content\Styles\StylesNews\StyleIndexNews.css" />
+    <Content Include="Content\Styles\StylesRoles\StyleCreateRole.css" />
     <Content Include="Content\Styles\StylesRoles\StyleEditRol.css" />
     <Content Include="Content\Styles\StylesClients\StyleCrearClient.css" />
     <Content Include="Content\Styles\StylesClients\StyleDeleteClient.css" />
     <Content Include="Content\Styles\StylesClients\StyleDetailsClient.css" />
     <Content Include="Content\Styles\StylesClients\StyleEditClient.css" />
     <Content Include="Content\Styles\StylesClients\StyleIndexClient.css" />
+    <Content Include="Content\Styles\StylesRoles\StyleIndexRoles.css" />
+    <Content Include="Content\Styles\StylesSponsors\StyleCreateSponsors.css" />
+    <Content Include="Content\Styles\StylesSponsors\StyleDeleteSponsors.css" />
+    <Content Include="Content\Styles\StylesSponsors\StyleDetailsSponsors.css" />
+    <Content Include="Content\Styles\StylesSponsors\StyleEditSponsors.css" />
+    <Content Include="Content\Styles\StylesSponsors\StyleIndexSponsors.css" />
     <Content Include="Content\Styles\StylesUsers\StyleDeleteUser.css" />
     <Content Include="Content\Styles\StylesUsers\StyleDetailsUser.css" />
     <Content Include="Content\Styles\StylesUsers\StyleEditUser.css" />

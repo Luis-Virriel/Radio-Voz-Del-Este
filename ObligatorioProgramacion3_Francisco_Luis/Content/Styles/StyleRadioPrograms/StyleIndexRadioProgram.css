@@ -1,0 +1,231 @@
+﻿/* StyleRadioProgram.css - Estilo para vista Index de Radio Programs */
+
+/* Reset básico */
+body {
+    margin: 0;
+    padding: 10px;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+/* Contenedor principal */
+.index-container {
+    background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
+    max-width: 98%;
+    width: 98%;
+    margin: 10px auto;
+    padding: 30px;
+    border-radius: 20px;
+    color: #e6f3ff;
+    font-family: "Bona Nova SC", serif;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
+    box-sizing: border-box;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+    .index-container::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+        border-radius: 20px;
+        pointer-events: none;
+    }
+
+/* Título principal */
+.index-title {
+    text-align: center;
+    font-size: 48px;
+    margin-bottom: 40px;
+    color: #ffffff;
+    font-weight: 600;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Botón Crear */
+.create-button-container {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.create-button {
+    display: inline-block;
+    padding: 18px 35px;
+    background: linear-gradient(45deg, #42a5f5, #66bb6a);
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-family: "Bona Nova SC", serif;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+    .create-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .create-button:hover::before {
+        left: 100%;
+    }
+
+    .create-button:hover {
+        background: linear-gradient(45deg, #1e88e5, #4caf50);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6);
+        color: #ffffff;
+    }
+
+/* Tabla */
+.radio-programs-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.8), rgba(42, 82, 152, 0.6));
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+    /* Encabezados */
+    .radio-programs-table th {
+        background: linear-gradient(135deg, #1976d2, #1565c0);
+        color: #ffffff;
+        padding: 15px 10px;
+        font-weight: 700;
+        font-size: 12px;
+        font-family: "Bona Nova SC", serif;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border: none;
+        position: relative;
+    }
+
+        .radio-programs-table th::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #64b5f6, #90caf9);
+        }
+
+    /* Celdas */
+    .radio-programs-table td {
+        padding: 12px 10px;
+        border: none;
+        color: #ffffff;
+        font-size: 13px;
+        font-family: "Bona Nova SC", serif;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, rgba(30, 60, 114, 0.4), rgba(42, 82, 152, 0.2));
+    }
+
+    .radio-programs-table tbody tr:hover td {
+        background: linear-gradient(135deg, rgba(66, 165, 245, 0.3), rgba(102, 187, 106, 0.2));
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(66, 165, 245, 0.3);
+    }
+
+    .radio-programs-table tbody tr:nth-child(even) td {
+        background: linear-gradient(135deg, rgba(30, 60, 114, 0.3), rgba(42, 82, 152, 0.15));
+    }
+
+/* Enlaces de acciones centrados */
+.action-links {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;
+    gap: 8px; /* Espaciado entre enlaces */
+    white-space: nowrap;
+}
+
+    .action-links a {
+        color: #64b5f6;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 6px 12px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        display: inline-block;
+        background: linear-gradient(45deg, rgba(100, 181, 246, 0.1), rgba(144, 202, 249, 0.1));
+        border: 1px solid rgba(100, 181, 246, 0.3);
+    }
+
+        .action-links a:hover {
+            background: linear-gradient(45deg, #42a5f5, #66bb6a);
+            color: #ffffff;
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
+        }
+
+.action-separator {
+    display: none; /* ya no se usa con flex + gap */
+}
+
+/* Contenedor de tabla */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 15px;
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.1), rgba(42, 82, 152, 0.05));
+    padding: 5px;
+}
+
+/* Mensaje sin datos */
+.no-data-message {
+    text-align: center;
+    padding: 50px;
+    color: #ffffff;
+    font-size: 20px;
+    font-style: italic;
+    font-family: "Bona Nova SC", serif;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .index-container {
+        margin: 15px;
+        padding: 25px;
+    }
+
+    .index-title {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .radio-programs-table th,
+    .radio-programs-table td {
+        padding: 10px 8px;
+    }
+
+    .action-links a {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+}

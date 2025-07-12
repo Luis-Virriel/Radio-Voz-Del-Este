@@ -4,39 +4,39 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Host</h4>
+<div class="details-container">
+    <h2 class="details-title">Detalles</h2>
     <hr />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="~/Content/Styles/StyleHost/StyleDetailsHost.css" rel="stylesheet" />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.HostName)
+            Nombre
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.HostName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Bio)
+            Descripcion
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Bio)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.RadioProgram.ProgramName)
+            Programa
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.RadioProgram.ProgramName)
         </dd>
-
     </dl>
+
+    <div class="details-actions">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.ID })
+        @Html.ActionLink("← Volver a la Lista", "Index")
+    </div>
+
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

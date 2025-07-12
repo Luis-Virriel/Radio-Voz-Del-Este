@@ -3,7 +3,7 @@
 	ViewBag.Title = "Programas de Radio - Voz del Este";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Html.AntiForgeryToken()
 <div class="programs-container">
 	<div class="programs-header">
 		<div class="header-content">
@@ -80,7 +80,7 @@
 		{
 			foreach (var program in Model.AllPrograms)
 			{
-				<div class="program-card" data-category="@GetProgramCategory(program)" data-name="@program.ProgramName.ToLower()">
+				<div class="program-card" data-category="@GetProgramCategory(program)" data-name="@program.ProgramName.ToLower()" data-program-id="@program.ID">
 					<div class="card-image">
 						<img src="@program.ImageURL" alt="@program.ProgramName" />
 						<div class="card-overlay">
@@ -96,6 +96,61 @@
 						<div class="card-footer">
 							<span class="card-category">@GetProgramCategory(program)</span>
 							<span class="card-id">ID: @program.ID</span>
+						</div>
+
+						<!-- Nueva Sección de Comentarios -->
+						<div class="comments-section">
+							<div class="comments-header">
+								<h4 class="comments-title">
+									<i class="fas fa-comments"></i>
+									Comentarios (<span class="comment-count">@Model.GetCommentCountForProgram(program.ID)</span>)
+								</h4>
+								<button class="toggle-comments-btn" data-program-id="@program.ID">
+									<i class="fas fa-chevron-down"></i>
+								</button>
+							</div>
+
+							<div class="comments-content" id="comments-@program.ID" style="display: none;">
+								<!-- Formulario para nuevo comentario -->
+								<div class="new-comment-form">
+									<div class="comment-input-group">
+										<textarea class="comment-input" placeholder="Escribe tu comentario..." maxlength="500" data-program-id="@program.ID"></textarea>
+										<div class="comment-actions">
+											<span class="character-count">0/500</span>
+											<button class="submit-comment-btn" data-program-id="@program.ID">
+												<i class="fas fa-paper-plane"></i>
+												Comentar
+											</button>
+										</div>
+									</div>
+								</div>
+
+								<!-- Lista de comentarios existentes -->
+								<div class="comments-list" id="comments-list-@program.ID">
+									@foreach (var comment in Model.GetCommentsForProgram(program.ID))
+									{
+										<div class="comment-item">
+											<div class="comment-header">
+												<div class="comment-author">
+													<i class="fas fa-user-circle"></i>
+													<span class="author-name">@comment.ClientName</span>
+												</div>
+												<span class="comment-time">@comment.TimeAgo</span>
+											</div>
+											<div class="comment-text">@comment.Comment</div>
+										</div>
+									}
+								</div>
+
+								@if (Model.GetCommentCountForProgram(program.ID) > 5)
+								{
+									<div class="load-more-comments">
+										<button class="load-more-btn" data-program-id="@program.ID" data-page="2">
+											Cargar más comentarios
+										</button>
+									</div>
+								}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -208,7 +263,7 @@
 
 	.page-title {
 		font-size: 2.5rem;
-		color: #2c3e50;
+		color: whitesmoke;
 		margin-bottom: 10px;
 		display: flex;
 		align-items: center;
@@ -218,11 +273,11 @@
 
 	.page-subtitle {
 		font-size: 1.2rem;
-		color: #7f8c8d;
+		color: whitesmoke;
 	}
 
 	.current-program-hero {
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		background: linear-gradient(135deg, #667eea 0%, #119ef34d 100%);
 		border-radius: 20px;
 		padding: 30px;
 		color: white;
@@ -430,6 +485,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		margin-bottom: 15px;
 	}
 
 	.card-category {
@@ -446,6 +502,207 @@
 		font-size: 0.8rem;
 	}
 
+	/* ESTILOS PARA COMENTARIOS */
+	.comments-section {
+		border-top: 1px solid #ecf0f1;
+		padding-top: 15px;
+	}
+
+	.comments-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 15px;
+	}
+
+	.comments-title {
+		font-size: 1rem;
+		color: #2c3e50;
+		margin: 0;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.comment-count {
+		background: #3498db;
+		color: white;
+		padding: 2px 8px;
+		border-radius: 10px;
+		font-size: 0.8rem;
+	}
+
+	.toggle-comments-btn {
+		background: none;
+		border: none;
+		color: #3498db;
+		cursor: pointer;
+		font-size: 1.2rem;
+		transition: transform 0.3s ease;
+		padding: 5px;
+	}
+
+		.toggle-comments-btn.active {
+			transform: rotate(180deg);
+		}
+
+		.toggle-comments-btn:hover {
+			color: #2980b9;
+		}
+
+	.comments-content {
+		animation: slideDown 0.3s ease;
+	}
+
+	.new-comment-form {
+		margin-bottom: 20px;
+	}
+
+	.comment-input-group {
+		border: 2px solid #ecf0f1;
+		border-radius: 10px;
+		overflow: hidden;
+		transition: border-color 0.3s ease;
+	}
+
+		.comment-input-group:focus-within {
+			border-color: #3498db;
+		}
+
+	.comment-input {
+		width: 100%;
+		border: none;
+		padding: 15px;
+		resize: none;
+		font-family: inherit;
+		font-size: 0.9rem;
+		outline: none;
+		min-height: 80px;
+		background: #f8f9fa;
+		box-sizing: border-box;
+	}
+
+		.comment-input::placeholder {
+			color: #95a5a6;
+		}
+
+	.comment-actions {
+		background: white;
+		padding: 10px 15px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-top: 1px solid #ecf0f1;
+	}
+
+	.character-count {
+		font-size: 0.8rem;
+		color: #95a5a6;
+	}
+
+	.submit-comment-btn {
+		background: #3498db;
+		color: white;
+		border: none;
+		padding: 8px 16px;
+		border-radius: 20px;
+		cursor: pointer;
+		font-size: 0.9rem;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		transition: all 0.3s ease;
+	}
+
+		.submit-comment-btn:hover {
+			background: #2980b9;
+			transform: translateY(-1px);
+		}
+
+		.submit-comment-btn:disabled {
+			background: #bdc3c7;
+			cursor: not-allowed;
+			transform: none;
+		}
+
+	.comments-list {
+		max-height: 300px;
+		overflow-y: auto;
+	}
+
+	.comment-item {
+		padding: 15px;
+		border-bottom: 1px solid #f1f2f6;
+		transition: background-color 0.3s ease;
+	}
+
+		.comment-item:hover {
+			background: #f8f9fa;
+		}
+
+		.comment-item:last-child {
+			border-bottom: none;
+		}
+
+	.comment-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 8px;
+	}
+
+	.comment-author {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		color: #2c3e50;
+	}
+
+	.author-name {
+		font-weight: 600;
+		font-size: 0.9rem;
+	}
+
+	.comment-time {
+		font-size: 0.8rem;
+		color: #95a5a6;
+	}
+
+	.comment-text {
+		color: #2c3e50;
+		line-height: 1.5;
+		font-size: 0.9rem;
+	}
+
+	.load-more-comments {
+		text-align: center;
+		padding: 15px;
+		border-top: 1px solid #ecf0f1;
+	}
+
+	.load-more-btn {
+		background: none;
+		border: 2px solid #3498db;
+		color: #3498db;
+		padding: 8px 20px;
+		border-radius: 20px;
+		cursor: pointer;
+		font-size: 0.9rem;
+		transition: all 0.3s ease;
+	}
+
+		.load-more-btn:hover {
+			background: #3498db;
+			color: white;
+		}
+
+		.load-more-btn:disabled {
+			border-color: #bdc3c7;
+			color: #bdc3c7;
+			cursor: not-allowed;
+		}
+
+	/* Resto de estilos */
 	.programs-stats {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -544,36 +801,35 @@
 		animation: pulse-dot 1.5s infinite;
 	}
 
+	.program-card.hidden {
+		display: none;
+	}
+
 	/* Animaciones */
 	@@keyframes pulse-dot {
-		0%, 100% {
-			opacity: 1;
-		}
-
-		50% {
-			opacity: 0.5;
-		}
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.5; }
 	}
 
 	@@keyframes fadeIn {
-		from {
-			opacity: 0;
-			transform: translateY(20px);
-		}
-
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
+		from { opacity: 0; transform: translateY(20px); }
+		to { opacity: 1; transform: translateY(0); }
 	}
 
-	.program-card {
-		animation: fadeIn 0.5s ease-out;
+	@@keyframes slideDown {
+		from { opacity: 0; max-height: 0; }
+		to { opacity: 1; max-height: 500px; }
 	}
 
-		.program-card.hidden {
-			display: none;
-		}
+	@@keyframes slideInRight {
+		from { transform: translateX(100%); opacity: 0; }
+		to { transform: translateX(0); opacity: 1; }
+	}
+
+	@@keyframes slideOutRight {
+		from { transform: translateX(0); opacity: 1; }
+		to { transform: translateX(100%); opacity: 0; }
+	}
 
 	/* Responsive */
 	@@media (max-width: 768px) {
@@ -602,146 +858,374 @@
 		.programs-grid {
 			grid-template-columns: 1fr;
 		}
+
+		.comment-input {
+			min-height: 60px;
+		}
+
+		.comment-actions {
+			flex-direction: column;
+			gap: 10px;
+			align-items: stretch;
+		}
+
+		.submit-comment-btn {
+			justify-content: center;
+		}
 	}
 </style>
 
 <script>
-	document.addEventListener('DOMContentLoaded', function () {
-		const filterButtons = document.querySelectorAll('.filter-btn');
-		const programCards = document.querySelectorAll('.program-card');
-		const searchInput = document.getElementById('programSearch');
+document.addEventListener('DOMContentLoaded', function () {
+	console.log('Cargando funcionalidad de comentarios...');
 
-		// Función para filtrar programas
-		function filterPrograms(category) {
-			programCards.forEach(card => {
-				const cardCategory = card.getAttribute('data-category');
+	const filterButtons = document.querySelectorAll('.filter-btn');
+	const programCards = document.querySelectorAll('.program-card');
+	const searchInput = document.getElementById('programSearch');
 
-				if (category === 'all' || cardCategory === category) {
-					card.classList.remove('hidden');
-				} else {
-					card.classList.add('hidden');
+	// Funciones auxiliares
+	function escapeHtml(text) {
+		const map = {
+			'&': '&amp;',
+			'<': '&lt;',
+			'>': '&gt;',
+			'"': '&quot;',
+			"'": '&#039;'
+		};
+		return text.replace(/[&<>"']/g, m => map[m]);
+	}
+
+	function showNotification(message, type = 'info') {
+		const notification = document.createElement('div');
+		notification.className = `notification notification-${type}`;
+		notification.innerHTML = `
+			<div class="notification-content">
+				<i class="fas fa-${getNotificationIcon(type)}"></i>
+				<span>${message}</span>
+			</div>
+		`;
+
+		notification.style.cssText = `
+			position: fixed;
+			top: 20px;
+			right: 20px;
+			background: ${getNotificationColor(type)};
+			color: white;
+			padding: 15px 20px;
+			border-radius: 10px;
+			box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+			z-index: 9999;
+			animation: slideInRight 0.3s ease;
+			max-width: 350px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		`;
+
+		document.body.appendChild(notification);
+
+		setTimeout(() => {
+			notification.style.animation = 'slideOutRight 0.3s ease';
+			setTimeout(() => {
+				if (notification.parentNode) {
+					notification.parentNode.removeChild(notification);
 				}
-			});
+			}, 300);
+		}, 4000);
+	}
+
+	function getNotificationIcon(type) {
+		switch (type) {
+			case 'success': return 'check-circle';
+			case 'error': return 'exclamation-circle';
+			case 'warning': return 'exclamation-triangle';
+			default: return 'info-circle';
 		}
+	}
 
-		// Función para buscar programas
-		function searchPrograms(searchTerm) {
-			programCards.forEach(card => {
-				const cardName = card.getAttribute('data-name');
-				const cardTitle = card.querySelector('.card-title').textContent.toLowerCase();
-				const cardDescription = card.querySelector('.card-description').textContent.toLowerCase();
-
-				if (cardName.includes(searchTerm) ||
-					cardTitle.includes(searchTerm) ||
-					cardDescription.includes(searchTerm)) {
-					card.classList.remove('hidden');
-				} else {
-					card.classList.add('hidden');
-				}
-			});
+	function getNotificationColor(type) {
+		switch (type) {
+			case 'success': return '#27ae60';
+			case 'error': return '#e74c3c';
+			case 'warning': return '#f39c12';
+			default: return '#3498db';
 		}
+	}
 
-		// Event listeners para filtros
-		filterButtons.forEach(button => {
-			button.addEventListener('click', function () {
-				filterButtons.forEach(btn => btn.classList.remove('active'));
-				this.classList.add('active');
+	function addCommentToList(programId, comment) {
+		const commentsList = document.getElementById(`comments-list-${programId}`);
+		if (!commentsList) return;
 
-				const category = this.getAttribute('data-filter');
-				filterPrograms(category);
+		const newCommentHtml = `
+			<div class="comment-item" style="animation: fadeIn 0.5s ease;">
+				<div class="comment-header">
+					<div class="comment-author">
+						<i class="fas fa-user-circle"></i>
+						<span class="author-name">${escapeHtml(comment.clientName)}</span>
+					</div>
+					<span class="comment-time">${comment.timeAgo}</span>
+				</div>
+				<div class="comment-text">${escapeHtml(comment.text)}</div>
+			</div>
+		`;
 
-				searchInput.value = '';
-			});
-		});
+		if (commentsList.children.length === 0) {
+			commentsList.innerHTML = newCommentHtml;
+		} else {
+			commentsList.insertAdjacentHTML('afterbegin', newCommentHtml);
+		}
+	}
 
-		// Event listener para búsqueda
-		searchInput.addEventListener('input', function () {
-			const searchTerm = this.value.toLowerCase();
+	function updateCommentCount(programId, increment) {
+		const countElement = document.querySelector(`[data-program-id="${programId}"] .comment-count`);
+		if (countElement) {
+			const currentCount = parseInt(countElement.textContent) || 0;
+			countElement.textContent = currentCount + increment;
+		}
+	}
 
-			if (searchTerm === '') {
-				filterPrograms('all');
-
-				const activeFilter = document.querySelector('.filter-btn.active');
-				if (activeFilter) {
-					const category = activeFilter.getAttribute('data-filter');
-					filterPrograms(category);
-				}
-			} else {
-				filterButtons.forEach(btn => btn.classList.remove('active'));
-				document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
-
-				searchPrograms(searchTerm);
-			}
-		});
-
-		// Efectos hover para las tarjetas
+	// Función para filtrar programas
+	function filterPrograms(category) {
 		programCards.forEach(card => {
-			card.addEventListener('mouseenter', function () {
-				this.style.transform = 'translateY(-8px) scale(1.02)';
-			});
-
-			card.addEventListener('mouseleave', function () {
-				this.style.transform = 'translateY(0) scale(1)';
-			});
-
-			// Efecto de click
-			card.addEventListener('click', function () {
-				this.style.transform = 'scale(0.98)';
-
-				setTimeout(() => {
-					this.style.transform = 'translateY(-5px) scale(1)';
-
-					const programName = this.querySelector('.card-title').textContent;
-					console.log('Programa seleccionado:', programName);
-
-					alert('Detalles del programa: ' + programName);
-				}, 150);
-			});
-		});
-
-		// Animación de entrada para las tarjetas
-		programCards.forEach((card, index) => {
-			card.style.animationDelay = `${index * 0.1}s`;
-		});
-
-		// Efecto de contador para las estadísticas
-		const statNumbers = document.querySelectorAll('.stat-number');
-
-		statNumbers.forEach(stat => {
-			const finalValue = parseInt(stat.textContent);
-			if (finalValue > 0) {
-				let currentValue = 0;
-				const increment = Math.ceil(finalValue / 20);
-
-				const counter = setInterval(() => {
-					currentValue += increment;
-					if (currentValue >= finalValue) {
-						currentValue = finalValue;
-						clearInterval(counter);
-					}
-					stat.textContent = currentValue;
-				}, 50);
+			const cardCategory = card.getAttribute('data-category');
+			if (category === 'all' || cardCategory === category) {
+				card.classList.remove('hidden');
+			} else {
+				card.classList.add('hidden');
 			}
 		});
+	}
 
-		// Efecto de scroll suave para volver al inicio
-		const backBtn = document.querySelector('.back-btn');
-		if (backBtn) {
-			backBtn.addEventListener('click', function (e) {
-				e.preventDefault();
+	// Función para buscar programas
+	function searchPrograms(searchTerm) {
+		programCards.forEach(card => {
+			const cardName = card.getAttribute('data-name');
+			const cardTitle = card.querySelector('.card-title').textContent.toLowerCase();
+			const cardDescription = card.querySelector('.card-description').textContent.toLowerCase();
 
-				this.style.transform = 'scale(0.95)';
+			if (cardName.includes(searchTerm) ||
+				cardTitle.includes(searchTerm) ||
+				cardDescription.includes(searchTerm)) {
+				card.classList.remove('hidden');
+			} else {
+				card.classList.add('hidden');
+			}
+		});
+	}
 
-				setTimeout(() => {
-					window.location.href = this.href;
-				}, 200);
-			});
+	// Event listeners para filtros
+	filterButtons.forEach(button => {
+		button.addEventListener('click', function () {
+			filterButtons.forEach(btn => btn.classList.remove('active'));
+			this.classList.add('active');
+
+			const category = this.getAttribute('data-filter');
+			filterPrograms(category);
+			searchInput.value = '';
+		});
+	});
+
+	// Event listener para búsqueda
+	searchInput.addEventListener('input', function () {
+		const searchTerm = this.value.toLowerCase();
+
+		if (searchTerm === '') {
+			const activeFilter = document.querySelector('.filter-btn.active');
+			if (activeFilter) {
+				const category = activeFilter.getAttribute('data-filter');
+				filterPrograms(category);
+			}
+		} else {
+			filterButtons.forEach(btn => btn.classList.remove('active'));
+			document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+			searchPrograms(searchTerm);
 		}
 	});
+
+	// *** FUNCIONALIDAD DE COMENTARIOS ***
+
+	// Toggle comentarios
+	document.querySelectorAll('.toggle-comments-btn').forEach(button => {
+		button.addEventListener('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			const programId = this.getAttribute('data-program-id');
+			const commentsContent = document.getElementById(`comments-${programId}`);
+
+			console.log(`Toggle comments for program ${programId}`);
+			console.log('Comments element:', commentsContent);
+
+			if (commentsContent) {
+				if (commentsContent.style.display === 'none' || commentsContent.style.display === '') {
+					commentsContent.style.display = 'block';
+					this.classList.add('active');
+					console.log('Showing comments');
+				} else {
+					commentsContent.style.display = 'none';
+					this.classList.remove('active');
+					console.log('Hiding comments');
+				}
+			}
+		});
+	});
+
+	// Contador de caracteres
+	document.querySelectorAll('.comment-input').forEach(textarea => {
+		textarea.addEventListener('input', function () {
+			const programId = this.getAttribute('data-program-id');
+			const characterCount = this.closest('.comment-input-group').querySelector('.character-count');
+
+			if (characterCount) {
+				const length = this.value.length;
+				characterCount.textContent = `${length}/500`;
+
+				if (length > 450) {
+					characterCount.style.color = '#e74c3c';
+				} else {
+					characterCount.style.color = '#95a5a6';
+				}
+			}
+		});
+	});
+
+	// Enviar comentario
+	document.querySelectorAll('.submit-comment-btn').forEach(button => {
+		button.addEventListener('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			const programId = this.getAttribute('data-program-id');
+			const textarea = document.querySelector(`.comment-input[data-program-id="${programId}"]`);
+			const commentText = textarea.value.trim();
+
+			console.log(`Submit comment for program ${programId}:`, commentText);
+
+			if (!commentText) {
+				showNotification('Por favor escribe un comentario', 'warning');
+				return;
+			}
+
+			if (commentText.length > 500) {
+				showNotification('El comentario no puede exceder 500 caracteres', 'error');
+				return;
+			}
+
+			// Deshabilitar botón durante el envío
+			button.disabled = true;
+			button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+			const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value || '';
+
+			fetch('@Url.Action("CreateComment", "Home")', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: `programId=${programId}&comment=${encodeURIComponent(commentText)}&__RequestVerificationToken=${encodeURIComponent(token)}`
+			})
+			.then(response => response.json())
+			.then(data => {
+				console.log('Comment response:', data);
+
+				if (data.success) {
+					// Limpiar textarea
+					textarea.value = '';
+					const characterCount = textarea.closest('.comment-input-group').querySelector('.character-count');
+					if (characterCount) {
+						characterCount.textContent = '0/500';
+						characterCount.style.color = '#95a5a6';
+					}
+
+					// Añadir nuevo comentario a la lista
+					addCommentToList(programId, data.comment);
+
+					// Actualizar contador de comentarios
+					updateCommentCount(programId, 1);
+
+					// Mostrar mensaje de éxito
+					showNotification('¡Comentario enviado exitosamente!', 'success');
+				} else {
+					showNotification(data.message || 'Error al enviar comentario', 'error');
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				showNotification('Error de conexión. Intenta nuevamente.', 'error');
+			})
+			.finally(() => {
+				// Rehabilitar botón
+				button.disabled = false;
+				button.innerHTML = '<i class="fas fa-paper-plane"></i> Comentar';
+			});
+		});
+	});
+
+	// Cargar más comentarios
+	document.querySelectorAll('.load-more-btn').forEach(button => {
+		button.addEventListener('click', function () {
+			const programId = this.getAttribute('data-program-id');
+			const commentsList = document.getElementById(`comments-list-${programId}`);
+			const currentPage = parseInt(this.getAttribute('data-page') || '2');
+
+			// Deshabilitar botón durante la carga
+			this.disabled = true;
+			this.textContent = 'Cargando...';
+
+			fetch(`@Url.Action("GetProgramComments", "Home")?programId=${programId}&page=${currentPage}`)
+			.then(response => response.json())
+			.then(data => {
+				if (data.success && data.comments.length > 0) {
+					// Añadir comentarios adicionales
+					data.comments.forEach(comment => {
+						const commentHtml = `
+							<div class="comment-item">
+								<div class="comment-header">
+									<div class="comment-author">
+										<i class="fas fa-user-circle"></i>
+										<span class="author-name">${escapeHtml(comment.clientName)}</span>
+									</div>
+									<span class="comment-time">${comment.timeAgo}</span>
+								</div>
+								<div class="comment-text">${escapeHtml(comment.text)}</div>
+							</div>
+						`;
+						commentsList.insertAdjacentHTML('beforeend', commentHtml);
+					});
+
+					// Actualizar página para siguiente carga
+					this.setAttribute('data-page', currentPage + 1);
+
+					// Ocultar botón si no hay más comentarios
+					if (!data.hasMore) {
+						this.style.display = 'none';
+					}
+				} else {
+					this.style.display = 'none';
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				showNotification('Error al cargar comentarios', 'error');
+			})
+			.finally(() => {
+				this.disabled = false;
+				this.textContent = 'Cargar más comentarios';
+			});
+		});
+	});
+
+	// Debug inicial
+	console.log('Elementos encontrados:');
+	console.log('- Toggle buttons:', document.querySelectorAll('.toggle-comments-btn').length);
+	console.log('- Comment inputs:', document.querySelectorAll('.comment-input').length);
+	console.log('- Submit buttons:', document.querySelectorAll('.submit-comment-btn').length);
+	console.log('- Load more buttons:', document.querySelectorAll('.load-more-btn').length);
+});
 </script>
 
 @section scripts {
 	<script>
-		console.log('Vista de RadioPrograms cargada correctamente');
+		console.log('Vista de RadioPrograms con comentarios cargada correctamente');
 	</script>
 }

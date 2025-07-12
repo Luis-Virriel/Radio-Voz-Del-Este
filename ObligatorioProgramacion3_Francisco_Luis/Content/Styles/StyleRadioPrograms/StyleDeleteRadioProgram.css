@@ -1,0 +1,219 @@
+﻿/* ================================
+   StyleDeleteRadioProgram.css
+   ================================ */
+
+body {
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+    font-family: "Bona Nova SC", serif;
+    color: #e6f3ff;
+    background: linear-gradient(135deg, #667eea 0%, #5ebdff 100%);
+}
+
+.delete-container {
+    background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
+    max-width: 800px;
+    width: 95%;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
+    box-sizing: border-box;
+    text-align: center;
+    animation: fadeIn 0.6s ease-out;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete-title {
+    font-size: 52px;
+    margin-bottom: 40px;
+    color: #e6f3ff;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.confirm-text {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.delete-container h4 {
+    font-size: 32px;
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #64b5f6, transparent);
+    margin: 40px 0;
+}
+
+.dl-horizontal {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+    .dl-horizontal dt {
+        display: inline-block;
+        width: 250px;
+        font-weight: 600;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 20px;
+        margin-bottom: 25px;
+        vertical-align: top;
+    }
+
+    .dl-horizontal dd {
+        display: inline-block;
+        color: #ffffff;
+        font-size: 20px;
+        word-break: break-word;
+        margin-left: 20px;
+        margin-bottom: 25px;
+        vertical-align: top;
+        width: calc(100% - 290px);
+    }
+
+.button-container {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Botón ELIMINAR */
+.btn-delete {
+    background: linear-gradient(45deg, #f44336, #e53935) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 25px !important;
+    padding: 18px 50px !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    font-family: "Bona Nova SC", serif;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    cursor: pointer !important;
+    transition: all 0.4s ease !important;
+    box-shadow: 0 8px 20px rgba(244, 67, 54, 0.4) !important;
+    min-width: 200px !important;
+    margin: 5px;
+    text-decoration: none !important;
+    display: inline-block;
+}
+
+    .btn-delete:hover {
+        background: linear-gradient(45deg, #d32f2f, #c62828) !important;
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(244, 67, 54, 0.6) !important;
+    }
+
+/* Botón VOLVER */
+.delete-page-back-button {
+    background: linear-gradient(45deg, #42a5f5, #66bb6a) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 25px !important;
+    padding: 15px 35px 15px 45px !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    font-family: "Bona Nova SC", serif !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(77, 208, 225, 0.3) !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    min-width: 180px !important;
+    margin: 5px !important;
+    position: relative !important;
+    z-index: 1000 !important;
+}
+
+    .delete-page-back-button::before {
+        content: "←";
+        position: absolute;
+        left: 18px;
+        font-size: 22px;
+        font-weight: bold;
+        transition: transform 0.3s ease;
+    }
+
+    .delete-page-back-button:hover {
+        background: linear-gradient(45deg, #42a5f5, #66bb6a) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(77, 208, 225, 0.4) !important;
+    }
+
+        .delete-page-back-button:hover::before {
+            transform: translateX(-3px);
+        }
+
+@media (max-width: 768px) {
+    .delete-container {
+        margin: 20px 15px;
+        padding: 30px 20px;
+    }
+
+    .delete-title {
+        font-size: 32px;
+    }
+
+    .delete-container h4 {
+        font-size: 26px;
+    }
+
+    .dl-horizontal dt {
+        display: block;
+        width: 100%;
+        margin-bottom: 8px;
+        font-size: 18px;
+    }
+
+    .dl-horizontal dd {
+        display: block;
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-delete,
+    .delete-page-back-button {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
