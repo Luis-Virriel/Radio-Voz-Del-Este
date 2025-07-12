@@ -1046,8 +1046,7 @@ body {
 	justify-content: space-between;
 	align-items: center;
 	padding: 1rem;
-	background: linear-gradient(135deg, #667eea 0%, #5ebdff 100%
-
+	background: blue;
 	border-radius: 12px;
 	transition: all 0.2s ease;
 }
