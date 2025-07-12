@@ -15,10 +15,9 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
     public partial class News
     {
         public int ID { get; set; }
-        public int? Id { get; internal set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public Nullable<System.DateTime> PublishDate { get; set; }
-        public string ImageURL { get; set; }
-    }
+        public string ImageURL { get; set; }
+    }
 }

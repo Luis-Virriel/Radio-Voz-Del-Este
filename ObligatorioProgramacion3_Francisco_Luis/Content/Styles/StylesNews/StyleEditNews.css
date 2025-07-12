@@ -1,0 +1,239 @@
+﻿/* StyleEditNews.css */
+
+body {
+    margin: 0;
+    padding: 10px;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.edit-container {
+    background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: #e6f3ff;
+    font-family: "Bona Nova SC", serif;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
+    position: relative;
+    min-height: 500px;
+}
+
+    .edit-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+        border-radius: 20px;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+.edit-title {
+    font-size: 42px;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #ffffff;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    font-family: "Bona Nova SC", serif;
+    position: relative;
+    z-index: 1;
+}
+
+.form-horizontal {
+    position: relative;
+    z-index: 1;
+}
+
+.edit-container h4 {
+    color: #d3e6ff;
+    font-family: "Bona Nova SC", serif;
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 15px;
+    letter-spacing: 1.5px;
+    text-align: center;
+}
+
+.control-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #e6f3ff;
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.col-md-10, .col-md-2 {
+    width: 100%;
+}
+
+.col-md-offset-2 {
+    margin-left: 0;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 15px;
+    font-family: "Roboto", sans-serif;
+    border-radius: 12px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e6f3ff;
+    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+    .form-control:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 10px rgba(66, 165, 245, 0.8);
+        color: #ffffff;
+    }
+
+    .form-control[type="date"] {
+        color: #e6f3ff;
+        font-family: "Roboto", sans-serif;
+    }
+
+        .form-control[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+.text-danger {
+    color: #ff6666;
+    font-weight: 600;
+    font-size: 13px;
+    margin-top: 4px;
+    display: block;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 30px 0;
+}
+
+.form-group:last-child {
+    margin-top: 35px;
+    text-align: center;
+}
+
+    .form-group:last-child .col-md-10 {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+.btn {
+    padding: 15px 40px;
+    font-family: "Bona Nova SC", serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #42a5f5, #66bb6a);
+    box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(45deg, #1e88e5, #4caf50);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6);
+        color: #ffffff;
+    }
+
+.btn-secondary {
+    background: linear-gradient(45deg, #42a5f5, #66bb6a);
+    box-shadow: 0 8px 20px rgba(120, 144, 156, 0.4);
+    text-decoration: none;
+}
+
+    .btn-secondary:hover {
+        background: linear-gradient(45deg, #1e88e5, #4caf50);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(120, 144, 156, 0.6);
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+.form-control::placeholder {
+    color: rgba(230, 243, 255, 0.6);
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .edit-container {
+        margin: 15px 15px 30px;
+        padding: 25px 20px;
+        min-height: auto;
+    }
+
+    .edit-title {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .form-group:last-child .col-md-10 {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn {
+        width: 100%;
+        min-width: auto;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .edit-container {
+        margin: 10px;
+        padding: 20px 15px;
+    }
+
+    .edit-title {
+        font-size: 28px;
+        margin-bottom: 25px;
+    }
+
+    .control-label {
+        font-size: 14px;
+    }
+
+    .form-control {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+}

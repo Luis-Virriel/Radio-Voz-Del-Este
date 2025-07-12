@@ -4,39 +4,27 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+<link href="~/Content/Styles/StylesSponsors/StyleDetailsSponsors.css" rel="stylesheet" />
 
-<div>
-    <h4>Sponsor</h4>
+<div class="details-container">
+    <h2 class="details-title">Detalles del Patrocinador</h2>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SponsorsName)
-        </dt>
+        <dt>Nombre</dt>
+        <dd>@Html.DisplayFor(m => m.SponsorsName)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.SponsorsName)
-        </dd>
+        <dt>Descripcion</dt>
+        <dd>@Html.DisplayFor(m => m.SponsorDescription)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SponsorDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SponsorDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CantPlan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CantPlan)
-        </dd>
-
+        <dt>Plan</dt>
+        <dd>@Html.DisplayFor(m => m.CantPlan)</dd>
     </dl>
+
+    <div class="details-actions">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("← Volver a la Lista", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

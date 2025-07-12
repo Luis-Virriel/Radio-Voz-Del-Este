@@ -1,8 +1,7 @@
-﻿/* ClientIndex.css - Estilos para vista Index de clientes con tema Radio FM */
+﻿/* StyleIndexClient.css - Estilo específico para vista Index de clientes */
 
 /* Resetear estilos del body y html */
 body {
-    background: linear-gradient(135deg, #4a6cf7 0%, #667eea 50%, #764ba2 100%) !important;
     margin: 0;
     padding: 10px;
     overflow-x: hidden;
@@ -15,64 +14,95 @@ html {
 
 /* Contenedor principal */
 .index-container {
-    background: rgba(74, 108, 247, 0.35);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
     max-width: 98%;
     width: 98%;
     margin: 10px auto;
     padding: 30px;
     border-radius: 20px;
-    color: white;
+    color: #e6f3ff;
     font-family: "Bona Nova SC", serif;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
     min-height: 400px;
     box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
 }
+
+    .index-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+        border-radius: 20px;
+        pointer-events: none;
+    }
 
 /* Título principal */
 .index-title {
     text-align: center;
-    font-size: 42px;
-    margin-bottom: 35px;
+    font-size: 48px;
+    margin-bottom: 40px;
     font-style: normal;
-    color: white;
-    font-weight: 700;
+    color: #ffffff;
+    font-weight: 600;
     font-family: "Bona Nova SC", serif;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-    letter-spacing: 1px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
 }
 
 /* Botón Create New */
 .create-button-container {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .create-button {
     display: inline-block;
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-    color: white;
+    padding: 18px 35px;
+    background: linear-gradient(45deg, #42a5f5, #66bb6a);
+    color: #ffffff;
     font-weight: 700;
     text-decoration: none;
     border-radius: 25px;
     font-size: 16px;
     font-family: "Bona Nova SC", serif;
     cursor: pointer;
-    transition: all 0.3s ease;
-    letter-spacing: 1px;
+    transition: all 0.4s ease;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
-    border: none;
+    box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
 }
 
+    .create-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .create-button:hover::before {
+        left: 100%;
+    }
+
     .create-button:hover {
-        background: linear-gradient(135deg, #ff5252, #ff7979);
-        transform: translateY(-3px);
-        box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
+        background: linear-gradient(45deg, #1e88e5, #4caf50);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6);
         text-decoration: none;
-        color: white;
+        color: #ffffff;
     }
 
 /* Tabla principal */
@@ -80,49 +110,64 @@ html {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    background: rgba(255, 255, 255, 0.9);
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.8), rgba(42, 82, 152, 0.6));
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    margin-top: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
     /* Encabezados de tabla */
     .clients-table th {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
-        padding: 15px 12px;
+        background: linear-gradient(135deg, #1976d2, #1565c0);
+        color: #ffffff;
+        padding: 15px 10px;
         font-weight: 700;
         font-size: 12px;
         font-family: "Bona Nova SC", serif;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
         text-transform: uppercase;
         border: none;
         position: relative;
         white-space: nowrap;
-        text-align: center;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
-        /* Ajustar ancho de columnas específicas */
-        .clients-table th:nth-child(1), /* FirstName */
-        .clients-table th:nth-child(2) { /* LastName */
-            width: 12%;
+        .clients-table th::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #64b5f6, #90caf9);
         }
 
-        .clients-table th:nth-child(3) { /* Email */
-            width: 28%;
+        /* Ajustar ancho de columnas específicas para clientes */
+        .clients-table th:nth-child(1) { /* Nombre */
+            width: 16%;
         }
 
-        .clients-table th:nth-child(4) { /* BirthDate */
-            width: 13%;
+        .clients-table th:nth-child(2) { /* Apellido */
+            width: 16%;
         }
 
-        .clients-table th:nth-child(5) { /* UserName */
+        .clients-table th:nth-child(3) { /* Correo Electrónico */
+            width: 25%;
+        }
+
+        .clients-table th:nth-child(4) { /* Fecha de Nacimiento */
             width: 15%;
         }
 
+        .clients-table th:nth-child(5) { /* Usuario Asignado */
+            width: 16%;
+        }
+
         .clients-table th:nth-child(6) { /* Acciones */
-            width: 20%;
+            width: 12%;
         }
 
         .clients-table th:first-child {
@@ -135,72 +180,88 @@ html {
 
     /* Filas de datos */
     .clients-table td {
-        padding: 12px 12px;
+        padding: 12px 10px;
         border: none;
-        color: white;
+        color: #ffffff;
         font-size: 13px;
         font-family: "Bona Nova SC", serif;
         transition: all 0.3s ease;
-        background-color: rgba(102, 126, 234, 0.6);
+        background: linear-gradient(135deg, rgba(30, 60, 114, 0.4), rgba(42, 82, 152, 0.2));
         overflow: hidden;
-        text-align: center;
+        position: relative;
     }
 
-        /* Ajustar columnas específicas */
-        .clients-table td:nth-child(1), /* FirstName */
-        .clients-table td:nth-child(2) { /* LastName */
-            width: 12%;
-            white-space: nowrap;
-            font-weight: 600;
-            color: white;
-            text-align: center;
+        /* Columna Nombre */
+        .clients-table td:nth-child(1) {
+            width: 16%;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
         }
 
-        .clients-table td:nth-child(3) { /* Email */
-            width: 28%;
+        /* Columna Apellido */
+        .clients-table td:nth-child(2) {
+            width: 16%;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        /* Columna Correo Electrónico */
+        .clients-table td:nth-child(3) {
+            width: 25%;
             font-size: 12px;
             word-break: break-all;
-            color: #e8f4ff;
-            text-align: center;
-        }
-
-        .clients-table td:nth-child(4) { /* BirthDate */
-            width: 13%;
-            white-space: nowrap;
-            font-size: 12px;
-            font-weight: 600;
-            color: #f0f8ff;
-            text-align: center;
-        }
-
-        .clients-table td:nth-child(5) { /* UserName */
-            width: 15%;
-            white-space: nowrap;
-            font-size: 12px;
             color: #ffffff;
-            text-align: center;
         }
 
-        .clients-table td:nth-child(6) { /* Acciones */
-            width: 20%;
+            .clients-table td:nth-child(3) a {
+                color: #ffffff !important;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+                .clients-table td:nth-child(3) a:hover {
+                    color: #64b5f6 !important;
+                    text-decoration: underline;
+                }
+
+        /* Columna Fecha de Nacimiento */
+        .clients-table td:nth-child(4) {
+            width: 15%;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: #ffffff;
             white-space: nowrap;
-            text-align: center;
+        }
+
+        /* Columna Usuario Asignado */
+        .clients-table td:nth-child(5) {
+            width: 16%;
+            font-weight: 600;
+            color: #81c784;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Columna Acciones */
+        .clients-table td:nth-child(6) {
+            width: 12%;
+            white-space: nowrap;
         }
 
     /* Efecto hover en filas */
     .clients-table tbody tr:hover td {
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
-        transform: scale(1.002);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(135deg, rgba(66, 165, 245, 0.3), rgba(102, 187, 106, 0.2));
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(66, 165, 245, 0.3);
     }
 
     /* Alternar colores de filas */
     .clients-table tbody tr:nth-child(even) td {
-        background: rgba(102, 126, 234, 0.7);
+        background: linear-gradient(135deg, rgba(30, 60, 114, 0.3), rgba(42, 82, 152, 0.15));
     }
 
     .clients-table tbody tr:nth-child(odd) td {
-        background: rgba(118, 75, 162, 0.6);
+        background: linear-gradient(135deg, rgba(25, 50, 95, 0.4), rgba(35, 70, 125, 0.2));
     }
 
 /* Enlaces de acciones */
@@ -209,59 +270,93 @@ html {
 }
 
     .action-links a {
-        color: white;
+        color: #64b5f6;
         text-decoration: none;
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 700;
         margin-right: 8px;
         padding: 6px 12px;
         border-radius: 20px;
         transition: all 0.3s ease;
         display: inline-block;
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: linear-gradient(45deg, rgba(100, 181, 246, 0.1), rgba(144, 202, 249, 0.1));
+        border: 1px solid rgba(100, 181, 246, 0.3);
     }
 
         .action-links a:hover {
-            background: rgba(255, 255, 255, 0.3);
-            color: white;
+            background: linear-gradient(45deg, #42a5f5, #66bb6a);
+            color: #ffffff;
             text-decoration: none;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
         }
 
 /* Separadores entre acciones */
 .action-separator {
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0 4px;
+    color: #546e7a;
+    margin: 0 3px;
     font-size: 12px;
 }
 
 /* Responsive para pantallas pequeñas */
 @media (max-width: 768px) {
     .index-container {
-        margin: 20px;
-        padding: 20px;
+        margin: 15px;
+        padding: 25px;
     }
 
     .index-title {
-        font-size: 32px;
-        margin-bottom: 25px;
+        font-size: 36px;
+        margin-bottom: 30px;
     }
 
     .clients-table {
-        font-size: 12px;
+        font-size: 11px;
     }
 
         .clients-table th,
         .clients-table td {
-            padding: 10px 8px;
+            padding: 8px 6px;
         }
 
     .action-links a {
-        font-size: 11px;
-        padding: 5px 8px;
-        margin-right: 5px;
+        font-size: 10px;
+        padding: 4px 8px;
+        margin-right: 4px;
+    }
+}
+
+/* Responsive para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .clients-table th:nth-child(4),
+    .clients-table td:nth-child(4) {
+        display: none; /* Ocultar fecha de nacimiento en móviles */
+    }
+
+    .clients-table th:nth-child(5),
+    .clients-table td:nth-child(5) {
+        display: none; /* Ocultar usuario asignado en móviles */
+    }
+
+    /* Redistribuir anchos para pantallas pequeñas */
+    .clients-table th:nth-child(1),
+    .clients-table td:nth-child(1) {
+        width: 25%;
+    }
+
+    .clients-table th:nth-child(2),
+    .clients-table td:nth-child(2) {
+        width: 25%;
+    }
+
+    .clients-table th:nth-child(3),
+    .clients-table td:nth-child(3) {
+        width: 30%;
+    }
+
+    .clients-table th:nth-child(6),
+    .clients-table td:nth-child(6) {
+        width: 20%;
     }
 }
 
@@ -269,20 +364,18 @@ html {
 .no-data-message {
     text-align: center;
     padding: 50px;
-    color: white;
+    color: #ffffff;
     font-size: 20px;
     font-style: italic;
     font-family: "Bona Nova SC", serif;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
 }
 
 /* Estilo para el contenedor de la tabla */
 .table-wrapper {
     overflow-x: auto;
     border-radius: 15px;
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.1), rgba(42, 82, 152, 0.05));
+    padding: 5px;
 }
 
 /* Ocultar elementos por defecto de MVC */
@@ -295,36 +388,83 @@ h2:not(.index-title) {
     display: none;
 }
 
-/* Estilo para fechas */
-.clients-table td:nth-child(4) {
-    font-weight: 600;
-    color: #f0f8ff;
-    text-align: center;
-}
-
-/* Efecto de glassmorphism para las tarjetas */
-.index-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-    border-radius: 20px;
-    pointer-events: none;
-}
-
-/* Animaciones suaves */
-* {
-    transition: all 0.3s ease;
-}
-
-/* Efectos de hover mejorados */
-.clients-table tbody tr {
-    transition: all 0.3s ease;
-}
-
-    .clients-table tbody tr:hover {
-        transform: translateY(-2px);
+/* Animaciones adicionales */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.clients-table tbody tr {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+    .clients-table tbody tr:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .clients-table tbody tr:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .clients-table tbody tr:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .clients-table tbody tr:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .clients-table tbody tr:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+/* Efecto de brillo en el contenedor */
+.index-container {
+    animation: subtleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes subtleGlow {
+    0% {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(42, 82, 152, 0.5);
+    }
+}
+
+/* Estilos específicos para datos de clientes */
+.client-name {
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.client-email {
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.client-birthdate {
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+}
+
+.client-user {
+    color: #81c784;
+    font-weight: 600;
+}
+
+/* Efecto especial para el icono del título */
+.index-title i {
+    margin-left: 15px;
+    color: #ffffff;
+}

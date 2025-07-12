@@ -1,0 +1,220 @@
+﻿/* ================================
+   StyleDeleteHost.css - Vista Delete Host
+   ================================ */
+
+/* Fondo y tipografía general */
+body {
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+    font-family: "Bona Nova SC", serif;
+    color: #e6f3ff;
+}
+
+/* Contenedor principal */
+.delete-container {
+    background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
+    max-width: 800px;
+    width: 95%;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
+    box-sizing: border-box;
+    text-align: center;
+    animation: fadeIn 0.6s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete-title {
+    font-size: 52px;
+    margin-bottom: 40px;
+    color: #e6f3ff;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.confirm-text {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.delete-container h4 {
+    font-size: 32px;
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #64b5f6, transparent);
+    margin: 40px 0;
+}
+
+/* Detalles Host */
+.dl-horizontal {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+    .dl-horizontal dt {
+        display: inline-block;
+        width: 250px;
+        font-weight: 600;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 20px;
+        margin-bottom: 25px;
+        vertical-align: top;
+    }
+
+    .dl-horizontal dd {
+        display: inline-block;
+        color: #ffffff;
+        font-size: 20px;
+        word-break: break-word;
+        margin-left: 20px;
+        margin-bottom: 25px;
+        vertical-align: top;
+        width: calc(100% - 290px);
+    }
+
+/* Botones contenedor */
+.button-container {
+    margin-top: 40px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Botón ELIMINAR */
+.btn-delete {
+    background: linear-gradient(45deg, #f44336, #e53935);
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    padding: 18px 50px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: "Bona Nova SC", serif;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 20px rgba(244, 67, 54, 0.4);
+    min-width: 200px;
+    margin: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+    .btn-delete:hover {
+        background: linear-gradient(45deg, #d32f2f, #c62828);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(244, 67, 54, 0.6);
+    }
+
+/* Botón VOLVER */
+.delete-page-back-button {
+    background: linear-gradient(45deg, #42a5f5, #66bb6a);
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    padding: 15px 35px 15px 45px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: "Bona Nova SC", serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(77, 208, 225, 0.3);
+    text-decoration: none;
+    display: inline-block;
+    min-width: 180px;
+    margin: 5px;
+    position: relative;
+}
+
+    .delete-page-back-button::before {
+        content: "←";
+        position: absolute;
+        left: 18px;
+        font-size: 22px;
+        font-weight: bold;
+        transition: transform 0.3s ease;
+    }
+
+    .delete-page-back-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(77, 208, 225, 0.4);
+    }
+
+        .delete-page-back-button:hover::before {
+            transform: translateX(-3px);
+        }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .delete-container {
+        margin: 20px 15px;
+        padding: 30px 20px;
+    }
+
+    .delete-title {
+        font-size: 32px;
+    }
+
+    .delete-container h4 {
+        font-size: 26px;
+    }
+
+    .dl-horizontal dt {
+        display: block;
+        width: 100%;
+        margin-bottom: 8px;
+        font-size: 18px;
+    }
+
+    .dl-horizontal dd {
+        display: block;
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-delete,
+    .delete-page-back-button {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

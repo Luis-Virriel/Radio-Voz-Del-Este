@@ -1,400 +1,289 @@
-﻿/* ClientEdit.css - Estilos para vista Edit de clientes */
-
+﻿/* StyleEditClient.css */
 body {
-    background-color: #1a2332 !important;
     margin: 0;
     padding: 10px;
     overflow-x: hidden;
+    min-height: 100vh;
 }
 
-html {
-    overflow-x: hidden;
-}
-.create-subtitle {
-    text-align: center;
-    font-size: 18px;
-    margin-bottom: 30px;
-    color: #a6c8ff;
-    font-style: italic;
-    font-weight: 300;
-}
 .edit-container {
-    background-color: #0e375a;
-    max-width: 800px;
-    width: 95%;
-    margin: 20px auto;
-    padding: 35px;
-    border-radius: 15px;
-    color: #b3d9ff;
+    background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: #e6f3ff;
     font-family: "Bona Nova SC", serif;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
+    position: relative;
     min-height: 500px;
+}
+
+    .edit-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+        border-radius: 20px;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+/* Título principal */
+.edit-title {
+    font-size: 42px;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #ffffff;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    font-family: "Bona Nova SC", serif;
+    position: relative;
+    z-index: 1;
+}
+
+/* Contenedor del formulario */
+.form-horizontal {
+    position: relative;
+    z-index: 1;
+}
+
+/* Título h4 interno */
+.edit-container h4 {
+    color: #d3e6ff;
+    font-family: "Bona Nova SC", serif;
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 15px;
+    letter-spacing: 1.5px;
+    text-align: center;
+}
+
+/* Etiquetas (labels) */
+.control-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #e6f3ff;
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+}
+
+/* Grupo de formulario */
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Contenedor de campos */
+.col-md-10 {
+    width: 100%;
+}
+
+.col-md-2 {
+    width: 100%;
+}
+
+.col-md-offset-2 {
+    margin-left: 0;
+}
+
+/* Campos input, select, textarea */
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 15px;
+    font-family: "Roboto", sans-serif;
+    border-radius: 12px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e6f3ff;
+    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
     box-sizing: border-box;
 }
 
-h2:not(.edit-title) {
-    display: none;
-}
-
-.edit-title {
-    text-align: center;
-    font-size: 64px;
-    margin-bottom: 50px;
-    font-style: normal;
-    color: #69c0ff;
-    font-weight: 300;
-    font-family: "Bona Nova SC", serif;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-    letter-spacing: 1px;
-}
-
-.form-horizontal {
-    background-color: #0e375a !important;
-    padding: 35px;
-    border-radius: 12px;
-    box-shadow: none !important;
-}
-
-    .form-horizontal h4 {
-        color: #69c0ff;
-        font-size: 40px;
-        font-weight: 800;
-        margin-bottom: 20px;
-        text-align: center;
-        font-family: "Bona Nova SC", serif;
-        letter-spacing: 0.5px;
-    }
-
-    .form-horizontal hr {
-        border: none;
-        height: 2px;
-        background: linear-gradient(to right, transparent, #69c0ff, transparent);
-        margin: 20px 0 30px 0;
-    }
-
-.form-group {
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    min-height: 65px;
-    animation: fadeInUp 0.6s ease-out;
-}
-
-.control-label {
-    color: #69c0ff !important;
-    font-weight: 600 !important;
-    font-size: 14px !important;
-    font-family: "Bona Nova SC", serif;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 0 !important;
-    display: flex;
-    align-items: center;
-    height: 40px;
-    width: 200px !important;
-    min-width: 200px !important;
-    flex-shrink: 0;
-}
-
-.col-md-10 {
-    flex: 1;
-    margin-left: 20px;
-}
-
-.form-control {
-    background-color: #a6c8ff;
-    border: 2px solid #1a476d !important;
-    border-radius: 12px !important;
-    color: #003366 !important;
-    font-size: 15px !important;
-    font-family: "Bona Nova SC", serif;
-    font-weight: 500 !important;
-    padding: 15px 18px !important;
-    transition: all 0.3s ease !important;
-    box-shadow: none !important;
-    width: 100% !important;
-    max-width: 400px !important;
-    height: 50px !important;
-    box-sizing: border-box !important;
-}
-
     .form-control:focus {
-        background-color: #143a58 !important;
-        border-color: #69c0ff !important;
-        box-shadow: 0 0 10px rgba(105, 192, 255, 0.4) !important;
-        outline: none !important;
-        transform: translateY(-1px) !important;
-        color: #a6c8ff !important;
+        outline: none;
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 10px rgba(66, 165, 245, 0.8);
+        color: #ffffff;
     }
 
-    .form-control:hover {
-        border-color: #69c0ff !important;
-        transform: translateY(-1px) !important;
+    /* Campos de fecha específicos */
+    .form-control[type="date"] {
+        color: #e6f3ff;
+        font-family: "Roboto", sans-serif;
     }
 
-/* Dropdown */
+        .form-control[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+    /* Campos de email */
+    .form-control[type="email"] {
+        color: #e6f3ff;
+    }
+
+/* Dropdown/Select */
 select.form-control {
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%23d9ecff" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') !important;
-    background-repeat: no-repeat !important;
-    background-position: right 15px center !important;
-    background-size: 18px !important;
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important;
-    cursor: pointer !important;
-    padding-right: 50px !important;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e6f3ff;
 }
 
-/* Fecha */
-input[type="date"].form-control,
-input[type="datetime"].form-control,
-input[type="datetime-local"].form-control {
-    background-color: #a6c8ff;
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%23d9ecff" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>') !important;
-    background-repeat: no-repeat !important;
-    background-position: right 15px center !important;
-    background-size: 18px !important;
-    padding-right: 50px !important;
-    height: 50px !important;
-    color: #003366 !important;
-}
-
-    input[type="date"].form-control::-webkit-calendar-picker-indicator {
-        background: transparent !important;
-        position: absolute !important;
-        right: 15px !important;
-        width: 18px !important;
-        height: 18px !important;
-        cursor: pointer !important;
+    select.form-control option {
+        background: #1e3c72;
+        color: #e6f3ff;
     }
 
-/* Placeholder */
-.form-control::placeholder {
-    color: rgba(217, 236, 255, 0.5) !important;
-    font-style: italic;
-}
-
-/* Validación */
+/* Mensajes de validación */
 .text-danger {
-    color: #ff6b9d !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    margin-top: 5px !important;
-    font-family: "Bona Nova SC", serif;
+    color: #ff6666;
+    font-weight: 600;
+    font-size: 13px;
+    margin-top: 4px;
     display: block;
 }
 
-.validation-summary-errors {
-    background-color: rgba(255, 107, 157, 0.1) !important;
-    border: 2px solid #ff6b9d !important;
-    border-radius: 8px !important;
-    padding: 15px !important;
-    margin-bottom: 25px !important;
-    color: #ff6b9d !important;
+/* Línea separadora */
+hr {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 30px 0;
 }
 
-    .validation-summary-errors ul {
-        margin: 0 !important;
-        padding-left: 20px !important;
+/* Contenedor de botones */
+.form-group:last-child {
+    margin-top: 35px;
+    text-align: center;
+}
+
+    .form-group:last-child .col-md-10 {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
     }
 
-    .validation-summary-errors li {
-        font-size: 13px !important;
-        font-weight: 600 !important;
-        font-family: "Bona Nova SC", serif;
-    }
-
-/* Botón Save */
-.btn-default {
-    background-color: #d9ecff !important;
-    color: #003366 !important;
-    border: 2px solid #69c0ff !important;
-    border-radius: 10px !important;
-    padding: 15px 35px !important;
-    font-size: 16px !important;
-    font-weight: 700 !important;
+/* Botones principales */
+.btn {
+    padding: 15px 40px;
     font-family: "Bona Nova SC", serif;
-    text-transform: uppercase !important;
-    letter-spacing: 1px !important;
-    cursor: pointer !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
-    min-width: 200px !important;
-    height: 50px !important;
-    max-height: 50px !important;
-    line-height: 1 !important;
-    box-sizing: border-box !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    font-weight: 700;
+    font-size: 16px;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    box-sizing: border-box;
 }
 
-    .btn-default:hover {
-        background-color: #69c0ff !important;
-        color: #ffffff !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
+/* Botón primario (Guardar) */
+.btn-primary {
+    background: linear-gradient(45deg, #42a5f5, #66bb6a);
+    box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(45deg, #1e88e5, #4caf50);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6);
+        color: #ffffff;
     }
 
-    .btn-default:active {
-        transform: translateY(0) !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
-    }
-
-/* Botón Secondary (Volver a la Lista) */
+/* Botón secundario (Volver) */
 .btn-secondary {
-    background-color: #d9ecff !important;
-    color: #003366 !important;
-    border: 2px solid #69c0ff !important;
-    border-radius: 10px !important;
-    padding: 15px 35px !important;
-    font-size: 16px !important;
-    font-weight: 700 !important;
-    font-family: "Bona Nova SC", serif;
-    text-transform: uppercase !important;
-    letter-spacing: 1px !important;
-    cursor: pointer !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
-    min-width: 200px !important;
-    height: 50px !important;
-    max-height: 50px !important;
-    line-height: 1 !important;
-    margin-left: 40px !important;
-    box-sizing: border-box !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    background: linear-gradient(45deg, #42a5f5, #66bb6a);
+    box-shadow: 0 8px 20px rgba(120, 144, 156, 0.4);
+    text-decoration: none;
 }
 
     .btn-secondary:hover {
-        background-color: #69c0ff !important;
-        color: #ffffff !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
-        text-decoration: none !important;
+        background: linear-gradient(45deg, #1e88e5, #4caf50);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(120, 144, 156, 0.6);
+        color: #ffffff;
+        text-decoration: none;
     }
 
-    .btn-secondary:active {
-        transform: translateY(0) !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
-    }
-
-/* Para que los botones se vean bien juntos */
-.col-md-offset-2.col-md-10 {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 0 !important;
+/* Placeholders */
+.form-control::-webkit-input-placeholder {
+    color: rgba(230, 243, 255, 0.6);
+    font-style: italic;
 }
 
-.form-group .col-md-offset-2 {
-    text-align: left;
-    padding-top: 20px;
+.form-control::-moz-placeholder {
+    color: rgba(230, 243, 255, 0.6);
+    font-style: italic;
 }
 
-/* Remover el contenedor de abajo que ya no se usa */
-.back-link-container {
-    display: none;
+.form-control:-ms-input-placeholder {
+    color: rgba(230, 243, 255, 0.6);
+    font-style: italic;
+}
+
+.form-control::placeholder {
+    color: rgba(230, 243, 255, 0.6);
+    font-style: italic;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .edit-container {
-        margin: 10px;
+        margin: 15px 15px 30px;
         padding: 25px 20px;
-        width: calc(100% - 20px);
-    }
-
-    .edit-title {
-        font-size: 28px;
-        margin-bottom: 30px;
-    }
-
-    .form-horizontal {
-        padding: 25px 20px;
-    }
-
-    .form-group {
-        flex-direction: column;
-        align-items: flex-start;
         min-height: auto;
     }
 
-    .control-label {
-        margin-bottom: 8px !important;
-        width: 100% !important;
+    .edit-title {
+        font-size: 32px;
+        margin-bottom: 30px;
     }
 
-    .col-md-10 {
-        width: 100% !important;
-        margin-left: 0 !important;
+    .form-group:last-child .col-md-10 {
+        flex-direction: column;
+        gap: 15px;
     }
 
-    .form-control {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-    .btn-default, .btn-secondary {
-        width: 100% !important;
-        margin-top: 10px !important;
-        margin-left: 0 !important;
-        min-width: 100% !important;
-        max-height: 50px !important;
-        height: 50px !important;
-    }
-
-    .col-md-offset-2.col-md-10 {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 10px !important;
+    .btn {
+        width: 100%;
+        min-width: auto;
+        padding: 15px;
     }
 }
 
 @media (max-width: 480px) {
     .edit-container {
-        margin: 5px;
+        margin: 10px;
         padding: 20px 15px;
     }
 
     .edit-title {
-        font-size: 24px;
+        font-size: 28px;
+        margin-bottom: 25px;
     }
 
-    .form-horizontal h4 {
-        font-size: 20px;
+    .control-label {
+        font-size: 14px;
     }
 
-    .form-horizontal {
-        padding: 20px 15px;
-    }
-}
-
-.edit-container > h2:first-child {
-    display: none;
-}
-
-/* Animaciones */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .form-control {
+        padding: 10px 12px;
+        font-size: 14px;
     }
 }

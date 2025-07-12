@@ -1,379 +1,379 @@
-﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.HomeIndexViewModel
+﻿﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.HomeIndexViewModel
 @{
-	ViewBag.Title = "Voz del Este";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Voz del Este";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="main-layout">
-	<!-- News Sidebar -->
-	<aside class="news-sidebar">
-		<div class="sidebar-card">
-			<div class="sidebar-header">
-				<div class="sidebar-icon news-icon">
-					<i class="fas fa-newspaper"></i>
-				</div>
-				<h3 class="sidebar-title">Últimas Noticias</h3>
-			</div>
+    <!-- News Sidebar -->
+    <aside class="news-sidebar">
+        <div class="sidebar-card">
+            <div class="sidebar-header">
+                <div class="sidebar-icon news-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <h3 class="sidebar-title">Últimas Noticias</h3>
+            </div>
 
-			<a href="@Url.Action("News", "Home", new { category = "Local", title = "Inauguración del nuevo centro cultural en Maldonado" })" class="news-item">
-				<span class="news-category">Local</span>
-				<h4 class="news-title">Inauguración del nuevo centro cultural en Maldonado</h4>
-				<div class="news-time">
-					<i class="fas fa-clock"></i>
-					Hace 2 horas
-				</div>
-			</a>
+            <a href="@Url.Action("News", "Home", new { category = "Local", title = "Inauguración del nuevo centro cultural en Maldonado" })" class="news-item">
+                <span class="news-category">Local</span>
+                <h4 class="news-title">Inauguración del nuevo centro cultural en Maldonado</h4>
+                <div class="news-time">
+                    <i class="fas fa-clock"></i>
+                    Hace 2 horas
+                </div>
+            </a>
 
-			<a href="@Url.Action("News", "Home", new { category = "Deportes", title = "Peñarol vence 2-1 a Nacional en el clásico uruguayo" })" class="news-item">
-				<span class="news-category">Deportes</span>
-				<h4 class="news-title">Peñarol vence 2-1 a Nacional en el clásico uruguayo</h4>
-				<div class="news-time">
-					<i class="fas fa-clock"></i>
-					Hace 4 horas
-				</div>
-			</a>
+            <a href="@Url.Action("News", "Home", new { category = "Deportes", title = "Peñarol vence 2-1 a Nacional en el clásico uruguayo" })" class="news-item">
+                <span class="news-category">Deportes</span>
+                <h4 class="news-title">Peñarol vence 2-1 a Nacional en el clásico uruguayo</h4>
+                <div class="news-time">
+                    <i class="fas fa-clock"></i>
+                    Hace 4 horas
+                </div>
+            </a>
 
-			<a href="@Url.Action("News", "Home", new { category = "Internacional", title = "Acuerdo comercial entre Uruguay y la Unión Europea" })" class="news-item">
-				<span class="news-category">Internacional</span>
-				<h4 class="news-title">Acuerdo comercial entre Uruguay y la Unión Europea</h4>
-				<div class="news-time">
-					<i class="fas fa-clock"></i>
-					Hace 6 horas
-				</div>
-			</a>
+            <a href="@Url.Action("News", "Home", new { category = "Internacional", title = "Acuerdo comercial entre Uruguay y la Unión Europea" })" class="news-item">
+                <span class="news-category">Internacional</span>
+                <h4 class="news-title">Acuerdo comercial entre Uruguay y la Unión Europea</h4>
+                <div class="news-time">
+                    <i class="fas fa-clock"></i>
+                    Hace 6 horas
+                </div>
+            </a>
 
-			<a href="@Url.Action("News", "Home", new { category = "Turismo", title = "Punta del Este espera record de visitantes este verano" })" class="news-item">
-				<span class="news-category">Turismo</span>
-				<h4 class="news-title">Punta del Este espera record de visitantes este verano</h4>
-				<div class="news-time">
-					<i class="fas fa-clock"></i>
-					Hace 8 horas
-				</div>
-			</a>
+            <a href="@Url.Action("News", "Home", new { category = "Turismo", title = "Punta del Este espera record de visitantes este verano" })" class="news-item">
+                <span class="news-category">Turismo</span>
+                <h4 class="news-title">Punta del Este espera record de visitantes este verano</h4>
+                <div class="news-time">
+                    <i class="fas fa-clock"></i>
+                    Hace 8 horas
+                </div>
+            </a>
 
-			<a href="@Url.Action("News", "Home", new { category = "Clima", title = "Alerta meteorológica por tormentas en la región este" })" class="news-item">
-				<span class="news-category">Clima</span>
-				<h4 class="news-title">Alerta meteorológica por tormentas en la región este</h4>
-				<div class="news-time">
-					<i class="fas fa-clock"></i>
-					Hace 10 horas
-				</div>
-			</a>
+            <a href="@Url.Action("News", "Home", new { category = "Clima", title = "Alerta meteorológica por tormentas en la región este" })" class="news-item">
+                <span class="news-category">Clima</span>
+                <h4 class="news-title">Alerta meteorológica por tormentas en la región este</h4>
+                <div class="news-time">
+                    <i class="fas fa-clock"></i>
+                    Hace 10 horas
+                </div>
+            </a>
 
-			<!-- Botón para ver todas las noticias -->
-			<a href="@Url.Action("News", "Home")" class="view-all-news">
-				<i class="fas fa-newspaper"></i> Ver todas las noticias
-			</a>
-		</div>
-	</aside>
+            <!-- Botón para ver todas las noticias -->
+            <a href="@Url.Action("News", "Home")" class="view-all-news">
+                <i class="fas fa-newspaper"></i> Ver todas las noticias
+            </a>
+        </div>
+    </aside>
 
-	<!-- Main Content -->
-	<main class="main-content">
-		<!-- Widgets Header -->
-		<section class="widgets-header">
-			<div class="widgets-row">
-				<!-- Widget del Clima -->
-				<a href="@Url.Action("Weather", "Home")" class="widget-minimal">
-					<div class="widget-content">
-						<i class="fas fa-cloud-sun widget-icon"></i>
-						<div class="widget-info">
-							@if (Model.HasWeatherData)
-							{
-								<div class="widget-value">@Model.CurrentTemperature</div>
-								<div class="widget-label">@Model.CurrentDescription</div>
-							}
-							else
-							{
-								<div class="widget-value">--°</div>
-								<div class="widget-label">Sin datos</div>
-							}
-						</div>
-					</div>
-				</a>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Widgets Header -->
+        <section class="widgets-header">
+            <div class="widgets-row">
+                <!-- Widget del Clima -->
+                <a href="@Url.Action("Weather", "Home")" class="widget-minimal">
+                    <div class="widget-content">
+                        <i class="fas fa-cloud-sun widget-icon"></i>
+                        <div class="widget-info">
+                            @if (Model.HasWeatherData)
+                            {
+                                <div class="widget-value">@Model.CurrentTemperature</div>
+                                <div class="widget-label">@Model.CurrentDescription</div>
+                            }
+                            else
+                            {
+                                <div class="widget-value">--°</div>
+                                <div class="widget-label">Sin datos</div>
+                            }
+                        </div>
+                    </div>
+                </a>
 
-				<!-- Título Central -->
-				<h1 class="radio-title-center">🎵 Tu Radio en Maldonado 🎵</h1>
+                <!-- Título Central -->
+                <h1 class="radio-title-center">🎵 Tu Radio en Maldonado 🎵</h1>
 
-				<!-- Widget de Moneda -->
-				<a href="@Url.Action("Currency", "Home")" class="widget-minimal">
-					<div class="widget-content">
-						<i class="fas fa-dollar-sign widget-icon"></i>
-						<div class="widget-info">
-							@if (Model.HasCurrencyData && Model.CurrencyData.Quotes.ContainsKey("USDUYU"))
-							{
-								<div class="widget-value">$@Model.CurrencyData.Quotes["USDUYU"].ToString("0.00")</div>
-								<div class="widget-label">USD/UYU</div>
-							}
-							else
-							{
-								<div class="widget-value">$--</div>
-								<div class="widget-label">Sin datos</div>
-							}
-						</div>
-					</div>
-				</a>
-			</div>
-		</section>
+                <!-- Widget de Moneda -->
+                <a href="@Url.Action("Currency", "Home")" class="widget-minimal">
+                    <div class="widget-content">
+                        <i class="fas fa-dollar-sign widget-icon"></i>
+                        <div class="widget-info">
+                            @if (Model.HasCurrencyData && Model.CurrencyData.Quotes.ContainsKey("USDUYU"))
+                            {
+                                <div class="widget-value">$@Model.CurrencyData.Quotes["USDUYU"].ToString("0.00")</div>
+                                <div class="widget-label">USD/UYU</div>
+                            }
+                            else
+                            {
+                                <div class="widget-value">$--</div>
+                                <div class="widget-label">Sin datos</div>
+                            }
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
 
-		<!-- Audio Section -->
-		<section class="audio-section">
-			<div class="live-indicator-large">
-				<span class="live-dot"></span>
-				<span class="live-text">EN VIVO</span>
-			</div>
+        <!-- Audio Section -->
+        <section class="audio-section">
+            <div class="live-indicator-large">
+                <span class="live-dot"></span>
+                <span class="live-text">EN VIVO</span>
+            </div>
 
-			<!-- Reproductor simple y visible -->
-			<div class="simple-player">
-				<div class="player-info">
-					<div class="radio-details">
-						<audio id="radio-player" controls class="modern-audio">
-							<source src="https://metropolis-web-1.nty.uy" type="audio/mpeg" />
-							Tu navegador no soporta audio.
-						</audio>
-					</div>
-				</div>
-			</div>
-		</section>
+            <!-- Reproductor simple y visible -->
+            <div class="simple-player">
+                <div class="player-info">
+                    <div class="radio-details">
+                        <audio id="radio-player" controls class="modern-audio">
+                            <source src="https://metropolis-web-1.nty.uy" type="audio/mpeg" />
+                            Tu navegador no soporta audio.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-		<!-- Current Program -->
-		@if (Model.CurrentProgram != null)
-		{
-			<section class="current-program">
-				<a href="@Url.Action("Index", "RadioPrograms")" class="current-program-link">
-					<div class="program-header">
-						<div class="program-image">
-							<img src="@Model.CurrentProgram.ImageURL" alt="@Model.CurrentProgram.ProgramName" class="program-img" />
-							<div class="live-badge">
-								<span class="live-dot"></span>
-								EN VIVO
-							</div>
-						</div>
-						<div class="program-info">
-							<h3 class="program-title">@Model.CurrentProgram.ProgramName</h3>
-							<p class="program-desc">@Model.CurrentProgram.RadioDescription</p>
-							<div class="program-details">
-								<span class="program-time">
-									<i class="fas fa-clock"></i>
-									@(Model.CurrentProgram.Schedule.HasValue ? Model.CurrentProgram.Schedule.Value.ToString("HH:mm") : DateTime.Now.ToString("HH:mm"))
-								</span>
-								<span class="view-all-programs">
-									<i class="fas fa-list"></i>
-									Ver todos los programas
-								</span>
-							</div>
-						</div>
-					</div>
-				</a>
-			</section>
-		}
-		else
-		{
-			<section class="current-program">
-				<a href="@Url.Action("RadioPrograms", "Home")" class="current-program-link">
-					<div class="program-header">
-						<div class="program-image">
-							<img src="https://images.unsplash.com/photo-1586902279476-3244d8d18285?w=400&h=300&fit=crop" alt="Radio en vivo" class="program-img" />
-							<div class="live-badge">
-								<span class="live-dot"></span>
-								EN VIVO
-							</div>
-						</div>
-						<div class="program-info">
-							<h3 class="program-title">Radio Voz del Este</h3>
-							<p class="program-desc">Transmisión en vivo - Música y entretenimiento</p>
-							<div class="program-details">
-								<span class="program-time">
-									<i class="fas fa-clock"></i>
-									@DateTime.Now.ToString("HH:mm")
-								</span>
-								<span class="view-all-programs">
-									<i class="fas fa-list"></i>
-									Ver todos los programas
-								</span>
-							</div>
-						</div>
-					</div>
-				</a>
-			</section>
-		}
+        <!-- Current Program -->
+        @if (Model.CurrentProgram != null)
+        {
+            <section class="current-program">
+                <a href="@Url.Action("Index", "RadioPrograms")" class="current-program-link">
+                    <div class="program-header">
+                        <div class="program-image">
+                            <img src="@Model.CurrentProgram.ImageURL" alt="@Model.CurrentProgram.ProgramName" class="program-img" />
+                            <div class="live-badge">
+                                <span class="live-dot"></span>
+                                EN VIVO
+                            </div>
+                        </div>
+                        <div class="program-info">
+                            <h3 class="program-title">@Model.CurrentProgram.ProgramName</h3>
+                            <p class="program-desc">@Model.CurrentProgram.RadioDescription</p>
+                            <div class="program-details">
+                                <span class="program-time">
+                                    <i class="fas fa-clock"></i>
+                                    @(Model.CurrentProgram.Schedule.HasValue ? Model.CurrentProgram.Schedule.Value.ToString("HH:mm") : DateTime.Now.ToString("HH:mm"))
+                                </span>
+                                <span class="view-all-programs">
+                                    <i class="fas fa-list"></i>
+                                    Ver todos los programas
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </section>
+        }
+        else
+        {
+            <section class="current-program">
+                <a href="@Url.Action("RadioPrograms", "Home")" class="current-program-link">
+                    <div class="program-header">
+                        <div class="program-image">
+                            <img src="https://images.unsplash.com/photo-1586902279476-3244d8d18285?w=400&h=300&fit=crop" alt="Radio en vivo" class="program-img" />
+                            <div class="live-badge">
+                                <span class="live-dot"></span>
+                                EN VIVO
+                            </div>
+                        </div>
+                        <div class="program-info">
+                            <h3 class="program-title">Radio Voz del Este</h3>
+                            <p class="program-desc">Transmisión en vivo - Música y entretenimiento</p>
+                            <div class="program-details">
+                                <span class="program-time">
+                                    <i class="fas fa-clock"></i>
+                                    @DateTime.Now.ToString("HH:mm")
+                                </span>
+                                <span class="view-all-programs">
+                                    <i class="fas fa-list"></i>
+                                    Ver todos los programas
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </section>
+        }
 
-		<!-- Next Program -->
-		@if (Model.NextProgram != null)
-		{
-			<section class="next-program">
-				<small class="next-label">PRÓXIMO</small>
-				<div class="next-title">@Model.NextProgram.ProgramName</div>
-				<div class="next-time">@(Model.NextProgram.Schedule.HasValue ? Model.NextProgram.Schedule.Value.ToString("HH:mm") : "")</div>
-			</section>
-		}
+        <!-- Next Program -->
+        @if (Model.NextProgram != null)
+        {
+            <section class="next-program">
+                <small class="next-label">PRÓXIMO</small>
+                <div class="next-title">@Model.NextProgram.ProgramName</div>
+                <div class="next-time">@(Model.NextProgram.Schedule.HasValue ? Model.NextProgram.Schedule.Value.ToString("HH:mm") : "")</div>
+            </section>
+        }
 
-		<!-- Dashboard Grid -->
-		<div class="dashboard-grid">
-			<!-- Schedule Card -->
-			@if (Model.ProgramsList != null && Model.ProgramsList.Any())
-			{
-				<div class="dashboard-card">
-					<div class="card-header">
-						<div class="card-icon schedule-icon">
-							<i class="fas fa-calendar-alt"></i>
-						</div>
-						<h3 class="card-title">Programación de Hoy</h3>
-					</div>
-					<div class="schedule-list">
-						@foreach (var program in Model.ProgramsList.Take(5))
-						{
-							<div class="schedule-item-card">
-								<span class="schedule-name">@program.ProgramName</span>
-								<span class="schedule-time">@(program.Schedule.HasValue ? program.Schedule.Value.ToString("HH:mm") : "--:--")</span>
-							</div>
-						}
-					</div>
-				</div>
-			}
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Schedule Card -->
+            @if (Model.ProgramsList != null && Model.ProgramsList.Any())
+            {
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon schedule-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3 class="card-title">Programación de Hoy</h3>
+                    </div>
+                    <div class="schedule-list">
+                        @foreach (var program in Model.ProgramsList.Take(5))
+                        {
+                            <div class="schedule-item-card">
+                                <span class="schedule-name">@program.ProgramName</span>
+                                <span class="schedule-time">@(program.Schedule.HasValue ? program.Schedule.Value.ToString("HH:mm") : "--:--")</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
 
-			<!-- Sponsors Card -->
-			@if (Model.AuspiciantesLogos != null && Model.AuspiciantesLogos.Any())
-			{
-				<div class="dashboard-card">
-					<div class="card-header">
-						<div class="card-icon sponsors-icon">
-							<i class="fas fa-handshake"></i>
-						</div>
-						<h3 class="card-title">Nuestros Auspiciantes</h3>
-					</div>
-					<div class="sponsors-container">
-						<img id="sponsor-logo" src="@Model.AuspiciantesLogos[0]" alt="Auspiciante" class="sponsor-img" />
-					</div>
-				</div>
-			}
-		</div>
+            <!-- Sponsors Card -->
+            @if (Model.AuspiciantesLogos != null && Model.AuspiciantesLogos.Any())
+            {
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon sponsors-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="card-title">Nuestros Auspiciantes</h3>
+                    </div>
+                    <div class="sponsors-container">
+                        <img id="sponsor-logo" src="@Model.AuspiciantesLogos[0]" alt="Auspiciante" class="sponsor-img" />
+                    </div>
+                </div>
+            }
+        </div>
 
-		<!-- Newsletter Section -->
-		<section class="newsletter">
-			<h3>📧 ¡Mantente Conectado!</h3>
-			<p>Suscríbete a nuestro boletín y recibe las últimas noticias, programación especial y eventos exclusivos</p>
-			<form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
-				@Html.AntiForgeryToken()
-				<input type="email" name="email" id="emailInput" class="newsletter-input" placeholder="Tu email aquí..." required />
-				<button type="submit" class="newsletter-btn">Suscribirse</button>
-			</form>
-		</section>
-	</main>
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <h3>📧 ¡Mantente Conectado!</h3>
+            <p>Suscríbete a nuestro boletín y recibe las últimas noticias, programación especial y eventos exclusivos</p>
+            <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
+                @Html.AntiForgeryToken()
+                <input type="email" name="email" id="emailInput" class="newsletter-input" placeholder="Tu email aquí..." required />
+                <button type="submit" class="newsletter-btn">Suscribirse</button>
+            </form>
+        </section>
+    </main>
 
-	<!-- Stats Sidebar -->
-	<aside class="stats-sidebar">
-		<div class="sidebar-card">
-			<div class="sidebar-header">
-				<div class="sidebar-icon stats-icon">
-					<i class="fas fa-chart-line"></i>
-				</div>
-				<h3 class="sidebar-title">Estadísticas en Vivo</h3>
-			</div>
+    <!-- Stats Sidebar -->
+    <aside class="stats-sidebar">
+        <div class="sidebar-card">
+            <div class="sidebar-header">
+                <div class="sidebar-icon stats-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="sidebar-title">Estadísticas en Vivo</h3>
+            </div>
 
-			<div class="stat-item">
-				<span class="stat-label">
-					<i class="fas fa-headphones"></i>
-					Oyentes en línea
-				</span>
-				<span class="stat-value live-count" id="live-listeners">1,247</span>
-			</div>
+            <div class="stat-item">
+                <span class="stat-label">
+                    <i class="fas fa-headphones"></i>
+                    Oyentes en línea
+                </span>
+                <span class="stat-value live-count" id="live-listeners">1,247</span>
+            </div>
 
-			<div class="stat-item">
-				<span class="stat-label">
-					<i class="fas fa-users"></i>
-					Oyentes hoy
-				</span>
-				<span class="stat-value">8,923</span>
-			</div>
+            <div class="stat-item">
+                <span class="stat-label">
+                    <i class="fas fa-users"></i>
+                    Oyentes hoy
+                </span>
+                <span class="stat-value">8,923</span>
+            </div>
 
-			<div class="stat-item">
-				<span class="stat-label">
-					<i class="fas fa-heart"></i>
-					Total seguidores
-				</span>
-				<span class="stat-value">45,892</span>
-			</div>
+            <div class="stat-item">
+                <span class="stat-label">
+                    <i class="fas fa-heart"></i>
+                    Total seguidores
+                </span>
+                <span class="stat-value">45,892</span>
+            </div>
 
-			<div class="stat-item">
-				<span class="stat-label">
-					<i class="fas fa-globe-americas"></i>
-					Países conectados
-				</span>
-				<span class="stat-value">23</span>
-			</div>
-		</div>
+            <div class="stat-item">
+                <span class="stat-label">
+                    <i class="fas fa-globe-americas"></i>
+                    Países conectados
+                </span>
+                <span class="stat-value">23</span>
+            </div>
+        </div>
 
-		<div class="sidebar-card">
-			<div class="sidebar-header">
-				<div class="sidebar-icon" style="background: #8e44ad;">
-					<i class="fab fa-instagram"></i>
-				</div>
-				<h3 class="sidebar-title">Redes Sociales</h3>
-			</div>
+        <div class="sidebar-card">
+            <div class="sidebar-header">
+                <div class="sidebar-icon" style="background: #8e44ad;">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <h3 class="sidebar-title">Redes Sociales</h3>
+            </div>
 
-			<div class="social-stats">
-				<div class="social-item">
-					<div class="social-platform">
-						<i class="fab fa-facebook" style="color: #3b5998;"></i>
-						Facebook
-					</div>
-					<span class="social-count">12,4K</span>
-				</div>
+            <div class="social-stats">
+                <div class="social-item">
+                    <div class="social-platform">
+                        <i class="fab fa-facebook" style="color: #3b5998;"></i>
+                        Facebook
+                    </div>
+                    <span class="social-count">12,4K</span>
+                </div>
 
-				<div class="social-item">
-					<div class="social-platform">
-						<i class="fab fa-instagram" style="color: #e4405f;"></i>
-						Instagram
-					</div>
-					<span class="social-count">8,7K</span>
-				</div>
+                <div class="social-item">
+                    <div class="social-platform">
+                        <i class="fab fa-instagram" style="color: #e4405f;"></i>
+                        Instagram
+                    </div>
+                    <span class="social-count">8,7K</span>
+                </div>
 
-				<div class="social-item">
-					<div class="social-platform">
-						<i class="fab fa-twitter" style="color: #1da1f2;"></i>
-						Twitter
-					</div>
-					<span class="social-count">5,2K</span>
-				</div>
+                <div class="social-item">
+                    <div class="social-platform">
+                        <i class="fab fa-twitter" style="color: #1da1f2;"></i>
+                        Twitter
+                    </div>
+                    <span class="social-count">5,2K</span>
+                </div>
 
-				<div class="social-item">
-					<div class="social-platform">
-						<i class="fab fa-youtube" style="color: #ff0000;"></i>
-						YouTube
-					</div>
-					<span class="social-count">3,1K</span>
-				</div>
-			</div>
-		</div>
-	</aside>
+                <div class="social-item">
+                    <div class="social-platform">
+                        <i class="fab fa-youtube" style="color: #ff0000;"></i>
+                        YouTube
+                    </div>
+                    <span class="social-count">3,1K</span>
+                </div>
+            </div>
+        </div>
+    </aside>
 </div>
 
 <!-- Popup de confirmación de suscripción -->
 <div id="subscriptionPopup" class="subscription-popup hidden">
-	<div class="popup-content">
-		<div class="popup-icon">
-			<i class="fas fa-check-circle"></i>
-		</div>
-		<h4>¡Gracias por suscribirte!</h4>
-		<p>Te has suscrito exitosamente a nuestro boletín. Pronto recibirás las últimas noticias y eventos exclusivos.</p>
-		<button onclick="closePopup()" class="popup-close-btn">Entendido</button>
-	</div>
+    <div class="popup-content">
+        <div class="popup-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h4>¡Gracias por suscribirte!</h4>
+        <p>Te has suscrito exitosamente a nuestro boletín. Pronto recibirás las últimas noticias y eventos exclusivos.</p>
+        <button onclick="closePopup()" class="popup-close-btn">Entendido</button>
+    </div>
 </div>
 
 <!-- Floating Action Buttons -->
 <div class="floating-actions">
-	<a href="https://wa.me/59899123456" class="fab-button fab-whatsapp" title="Contáctanos por WhatsApp" target="_blank">
-		<i class="fab fa-whatsapp"></i>
-	</a>
-	<button class="fab-button fab-request" title="Pedir una canción" onclick="openRequestModal()">
-		<i class="fas fa-music"></i>
-	</button>
-	<a href="@Url.Action("Sponsors", "Home")" class="fab-button fab-sponsor" title="Ver patrocinadores">
-		<i class="fas fa-handshake"></i>
-	</a>
+    <a href="https://wa.me/59899123456" class="fab-button fab-whatsapp" title="Contáctanos por WhatsApp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <button class="fab-button fab-request" title="Pedir una canción" onclick="openRequestModal()">
+        <i class="fas fa-music"></i>
+    </button>
+    <a href="@Url.Action("Sponsors", "Home")" class="fab-button fab-sponsor" title="Ver patrocinadores">
+        <i class="fas fa-handshake"></i>
+    </a>
 </div>
 @section scripts {
-	<script>
+    <script>
 		document.addEventListener('DOMContentLoaded', function() {
 			// Animación de logos de auspiciantes
 			@if (Model.AuspiciantesLogos != null && Model.AuspiciantesLogos.Any())
@@ -737,5 +737,5 @@
         `;
         document.head.appendChild(style);
     });
-	</script>
+    </script>
 }

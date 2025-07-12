@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
-    
+
     public class HomeController : Controller
     {
         private RadioEntities db = new RadioEntities();
@@ -28,6 +28,92 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 return data;
             }
         }
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public JsonResult CreateComment(int programId, string comment)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(comment))
+                {
+                    return Json(new { success = false, message = "El comentario no puede estar vacío" });
+                }
+
+                if (comment.Length > 500)
+                {
+                    return Json(new { success = false, message = "El comentario no puede exceder 500 caracteres" });
+                }
+
+                // DEBUG: Información del usuario actual
+                var currentUserName = User.Identity.Name;
+                System.Diagnostics.Debug.WriteLine($"Usuario logueado: {currentUserName}");
+
+                // Obtener el usuario actual
+                var currentUser = db.Users.FirstOrDefault(u => u.UserName == currentUserName);
+                if (currentUser == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Usuario no encontrado en base de datos");
+                    return Json(new { success = false, message = $"Usuario '{currentUserName}' no encontrado en base de datos" });
+                }
+
+                System.Diagnostics.Debug.WriteLine($"Usuario encontrado - ID: {currentUser.ID}, UserName: {currentUser.UserName}");
+
+                // Buscar el cliente asociado
+                var currentClient = db.Clients.FirstOrDefault(c => c.UserID == currentUser.ID);
+                if (currentClient == null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Cliente no encontrado para UserID: {currentUser.ID}");
+
+                    // DEBUG: Verificar qué clientes existen
+                    var allClients = db.Clients.Select(c => new { c.UserID, c.IDNumber, c.FirstName, c.LastName }).ToList();
+                    System.Diagnostics.Debug.WriteLine($"Clientes en base de datos: {string.Join(", ", allClients.Select(c => $"UserID:{c.UserID}, IDNumber:{c.IDNumber}, Name:{c.FirstName} {c.LastName}"))}");
+
+                    return Json(new { success = false, message = $"No se encontró cliente asociado al usuario {currentUserName} (UserID: {currentUser.ID})" });
+                }
+
+                System.Diagnostics.Debug.WriteLine($"Cliente encontrado - IDNumber: {currentClient.IDNumber}, Name: {currentClient.FirstName} {currentClient.LastName}");
+
+                // Verificar que el programa existe
+                var program = db.RadioPrograms.FirstOrDefault(p => p.ID == programId);
+                if (program == null)
+                {
+                    return Json(new { success = false, message = "Programa no encontrado" });
+                }
+
+                // Crear el comentario
+                var newComment = new Comment
+                {
+                    ClientID = currentClient.IDNumber,
+                    ProgramID = programId,
+                    Comment1 = comment.Trim(),
+                    CommentDate = DateTime.Now
+                };
+
+                db.Comments.Add(newComment);
+                db.SaveChanges();
+
+                System.Diagnostics.Debug.WriteLine("Comentario creado exitosamente");
+
+                // Retornar el comentario creado para actualizar la UI
+                return Json(new
+                {
+                    success = true,
+                    comment = new
+                    {
+                        clientName = $"{currentClient.FirstName} {currentClient.LastName}",
+                        text = comment.Trim(),
+                        timeAgo = "Hace un momento"
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error creando comentario: {ex.Message}");
+                return Json(new { success = false, message = $"Error interno: {ex.Message}" });
+            }
+        }
+
         [Authorize]
         public ActionResult Sponsors()
         {
@@ -41,7 +127,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     {
                         ID = s.ID,
                         SponsorsName = s.SponsorsName,
-                        SponsorsDescription = s.SponsorsDescription,
+                        SponsorsDescription = s.SponsorDescription,
                         CantPlan = (int)s.CantPlan
                     }).ToList(),
                     TotalSponsors = sponsorsFromDb.Count,
@@ -350,85 +436,189 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         [Authorize]
 
         public ActionResult News(string category = null, string title = null)
+{
+    try
+    {
+        var newsFromDb = db.News.OrderByDescending(n => n.PublishDate).ToList();
+
+        var newsItems = newsFromDb.Select(n =>
+        {
+            var newsItem = new Models.NewsItem
+            {
+                Id = n.ID,  // Cambiado de n.Id a n.ID
+                Title = n.Title ?? "Sin título",
+                Content = n.Content ?? "Sin contenido",
+                PublishDate = n.PublishDate ?? DateTime.MinValue,
+                ImageURL = n.ImageURL
+            };
+
+            newsItem.SetCategoryFromTitle();
+            newsItem.SetRandomAuthor();
+            newsItem.SetDefaultImageIfEmpty();
+
+            return newsItem;
+        }).ToList();
+
+        var additionalNews = GetAdditionalDemoNews();
+        newsItems.AddRange(additionalNews);
+
+        newsItems = newsItems.OrderByDescending(n => n.PublishDate).ToList();
+
+        if (!string.IsNullOrEmpty(category))
+        {
+            newsItems = newsItems.Where(n => n.Category.Equals(category, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+
+        if (string.IsNullOrEmpty(category) && newsItems.Any())
+        {
+            newsItems.First().IsFeatured = true;
+        }
+
+        var allNews = newsFromDb.Select(n =>
+        {
+            var newsItem = new Models.NewsItem
+            {
+                Id = n.ID,  // Cambiado de n.Id a n.ID
+                Title = n.Title ?? "Sin título",
+                Content = n.Content ?? "Sin contenido",
+                PublishDate = n.PublishDate ?? DateTime.MinValue,
+                ImageURL = n.ImageURL
+            };
+            newsItem.SetCategoryFromTitle();
+            return newsItem;
+        }).ToList();
+
+        allNews.AddRange(GetAdditionalDemoNews());
+        var trendingNews = allNews.OrderByDescending(n => n.PublishDate).Take(5).ToList();
+
+        var viewModel = new NewsViewModel
+        {
+            NewsItems = newsItems,
+            TrendingNews = trendingNews,
+            SelectedCategory = category,
+            TotalCount = newsItems.Count,
+            CurrentPage = 1
+        };
+
+        ViewBag.SelectedCategory = category;
+        ViewBag.Title = !string.IsNullOrEmpty(category) ? $"Noticias - {category}" : "Todas las Noticias";
+
+        return View(viewModel);
+    }
+    catch (Exception ex)
+    {
+        System.Diagnostics.Debug.WriteLine($"Error en News: {ex.Message}");
+
+        var emptyViewModel = new NewsViewModel();
+        ViewBag.Error = "Error al cargar las noticias. Por favor, intenta nuevamente.";
+
+        return View(emptyViewModel);
+    }
+}
+
+        private void LoadCommentsForPrograms(RadioProgramsViewModel model)
         {
             try
             {
-                var newsFromDb = db.News.OrderByDescending(n => n.PublishDate).ToList();
+                var programIds = model.AllPrograms.Select(p => p.ID).ToList();
 
-                var newsItems = newsFromDb.Select(n => {
-                    var newsItem = new Models.NewsItem
-                    {
-                        Id = (int)(n.Id ?? 0),
-                        Title = n.Title ?? "Sin título",
-                        Content = n.Content ?? "Sin contenido",
-                        PublishDate = n.PublishDate ?? DateTime.MinValue,
-                        ImageURL = n.ImageURL
-                    };
+                var comments = db.Comments
+                    .Where(c => c.ProgramID.HasValue && programIds.Contains(c.ProgramID.Value))
+                    .OrderByDescending(c => c.CommentDate)
+                    .ToList();
 
-                    newsItem.SetCategoryFromTitle();
-                    newsItem.SetRandomAuthor();
-                    newsItem.SetDefaultImageIfEmpty();
+                // Obtener información de clientes para los comentarios
+                var clientIds = comments.Select(c => c.ClientID).Distinct().ToList();
+                var clients = db.Clients.Where(c => clientIds.Contains(c.IDNumber)).ToList();
 
-                    return newsItem;
-                }).ToList();
-
-                var additionalNews = GetAdditionalDemoNews();
-                newsItems.AddRange(additionalNews);
-
-                newsItems = newsItems.OrderByDescending(n => n.PublishDate).ToList();
-
-                if (!string.IsNullOrEmpty(category))
+                foreach (var program in model.AllPrograms)
                 {
-                    newsItems = newsItems.Where(n => n.Category.Equals(category, StringComparison.OrdinalIgnoreCase)).ToList();
+                    var programComments = comments
+    .Where(c => c.ProgramID == program.ID)
+    .Take(5)
+    .Select(c =>
+    {
+        var client = clients.FirstOrDefault(cl => cl.IDNumber == c.ClientID);
+        return new ObligatorioProgramacion3_Francisco_Luis.Models.CommentViewModel // Especificar namespace completo
+        {
+            ID = c.ID,
+            ProgramID = c.ProgramID ?? 0,
+            Comment = c.Comment1,
+            CommentDate = c.CommentDate ?? DateTime.Now,
+            ClientName = client != null ? $"{client.FirstName} {client.LastName}" : "Usuario Anónimo",
+            ClientEmail = client?.Email ?? ""
+        };
+    })
+    .ToList();
+
+                    model.ProgramComments[program.ID] = programComments;
                 }
-
-                if (string.IsNullOrEmpty(category) && newsItems.Any())
-                {
-                    newsItems.First().IsFeatured = true;
-                }
-
-                var allNews = newsFromDb.Select(n => {
-                    var newsItem = new Models.NewsItem
-                    {
-                        Id = (int)(n.Id ?? 0),
-                        Title = n.Title ?? "Sin título",
-                        Content = n.Content ?? "Sin contenido",
-                        PublishDate = n.PublishDate ?? DateTime.MinValue,
-                        ImageURL = n.ImageURL
-                    };
-                    newsItem.SetCategoryFromTitle();
-                    return newsItem;
-                }).ToList();
-
-                allNews.AddRange(GetAdditionalDemoNews());
-                var trendingNews = allNews.OrderByDescending(n => n.PublishDate).Take(5).ToList();
-
-                var viewModel = new NewsViewModel
-                {
-                    NewsItems = newsItems,
-                    TrendingNews = trendingNews,
-                    SelectedCategory = category,
-                    TotalCount = newsItems.Count,
-                    CurrentPage = 1
-                };
-
-                ViewBag.SelectedCategory = category;
-                ViewBag.Title = !string.IsNullOrEmpty(category) ? $"Noticias - {category}" : "Todas las Noticias";
-
-                return View(viewModel);
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error en News: {ex.Message}");
-
-                var emptyViewModel = new NewsViewModel();
-                ViewBag.Error = "Error al cargar las noticias. Por favor, intenta nuevamente.";
-
-                return View(emptyViewModel);
+                System.Diagnostics.Debug.WriteLine($"Error cargando comentarios: {ex.Message}");
+                // Si hay error, continuar sin comentarios
             }
         }
+        [HttpGet]
         [Authorize]
+        public JsonResult GetProgramComments(int programId, int page = 1, int pageSize = 5)
+        {
+            try
+            {
+                var skip = (page - 1) * pageSize;
 
+                var comments = db.Comments
+                    .Where(c => c.ProgramID == programId)
+                    .OrderByDescending(c => c.CommentDate)
+                    .Skip(skip)
+                    .Take(pageSize)
+                    .ToList();
+
+                // Obtener información de clientes
+                var clientIds = comments.Select(c => c.ClientID).Distinct().ToList();
+                var clients = db.Clients.Where(c => clientIds.Contains(c.IDNumber)).ToList();
+
+                var commentViewModels = comments.Select(c =>
+                {
+                    var client = clients.FirstOrDefault(cl => cl.IDNumber == c.ClientID);
+                    var commentViewModel = new CommentViewModel
+                    {
+                        ID = c.ID,
+                        ProgramID = c.ProgramID ?? 0,
+                        Comment = c.Comment1,
+                        CommentDate = c.CommentDate ?? DateTime.Now,
+                        ClientName = client != null ? $"{client.FirstName} {client.LastName}" : "Usuario Anónimo",
+                        ClientEmail = client?.Email ?? ""
+                    };
+
+                    return new
+                    {
+                        clientName = commentViewModel.ClientName,
+                        text = commentViewModel.Comment,
+                        timeAgo = commentViewModel.TimeAgo
+                    };
+                }).ToList();
+
+                // Verificar si hay más comentarios
+                var totalComments = db.Comments.Count(c => c.ProgramID == programId);
+                var hasMore = (skip + pageSize) < totalComments;
+
+                return Json(new
+                {
+                    success = true,
+                    comments = commentViewModels,
+                    hasMore = hasMore
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error obteniendo comentarios: {ex.Message}");
+                return Json(new { success = false, message = "Error al cargar comentarios" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [Authorize]
         public ActionResult RadioPrograms()
         {
             try
@@ -454,6 +644,9 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 model.CurrentProgram = currentProgram;
                 model.TotalPrograms = allPrograms.Count;
 
+                // NUEVA FUNCIONALIDAD: Cargar comentarios para cada programa
+                LoadCommentsForPrograms(model);
+
                 ViewBag.Title = "Programas de Radio - Voz del Este";
                 return View(model);
             }
@@ -470,6 +663,21 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 };
 
                 return View(emptyModel);
+            }
+        }
+        [HttpGet]
+        [Authorize]
+        public JsonResult GetCommentCount(int programId)
+        {
+            try
+            {
+                var count = db.Comments.Count(c => c.ProgramID == programId);
+                return Json(new { success = true, count = count }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error obteniendo conteo de comentarios: {ex.Message}");
+                return Json(new { success = false, count = 0 }, JsonRequestBehavior.AllowGet);
             }
         }
 

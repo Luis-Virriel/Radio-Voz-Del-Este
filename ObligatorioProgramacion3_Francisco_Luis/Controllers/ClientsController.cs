@@ -8,7 +8,7 @@ using ObligatorioProgramacion3_Francisco_Luis.Models;
 
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
-    [Authorize]
+
     public class ClientsController : BaseController
     {
         private RadioEntities db = new RadioEntities();
@@ -16,8 +16,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         // GET: Clients
         public ActionResult Index()
         {
-            var permisos = Session["Permissions"] as List<string>;
-            if (permisos == null || permisos.Count == 0)
+            if (!HasPermission("ViewClient"))
                 return new HttpUnauthorizedResult("No tiene permisos para acceder a esta sección.");
 
             var clients = db.Clients.Include(c => c.User).ToList();
@@ -156,6 +155,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
         // GET: Clients/Edit/5
+        // GET: Clients/Edit/5
         public ActionResult Edit(string id)
         {
             if (!HasPermission("EditClient"))
@@ -168,9 +168,19 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             if (client == null)
                 return HttpNotFound();
 
-            ViewBag.UserName = client.User?.UserName ?? "Sin usuario vinculado";
+            // Generar lista de usuarios válidos:
+            const int CLIENT_ROLE_ID = 3;
+
+            var usuariosDisponibles = db.Users
+                .Where(u => u.RoleID == CLIENT_ROLE_ID &&
+                       (!db.Clients.Any(c => c.UserID == u.ID) || u.ID == client.UserID))
+                .ToList();
+
+            ViewBag.UserID = new SelectList(usuariosDisponibles, "ID", "UserName", client.UserID);
+
             return View(client);
         }
+
 
         // POST: Clients/Edit/5
         [HttpPost]
@@ -186,6 +196,17 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             if (db.Clients.Any(c => c.Email == client.Email && c.IDNumber != client.IDNumber))
                 ModelState.AddModelError("Email", "Ya existe otro cliente con este correo.");
 
+            if (client.UserID.HasValue)
+            {
+                const int CLIENT_ROLE_ID = 3;
+                var usuario = db.Users.Find(client.UserID);
+                if (usuario == null || usuario.RoleID != CLIENT_ROLE_ID)
+                    ModelState.AddModelError("UserID", "El usuario no es válido o no tiene rol Client.");
+
+                if (db.Clients.Any(c => c.UserID == client.UserID && c.IDNumber != client.IDNumber))
+                    ModelState.AddModelError("UserID", "El usuario ya está asociado a otro cliente.");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(client).State = EntityState.Modified;
@@ -194,9 +215,18 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserName = db.Users.Find(client.UserID)?.UserName ?? "Sin usuario vinculado";
+            // Si hay error de validación → reconstruir lista
+            const int CLIENT_ROLE_ID_EDIT = 3;
+            var usuariosDisponibles = db.Users
+                .Where(u => u.RoleID == CLIENT_ROLE_ID_EDIT &&
+                       (!db.Clients.Any(c => c.UserID == u.ID) || u.ID == client.UserID))
+                .ToList();
+
+            ViewBag.UserID = new SelectList(usuariosDisponibles, "ID", "UserName", client.UserID);
+
             return View(client);
         }
+
 
         // GET: Clients/Delete/5
         public ActionResult Delete(string id)

@@ -1,57 +1,86 @@
 ﻿@model IEnumerable<ObligatorioProgramacion3_Francisco_Luis.Models.News>
-
 @{
     ViewBag.Title = "Noticias";
     var permissions = Session["Permissions"] as List<string> ?? new List<string>();
 }
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+<link href="~/Content/Styles/StylesNews/StyleIndexNews.css" rel="stylesheet" />
+<div class="index-container">
+    <h2 class="index-title">Noticias</h2>
 
-<h2>Noticias</h2>
+    @if (permissions.Contains("CreateNews"))
+    {
+        <div class="create-button-container">
+            @Html.ActionLink("Crear Nueva Noticia", "Create", null, new { @class = "create-button" })
+        </div>
+    }
 
-@if (permissions.Contains("CreateNews"))
-{
-    <p>
-        @Html.ActionLink("Crear Nueva", "Create", null, new { @class = "btn btn-primary" })
-    </p>
-}
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.First().Title)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Content)</th>
-            <th>@Html.DisplayNameFor(model => model.First().PublishDate)</th>
-            <th>@Html.DisplayNameFor(model => model.First().ImageURL)</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+    <div class="table-wrapper">
+        @if (Model != null && Model.Any())
         {
-            <tr>
-                <td>@Html.DisplayFor(m => item.Title)</td>
-                <td>@Html.DisplayFor(m => item.Content)</td>
-                <td>@Html.DisplayFor(m => item.PublishDate)</td>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.ImageURL))
+            <table class="news-table">
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Descripcion</th>
+                        <th>Fecha Publicacion</th>
+                        <th>Portada</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
                     {
-                        <img src="@Url.Content(item.ImageURL)" alt="Imagen noticia" style="max-height: 50px;" />
+                        <tr>
+                            <td class="news-title-field">@Html.DisplayFor(m => item.Title)</td>
+                            <td class="content-tooltip">
+                                <div class="content-ellipsis">
+                                    @Html.DisplayFor(m => item.Content)
+                                </div>
+                                @if (!string.IsNullOrEmpty(item.Content) && item.Content.Length > 150)
+                                {
+                                    <span class="tooltiptext">@item.Content</span>
+                                }
+                            </td>
+                            <td class="publish-date">@Html.DisplayFor(m => item.PublishDate)</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.ImageURL))
+                                {
+                                    <img src="@Url.Content(item.ImageURL)" alt="Imagen noticia" class="news-image" />
+                                }
+                                else
+                                {
+                                    <span class="no-image-placeholder">Sin imagen</span>
+                                }
+                            </td>
+                            <td class="action-links">
+                                @if (permissions.Contains("EditNews"))
+                                {
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.ID })
+                                    <span class="action-separator">|</span>
+                                }
+                                @if (permissions.Contains("ViewNews"))
+                                {
+                                    @Html.ActionLink("Detalles", "Details", new { id = item.ID })
+                                    <span class="action-separator">|</span>
+                                }
+                                @if (permissions.Contains("DeleteNews"))
+                                {
+                                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+                                }
+                            </td>
+                        </tr>
                     }
-                </td>
-                <td>
-                    @if (permissions.Contains("EditNews"))
-                    {
-                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }) <text> | </text>
-                    }
-                    @if (permissions.Contains("ViewNews"))
-                    {
-                        @Html.ActionLink("Detalles", "Details", new { id = item.ID }) <text> | </text>
-                    }
-                    @if (permissions.Contains("DeleteNews"))
-                    {
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
-                    }
-                </td>
-            </tr>
+                </tbody>
+            </table>
         }
-    </tbody>
-</table>
+        else
+        {
+            <div class="no-data-message">
+                No hay noticias disponibles.
+            </div>
+        }
+    </div>
+</div>

@@ -6,46 +6,74 @@
     var permissions = Session["Permissions"] as List<string> ?? new List<string>();
 }
 
-<h2>Hosts</h2>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="~/Content/Styles/StyleHost/StyleIndexHost.css" rel="stylesheet" />
 
-<p>
+<!-- Contenedor principal -->
+<div class="index-container">
+    <!-- Título principal -->
+    <h2 class="index-title">Conductores</h2>
+
+    <!-- Botón Crear -->
     @if (permissions.Contains("CreateHost"))
     {
-        @Html.ActionLink("Crear Nuevo Host", "Create", null, new { @class = "btn btn-primary" })
+        <div class="create-button-container">
+            @Html.ActionLink("Crear Nuevo Conductor", "Create", null, new { @class = "create-button" })
+        </div>
     }
-</p>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.HostName)</th>
-            <th>@Html.DisplayNameFor(model => model.Bio)</th>
-            <th>@Html.DisplayNameFor(model => model.RadioProgram.ProgramName)</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(m => item.HostName)</td>
-                <td>@Html.DisplayFor(m => item.Bio)</td>
-                <td>@Html.DisplayFor(m => item.RadioProgram.ProgramName)</td>
-                <td>
-                    @if (permissions.Contains("EditHost"))
+    <!-- Tabla de Hosts -->
+    <div class="table-wrapper">
+        <table class="hosts-table">
+            <thead>
+                <tr>
+                    <th>Nombres</th>
+                    <th>Biografia</th>
+                    <th>Programa</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    var index = 0;
+                    foreach (var item in Model)
                     {
-                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }) <text> | </text>
+                        <tr style="animation-delay:@($"{0.1 * (++index)}s")">
+                            <td class="client-name">@Html.DisplayFor(m => item.HostName)</td>
+                            <td>@Html.DisplayFor(m => item.Bio)</td>
+                            <td>@Html.DisplayFor(m => item.RadioProgram.ProgramName)</td>
+                            <td class="action-links">
+                                @if (permissions.Contains("EditHost"))
+                                {
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.ID })
+                                    <span class="action-separator">|</span>
+                                }
+                                @if (permissions.Contains("ViewHost"))
+                                {
+                                    @Html.ActionLink("Detalles", "Details", new { id = item.ID })
+                                    <span class="action-separator">|</span>
+                                }
+                                @if (permissions.Contains("DeleteHost"))
+                                {
+                                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+                                }
+                            </td>
+                        </tr>
                     }
-                    @if (permissions.Contains("ViewHost"))
-                    {
-                        @Html.ActionLink("Detalles", "Details", new { id = item.ID }) <text> | </text>
-                    }
-                    @if (permissions.Contains("DeleteHost"))
-                    {
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="no-data-message">
+                            No hay Hosts registrados.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

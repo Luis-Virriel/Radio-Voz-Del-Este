@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Details";
 }
-
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
@@ -10,30 +9,29 @@
 
 <div class="details-container">
     <h2 class="details-title">Detalles</h2>
-
     <div>
-        <h4 class="details-subtitle">Usuario</h4>
         <hr />
-
         <div class="user-info">
-            <dl class="dl-horizontal">
-                <dt>Usuario</dt>
-                <dd>@Html.DisplayFor(model => model.UserName)</dd>
-
-                <dt>Correo Electrónico</dt>
-                <dd>@Html.DisplayFor(model => model.Email)</dd>
-
-                <dt>Contraseña</dt>
-                <dd class="password-field">••••••••</dd>
-
-                <dt>Rol</dt>
-                <dd class="role-field">@Html.DisplayFor(model => model.Role.RoleName)</dd>
-            </dl>
+            <div class="detail-row">
+                <div class="detail-label">Usuario</div>
+                <div class="detail-value">@Html.DisplayFor(model => model.UserName)</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Correo Electrónico</div>
+                <div class="detail-value">@Html.DisplayFor(model => model.Email)</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Contraseña</div>
+                <div class="detail-value password-field">••••••••</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Rol</div>
+                <div class="detail-value role-field">@Html.DisplayFor(model => model.Role.RoleName)</div>
+            </div>
         </div>
     </div>
-
-    <div class="details-actions">
-        @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
-        @Html.ActionLink("←Volver a la Lista", "Index")
+    <div class="details-actions" style="text-align: center; margin-top: 40px;">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn-rectangle", style = "margin-right:20px" })
+        @Html.ActionLink("←Volver a la Lista", "Index", null, new { @class = "btn-rectangle" })
     </div>
 </div>

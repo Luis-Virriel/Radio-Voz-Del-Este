@@ -1,51 +1,54 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.User
-
 @{
     ViewBag.Title = "Eliminar Usuario";
 }
 
-<!-- Fonts y Estilos -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
 <link href="~/Content/Styles/StylesUsers/StyleDeleteUser.css" rel="stylesheet" />
 
 <div class="delete-container">
-    <h1 class="delete-title">Eliminar Usuario</h1>
+    <h2 class="delete-title">Eliminar Usuario</h2>
 
-    @* Mostrar errores si hay *@
     @if (!ViewData.ModelState.IsValid)
     {
-        <div class="validation-summary-errors">
+        <div class="alert alert-danger">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         </div>
     }
 
     <p class="confirm-text">¿Está seguro que desea eliminar este usuario?</p>
+
     <hr />
 
-    <dl class="dl-horizontal">
-        <dt>Usuario:</dt>
-        <dd>@Html.DisplayFor(m => m.UserName)</dd>
+    <div class="detail-row">
+        <div class="detail-label">Usuario:</div>
+        <div class="detail-value">@Html.DisplayFor(m => m.UserName)</div>
+    </div>
 
-        <dt>Correo Electrónico:</dt>
-        <dd>@Html.DisplayFor(m => m.Email)</dd>
+    <div class="detail-row">
+        <div class="detail-label">Correo Electrónico:</div>
+        <div class="detail-value">@Html.DisplayFor(m => m.Email)</div>
+    </div>
 
-        <dt>Contraseña:</dt>
-        <dd class="password-value">•••••••••••</dd>
+    <div class="detail-row">
+        <div class="detail-label">Contraseña:</div>
+        <div class="detail-value password-value">•••••••••••</div>
+    </div>
 
-        <dt>Rol:</dt>
-        <dd>@Html.DisplayFor(m => m.Role.RoleName)</dd>
-    </dl>
+    <div class="detail-row">
+        <div class="detail-label">Rol:</div>
+        <div class="detail-value">@Html.DisplayFor(m => m.Role.RoleName)</div>
+    </div>
 
     @using (Html.BeginForm("Delete", "Users", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.ID)
-
         <div class="button-container">
-            <input type="submit" value="Eliminar" class="btn" />
-            @Html.ActionLink("← Volver a la Lista", "Index", null, new { @class = "btn" })
+            <input type="submit" value="Eliminar" class="btn btn-delete" />
+            @Html.ActionLink("← Volver a la Lista", "Index", null, new { @class = "btn-rectangle delete-page-back-button" })
         </div>
     }
 </div>

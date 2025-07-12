@@ -1,65 +1,61 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.RadioProgram
+
 @{
     ViewBag.Title = "Create";
 }
-<h2>Create</h2>
-@using (Html.BeginForm("Create", "RadioPrograms", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+<link href="~/Content/Styles/StyleRadioPrograms/StyleCreateRadioProgram.css" rel="stylesheet" />
+<div class="form-containerRadioProgram">
+    <h2 class="form-titleRadioProgram">Crear Programa de Radio</h2>
+    <hr class="create-divider" />
 
-    <div class="form-horizontal">
-        <h4>RadioProgram</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProgramName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProgramName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProgramName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    @using (Html.BeginForm("Create", "RadioPrograms", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
 
-        <!-- Campo modificado para carga de archivos -->
-        <div class="form-group">
-            <label class="control-label col-md-2">Imagen del Programa</label>
-            <div class="col-md-10">
-                <div class="input-group">
-                    <input type="text" id="imageFileName" class="form-control" readonly placeholder="Selecciona una imagen..." />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-primary" onclick="document.getElementById('imageFile').click();">
-                            <i class="glyphicon glyphicon-folder-open"></i> Buscar
-                        </button>
-                    </span>
-                </div>
-                <input type="file" id="imageFile" name="ImageFile" accept="image/*" style="display: none;" onchange="updateFileName()" />
-                <small class="text-muted">Formatos permitidos: JPG, PNG, GIF (máximo 5MB)</small>
-                @Html.ValidationMessage("ImageFile", "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RadioDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RadioDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RadioDescription, "", new { @class = "text-danger" })
-            </div>
+            Nombre
+            @Html.EditorFor(model => model.ProgramName, new { htmlAttributes = new { @class = "input-field", placeholder = "Nombre del programa" } })
+            @Html.ValidationMessageFor(model => model.ProgramName, "", new { @class = "text-danger" })
         </div>
+
+        <!-- Campo de carga de imagen -->
         <div class="form-group">
-            @Html.LabelFor(model => model.Schedule, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Schedule, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Schedule, "", new { @class = "text-danger" })
+            <label>Portada</label>
+            <div class="input-group">
+                <input type="text" id="imageFileName" class="input-field" readonly placeholder="Selecciona una imagen..." />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" onclick="document.getElementById('imageFile').click();">
+                        <i class="glyphicon glyphicon-folder-open"></i> Buscar
+                    </button>
+                </span>
             </div>
+            <input type="file" id="imageFile" name="ImageFile" accept="image/*" style="display: none;" onchange="updateFileName()" />
+            <small class="text-muted">Formatos permitidos: JPG, PNG, GIF (máximo 5MB)</small>
+            @Html.ValidationMessage("ImageFile", "", new { @class = "text-danger" })
         </div>
+
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+            Descripcion
+            @Html.EditorFor(model => model.RadioDescription, new { htmlAttributes = new { @class = "input-field", placeholder = "Descripción del programa" } })
+            @Html.ValidationMessageFor(model => model.RadioDescription, "", new { @class = "text-danger" })
         </div>
-    </div>
-}
-<div>
-    @Html.ActionLink("Back to List", "Index")
+
+        <div class="form-group">
+            Programacion
+            @Html.EditorFor(model => model.Schedule, new { htmlAttributes = new { @class = "input-field", placeholder = "Programacion" } })
+            @Html.ValidationMessageFor(model => model.Schedule, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="buttons-container">
+            <input type="submit" value="Crear" class="submit-button" />
+            <span class="back-link">@Html.ActionLink("← Volver a la lista", "Index")</span>
+        </div>
+    }
 </div>
 
 <script>

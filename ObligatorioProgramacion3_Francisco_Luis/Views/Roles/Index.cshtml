@@ -3,31 +3,34 @@
 @{
     ViewBag.Title = "Index";
 }
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+<link href="~/Content/Styles/StylesRoles/StyleIndexRoles.css" rel="stylesheet" />
+<div class="index-container">
+    <h2 class="index-title">Roles</h2>
 
-<h2>Index</h2>
+    <div class="create-button-container">
+        @Html.ActionLink("Crear Nuevo Rol", "Create", null, new { @class = "create-button" })
+    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RoleName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoleName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+    <table class="roles-table">
+        <thead>
+            <tr>
+                <th>Nombre Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.RoleName)</td>
+                    <td class="action-links">   
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ID })<span class="action-separator">|</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
