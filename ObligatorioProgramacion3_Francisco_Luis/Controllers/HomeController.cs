@@ -127,7 +127,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     {
                         ID = s.ID,
                         SponsorsName = s.SponsorsName,
-                        SponsorsDescription = s.SponsorDescription,
+                        SponsorsDescription = s.SponsorsDescription,
                         CantPlan = (int)s.CantPlan
                     }).ToList(),
                     TotalSponsors = sponsorsFromDb.Count,
@@ -436,86 +436,85 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         [Authorize]
 
         public ActionResult News(string category = null, string title = null)
-{
-    try
-    {
-        var newsFromDb = db.News.OrderByDescending(n => n.PublishDate).ToList();
-
-        var newsItems = newsFromDb.Select(n =>
         {
-            var newsItem = new Models.NewsItem
+            try
             {
-                Id = n.ID,  // Cambiado de n.Id a n.ID
-                Title = n.Title ?? "Sin título",
-                Content = n.Content ?? "Sin contenido",
-                PublishDate = n.PublishDate ?? DateTime.MinValue,
-                ImageURL = n.ImageURL
-            };
+                var newsFromDb = db.News.OrderByDescending(n => n.PublishDate).ToList();
 
-            newsItem.SetCategoryFromTitle();
-            newsItem.SetRandomAuthor();
-            newsItem.SetDefaultImageIfEmpty();
+                var newsItems = newsFromDb.Select(n =>
+                {
+                    var newsItem = new Models.NewsItem
+                    {
+                        Id = (int)(n.Id ?? 0),
+                        Title = n.Title ?? "Sin título",
+                        Content = n.Content ?? "Sin contenido",
+                        PublishDate = n.PublishDate ?? DateTime.MinValue,
+                        ImageURL = n.ImageURL
+                    };
 
-            return newsItem;
-        }).ToList();
+                    newsItem.SetCategoryFromTitle();
+                    newsItem.SetRandomAuthor();
+                    newsItem.SetDefaultImageIfEmpty();
 
-        var additionalNews = GetAdditionalDemoNews();
-        newsItems.AddRange(additionalNews);
+                    return newsItem;
+                }).ToList();
 
-        newsItems = newsItems.OrderByDescending(n => n.PublishDate).ToList();
+                var additionalNews = GetAdditionalDemoNews();
+                newsItems.AddRange(additionalNews);
 
-        if (!string.IsNullOrEmpty(category))
-        {
-            newsItems = newsItems.Where(n => n.Category.Equals(category, StringComparison.OrdinalIgnoreCase)).ToList();
-        }
+                newsItems = newsItems.OrderByDescending(n => n.PublishDate).ToList();
 
-        if (string.IsNullOrEmpty(category) && newsItems.Any())
-        {
-            newsItems.First().IsFeatured = true;
-        }
+                if (!string.IsNullOrEmpty(category))
+                {
+                    newsItems = newsItems.Where(n => n.Category.Equals(category, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
 
-        var allNews = newsFromDb.Select(n =>
-        {
-            var newsItem = new Models.NewsItem
+                if (string.IsNullOrEmpty(category) && newsItems.Any())
+                {
+                    newsItems.First().IsFeatured = true;
+                }
+
+                var allNews = newsFromDb.Select(n =>
+                {
+                    var newsItem = new Models.NewsItem
+                    {
+                        Id = (int)(n.Id ?? 0),
+                        Title = n.Title ?? "Sin título",
+                        Content = n.Content ?? "Sin contenido",
+                        PublishDate = n.PublishDate ?? DateTime.MinValue,
+                        ImageURL = n.ImageURL
+                    };
+                    newsItem.SetCategoryFromTitle();
+                    return newsItem;
+                }).ToList();
+
+                allNews.AddRange(GetAdditionalDemoNews());
+                var trendingNews = allNews.OrderByDescending(n => n.PublishDate).Take(5).ToList();
+
+                var viewModel = new NewsViewModel
+                {
+                    NewsItems = newsItems,
+                    TrendingNews = trendingNews,
+                    SelectedCategory = category,
+                    TotalCount = newsItems.Count,
+                    CurrentPage = 1
+                };
+
+                ViewBag.SelectedCategory = category;
+                ViewBag.Title = !string.IsNullOrEmpty(category) ? $"Noticias - {category}" : "Todas las Noticias";
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
             {
-                Id = n.ID,  // Cambiado de n.Id a n.ID
-                Title = n.Title ?? "Sin título",
-                Content = n.Content ?? "Sin contenido",
-                PublishDate = n.PublishDate ?? DateTime.MinValue,
-                ImageURL = n.ImageURL
-            };
-            newsItem.SetCategoryFromTitle();
-            return newsItem;
-        }).ToList();
+                System.Diagnostics.Debug.WriteLine($"Error en News: {ex.Message}");
 
-        allNews.AddRange(GetAdditionalDemoNews());
-        var trendingNews = allNews.OrderByDescending(n => n.PublishDate).Take(5).ToList();
+                var emptyViewModel = new NewsViewModel();
+                ViewBag.Error = "Error al cargar las noticias. Por favor, intenta nuevamente.";
 
-        var viewModel = new NewsViewModel
-        {
-            NewsItems = newsItems,
-            TrendingNews = trendingNews,
-            SelectedCategory = category,
-            TotalCount = newsItems.Count,
-            CurrentPage = 1
-        };
-
-        ViewBag.SelectedCategory = category;
-        ViewBag.Title = !string.IsNullOrEmpty(category) ? $"Noticias - {category}" : "Todas las Noticias";
-
-        return View(viewModel);
-    }
-    catch (Exception ex)
-    {
-        System.Diagnostics.Debug.WriteLine($"Error en News: {ex.Message}");
-
-        var emptyViewModel = new NewsViewModel();
-        ViewBag.Error = "Error al cargar las noticias. Por favor, intenta nuevamente.";
-
-        return View(emptyViewModel);
-    }
-}
-
+                return View(emptyViewModel);
+            }
+        }
         private void LoadCommentsForPrograms(RadioProgramsViewModel model)
         {
             try
