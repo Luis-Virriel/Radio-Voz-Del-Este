@@ -3,10 +3,12 @@
 @{
     ViewBag.Title = "Eliminar";
 }
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
 <link href="~/Content/Styles/StylesNews/StyleDeletenews.css" rel="stylesheet" />
+
 <div class="delete-container">
     <h2 class="delete-title">Eliminar Noticia</h2>
 
@@ -24,7 +26,9 @@
         <dd>@Html.DisplayFor(model => model.PublishDate)</dd>
 
         <dt>Portada</dt>
-        <dd>@Html.DisplayFor(model => model.ImageURL)</dd>
+        <dd>
+            <img src="@Model.ImageURL" alt="Portada de la noticia" />
+        </dd>
     </dl>
 
     @using (Html.BeginForm())
@@ -33,7 +37,7 @@
 
         <div class="delete-actions">
             <input type="submit" value="Eliminar" class="btn btn-danger" />
-            @Html.ActionLink("Volver a la listaa", "Index", null, new { @class = "btn btn-secondary" })
+            @Html.ActionLink("Volver a la lista", "Index", null, new { @class = "btn btn-secondary" })
         </div>
     }
 </div>

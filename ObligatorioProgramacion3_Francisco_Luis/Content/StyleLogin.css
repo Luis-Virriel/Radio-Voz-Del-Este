@@ -1,141 +1,394 @@
-﻿/* Login.css - Estilos para formulario de login basado en ClientForm.css */
+﻿/* StyleLogin.css - Diseño coherente con el estilo moderno */
 
-/* Fondo general - COMPLETAMENTE TRANSPARENTE */
-.gradient-custom {
-    background-color: transparent !important; /* Sin fondo */
+/* Reset */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
     min-height: 100vh;
-    padding: 50px 0;
-    font-family: "Paprika", cursive, system-ui;
+    font-family: "Bona Nova SC", serif;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+/* Contenedor principal con gradiente */
+.gradient-custom {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+}
+
+    .gradient-custom::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+
+/* Contenedor del formulario */
+.container {
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.h-100 {
+    height: 100% !important;
+}
+
+.py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.justify-content-center {
+    justify-content: center !important;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        width: 60%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-lg-4 {
+        width: 45%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-xl-3 {
+        width: 40%;
+    }
+}
+
+/* Tarjeta del login */
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
+    position: relative;
+    animation: subtleGlow 3s ease-in-out infinite alternate;
+    overflow: hidden;
+}
+
+    .card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+        border-radius: 20px;
+        pointer-events: none;
+    }
+
+.card-body {
+    padding: 50px 60px !important;
+    position: relative;
+    z-index: 1;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.p-5 {
+    background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100% 100% );
+    padding: 3rem !important;
+}
+
+/* Espaciado */
+.mb-md-5 {
+    margin-bottom: 3rem !important;
+}
+
+.mt-md-4 {
+    margin-top: 1.5rem !important;
+}
+
+.pb-5 {
+    padding-bottom: 3rem !important;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mb-5 {
+    margin-bottom: 3rem !important;
+}
+
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+
+.pt-1 {
+    padding-top: 0.25rem !important;
+}
+
+.mx-4 {
+    margin-left: 1.5rem !important;
+    margin-right: 1.5rem !important;
+}
+
+.px-2 {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+.px-5 {
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+}
+
+/* Título principal */
+.card h2 {
+    font-size: 32px;
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+.text-uppercase {
+    text-transform: uppercase !important;
+}
+
+/* Párrafo descriptivo */
+.card p {
+    color: #ffffff;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+/* Campos de input */
+.form-control {
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    font-family: "Bona Nova SC", serif;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+}
+
+.form-control-lg {
+    padding: 18px 24px;
+    font-size: 18px;
+    border-radius: 15px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+}
+
+/* Botón de login */
+.btn {
+    display: inline-block;
+    padding: 16px 35px;
+    background: linear-gradient(45deg, #42a5f5, #66bb6a);
+    color: #ffffff !important;
+    font-weight: 700;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    font-size: 16px;
+    font-family: "Bona Nova SC", serif;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+}
+
+.btn-lg {
+    padding: 18px 40px;
+    font-size: 18px;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    background: linear-gradient(45deg, #1e88e5, #4caf50);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6);
+}
+
+/* Alertas de error */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.alert-danger {
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid #ff6b6b;
+    color: #ff6b6b;
+}
+
+/* Enlaces sociales */
+.d-flex a {
+    display: inline-block;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Contenedor principal de la tarjeta - INVISIBLE (mismo color que fondo) */
-.section {
-    background-color: transparent !important;
-    border-radius: 15px !important;
-    color: #b3d9ff !important;
-    box-shadow: none !important;
-    border: none !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-}
-
-/* Cuerpo de la tarjeta - ESTE SERÁ EL ÚNICO CONTENEDOR VISIBLE */
-.card-body {
-    padding: 50px 45px !important; /* Aún más espacio */
-    font-family: "Paprika", cursive, system-ui !important;
-    background-color: #0e375a !important;
-    border-radius: 20px !important; /* Bordes más redondeados */
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8) !important; /* Sombra más pronunciada */
-    max-width: 480px !important; /* Más ancho */
-    margin: 0 auto !important;
-    border: 2px solid rgba(105, 192, 255, 0.2) !important; /* Borde sutil */
-}
-
-    /* Título principal */
-    .card-body h2 {
-        color: #69c0ff !important;
-        font-family: "Paprika", cursive, system-ui !important;
-        font-weight: 400 !important;
-        font-size: 38px !important; /* Más grande */
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        letter-spacing: 1px;
-        margin-bottom: 25px !important; /* Más espacio */
-    }
-
-    /* Párrafo descriptivo */
-    .card-body p {
-        color: #b3d9ff !important;
-        font-family: "Paprika", cursive, system-ui !important;
-        font-weight: 400;
-        font-size: 16px; /* Más grande */
-        letter-spacing: 0.5px;
-        margin-bottom: 30px !important; /* Más espacio */
-    }
-
-/* Campos de entrada */
-.form-control {
-    background-color: #a6c8ff !important;
-    color: #003366 !important;
-    border: none !important;
-    border-radius: 10px !important;
-    font-family: "Paprika", cursive, system-ui !important;
-    font-size: 16px !important; /* Más grande */
-    padding: 14px 18px !important; /* Más espacio */
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-    transition: all 0.3s ease !important;
-    margin-bottom: 15px !important; /* Más espacio entre campos */
-}
-
-    .form-control:focus {
-        background-color: #a6c8ff !important;
-        color: #003366 !important;
-        outline: none !important;
-        box-shadow: 0 0 8px rgba(105, 192, 255, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-        transform: scale(1.02) !important;
-        border: none !important;
-    }
-
-    /* Placeholder styling */
-    .form-control::placeholder {
-        color: #4a7396 !important;
-        opacity: 0.8 !important;
-        font-style: italic !important;
-        font-family: "Paprika", cursive, system-ui !important;
-    }
-
-/* Botón de login */
-.btn-outline-dark {
-    background-color: #d9ecff !important;
-    color: #003366 !important;
-    border: none !important;
-    border-radius: 10px !important;
-    font-family: "Paprika", cursive, system-ui !important;
-    font-weight: 400 !important;
-    font-size: 18px !important; /* Más grande */
-    letter-spacing: 1px !important;
-    text-transform: uppercase !important;
-    padding: 15px 35px !important; /* Más espacio */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
-    transition: all 0.3s ease !important;
-    margin-top: 10px !important; /* Espacio arriba del botón */
-}
-
-    .btn-outline-dark:hover {
-        background-color: #b3d9ff !important;
-        color: #003366 !important;
-        border: none !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
-    }
-
-    .btn-outline-dark:focus,
-    .btn-outline-dark:active {
-        background-color: #b3d9ff !important;
-        color: #003366 !important;
-        border: none !important;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
-    }
-
-/* Enlaces de redes sociales */
-.d-flex a {
-    color: #69c0ff !important;
-    font-size: 18px !important; /* Reducido de 20px */
-    transition: all 0.3s ease !important;
-    padding: 6px 10px !important; /* Reducido de 8px 12px */
-    border-radius: 8px !important;
-    text-decoration: none !important;
-}
-
     .d-flex a:hover {
-        color: #d9ecff !important;
-        background-color: rgba(105, 192, 255, 0.1) !important;
-        transform: translateY(-1px) !important;
-        text-decoration: none !important;
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
     }
 
-/* Alertas de error */
-.alert-danger {
-    background-color: rgba(255, 107, 107,
+/* Iconos Font Awesome */
+.fab {
+    font-family: "Font Awesome 5 Brands";
+}
+
+.fa-lg {
+    font-size: 1.33333em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 25px !important;
+    }
+
+    .card h2 {
+        font-size: 24px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+
+    .btn-lg {
+        padding: 14px 30px;
+        font-size: 16px;
+    }
+
+    .form-control-lg {
+        padding: 14px 18px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gradient-custom {
+        padding: 10px;
+    }
+
+    .card-body {
+        padding: 20px !important;
+    }
+
+    .card h2 {
+        font-size: 20px;
+    }
+
+    .d-flex a {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+/* Animación del contenedor */
+@keyframes subtleGlow {
+    0% {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(42, 82, 152, 0.5);
+    }
+}
+
+/* Ocultar títulos por defecto del sistema */
+h1:not(.card h2),
+h2:not(.card h2),
+h3:not(.card h2),
+h4:not(.card h2) {
+    display: none;
+}
