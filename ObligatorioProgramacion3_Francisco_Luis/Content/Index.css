@@ -16,9 +16,6 @@ body {
 	max-width: 1600px;
 }
 
-/* ==========================================
-   LAYOUT PRINCIPAL
-   ========================================== */
 
 .main-layout {
 	display: grid;
@@ -27,9 +24,6 @@ body {
 	padding: 0 1rem;
 }
 
-/* ==========================================
-   SIDEBAR DE NOTICIAS
-   ========================================== */
 
 .news-sidebar {
 	position: sticky;
@@ -40,7 +34,7 @@ body {
 	scroll-behavior: smooth;
 }
 
-	/* Scrollbar personalizada */
+
 	.news-sidebar::-webkit-scrollbar {
 		width: 6px;
 	}
@@ -69,7 +63,7 @@ body {
 	border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Header del sidebar con efectos mejorados */
+
 .sidebar-header {
 	display: flex;
 	align-items: center;
@@ -149,7 +143,7 @@ body {
 	transform: translateX(5px);
 }
 
-/* Items de noticias mejorados */
+
 .news-item {
 	display: block;
 	margin-bottom: 1.5rem;
@@ -258,7 +252,7 @@ body {
 		transition: transform 0.3s ease;
 	}
 
-/* Botón "Ver todas las noticias" mejorado */
+
 .view-all-news {
 	display: block;
 	width: 100%;
@@ -302,7 +296,7 @@ body {
 		transform: translateY(-1px);
 	}
 
-/* Efecto de loading en las noticias */
+
 .news-item.loading {
 	opacity: 0.7;
 	pointer-events: none;
@@ -319,9 +313,6 @@ body {
 		animation: shimmer 1.5s infinite;
 	}
 
-/* ==========================================
-   SIDEBAR DE ESTADÍSTICAS
-   ========================================== */
 
 .stats-sidebar {
 	position: sticky;
@@ -360,7 +351,7 @@ body {
 	animation: pulse-number 2s infinite;
 }
 
-/* Redes sociales */
+
 .social-stats {
 	margin-top: 1.5rem;
 }
@@ -396,15 +387,12 @@ body {
 	font-size: 0.9rem;
 }
 
-/* ==========================================
-   CONTENIDO PRINCIPAL
-   ========================================== */
 
 .main-content {
 	min-height: 100vh;
 }
 
-/* Header de widgets */
+
 .widgets-header {
 	background: rgba(255, 255, 255, 0.1);
 	backdrop-filter: blur(10px);
@@ -496,10 +484,6 @@ body {
 	position: relative;
 }
 
-/* ==========================================
-   SECCIÓN DE AUDIO
-   ========================================== */
-
 .audio-section {
 	background: rgba(255, 255, 255, 0.1);
 	backdrop-filter: blur(10px);
@@ -548,13 +532,6 @@ body {
 		box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.3);
 	}
 
-/* ==========================================
-   PROGRAMAS ACTUAL Y PRÓXIMO
-   ========================================== */
-
-/* ==========================================
-   PROGRAMAS ACTUAL Y PRÓXIMO - ACTUALIZADO
-   ========================================== */
 
 .current-program {
 	margin: 20px 0 3rem 0;
@@ -830,9 +807,8 @@ body {
 	transform: scale(1.1);
 }
 
-/* ==========================================
-   ANIMACIONES ADICIONALES
-   ========================================== */
+
+
 
 @keyframes slideInProgram {
 	from {
@@ -878,9 +854,8 @@ body {
 	}
 }
 
-/* ==========================================
-   RESPONSIVE ADICIONAL
-   ========================================== */
+
+
 
 @media (max-width: 1200px) {
 	.program-header {
@@ -978,9 +953,7 @@ body {
 		}
 }
 
-/* ==========================================
-   DASHBOARD GRID
-   ========================================== */
+
 
 .dashboard-grid {
 	display: grid;
@@ -1034,7 +1007,7 @@ body {
 	font-weight: 600;
 }
 
-/* Lista de programación */
+
 .schedule-list {
 	display: flex;
 	flex-direction: column;
@@ -1068,7 +1041,7 @@ body {
 	font-size: 0.95rem;
 }
 
-/* Auspiciantes */
+
 .sponsors-container {
 	text-align: center;
 }
@@ -1088,9 +1061,8 @@ body {
 		transform: scale(1.05);
 	}
 
-/* ==========================================
-   NEWSLETTER
-   ========================================== */
+
+
 
 .newsletter {
 	background: linear-gradient(135deg, #667eea, #7fa7f1);
@@ -1150,9 +1122,8 @@ body {
 		transform: translateY(-2px);
 	}
 
-/* ==========================================
-   POPUP DE SUSCRIPCIÓN
-   ========================================== */
+
+
 
 .subscription-popup {
 	position: fixed;
@@ -1233,9 +1204,8 @@ body {
 		transform: translateY(0);
 	}
 
-/* ==========================================
-   BOTONES FLOTANTES
-   ========================================== */
+
+
 
 .floating-actions {
 	position: fixed;
@@ -1282,9 +1252,8 @@ body {
 	background: #f39c12;
 }
 
-/* ==========================================
-   ANIMACIONES
-   ========================================== */
+
+
 
 @keyframes pulse-dot {
 	0%, 100% {
@@ -1403,7 +1372,7 @@ body {
 	}
 }
 
-/* Animaciones escalonadas para items de noticias */
+
 .news-item:nth-child(2) {
 	animation-delay: 0.1s;
 }
@@ -1424,9 +1393,7 @@ body {
 	animation-delay: 0.5s;
 }
 
-/* ==========================================
-   RESPONSIVE DESIGN
-   ========================================== */
+
 
 @media (max-width: 1200px) {
 	.main-layout {

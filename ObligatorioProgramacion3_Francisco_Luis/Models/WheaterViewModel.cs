@@ -47,7 +47,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
         [JsonProperty("cod", NullValueHandling = NullValueHandling.Ignore)]
         public long? Cod { get; set; }
 
-        // Método FromJson movido aquí
         public static WeatherViewModel FromJson(string json) => JsonConvert.DeserializeObject<WeatherViewModel>(json, WeatherConverter.Settings);
     }
 

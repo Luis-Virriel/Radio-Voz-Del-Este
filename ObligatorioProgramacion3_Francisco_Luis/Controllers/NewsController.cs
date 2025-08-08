@@ -9,17 +9,15 @@ using ObligatorioProgramacion3_Francisco_Luis.Models;
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
     [Authorize]
-    public class NewsController : BaseController // <--- ¡HEREDA BaseController!
+    public class NewsController : BaseController
     {
         private RadioEntities db = new RadioEntities();
 
-        // GET: News
         public ActionResult Index()
         {
             return View(db.News.ToList());
         }
 
-        // GET: News/Details/5
         public ActionResult Details(int? id)
         {
             if (!HasPermission("ViewNews"))
@@ -35,7 +33,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(news);
         }
 
-        // GET: News/Create
         public ActionResult Create()
         {
             if (!HasPermission("CreateNews"))
@@ -44,13 +41,18 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View();
         }
 
-        // POST: News/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Title,Content,PublishDate,ImageURL")] News news)
         {
             if (!HasPermission("CreateNews"))
                 return new HttpUnauthorizedResult("No tiene permiso para crear noticias.");
+
+            bool existeTitulo = db.News.Any(n => n.Title == news.Title);
+            if (existeTitulo)
+            {
+                ModelState.AddModelError("Title", "Ya existe una noticia con este título.");
+            }
 
             if (ModelState.IsValid)
             {
@@ -62,7 +64,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(news);
         }
 
-        // GET: News/Edit/5
         public ActionResult Edit(int? id)
         {
             if (!HasPermission("EditNews"))
@@ -77,14 +78,18 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
             return View(news);
         }
-
-        // POST: News/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Title,Content,PublishDate,ImageURL")] News news)
         {
             if (!HasPermission("EditNews"))
                 return new HttpUnauthorizedResult("No tiene permiso para editar noticias.");
+
+            bool existeTitulo = db.News.Any(n => n.Title == news.Title && n.ID != news.ID);
+            if (existeTitulo)
+            {
+                ModelState.AddModelError("Title", "Ya existe una noticia con este título.");
+            }
 
             if (ModelState.IsValid)
             {
@@ -95,7 +100,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(news);
         }
 
-        // GET: News/Delete/5
         public ActionResult Delete(int? id)
         {
             if (!HasPermission("DeleteNews"))
@@ -111,7 +115,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(news);
         }
 
-        // POST: News/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

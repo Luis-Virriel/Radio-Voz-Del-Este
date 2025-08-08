@@ -1,0 +1,456 @@
+﻿body {
+    margin: 0;
+    padding: 10px;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+.index-container {
+    background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
+    max-width: 98%;
+    width: 98%;
+    margin: 10px auto;
+    padding: 30px;
+    border-radius: 20px;
+    color: #e6f3ff;
+    font-family: "Bona Nova SC", serif;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
+    min-height: 400px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+    .index-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+        border-radius: 20px;
+        pointer-events: none;
+    }
+
+.index-title {
+    text-align: center;
+    font-size: 48px;
+    margin-bottom: 40px;
+    font-style: normal;
+    color: #ffffff;
+    font-weight: 600;
+    font-family: "Bona Nova SC", serif;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+.create-button-container {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.create-button {
+    display: inline-block;
+    padding: 18px 35px;
+    background: linear-gradient(45deg, #42a5f5, #66bb6a);
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-family: "Bona Nova SC", serif;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+    .create-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .create-button:hover::before {
+        left: 100%;
+    }
+
+    .create-button:hover {
+        background: linear-gradient(45deg, #1e88e5, #4caf50);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6);
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+.comments-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.8), rgba(42, 82, 152, 0.6));
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    margin-top: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+    .comments-table th {
+        background: linear-gradient(135deg, #1976d2, #1565c0);
+        color: #ffffff;
+        padding: 15px 10px;
+        font-weight: 700;
+        font-size: 12px;
+        font-family: "Bona Nova SC", serif;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border: none;
+        position: relative;
+        white-space: nowrap;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+        .comments-table th::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #64b5f6, #90caf9);
+        }
+
+        .comments-table th:nth-child(1) {
+            width: 35%;
+        }
+
+        .comments-table th:nth-child(2) {
+            width: 15%;
+        }
+
+        .comments-table th:nth-child(3) {
+            width: 20%;
+        }
+
+        .comments-table th:nth-child(4) {
+            width: 18%;
+        }
+
+        .comments-table th:nth-child(5) {
+            width: 12%;
+        }
+
+        .comments-table th:first-child {
+            border-top-left-radius: 15px;
+        }
+
+        .comments-table th:last-child {
+            border-top-right-radius: 15px;
+        }
+
+    .comments-table td {
+        padding: 12px 10px;
+        border: none;
+        color: #ffffff;
+        font-size: 13px;
+        font-family: "Bona Nova SC", serif;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, rgba(30, 60, 114, 0.4), rgba(42, 82, 152, 0.2));
+        overflow: hidden;
+        position: relative;
+        vertical-align: top;
+    }
+
+        .comments-table td:nth-child(1) {
+            width: 35%;
+            font-weight: 500;
+            color: #ffffff;
+            line-height: 1.4;
+            max-width: 300px;
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 60px;
+        }
+
+        .comments-table td:nth-child(2) {
+            width: 15%;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: #90caf9;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .comments-table td:nth-child(3) {
+            width: 20%;
+            font-weight: 700;
+            color: #81c784;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .comments-table td:nth-child(4) {
+            width: 18%;
+            font-weight: 600;
+            color: #ffab40;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .comments-table td:nth-child(5) {
+            width: 12%;
+            white-space: nowrap;
+        }
+
+    .comments-table tbody tr:hover td {
+        background: linear-gradient(135deg, rgba(66, 165, 245, 0.3), rgba(102, 187, 106, 0.2));
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(66, 165, 245, 0.3);
+    }
+
+    .comments-table tbody tr:nth-child(even) td {
+        background: linear-gradient(135deg, rgba(30, 60, 114, 0.3), rgba(42, 82, 152, 0.15));
+    }
+
+    .comments-table tbody tr:nth-child(odd) td {
+        background: linear-gradient(135deg, rgba(25, 50, 95, 0.4), rgba(35, 70, 125, 0.2));
+    }
+
+.action-links {
+    white-space: nowrap;
+}
+
+    .action-links a {
+        color: #64b5f6;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 700;
+        margin-right: 8px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        display: inline-block;
+        background: linear-gradient(45deg, rgba(100, 181, 246, 0.1), rgba(144, 202, 249, 0.1));
+        border: 1px solid rgba(100, 181, 246, 0.3);
+    }
+
+        .action-links a:hover {
+            background: linear-gradient(45deg, #42a5f5, #66bb6a);
+            color: #ffffff;
+            text-decoration: none;
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
+        }
+
+.action-separator {
+    color: #546e7a;
+    margin: 0 3px;
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .index-container {
+        margin: 15px;
+        padding: 25px;
+    }
+
+    .index-title {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .comments-table {
+        font-size: 11px;
+    }
+
+        .comments-table th,
+        .comments-table td {
+            padding: 8px 6px;
+        }
+
+    .action-links a {
+        font-size: 10px;
+        padding: 4px 8px;
+        margin-right: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Puedes esconder columnas menos importantes o ajustar anchos para móviles */
+
+    .comments-table th:nth-child(2),
+    .comments-table td:nth-child(2) {
+        display: none; /* ejemplo, ocultar fecha en móvil */
+    }
+
+    .comments-table th:nth-child(4),
+    .comments-table td:nth-child(4) {
+        display: none; /* ejemplo, ocultar programa en móvil */
+    }
+
+    .comments-table th:nth-child(1),
+    .comments-table td:nth-child(1) {
+        width: 45%;
+    }
+
+    .comments-table th:nth-child(3),
+    .comments-table td:nth-child(3) {
+        width: 35%;
+    }
+
+    .comments-table th:nth-child(5),
+    .comments-table td:nth-child(5) {
+        width: 20%;
+    }
+}
+
+.no-data-message {
+    text-align: center;
+    padding: 50px;
+    color: #ffffff;
+    font-size: 20px;
+    font-style: italic;
+    font-family: "Bona Nova SC", serif;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 15px;
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.1), rgba(42, 82, 152, 0.05));
+    padding: 5px;
+}
+
+h2:not(.index-title) {
+    display: none;
+}
+
+.index-container > p {
+    display: none;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comments-table tbody tr {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+    .comments-table tbody tr:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .comments-table tbody tr:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .comments-table tbody tr:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .comments-table tbody tr:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .comments-table tbody tr:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+.index-container {
+    animation: subtleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes subtleGlow {
+    0% {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(42, 82, 152, 0.5);
+    }
+}
+
+.comment-text {
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.4;
+}
+
+.comment-date {
+    color: #90caf9;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.comment-client {
+    color: #81c784;
+    font-weight: 700;
+}
+
+.comment-program {
+    color: #ffab40;
+    font-weight: 600;
+}
+
+.index-title i {
+    margin-left: 15px;
+    color: #ffffff;
+}
+
+.comment-text-long {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 60px;
+    line-height: 1.3;
+}
+
+.comment-tooltip {
+    position: relative;
+    cursor: help;
+}
+
+    .comment-tooltip:hover::after {
+        content: attr(data-comment);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.9);
+        color: #ffffff;
+        padding: 10px;
+        border-radius: 8px;
+        font-size: 12px;
+        white-space: normal;
+        max-width: 300px;
+        word-wrap: break-word;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }

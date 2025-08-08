@@ -4,7 +4,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
 {
     public class HomeIndexViewModel
     {
-        // Propiedades existentes para programas de radio, clima, etc.
         public RadioProgram CurrentProgram { get; set; }
         public RadioProgram NextProgram { get; set; }
         public List<RadioProgram> ProgramsList { get; set; }
@@ -27,10 +26,8 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
 
         public CurrencyData CurrencyData { get; set; }
 
-        // Esta propiedad es la que faltaba:
         public bool HasCurrencyData => CurrencyData != null && CurrencyData.Quotes != null;
 
-        // NUEVA propiedad para cotizaciones seleccionadas
         public Dictionary<string, double> SelectedCurrencyQuotes { get; set; }
     }
 }

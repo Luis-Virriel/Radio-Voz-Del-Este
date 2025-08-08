@@ -1,6 +1,6 @@
-﻿/* UserIndex-NewStyle.css - Estilo alternativo para vista Index de usuarios */
+﻿
 
-/* Resetear estilos del body y html */
+
 body {
     margin: 0;
     padding: 10px;
@@ -12,7 +12,7 @@ html {
     overflow-x: hidden;
 }
 
-/* Contenedor principal */
+
 .index-container {
     background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
     max-width: 98%;
@@ -41,7 +41,7 @@ html {
         pointer-events: none;
     }
 
-/* Título principal */
+
 .index-title {
     text-align: center;
     font-size: 48px;
@@ -56,7 +56,7 @@ html {
     z-index: 1;
 }
 
-/* Botón Create New */
+
 .create-button-container {
     text-align: center;
     margin-bottom: 35px;
@@ -105,7 +105,7 @@ html {
         color: #ffffff;
     }
 
-/* Tabla principal */
+
 .users-table {
     width: 100%;
     border-collapse: separate;
@@ -119,7 +119,7 @@ html {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-    /* Encabezados de tabla */
+
     .users-table th {
         background: linear-gradient(135deg, #1976d2, #1565c0);
         color: #ffffff;
@@ -145,7 +145,7 @@ html {
             background: linear-gradient(90deg, #64b5f6, #90caf9);
         }
 
-        /* Ajustar ancho de columnas específicas para usuarios */
+
         .users-table th:nth-child(1) {
             width: 20%;
         }
@@ -174,7 +174,7 @@ html {
             border-top-right-radius: 15px;
         }
 
-    /* Filas de datos */
+
     .users-table td {
         padding: 12px 10px;
         border: none;
@@ -187,7 +187,7 @@ html {
         position: relative;
     }
 
-        /* Ajustar columnas específicas para usuarios */
+
         .users-table td:nth-child(1) {
             width: 20%;
             white-space: nowrap;
@@ -235,14 +235,14 @@ html {
             white-space: nowrap;
         }
 
-    /* Efecto hover en filas */
+
     .users-table tbody tr:hover td {
         background: linear-gradient(135deg, rgba(66, 165, 245, 0.3), rgba(102, 187, 106, 0.2));
         transform: translateX(5px);
         box-shadow: 0 5px 15px rgba(66, 165, 245, 0.3);
     }
 
-    /* Alternar colores de filas */
+
     .users-table tbody tr:nth-child(even) td {
         background: linear-gradient(135deg, rgba(30, 60, 114, 0.3), rgba(42, 82, 152, 0.15));
     }
@@ -251,7 +251,7 @@ html {
         background: linear-gradient(135deg, rgba(25, 50, 95, 0.4), rgba(35, 70, 125, 0.2));
     }
 
-/* Enlaces de acciones */
+
 .action-links {
     white-space: nowrap;
 }
@@ -278,14 +278,14 @@ html {
             box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
         }
 
-/* Separadores entre acciones */
+
 .action-separator {
     color: #546e7a;
     margin: 0 3px;
     font-size: 12px;
 }
 
-/* Responsive para pantallas pequeñas */
+
 @media (max-width: 768px) {
     .index-container {
         margin: 15px;
@@ -313,7 +313,7 @@ html {
     }
 }
 
-/* Mensaje cuando no hay datos */
+
 .no-data-message {
     text-align: center;
     padding: 50px;
@@ -323,7 +323,7 @@ html {
     font-family: "Bona Nova SC", serif;
 }
 
-/* Estilo para el contenedor de la tabla */
+
 .table-wrapper {
     overflow-x: auto;
     border-radius: 15px;
@@ -331,17 +331,17 @@ html {
     padding: 5px;
 }
 
-/* Ocultar elementos por defecto de MVC */
+
 h2:not(.index-title) {
     display: none;
 }
 
-/* Ajustar espaciado general */
+
 .index-container > p {
     display: none;
 }
 
-/* Estilo específico para contraseñas */
+
 .password-field {
     font-family: 'Courier New', monospace;
     font-size: 11px;
@@ -350,7 +350,7 @@ h2:not(.index-title) {
     font-weight: 600;
 }
 
-/* Estilo para roles con colores diferenciados */
+
 .role-admin {
     color: #ff5555 !important;
     font-weight: 800;
@@ -381,14 +381,14 @@ h2:not(.index-title) {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* Estilo para nombres de usuario destacados */
+
 .username-field {
     font-weight: 700;
     color: #90caf9;
     text-shadow: 0 2px 4px rgba(144, 202, 249, 0.3);
 }
 
-/* Animaciones adicionales */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -425,7 +425,7 @@ h2:not(.index-title) {
         animation-delay: 0.5s;
     }
 
-/* Efecto de brillo en el contenedor */
+
 .index-container {
     animation: subtleGlow 3s ease-in-out infinite alternate;
 }

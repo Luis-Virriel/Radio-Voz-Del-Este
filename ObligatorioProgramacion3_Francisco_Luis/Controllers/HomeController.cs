@@ -16,7 +16,8 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
     {
         private RadioEntities db = new RadioEntities();
         private readonly string _weatherApiKey = "40ed30cc4da04b0fed28c1dd01a0e483";
-        private readonly string currencyLayerApiKey = "ba030d742f03dfc719d832c8010a3f84";
+        //private readonly string currencyLayerApiKey = "ba030d742f03dfc719d832c8010a3f84";
+        private readonly string currencyLayerApiKey = "da05f51aa5fa48102ba10b58210d8b57";
 
         public async Task<CurrencyData> GetCurrencyDataAsync()
         {
@@ -45,12 +46,10 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     return Json(new { success = false, message = "El comentario no puede exceder 500 caracteres" });
                 }
 
-                // DEBUG: Información del usuario actual
                 var currentUserName = User.Identity.Name;
                 System.Diagnostics.Debug.WriteLine($"Usuario logueado: {currentUserName}");
 
-                // Obtener el usuario actual
-                var currentUser = db.Users.FirstOrDefault(u => u.UserName == currentUserName);
+                                 var currentUser = db.Users.FirstOrDefault(u => u.UserName == currentUserName);
                 if (currentUser == null)
                 {
                     System.Diagnostics.Debug.WriteLine("Usuario no encontrado en base de datos");
@@ -59,14 +58,12 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
                 System.Diagnostics.Debug.WriteLine($"Usuario encontrado - ID: {currentUser.ID}, UserName: {currentUser.UserName}");
 
-                // Buscar el cliente asociado
-                var currentClient = db.Clients.FirstOrDefault(c => c.UserID == currentUser.ID);
+                                 var currentClient = db.Clients.FirstOrDefault(c => c.UserID == currentUser.ID);
                 if (currentClient == null)
                 {
                     System.Diagnostics.Debug.WriteLine($"Cliente no encontrado para UserID: {currentUser.ID}");
 
-                    // DEBUG: Verificar qué clientes existen
-                    var allClients = db.Clients.Select(c => new { c.UserID, c.IDNumber, c.FirstName, c.LastName }).ToList();
+                                         var allClients = db.Clients.Select(c => new { c.UserID, c.IDNumber, c.FirstName, c.LastName }).ToList();
                     System.Diagnostics.Debug.WriteLine($"Clientes en base de datos: {string.Join(", ", allClients.Select(c => $"UserID:{c.UserID}, IDNumber:{c.IDNumber}, Name:{c.FirstName} {c.LastName}"))}");
 
                     return Json(new { success = false, message = $"No se encontró cliente asociado al usuario {currentUserName} (UserID: {currentUser.ID})" });
@@ -74,15 +71,13 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
                 System.Diagnostics.Debug.WriteLine($"Cliente encontrado - IDNumber: {currentClient.IDNumber}, Name: {currentClient.FirstName} {currentClient.LastName}");
 
-                // Verificar que el programa existe
-                var program = db.RadioPrograms.FirstOrDefault(p => p.ID == programId);
+                                 var program = db.RadioPrograms.FirstOrDefault(p => p.ID == programId);
                 if (program == null)
                 {
                     return Json(new { success = false, message = "Programa no encontrado" });
                 }
 
-                // Crear el comentario
-                var newComment = new Comment
+                                 var newComment = new Comment
                 {
                     ClientID = currentClient.IDNumber,
                     ProgramID = programId,
@@ -95,8 +90,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
                 System.Diagnostics.Debug.WriteLine("Comentario creado exitosamente");
 
-                // Retornar el comentario creado para actualizar la UI
-                return Json(new
+                                 return Json(new
                 {
                     success = true,
                     comment = new
@@ -445,7 +439,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             var newsItem = new Models.NewsItem
             {
-                Id = n.ID,  // Cambiado de n.Id a n.ID
+                Id = n.ID, 
                 Title = n.Title ?? "Sin título",
                 Content = n.Content ?? "Sin contenido",
                 PublishDate = n.PublishDate ?? DateTime.MinValue,
@@ -478,7 +472,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         {
             var newsItem = new Models.NewsItem
             {
-                Id = n.ID,  // Cambiado de n.Id a n.ID
+                Id = n.ID,  
                 Title = n.Title ?? "Sin título",
                 Content = n.Content ?? "Sin contenido",
                 PublishDate = n.PublishDate ?? DateTime.MinValue,
@@ -527,7 +521,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     .OrderByDescending(c => c.CommentDate)
                     .ToList();
 
-                // Obtener información de clientes para los comentarios
+                
                 var clientIds = comments.Select(c => c.ClientID).Distinct().ToList();
                 var clients = db.Clients.Where(c => clientIds.Contains(c.IDNumber)).ToList();
 
@@ -539,7 +533,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
     .Select(c =>
     {
         var client = clients.FirstOrDefault(cl => cl.IDNumber == c.ClientID);
-        return new ObligatorioProgramacion3_Francisco_Luis.Models.CommentViewModel // Especificar namespace completo
+        return new ObligatorioProgramacion3_Francisco_Luis.Models.CommentViewModel 
         {
             ID = c.ID,
             ProgramID = c.ProgramID ?? 0,
@@ -557,7 +551,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error cargando comentarios: {ex.Message}");
-                // Si hay error, continuar sin comentarios
+               
             }
         }
         [HttpGet]
@@ -575,8 +569,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     .Take(pageSize)
                     .ToList();
 
-                // Obtener información de clientes
-                var clientIds = comments.Select(c => c.ClientID).Distinct().ToList();
+                                 var clientIds = comments.Select(c => c.ClientID).Distinct().ToList();
                 var clients = db.Clients.Where(c => clientIds.Contains(c.IDNumber)).ToList();
 
                 var commentViewModels = comments.Select(c =>
@@ -600,8 +593,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                     };
                 }).ToList();
 
-                // Verificar si hay más comentarios
-                var totalComments = db.Comments.Count(c => c.ProgramID == programId);
+                                 var totalComments = db.Comments.Count(c => c.ProgramID == programId);
                 var hasMore = (skip + pageSize) < totalComments;
 
                 return Json(new
@@ -644,8 +636,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 model.CurrentProgram = currentProgram;
                 model.TotalPrograms = allPrograms.Count;
 
-                // NUEVA FUNCIONALIDAD: Cargar comentarios para cada programa
-                LoadCommentsForPrograms(model);
+                                 LoadCommentsForPrograms(model);
 
                 ViewBag.Title = "Programas de Radio - Voz del Este";
                 return View(model);
@@ -756,7 +747,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return demoNews;
         }
 
-        // NUEVA ACCIÓN para mostrar siempre la vista general Voz del Este
         public async Task<ActionResult> Welcome()
         {
             DateTime ahora = DateTime.Now;

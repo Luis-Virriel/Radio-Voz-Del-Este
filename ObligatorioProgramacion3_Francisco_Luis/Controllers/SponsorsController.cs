@@ -10,12 +10,10 @@ using ObligatorioProgramacion3_Francisco_Luis.Models;
 namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 {
     [Authorize]
-    public class SponsorsController : BaseController // hereda de BaseController
+    public class SponsorsController : BaseController
     {
         private RadioEntities db = new RadioEntities();
 
-        // GET: Sponsors
-        // GET: Sponsors
         public ActionResult Index()
         {
             var permisos = Session["Permissions"] as List<string> ?? new List<string>();
@@ -33,7 +31,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
 
-        // GET: Sponsors/Details/5
         public ActionResult Details(int? id)
         {
             var permisos = Session["Permissions"] as List<string> ?? new List<string>();
@@ -55,7 +52,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(sponsor);
         }
 
-        // GET: Sponsors/Create
         public ActionResult Create()
         {
             var permisos = Session["Permissions"] as List<string> ?? new List<string>();
@@ -67,8 +63,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
             return View();
         }
-
-        // POST: Sponsors/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,SponsorsName,SponsorDescription,CantPlan")] Sponsor sponsor)
@@ -82,6 +76,13 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
             if (ModelState.IsValid)
             {
+                bool existeNombre = db.Sponsors.Any(s => s.SponsorsName == sponsor.SponsorsName);
+                if (existeNombre)
+                {
+                    ModelState.AddModelError("SponsorsName", "Ya existe un patrocinador con ese nombre.");
+                    return View(sponsor);
+                }
+
                 db.Sponsors.Add(sponsor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -90,7 +91,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(sponsor);
         }
 
-        // GET: Sponsors/Edit/5
         public ActionResult Edit(int? id)
         {
             var permisos = Session["Permissions"] as List<string> ?? new List<string>();
@@ -111,8 +111,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             }
             return View(sponsor);
         }
-
-        // POST: Sponsors/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,SponsorsName,SponsorDescription,CantPlan")] Sponsor sponsor)
@@ -126,14 +124,20 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
             if (ModelState.IsValid)
             {
+                bool existeNombre = db.Sponsors.Any(s => s.SponsorsName == sponsor.SponsorsName && s.ID != sponsor.ID);
+                if (existeNombre)
+                {
+                    ModelState.AddModelError("SponsorsName", "Ya existe otro patrocinador con ese nombre.");
+                    return View(sponsor);
+                }
+
                 db.Entry(sponsor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(sponsor);
         }
-
-        // GET: Sponsors/Delete/5
         public ActionResult Delete(int? id)
         {
             var permisos = Session["Permissions"] as List<string> ?? new List<string>();
@@ -155,7 +159,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(sponsor);
         }
 
-        // POST: Sponsors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

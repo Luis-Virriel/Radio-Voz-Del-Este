@@ -1,880 +1,870 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.RadioProgramsViewModel
 @{
-	ViewBag.Title = "Programas de Radio - Voz del Este";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Programas de Radio - Voz del Este";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.AntiForgeryToken()
 <div class="programs-container">
-	<div class="programs-header">
-		<div class="header-content">
-			<h1 class="page-title">
-				<i class="fas fa-radio"></i>
-				Nuestra Programación
-			</h1>
-			<p class="page-subtitle">Descubre todos nuestros programas de radio</p>
-		</div>
+    <div class="programs-header">
+        <div class="header-content">
+            <h1 class="page-title">
+                <i class="fas fa-radio"></i>
+                Nuestra Programación
+            </h1>
+            <p class="page-subtitle">Descubre todos nuestros programas de radio</p>
+        </div>
 
-		<!-- Programa Actual Destacado -->
-		@if (Model.CurrentProgram != null)
-		{
-			<div class="current-program-hero">
-				<div class="hero-content">
-					<div class="hero-badge">
-						<span class="live-dot"></span>
-						AHORA EN VIVO
-					</div>
-					<div class="hero-info">
-						<h2 class="hero-title">@Model.CurrentProgram.ProgramName</h2>
-						<p class="hero-description">@Model.CurrentProgram.RadioDescription</p>
-						<div class="hero-time">
-							<i class="fas fa-clock"></i>
-							@(Model.CurrentProgram.Schedule.HasValue ? Model.CurrentProgram.Schedule.Value.ToString("HH:mm") : DateTime.Now.ToString("HH:mm"))
-						</div>
-					</div>
-				</div>
-				<div class="hero-image">
-					<img src="@Model.CurrentProgram.ImageURL" alt="@Model.CurrentProgram.ProgramName" />
-				</div>
-			</div>
-		}
-	</div>
 
-	<!-- Filtros -->
-	<div class="programs-filters">
-		<div class="filter-buttons">
-			<button class="filter-btn active" data-filter="all">
-				<i class="fas fa-th-large"></i>
-				Todos (@Model.TotalPrograms)
-			</button>
-			<button class="filter-btn" data-filter="matutinos">
-				<i class="fas fa-sun"></i>
-				Matutinos (@Model.MatutinosPrograms.Count)
-			</button>
-			<button class="filter-btn" data-filter="vespertinos">
-				<i class="fas fa-cloud-sun"></i>
-				Vespertinos (@Model.VespertinosPrograms.Count)
-			</button>
-			<button class="filter-btn" data-filter="nocturnos">
-				<i class="fas fa-moon"></i>
-				Nocturnos (@Model.NocturnosPrograms.Count)
-			</button>
-			<button class="filter-btn" data-filter="musicales">
-				<i class="fas fa-music"></i>
-				Musicales (@Model.MusicalesPrograms.Count)
-			</button>
-			<button class="filter-btn" data-filter="informativos">
-				<i class="fas fa-newspaper"></i>
-				Informativos (@Model.InformativosPrograms.Count)
-			</button>
-		</div>
+        @if (Model.CurrentProgram != null)
+        {
+            <div class="current-program-hero">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="live-dot"></span>
+                        AHORA EN VIVO
+                    </div>
+                    <div class="hero-info">
+                        <h2 class="hero-title">@Model.CurrentProgram.ProgramName</h2>
+                        <p class="hero-description">@Model.CurrentProgram.RadioDescription</p>
+                        <div class="hero-time">
+                            <i class="fas fa-clock"></i>
+                            @(Model.CurrentProgram.Schedule.HasValue ? Model.CurrentProgram.Schedule.Value.ToString("HH:mm") : DateTime.Now.ToString("HH:mm"))
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="@Model.CurrentProgram.ImageURL" alt="@Model.CurrentProgram.ProgramName" />
+                </div>
+            </div>
+        }
+    </div>
 
-		<div class="search-container">
-			<input type="text" id="programSearch" placeholder="Buscar programa..." class="search-input">
-			<i class="fas fa-search search-icon"></i>
-		</div>
-	</div>
 
-	<!-- Grid de Programas -->
-	<div class="programs-grid">
-		@if (Model.AllPrograms != null && Model.AllPrograms.Any())
-		{
-			foreach (var program in Model.AllPrograms)
-			{
-				<div class="program-card" data-category="@GetProgramCategory(program)" data-name="@program.ProgramName.ToLower()" data-program-id="@program.ID">
-					<div class="card-image">
-						<img src="@program.ImageURL" alt="@program.ProgramName" />
-						<div class="card-overlay">
-							<div class="overlay-content">
-								<i class="fas fa-play-circle play-icon"></i>
-								<span class="overlay-text">Ver Detalles</span>
-							</div>
-						</div>
-					</div>
-					<div class="card-content">
-						<h3 class="card-title">@program.ProgramName</h3>
-						<p class="card-description">@program.RadioDescription</p>
-						<div class="card-footer">
-							<span class="card-category">@GetProgramCategory(program)</span>
-							<span class="card-id">ID: @program.ID</span>
-						</div>
+    <div class="programs-filters">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-th-large"></i>
+                Todos (@Model.TotalPrograms)
+            </button>
+            <button class="filter-btn" data-filter="matutinos">
+                <i class="fas fa-sun"></i>
+                Matutinos (@Model.MatutinosPrograms.Count)
+            </button>
+            <button class="filter-btn" data-filter="vespertinos">
+                <i class="fas fa-cloud-sun"></i>
+                Vespertinos (@Model.VespertinosPrograms.Count)
+            </button>
+            <button class="filter-btn" data-filter="nocturnos">
+                <i class="fas fa-moon"></i>
+                Nocturnos (@Model.NocturnosPrograms.Count)
+            </button>
+            <button class="filter-btn" data-filter="musicales">
+                <i class="fas fa-music"></i>
+                Musicales (@Model.MusicalesPrograms.Count)
+            </button>
+            <button class="filter-btn" data-filter="informativos">
+                <i class="fas fa-newspaper"></i>
+                Informativos (@Model.InformativosPrograms.Count)
+            </button>
+        </div>
 
-						<!-- Nueva Sección de Comentarios -->
-						<div class="comments-section">
-							<div class="comments-header">
-								<h4 class="comments-title">
-									<i class="fas fa-comments"></i>
-									Comentarios (<span class="comment-count">@Model.GetCommentCountForProgram(program.ID)</span>)
-								</h4>
-								<button class="toggle-comments-btn" data-program-id="@program.ID">
-									<i class="fas fa-chevron-down"></i>
-								</button>
-							</div>
+        <div class="search-container">
+            <input type="text" id="programSearch" placeholder="Buscar programa..." class="search-input">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </div>
 
-							<div class="comments-content" id="comments-@program.ID" style="display: none;">
-								<!-- Formulario para nuevo comentario -->
-								<div class="new-comment-form">
-									<div class="comment-input-group">
-										<textarea class="comment-input" placeholder="Escribe tu comentario..." maxlength="500" data-program-id="@program.ID"></textarea>
-										<div class="comment-actions">
-											<span class="character-count">0/500</span>
-											<button class="submit-comment-btn" data-program-id="@program.ID">
-												<i class="fas fa-paper-plane"></i>
-												Comentar
-											</button>
-										</div>
-									</div>
-								</div>
+    <div class="programs-grid">
+        @if (Model.AllPrograms != null && Model.AllPrograms.Any())
+        {
+            foreach (var program in Model.AllPrograms)
+            {
+                <div class="program-card" data-category="@GetProgramCategory(program)" data-name="@program.ProgramName.ToLower()" data-program-id="@program.ID">
+                    <div class="card-image">
+                        <img src="@program.ImageURL" alt="@program.ProgramName" />
+                        <div class="card-overlay">
+                            <div class="overlay-content">
+                                <i class="fas fa-play-circle play-icon"></i>
+                                <span class="overlay-text">Ver Detalles</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">@program.ProgramName</h3>
+                        <p class="card-description">@program.RadioDescription</p>
+                        <div class="card-footer">
+                            <span class="card-category">@GetProgramCategory(program)</span>
+                            <span class="card-id">ID: @program.ID</span>
+                        </div>
 
-								<!-- Lista de comentarios existentes -->
-								<div class="comments-list" id="comments-list-@program.ID">
-									@foreach (var comment in Model.GetCommentsForProgram(program.ID))
-									{
-										<div class="comment-item">
-											<div class="comment-header">
-												<div class="comment-author">
-													<i class="fas fa-user-circle"></i>
-													<span class="author-name">@comment.ClientName</span>
-												</div>
-												<span class="comment-time">@comment.TimeAgo</span>
-											</div>
-											<div class="comment-text">@comment.Comment</div>
-										</div>
-									}
-								</div>
+                        <div class="comments-section">
+                            <div class="comments-header">
+                                <h4 class="comments-title">
+                                    <i class="fas fa-comments"></i>
+                                    Comentarios (<span class="comment-count">@Model.GetCommentCountForProgram(program.ID)</span>)
+                                </h4>
+                                <button class="toggle-comments-btn" data-program-id="@program.ID">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
 
-								@if (Model.GetCommentCountForProgram(program.ID) > 5)
-								{
-									<div class="load-more-comments">
-										<button class="load-more-btn" data-program-id="@program.ID">
-											Cargar más comentarios
-										</button>
-									</div>
-								}
-							</div>
-						</div>
-					</div>
-				</div>
-			}
-		}
-		else
-		{
-			<div class="no-programs">
-				<i class="fas fa-radio"></i>
-				<h3>No hay programas disponibles</h3>
-				<p>Estamos trabajando en nuestra programación. Vuelve pronto.</p>
-			</div>
-		}
-	</div>
+                            <div class="comments-content" id="comments-@program.ID" style="display: none;">
 
-	<!-- Estadísticas -->
-	<div class="programs-stats">
-		<div class="stat-card">
-			<div class="stat-icon">
-				<i class="fas fa-radio"></i>
-			</div>
-			<div class="stat-info">
-				<div class="stat-number">@Model.TotalPrograms</div>
-				<div class="stat-label">Programas Totales</div>
-			</div>
-		</div>
+                                <div class="new-comment-form">
+                                    <div class="comment-input-group">
+                                        <textarea class="comment-input" placeholder="Escribe tu comentario..." maxlength="500" data-program-id="@program.ID"></textarea>
+                                        <div class="comment-actions">
+                                            <span class="character-count">0/500</span>
+                                            <button class="submit-comment-btn" data-program-id="@program.ID">
+                                                <i class="fas fa-paper-plane"></i>
+                                                Comentar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
 
-		<div class="stat-card">
-			<div class="stat-icon">
-				<i class="fas fa-sun"></i>
-			</div>
-			<div class="stat-info">
-				<div class="stat-number">@Model.MatutinosPrograms.Count</div>
-				<div class="stat-label">Matutinos</div>
-			</div>
-		</div>
+                                <div class="comments-list" id="comments-list-@program.ID">
+                                    @foreach (var comment in Model.GetCommentsForProgram(program.ID))
+                                    {
+                                        <div class="comment-item">
+                                            <div class="comment-header">
+                                                <div class="comment-author">
+                                                    <i class="fas fa-user-circle"></i>
+                                                    <span class="author-name">@comment.ClientName</span>
+                                                </div>
+                                                <span class="comment-time">@comment.TimeAgo</span>
+                                            </div>
+                                            <div class="comment-text">@comment.Comment</div>
+                                        </div>
+                                    }
+                                </div>
 
-		<div class="stat-card">
-			<div class="stat-icon">
-				<i class="fas fa-music"></i>
-			</div>
-			<div class="stat-info">
-				<div class="stat-number">@Model.MusicalesPrograms.Count</div>
-				<div class="stat-label">Musicales</div>
-			</div>
-		</div>
+                                @if (Model.GetCommentCountForProgram(program.ID) > 5)
+                                {
+                                    <div class="load-more-comments">
+                                        <button class="load-more-btn" data-program-id="@program.ID">
+                                            Cargar más comentarios
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="no-programs">
+                <i class="fas fa-radio"></i>
+                <h3>No hay programas disponibles</h3>
+                <p>Estamos trabajando en nuestra programación. Vuelve pronto.</p>
+            </div>
+        }
+    </div>
 
-		<div class="stat-card">
-			<div class="stat-icon">
-				<i class="fas fa-newspaper"></i>
-			</div>
-			<div class="stat-info">
-				<div class="stat-number">@Model.InformativosPrograms.Count</div>
-				<div class="stat-label">Informativos</div>
-			</div>
-		</div>
-	</div>
+    <div class="programs-stats">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-radio"></i>
+            </div>
+            <div class="stat-info">
+                <div class="stat-number">@Model.TotalPrograms</div>
+                <div class="stat-label">Programas Totales</div>
+            </div>
+        </div>
 
-	<!-- Botón de regreso -->
-	<div class="back-to-home">
-		<a href="@Url.Action("Index", "Home")" class="back-btn">
-			<i class="fas fa-arrow-left"></i>
-			Volver al Inicio
-		</a>
-	</div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-sun"></i>
+            </div>
+            <div class="stat-info">
+                <div class="stat-number">@Model.MatutinosPrograms.Count</div>
+                <div class="stat-label">Matutinos</div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-music"></i>
+            </div>
+            <div class="stat-info">
+                <div class="stat-number">@Model.MusicalesPrograms.Count</div>
+                <div class="stat-label">Musicales</div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            <div class="stat-info">
+                <div class="stat-number">@Model.InformativosPrograms.Count</div>
+                <div class="stat-label">Informativos</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="back-to-home">
+        <a href="@Url.Action("Index", "Home")" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Volver al Inicio
+        </a>
+    </div>
 </div>
 
 @functions {
-	string GetProgramCategory(dynamic program)
-	{
-		var description = program.RadioDescription?.ToLower() ?? "";
-		var name = program.ProgramName?.ToLower() ?? "";
+    string GetProgramCategory(dynamic program)
+    {
+        var description = program.RadioDescription?.ToLower() ?? "";
+        var name = program.ProgramName?.ToLower() ?? "";
 
-		if (description.Contains("matutino") || description.Contains("mañana") ||
-			name.Contains("desayuno") || name.Contains("buenos días"))
-			return "matutinos";
+        if (description.Contains("matutino") || description.Contains("mañana") ||
+            name.Contains("desayuno") || name.Contains("buenos días"))
+            return "matutinos";
 
-		if (description.Contains("tarde") || name.Contains("tardes"))
-			return "vespertinos";
+        if (description.Contains("tarde") || name.Contains("tardes"))
+            return "vespertinos";
 
-		if (description.Contains("noche") || description.Contains("nocturno") ||
-			name.Contains("noche"))
-			return "nocturnos";
+        if (description.Contains("noche") || description.Contains("nocturno") ||
+            name.Contains("noche"))
+            return "nocturnos";
 
-		if (description.Contains("musical") || description.Contains("música"))
-			return "musicales";
+        if (description.Contains("musical") || description.Contains("música"))
+            return "musicales";
 
-		if (description.Contains("informativo") || description.Contains("noticias"))
-			return "informativos";
+        if (description.Contains("informativo") || description.Contains("noticias"))
+            return "informativos";
 
-		return "general";
-	}
+        return "general";
+    }
 }
 
 <style>
-	/* Estilos originales mantenidos */
-	.programs-container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 20px;
-	}
-
-	.programs-header {
-		text-align: center;
-		margin-bottom: 40px;
-	}
-
-	.header-content {
-		margin-bottom: 30px;
-	}
-
-	.page-title {
-		font-size: 2.5rem;
-		color: whitesmoke;
-		margin-bottom: 10px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 15px;
-	}
-
-	.page-subtitle {
-		font-size: 1.2rem;
-		color: whitesmoke;
-	}
-
-	.current-program-hero {
-		background: linear-gradient(135deg, #667eea 0%, #119ef34d 100%);
-		border-radius: 20px;
-		padding: 30px;
-		color: white;
-		display: flex;
-		align-items: center;
-		gap: 30px;
-		margin-bottom: 30px;
-		box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-	}
-
-	.hero-content {
-		flex: 1;
-	}
-
-	.hero-badge {
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
-		background: #e74c3c;
-		padding: 6px 12px;
-		border-radius: 20px;
-		font-size: 0.8rem;
-		font-weight: bold;
-		margin-bottom: 15px;
-	}
-
-	.hero-title {
-		font-size: 2rem;
-		margin-bottom: 10px;
-	}
-
-	.hero-description {
-		font-size: 1.1rem;
-		margin-bottom: 15px;
-		opacity: 0.9;
-	}
-
-	.hero-time {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		font-size: 1rem;
-	}
-
-	.hero-image {
-		width: 120px;
-		height: 120px;
-		border-radius: 15px;
-		overflow: hidden;
-		box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-	}
-
-		.hero-image img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
-
-	.programs-filters {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 30px;
-		flex-wrap: wrap;
-		gap: 20px;
-	}
-
-	.filter-buttons {
-		display: flex;
-		gap: 10px;
-		flex-wrap: wrap;
-	}
-
-	.filter-btn {
-		background: #ecf0f1;
-		border: none;
-		padding: 10px 20px;
-		border-radius: 25px;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		font-size: 0.9rem;
-	}
-
-		.filter-btn:hover {
-			background: #bdc3c7;
-		}
-
-		.filter-btn.active {
-			background: #3498db;
-			color: white;
-		}
-
-	.search-container {
-		position: relative;
-	}
-
-	.search-input {
-		padding: 10px 40px 10px 15px;
-		border: 2px solid #ecf0f1;
-		border-radius: 25px;
-		font-size: 0.9rem;
-		min-width: 250px;
-	}
-
-	.search-icon {
-		position: absolute;
-		right: 15px;
-		top: 50%;
-		transform: translateY(-50%);
-		color: #7f8c8d;
-	}
-
-	.programs-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-		gap: 25px;
-		margin-bottom: 40px;
-	}
-
-	.program-card {
-		background: white;
-		border-radius: 15px;
-		overflow: hidden;
-		box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-		transition: all 0.3s ease;
-		cursor: pointer;
-	}
-
-		.program-card:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-		}
-
-	.card-image {
-		position: relative;
-		height: 200px;
-		overflow: hidden;
-	}
-
-		.card-image img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			transition: transform 0.3s ease;
-		}
-
-	.program-card:hover .card-image img {
-		transform: scale(1.1);
-	}
-
-	.card-overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: rgba(0,0,0,0.7);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		opacity: 0;
-		transition: opacity 0.3s ease;
-	}
-
-	.program-card:hover .card-overlay {
-		opacity: 1;
-	}
-
-	.overlay-content {
-		text-align: center;
-		color: white;
-	}
-
-	.play-icon {
-		font-size: 3rem;
-		margin-bottom: 10px;
-	}
-
-	.overlay-text {
-		font-size: 1.1rem;
-		font-weight: 500;
-	}
-
-	.card-content {
-		padding: 20px;
-	}
-
-	.card-title {
-		font-size: 1.3rem;
-		color: #2c3e50;
-		margin-bottom: 10px;
-	}
-
-	.card-description {
-		color: #7f8c8d;
-		font-size: 0.9rem;
-		line-height: 1.5;
-		margin-bottom: 15px;
-	}
-
-	.card-footer {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 15px;
-	}
-
-	.card-category {
-		background: #3498db;
-		color: white;
-		padding: 5px 12px;
-		border-radius: 15px;
-		font-size: 0.8rem;
-		font-weight: 500;
-	}
-
-	.card-id {
-		color: #95a5a6;
-		font-size: 0.8rem;
-	}
-
-	/* NUEVOS ESTILOS PARA COMENTARIOS */
-	.comments-section {
-		border-top: 1px solid #ecf0f1;
-		padding-top: 15px;
-	}
-
-	.comments-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 15px;
-	}
-
-	.comments-title {
-		font-size: 1rem;
-		color: #2c3e50;
-		margin: 0;
-		display: flex;
-		align-items: center;
-		gap: 8px;
-	}
-
-	.comment-count {
-		background: #3498db;
-		color: white;
-		padding: 2px 8px;
-		border-radius: 10px;
-		font-size: 0.8rem;
-	}
-
-	.toggle-comments-btn {
-		background: none;
-		border: none;
-		color: #3498db;
-		cursor: pointer;
-		font-size: 1.2rem;
-		transition: transform 0.3s ease;
-	}
-
-		.toggle-comments-btn.active {
-			transform: rotate(180deg);
-		}
-
-	.comments-content {
-		animation: slideDown 0.3s ease;
-	}
-
-	.new-comment-form {
-		margin-bottom: 20px;
-	}
-
-	.comment-input-group {
-		border: 2px solid #ecf0f1;
-		border-radius: 10px;
-		overflow: hidden;
-		transition: border-color 0.3s ease;
-	}
-
-		.comment-input-group:focus-within {
-			border-color: #3498db;
-		}
-
-	.comment-input {
-		width: 100%;
-		border: none;
-		padding: 15px;
-		resize: none;
-		font-family: inherit;
-		font-size: 0.9rem;
-		outline: none;
-		min-height: 80px;
-		background: #f8f9fa;
-	}
-
-		.comment-input::placeholder {
-			color: #95a5a6;
-		}
-
-	.comment-actions {
-		background: white;
-		padding: 10px 15px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-top: 1px solid #ecf0f1;
-	}
-
-	.character-count {
-		font-size: 0.8rem;
-		color: #95a5a6;
-	}
-
-	.submit-comment-btn {
-		background: #3498db;
-		color: white;
-		border: none;
-		padding: 8px 16px;
-		border-radius: 20px;
-		cursor: pointer;
-		font-size: 0.9rem;
-		display: flex;
-		align-items: center;
-		gap: 6px;
-		transition: all 0.3s ease;
-	}
-
-		.submit-comment-btn:hover {
-			background: #2980b9;
-			transform: translateY(-1px);
-		}
-
-		.submit-comment-btn:disabled {
-			background: #bdc3c7;
-			cursor: not-allowed;
-			transform: none;
-		}
-
-	.comments-list {
-		max-height: 300px;
-		overflow-y: auto;
-	}
-
-	.comment-item {
-		padding: 15px;
-		border-bottom: 1px solid #f1f2f6;
-		transition: background-color 0.3s ease;
-	}
-
-		.comment-item:hover {
-			background: #f8f9fa;
-		}
-
-		.comment-item:last-child {
-			border-bottom: none;
-		}
-
-	.comment-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 8px;
-	}
-
-	.comment-author {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		color: #2c3e50;
-	}
-
-	.author-name {
-		font-weight: 600;
-		font-size: 0.9rem;
-	}
-
-	.comment-time {
-		font-size: 0.8rem;
-		color: #95a5a6;
-	}
-
-	.comment-text {
-		color: #2c3e50;
-		line-height: 1.5;
-		font-size: 0.9rem;
-	}
-
-	.load-more-comments {
-		text-align: center;
-		padding: 15px;
-		border-top: 1px solid #ecf0f1;
-	}
-
-	.load-more-btn {
-		background: none;
-		border: 2px solid #3498db;
-		color: #3498db;
-		padding: 8px 20px;
-		border-radius: 20px;
-		cursor: pointer;
-		font-size: 0.9rem;
-		transition: all 0.3s ease;
-	}
-
-		.load-more-btn:hover {
-			background: #3498db;
-			color: white;
-		}
-
-	/* Resto de estilos originales */
-	.programs-stats {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: 20px;
-		margin-bottom: 40px;
-	}
-
-	.stat-card {
-		background: white;
-		border-radius: 15px;
-		padding: 20px;
-		text-align: center;
-		box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-		transition: all 0.3s ease;
-	}
-
-		.stat-card:hover {
-			transform: translateY(-3px);
-			box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-		}
-
-	.stat-icon {
-		width: 60px;
-		height: 60px;
-		border-radius: 50%;
-		background: #3498db;
-		color: white;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin: 0 auto 15px;
-		font-size: 1.5rem;
-	}
-
-	.stat-number {
-		font-size: 2rem;
-		font-weight: bold;
-		color: #2c3e50;
-		margin-bottom: 5px;
-	}
-
-	.stat-label {
-		color: #7f8c8d;
-		font-size: 0.9rem;
-	}
-
-	.no-programs {
-		text-align: center;
-		padding: 60px 20px;
-		color: #7f8c8d;
-		grid-column: 1 / -1;
-	}
-
-		.no-programs i {
-			font-size: 4rem;
-			margin-bottom: 20px;
-			color: #bdc3c7;
-		}
-
-		.no-programs h3 {
-			font-size: 1.5rem;
-			margin-bottom: 10px;
-			color: #95a5a6;
-		}
-
-	.back-to-home {
-		text-align: center;
-		margin-top: 40px;
-	}
-
-	.back-btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 10px;
-		background: #3498db;
-		color: white;
-		padding: 15px 30px;
-		border-radius: 25px;
-		text-decoration: none;
-		font-size: 1.1rem;
-		transition: all 0.3s ease;
-	}
-
-		.back-btn:hover {
-			background: #2980b9;
-			text-decoration: none;
-			color: white;
-			transform: translateY(-2px);
-		}
-
-	.live-dot {
-		width: 8px;
-		height: 8px;
-		background: white;
-		border-radius: 50%;
-		animation: pulse-dot 1.5s infinite;
-	}
-
-	/* Animaciones */
-	@@keyframes pulse-dot {
-		0%, 100% {
-			opacity: 1;
-		}
-
-		50% {
-			opacity: 0.5;
-		}
-	}
-
-	@@keyframes fadeIn {
-		from {
-			opacity: 0;
-			transform: translateY(20px);
-		}
-
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	@@keyframes slideDown {
-		from {
-			opacity: 0;
-			max-height: 0;
-		}
-
-		to {
-			opacity: 1;
-			max-height: 500px;
-		}
-	}
-
-	.program-card {
-		animation: fadeIn 0.5s ease-out;
-	}
-
-		.program-card.hidden {
-			display: none;
-		}
-
-	/* Responsive */
-	@@media (max-width: 768px) {
-		.programs-filters {
-			flex-direction: column;
-			align-items: stretch;
-		}
-
-		.filter-buttons {
-			justify-content: center;
-		}
-
-		.search-input {
-			min-width: 100%;
-		}
-
-		.current-program-hero {
-			flex-direction: column;
-			text-align: center;
-		}
-
-		.hero-image {
-			margin-top: 20px;
-		}
-
-		.programs-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.comment-input {
-			min-height: 60px;
-		}
-
-		.comment-actions {
-			flex-direction: column;
-			gap: 10px;
-			align-items: stretch;
-		}
-
-		.submit-comment-btn {
-			justify-content: center;
-		}
-	}
+    .programs-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .programs-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .header-content {
+        margin-bottom: 30px;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        color: whitesmoke;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .page-subtitle {
+        font-size: 1.2rem;
+        color: whitesmoke;
+    }
+
+    .current-program-hero {
+        background: linear-gradient(135deg, #667eea 0%, #119ef34d 100%);
+        border-radius: 20px;
+        padding: 30px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .hero-content {
+        flex: 1;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #e74c3c;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .hero-description {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        opacity: 0.9;
+    }
+
+    .hero-time {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1rem;
+    }
+
+    .hero-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .programs-filters {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .filter-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        background: #ecf0f1;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+
+        .filter-btn:hover {
+            background: #bdc3c7;
+        }
+
+        .filter-btn.active {
+            background: #3498db;
+            color: white;
+        }
+
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 10px 40px 10px 15px;
+        border: 2px solid #ecf0f1;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        min-width: 250px;
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #7f8c8d;
+    }
+
+    .programs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+
+    .program-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+    .card-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+    .program-card:hover .card-image img {
+        transform: scale(1.1);
+    }
+
+    .card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .program-card:hover .card-overlay {
+        opacity: 1;
+    }
+
+    .overlay-content {
+        text-align: center;
+        color: white;
+    }
+
+    .play-icon {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+
+    .overlay-text {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .card-description {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .card-category {
+        background: #3498db;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    .card-id {
+        color: #95a5a6;
+        font-size: 0.8rem;
+    }
+
+    .comments-section {
+        border-top: 1px solid #ecf0f1;
+        padding-top: 15px;
+    }
+
+    .comments-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .comments-title {
+        font-size: 1rem;
+        color: #2c3e50;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .comment-count {
+        background: #3498db;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 0.8rem;
+    }
+
+    .toggle-comments-btn {
+        background: none;
+        border: none;
+        color: #3498db;
+        cursor: pointer;
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
+
+        .toggle-comments-btn.active {
+            transform: rotate(180deg);
+        }
+
+    .comments-content {
+        animation: slideDown 0.3s ease;
+    }
+
+    .new-comment-form {
+        margin-bottom: 20px;
+    }
+
+    .comment-input-group {
+        border: 2px solid #ecf0f1;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: border-color 0.3s ease;
+    }
+
+        .comment-input-group:focus-within {
+            border-color: #3498db;
+        }
+
+    .comment-input {
+        width: 100%;
+        border: none;
+        padding: 15px;
+        resize: none;
+        font-family: inherit;
+        font-size: 0.9rem;
+        outline: none;
+        min-height: 80px;
+        background: #f8f9fa;
+    }
+
+        .comment-input::placeholder {
+            color: #95a5a6;
+        }
+
+    .comment-actions {
+        background: white;
+        padding: 10px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #ecf0f1;
+    }
+
+    .character-count {
+        font-size: 0.8rem;
+        color: #95a5a6;
+    }
+
+    .submit-comment-btn {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+    }
+
+        .submit-comment-btn:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+
+        .submit-comment-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+    .comments-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .comment-item {
+        padding: 15px;
+        border-bottom: 1px solid #f1f2f6;
+        transition: background-color 0.3s ease;
+    }
+
+        .comment-item:hover {
+            background: #f8f9fa;
+        }
+
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+
+    .comment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .comment-author {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #2c3e50;
+    }
+
+    .author-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .comment-time {
+        font-size: 0.8rem;
+        color: #95a5a6;
+    }
+
+    .comment-text {
+        color: #2c3e50;
+        line-height: 1.5;
+        font-size: 0.9rem;
+    }
+
+    .load-more-comments {
+        text-align: center;
+        padding: 15px;
+        border-top: 1px solid #ecf0f1;
+    }
+
+    .load-more-btn {
+        background: none;
+        border: 2px solid #3498db;
+        color: #3498db;
+        padding: 8px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+
+        .load-more-btn:hover {
+            background: #3498db;
+            color: white;
+        }
+
+    .programs-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #3498db;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        font-size: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+    }
+
+    .no-programs {
+        text-align: center;
+        padding: 60px 20px;
+        color: #7f8c8d;
+        grid-column: 1 / -1;
+    }
+
+        .no-programs i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #bdc3c7;
+        }
+
+        .no-programs h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #95a5a6;
+        }
+
+    .back-to-home {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: #3498db;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+
+        .back-btn:hover {
+            background: #2980b9;
+            text-decoration: none;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .live-dot {
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        animation: pulse-dot 1.5s infinite;
+    }
+
+    @@keyframes pulse-dot {
+        0%, 100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes slideDown {
+        from {
+            opacity: 0;
+            max-height: 0;
+        }
+
+        to {
+            opacity: 1;
+            max-height: 500px;
+        }
+    }
+
+    .program-card {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+        .program-card.hidden {
+            display: none;
+        }
+
+    @@media (max-width: 768px) {
+        .programs-filters {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .filter-buttons {
+            justify-content: center;
+        }
+
+        .search-input {
+            min-width: 100%;
+        }
+
+        .current-program-hero {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .hero-image {
+            margin-top: 20px;
+        }
+
+        .programs-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .comment-input {
+            min-height: 60px;
+        }
+
+        .comment-actions {
+            flex-direction: column;
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .submit-comment-btn {
+            justify-content: center;
+        }
+    }
 </style>
 
 <script>
@@ -883,7 +873,6 @@
 		const programCards = document.querySelectorAll('.program-card');
 		const searchInput = document.getElementById('programSearch');
 
-		// Función para filtrar programas (original)
 		function filterPrograms(category) {
 			programCards.forEach(card => {
 				const cardCategory = card.getAttribute('data-category');
@@ -896,7 +885,6 @@
 			});
 		}
 
-		// Función para buscar programas (original)
 		function searchPrograms(searchTerm) {
 			programCards.forEach(card => {
 				const cardName = card.getAttribute('data-name');
@@ -912,8 +900,6 @@
 				}
 			});
 		}
-
-		// Event listeners para filtros (original)
 		filterButtons.forEach(button => {
 			button.addEventListener('click', function () {
 				filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -925,8 +911,6 @@
 				searchInput.value = '';
 			});
 		});
-
-		// Event listener para búsqueda (original)
 		searchInput.addEventListener('input', function () {
 			const searchTerm = this.value.toLowerCase();
 
@@ -945,8 +929,6 @@
 				searchPrograms(searchTerm);
 			}
 		});
-
-		// NUEVA FUNCIONALIDAD: Toggle comentarios
 		document.querySelectorAll('.toggle-comments-btn').forEach(button => {
 			button.addEventListener('click', function (e) {
 				e.stopPropagation();
@@ -963,7 +945,6 @@
 			});
 		});
 
-		// NUEVA FUNCIONALIDAD: Contador de caracteres
 		document.querySelectorAll('.comment-input').forEach(textarea => {
 			const characterCount = textarea.parentElement.querySelector('.character-count');
 
@@ -979,7 +960,6 @@
 			});
 		});
 
-		// NUEVA FUNCIONALIDAD: Enviar comentario
 		document.querySelectorAll('.submit-comment-btn').forEach(button => {
 			button.addEventListener('click', function (e) {
 				e.preventDefault();
@@ -998,12 +978,9 @@
 					alert('El comentario no puede exceder 500 caracteres');
 					return;
 				}
-
-				// Deshabilitar botón durante el envío
 				button.disabled = true;
 				button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
 
-				// CORRECCIÓN: Añadir el token CSRF al body también
 
 const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value || '';
 
@@ -1012,17 +989,14 @@ fetch('@Url.Action("CreateComment", "Home")', {
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
     },
-    // CORREGIDO: Añadir el token al body
     body: `programId=${programId}&comment=${encodeURIComponent(commentText)}&__RequestVerificationToken=${encodeURIComponent(token)}`
 })
 .then(response => response.json())
 .then(data => {
     if (data.success) {
-        // Limpiar textarea
         textarea.value = '';
         document.querySelector('.character-count').textContent = '0/500';
 
-        // Añadir nuevo comentario a la lista
         const commentsList = document.getElementById(`comments-list-${programId}`);
         const newCommentHtml = `
             <div class="comment-item" style="animation: fadeIn 0.5s ease;">
@@ -1043,12 +1017,10 @@ fetch('@Url.Action("CreateComment", "Home")', {
             commentsList.insertAdjacentHTML('afterbegin', newCommentHtml);
         }
 
-        // Actualizar contador de comentarios
         const countElement = document.querySelector(`[data-program-id="${programId}"] .comment-count`);
         const currentCount = parseInt(countElement.textContent);
         countElement.textContent = currentCount + 1;
 
-        // Mostrar mensaje de éxito
         showNotification('¡Comentario enviado exitosamente!', 'success');
     } else {
         showNotification(data.message || 'Error al enviar comentario', 'error');
@@ -1059,29 +1031,25 @@ fetch('@Url.Action("CreateComment", "Home")', {
     showNotification('Error de conexión. Intenta nuevamente.', 'error');
 })
 .finally(() => {
-    // Rehabilitar botón
     button.disabled = false;
     button.innerHTML = '<i class="fas fa-paper-plane"></i> Comentar';
 });
 		});
 
-		// NUEVA FUNCIONALIDAD: Cargar más comentarios
 		document.querySelectorAll('.load-more-btn').forEach(button => {
 			button.addEventListener('click', function () {
 				const programId = this.getAttribute('data-program-id');
 				const commentsList = document.getElementById(`comments-list-${programId}`);
 				const currentPage = parseInt(this.getAttribute('data-page') || '2');
 
-				// Deshabilitar botón durante la carga
-				this.disabled = true;
+								this.disabled = true;
 				this.textContent = 'Cargando...';
 
 				fetch(`@Url.Action("GetProgramComments", "Home")?programId=${programId}&page=${currentPage}`)
 				.then(response => response.json())
 				.then(data => {
 					if (data.success && data.comments.length > 0) {
-						// Añadir comentarios adicionales
-						data.comments.forEach(comment => {
+												data.comments.forEach(comment => {
 							const commentHtml = `
 								<div class="comment-item">
 									<div class="comment-header">
@@ -1097,10 +1065,9 @@ fetch('@Url.Action("CreateComment", "Home")', {
 							commentsList.insertAdjacentHTML('beforeend', commentHtml);
 						});
 
-						// Actualizar página para siguiente carga
 						this.setAttribute('data-page', currentPage + 1);
 
-						// Ocultar botón si no hay más comentarios
+
 						if (!data.hasMore) {
 							this.style.display = 'none';
 						}
@@ -1119,8 +1086,7 @@ fetch('@Url.Action("CreateComment", "Home")', {
 			});
 		});
 
-		// FUNCIONALIDAD ORIGINAL: Efectos hover para las tarjetas
-		programCards.forEach(card => {
+				programCards.forEach(card => {
 			const cardImage = card.querySelector('.card-image');
 
 			card.addEventListener('mouseenter', function () {
@@ -1135,8 +1101,7 @@ fetch('@Url.Action("CreateComment", "Home")', {
 				}
 			});
 
-			// Efecto de click solo en la imagen, no en comentarios
-			cardImage.addEventListener('click', function (e) {
+						cardImage.addEventListener('click', function (e) {
 				e.stopPropagation();
 				card.style.transform = 'scale(0.98)';
 
@@ -1149,13 +1114,11 @@ fetch('@Url.Action("CreateComment", "Home")', {
 			});
 		});
 
-		// FUNCIONALIDAD ORIGINAL: Animación de entrada para las tarjetas
-		programCards.forEach((card, index) => {
+				programCards.forEach((card, index) => {
 			card.style.animationDelay = `${index * 0.1}s`;
 		});
 
-		// FUNCIONALIDAD ORIGINAL: Efecto de contador para las estadísticas
-		const statNumbers = document.querySelectorAll('.stat-number');
+				const statNumbers = document.querySelectorAll('.stat-number');
 		statNumbers.forEach(stat => {
 			const finalValue = parseInt(stat.textContent);
 			if (finalValue > 0) {
@@ -1173,8 +1136,7 @@ fetch('@Url.Action("CreateComment", "Home")', {
 			}
 		});
 
-		// FUNCIONALIDAD ORIGINAL: Efecto de scroll suave para volver al inicio
-		const backBtn = document.querySelector('.back-btn');
+				const backBtn = document.querySelector('.back-btn');
 		if (backBtn) {
 			backBtn.addEventListener('click', function (e) {
 				e.preventDefault();
@@ -1185,10 +1147,8 @@ fetch('@Url.Action("CreateComment", "Home")', {
 			});
 		}
 
-		// NUEVA FUNCIÓN: Mostrar notificaciones
-		function showNotification(message, type = 'info') {
-			// Crear elemento de notificación
-			const notification = document.createElement('div');
+				function showNotification(message, type = 'info') {
+						const notification = document.createElement('div');
 			notification.className = `notification notification-${type}`;
 			notification.innerHTML = `
 				<div class="notification-content">
@@ -1197,8 +1157,7 @@ fetch('@Url.Action("CreateComment", "Home")', {
 				</div>
 			`;
 
-			// Estilos para la notificación
-			notification.style.cssText = `
+						notification.style.cssText = `
 				position: fixed;
 				top: 20px;
 				right: 20px;
@@ -1212,11 +1171,9 @@ fetch('@Url.Action("CreateComment", "Home")', {
 				max-width: 350px;
 			`;
 
-			// Añadir al DOM
-			document.body.appendChild(notification);
+						document.body.appendChild(notification);
 
-			// Remover después de 4 segundos
-			setTimeout(() => {
+						setTimeout(() => {
 				notification.style.animation = 'slideOutRight 0.3s ease';
 				setTimeout(() => {
 					if (notification.parentNode) {
@@ -1245,8 +1202,7 @@ fetch('@Url.Action("CreateComment", "Home")', {
 		}
 	});
 
-	// Estilos adicionales para notificaciones
-	const notificationStyles = document.createElement('style');
+		const notificationStyles = document.createElement('style');
 	notificationStyles.textContent = `
 		@@keyframes slideInRight {
 			from {
@@ -1280,18 +1236,17 @@ fetch('@Url.Action("CreateComment", "Home")', {
 </script>
 
 @section scripts {
-	<script>
-		console.log('Vista de RadioPrograms con comentarios cargada correctamente');
-		// Token CSRF para AJAX
-		$(document).ready(function () {
-			$.ajaxSetup({
-				beforeSend: function (xhr, settings) {
-					if (settings.type !== 'GET') {
-						xhr.setRequestHeader('RequestVerificationToken',
-							$('input[name="__RequestVerificationToken"]').val());
-					}
-				}
-			});
-		});
-	</script>
+    <script>
+        console.log('Vista de RadioPrograms con comentarios cargada correctamente');
+        $(document).ready(function () {
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (settings.type !== 'GET') {
+                        xhr.setRequestHeader('RequestVerificationToken',
+                            $('input[name="__RequestVerificationToken"]').val());
+                    }
+                }
+            });
+        });
+    </script>
 }

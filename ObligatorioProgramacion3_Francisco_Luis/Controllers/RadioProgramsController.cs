@@ -15,7 +15,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
     {
         private RadioEntities db = new RadioEntities();
 
-        // GET: RadioPrograms
         public ActionResult Index()
         {
             var permisos = Session["Permissions"] as List<string>;
@@ -31,20 +30,16 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
                 ViewBag.Permissions = permisos;
 
-                System.Diagnostics.Debug.WriteLine("Permisos cargados: " + string.Join(", ", permisos));
-
                 return View(radioPrograms);
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Error en Index RadioPrograms: " + ex.Message);
                 ViewBag.ErrorMessage = "Error al cargar la lista de programas de radio.";
                 ViewBag.Permissions = permisos ?? new List<string>();
                 return View(new List<RadioProgram>());
             }
         }
 
-        // GET: RadioPrograms/Details/5
         public ActionResult Details(int? id)
         {
             if (!HasPermission("ViewProgram"))
@@ -60,7 +55,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(radioProgram);
         }
 
-        // GET: RadioPrograms/Create
         public ActionResult Create()
         {
             if (!HasPermission("CreateProgram"))
@@ -69,7 +63,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View();
         }
 
-        // POST: RadioPrograms/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProgramName,RadioDescription,Schedule")] RadioProgram radioProgram, HttpPostedFileBase ImageFile)
@@ -81,6 +74,23 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    // Verificar si ya existe un programa en el mismo horario
+                    bool horarioOcupado = db.RadioPrograms.Any(rp => rp.Schedule == radioProgram.Schedule);
+                    if (horarioOcupado)
+                    {
+                        ModelState.AddModelError("Schedule", "Ya existe un programa en ese horario.");
+                        return View(radioProgram);
+                    }
+
+                    // Validar nombre único
+                    bool nombreRepetido = db.RadioPrograms.Any(rp => rp.ProgramName == radioProgram.ProgramName);
+                    if (nombreRepetido)
+                    {
+                        ModelState.AddModelError("ProgramName", "Ya existe un programa de radio con ese nombre.");
+                        return View(radioProgram);
+                    }
+
+                    // Procesar imagen
                     if (ImageFile != null && ImageFile.ContentLength > 0)
                     {
                         var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
@@ -126,7 +136,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(radioProgram);
         }
 
-        // GET: RadioPrograms/Edit/5
         public ActionResult Edit(int? id)
         {
             if (!HasPermission("EditProgram"))
@@ -142,7 +151,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(radioProgram);
         }
 
-        // POST: RadioPrograms/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,ProgramName,RadioDescription,Schedule,ImageURL")] RadioProgram radioProgram, HttpPostedFileBase ImageFile)
@@ -154,6 +162,22 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    // Verificar que no exista otro programa en el mismo horario (excepto el actual)
+                    bool horarioOcupado = db.RadioPrograms.Any(rp => rp.Schedule == radioProgram.Schedule && rp.ID != radioProgram.ID);
+                    if (horarioOcupado)
+                    {
+                        ModelState.AddModelError("Schedule", "Ya existe otro programa en ese horario.");
+                        return View(radioProgram);
+                    }
+
+                    // Validar nombre único (excepto el actual)
+                    bool nombreRepetido = db.RadioPrograms.Any(rp => rp.ProgramName == radioProgram.ProgramName && rp.ID != radioProgram.ID);
+                    if (nombreRepetido)
+                    {
+                        ModelState.AddModelError("ProgramName", "Ya existe otro programa de radio con ese nombre.");
+                        return View(radioProgram);
+                    }
+
                     if (ImageFile != null && ImageFile.ContentLength > 0)
                     {
                         var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
@@ -208,7 +232,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(radioProgram);
         }
 
-        // GET: RadioPrograms/Delete/5
         public ActionResult Delete(int? id)
         {
             if (!HasPermission("DeleteProgram"))
@@ -224,7 +247,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(radioProgram);
         }
 
-        // POST: RadioPrograms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

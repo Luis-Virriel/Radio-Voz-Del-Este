@@ -1,6 +1,6 @@
-﻿/* StyleCrearClient.css - Diseño coherente con el estilo moderno */
+﻿
 
-/* Reset */
+
 body {
     margin: 0;
     padding: 10px;
@@ -12,7 +12,7 @@ html {
     overflow-x: hidden;
 }
 
-/* Contenedor principal del formulario */
+
 .form-containerClient {
     background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
     max-width: 800px;
@@ -37,7 +37,7 @@ html {
         pointer-events: none;
     }
 
-/* Título principal */
+
 .form-titleClient {
     text-align: center;
     font-size: 42px;
@@ -49,7 +49,7 @@ html {
     letter-spacing: 2px;
 }
 
-/* Subtítulo */
+
 .create-subtitle {
     text-align: center;
     font-size: 18px;
@@ -59,7 +59,7 @@ html {
     font-weight: 300;
 }
 
-/* Divisoria */
+
 .create-divider {
     border: none;
     height: 2px;
@@ -67,21 +67,21 @@ html {
     margin: 20px 0 30px 0;
 }
 
-/* Grupos de formulario */
+
 .form-group {
     margin-bottom: 25px;
     display: flex;
     flex-direction: column;
 }
 
-/* Contenedor específico para botones - quitar flex para que no apile */
+
 .buttons-container .form-group {
     margin: 0;
     display: inline-block;
     flex-direction: unset;
 }
 
-/* Labels */
+
 .form-group label {
     color: #ffffff;
     font-size: 14px;
@@ -91,7 +91,7 @@ html {
     text-transform: uppercase;
 }
 
-/* Campos de input */
+
 .input-field {
     width: 100%;
     padding: 12px 15px;
@@ -119,13 +119,13 @@ html {
         font-style: italic;
     }
 
-/* Select específico */
+
 select.input-field option {
     background: #1a2332;
     color: #e6f3ff;
 }
 
-/* Texto estático para usuario asociado */
+
 .form-control-static {
     color: #ffffff;
     font-weight: 600;
@@ -137,7 +137,7 @@ select.input-field option {
     backdrop-filter: blur(10px);
 }
 
-/* Mensajes de validación */
+
 .text-danger {
     color: #ff6b6b !important;
     font-size: 12px;
@@ -145,7 +145,7 @@ select.input-field option {
     font-style: italic;
 }
 
-/* Resumen de validación */
+
 .validation-summary-errors {
     background: rgba(255, 107, 107, 0.1);
     border: 1px solid #ff6b6b;
@@ -161,7 +161,7 @@ select.input-field option {
         padding-left: 20px;
     }
 
-/* Contenedor de botones */
+
 .buttons-container {
     display: flex;
     justify-content: center;
@@ -173,13 +173,13 @@ select.input-field option {
     flex-wrap: wrap;
 }
 
-    /* Hacer que los elementos hijos del contenedor se comporten como inline */
+
     .buttons-container > * {
         display: inline-block;
         margin: 0;
     }
 
-/* Botón de envío */
+
 .submit-button {
     display: inline-block;
     padding: 16px 35px;
@@ -198,7 +198,7 @@ select.input-field option {
     box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
     position: relative;
     overflow: hidden;
-    margin: 0; /* Eliminar márgenes */
+    margin: 0
 }
 
     .submit-button::before {
@@ -222,9 +222,9 @@ select.input-field option {
         box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6);
     }
 
-/* Link de volver */
+
 .back-link {
-    display: inline-block; /* Cambiar de flex a inline-block */
+    display: inline-block;
     align-items: center;
     margin: 0;
 }
@@ -247,7 +247,7 @@ select.input-field option {
         box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
         position: relative;
         overflow: hidden;
-        margin: 0; /* Eliminar márgenes */
+        margin: 0;
     }
 
         .back-link a::before {
@@ -271,7 +271,7 @@ select.input-field option {
             box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6);
         }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .form-containerClient {
         margin: 10px;
@@ -295,7 +295,7 @@ select.input-field option {
     }
 }
 
-/* Animación del contenedor */
+
 @keyframes subtleGlow {
     0% {
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
@@ -306,7 +306,7 @@ select.input-field option {
     }
 }
 
-/* Ocultar títulos por defecto del sistema */
+
 h2:not(.form-titleClient),
 h4:not(.form-titleClient) {
     display: none;

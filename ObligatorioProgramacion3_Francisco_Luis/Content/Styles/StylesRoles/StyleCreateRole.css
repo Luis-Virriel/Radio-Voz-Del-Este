@@ -1,4 +1,4 @@
-﻿/* Reset */
+﻿
 body {
     margin: 0;
     padding: 10px;
@@ -10,7 +10,7 @@ html {
     overflow-x: hidden;
 }
 
-/* Contenedor principal del formulario */
+
 .form-containerRole {
     background: linear-gradient(135deg, #1e3c72, #2a5298);
     max-width: 600px;
@@ -35,7 +35,7 @@ html {
         pointer-events: none;
     }
 
-/* Título principal */
+
 .form-titleRole {
     text-align: center;
     font-size: 42px;
@@ -47,7 +47,7 @@ html {
     letter-spacing: 2px;
 }
 
-/* Divisoria */
+
 .create-dividerRole {
     border: none;
     height: 2px;
@@ -55,14 +55,14 @@ html {
     margin: 20px 0 30px 0;
 }
 
-/* Grupos de formulario */
+
 .form-group {
     margin-bottom: 25px;
     display: flex;
     flex-direction: column;
 }
 
-    /* Labels */
+
     .form-group label {
         color: #ffffff;
         font-size: 14px;
@@ -72,7 +72,7 @@ html {
         text-transform: uppercase;
     }
 
-/* Campos de input */
+
 .input-field {
     width: 100%;
     padding: 12px 15px;
@@ -100,7 +100,7 @@ html {
         font-style: italic;
     }
 
-/* Mensajes de validación */
+
 .text-danger {
     color: #ff6b6b !important;
     font-size: 12px;
@@ -108,7 +108,7 @@ html {
     font-style: italic;
 }
 
-/* Resumen de validación */
+
 .validation-summary-errors {
     background: rgba(255, 107, 107, 0.1);
     border: 1px solid #ff6b6b;
@@ -124,7 +124,7 @@ html {
         padding-left: 20px;
     }
 
-/* Contenedor de botones - CORREGIDO */
+
 .buttons-container {
     display: flex;
     justify-content: center;
@@ -136,7 +136,7 @@ html {
     clear: both;
 }
 
-/* Botón de envío */
+
 .submit-button {
     display: inline-block;
     padding: 16px 35px;
@@ -179,7 +179,7 @@ html {
         box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6);
     }
 
-/* Link de volver - CORREGIDO */
+
 .back-link {
     display: inline-block;
     margin: 0;
@@ -227,7 +227,7 @@ html {
             box-shadow: 0 12px 30px rgba(108, 117, 125, 0.6);
         }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .form-containerRole {
         margin: 10px;
@@ -251,7 +251,7 @@ html {
     }
 }
 
-/* Animación del contenedor */
+
 @keyframes subtleGlow {
     0% {
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
@@ -262,7 +262,7 @@ html {
     }
 }
 
-/* Ocultar títulos default del sistema */
+
 h2:not(.form-titleRole),
 h4:not(.form-titleRole) {
     display: none;

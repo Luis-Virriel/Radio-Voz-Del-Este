@@ -49,7 +49,6 @@
     }
 </div>
 
-<!-- Dashboard de Análisis de Cotizaciones -->
 <div class="dashboard-container">
     <div class="dashboard-header">
         <h3>Dashboard de Análisis</h3>
@@ -79,7 +78,7 @@
     </div>
 
     <div class="dashboard-content">
-        <!-- Gráfica de Barras -->
+     
         <div class="chart-section">
             <h4>Comparación de Cotizaciones</h4>
             <div class="chart-container">
@@ -87,7 +86,6 @@
             </div>
         </div>
 
-        <!-- Tabla de Detalles -->
         <div class="table-section">
             <h4>Detalles de Cotizaciones</h4>
             <div class="table-container">
@@ -129,7 +127,6 @@
             </div>
         </div>
 
-        <!-- Sección de Alertas -->
         <div class="alerts-section">
             <h4>Alertas y Notificaciones</h4>
             <div class="alerts-container">
@@ -163,14 +160,13 @@
         </div>
     </div>
 
-    <!-- Footer con información adicional -->
     <div class="dashboard-footer">
         <p><small>*Variación calculada respecto al promedio | Datos proporcionados por API externa</small></p>
     </div>
 </div>
 
 <style>
-/* Estilos originales para cotizaciones */
+
 	.currency-container {
 		max-width: 850px;
 		margin: 2rem auto;
@@ -230,8 +226,6 @@
     font-weight: bold;
     margin-top: 1rem;
 }
-
-/* Estilos del Dashboard */
 .dashboard-container {
     max-width: 1200px;
     margin: 2rem auto;
@@ -468,7 +462,6 @@
     color: #8EA8C3;
 }
 
-/* Responsive Design */
 @@media (max-width: 768px) {
     .dashboard-content {
         grid-template-columns: 1fr;
@@ -523,13 +516,11 @@
 }
 </style>
 
-<!-- Script para la gráfica -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('currencyChart').getContext('2d');
 
-    // Datos para la gráfica
     var currencyData = {};
     @if (Model.SelectedCurrencyQuotes != null)
     {

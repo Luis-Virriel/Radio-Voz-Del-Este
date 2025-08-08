@@ -13,7 +13,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
     {
         private RadioEntities db = new RadioEntities();
 
-        // ✅ GET: Hosts - alineado a ClientsController
+
         public ActionResult Index()
         {
             var permisos = Session["Permissions"] as List<string>;
@@ -26,7 +26,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(hosts.ToList());
         }
 
-        // ✅ GET: Hosts/Details/5
         public ActionResult Details(int? id)
         {
             if (!HasPermission("ViewHost"))
@@ -48,7 +47,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(host);
         }
 
-        // ✅ GET: Hosts/Create
         public ActionResult Create()
         {
             if (!HasPermission("CreateHost"))
@@ -60,7 +58,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View();
         }
 
-        // ✅ POST: Hosts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,HostName,Bio,ProgramID")] Host host)
@@ -72,6 +69,23 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
             if (ModelState.IsValid)
             {
+                bool nombreRepetido = db.Hosts.Any(h => h.HostName == host.HostName);
+                if (nombreRepetido)
+                {
+                    ModelState.AddModelError("HostName", "Ya existe un host con este nombre.");
+                }
+
+                if (string.IsNullOrWhiteSpace(host.Bio))
+                {
+                    ModelState.AddModelError("Bio", "La biografía es obligatoria.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.ProgramID = new SelectList(db.RadioPrograms, "ID", "ProgramName", host.ProgramID);
+                    return View(host);
+                }
+
                 db.Hosts.Add(host);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -81,7 +95,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(host);
         }
 
-        // ✅ GET: Hosts/Edit/5
+
         public ActionResult Edit(int? id)
         {
             if (!HasPermission("EditHost"))
@@ -104,7 +118,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(host);
         }
 
-        // ✅ POST: Hosts/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,HostName,Bio,ProgramID")] Host host)
@@ -116,6 +129,23 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
             if (ModelState.IsValid)
             {
+                bool nombreRepetido = db.Hosts.Any(h => h.HostName == host.HostName && h.ID != host.ID);
+                if (nombreRepetido)
+                {
+                    ModelState.AddModelError("HostName", "Ya existe otro host con este nombre.");
+                }
+
+                if (string.IsNullOrWhiteSpace(host.Bio))
+                {
+                    ModelState.AddModelError("Bio", "La biografía es obligatoria.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.ProgramID = new SelectList(db.RadioPrograms, "ID", "ProgramName", host.ProgramID);
+                    return View(host);
+                }
+
                 db.Entry(host).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -125,7 +155,7 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(host);
         }
 
-        // ✅ GET: Hosts/Delete/5
+
         public ActionResult Delete(int? id)
         {
             if (!HasPermission("DeleteHost"))
@@ -147,7 +177,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(host);
         }
 
-        // ✅ POST: Hosts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -1,6 +1,6 @@
-﻿/* StyleIndexSponsors.css - Estilo completo para la vista Index de Sponsors */
+﻿
 
-/* Reset y base */
+
 body {
     margin: 0;
     padding: 10px;
@@ -31,7 +31,7 @@ body {
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Botón Crear Nuevo */
+
 .create-button-container {
     text-align: center;
     margin-bottom: 35px;
@@ -79,7 +79,7 @@ body {
         color: #ffffff;
     }
 
-/* Contenedor tabla con scroll */
+
 .table-wrapper {
     overflow-x: auto;
     border-radius: 15px;
@@ -87,7 +87,7 @@ body {
     padding: 5px;
 }
 
-/* Tabla */
+
 .sponsor-table {
     width: 100%;
     border-collapse: separate;
@@ -101,7 +101,7 @@ body {
     margin: 0 auto;
 }
 
-    /* Headers */
+
     .sponsor-table th {
         background: linear-gradient(135deg, #1976d2, #1565c0);
         color: #ffffff;
@@ -124,7 +124,7 @@ body {
             border-top-right-radius: 15px;
         }
 
-    /* Celdas */
+
     .sponsor-table td {
         padding: 12px 10px;
         color: #ffffff;
@@ -145,7 +145,7 @@ body {
         box-shadow: 0 5px 15px rgba(66, 165, 245, 0.3);
     }
 
-    /* Alternar colores de filas */
+
     .sponsor-table tbody tr:nth-child(even) td {
         background: linear-gradient(135deg, rgba(30, 60, 114, 0.3), rgba(42, 82, 152, 0.15));
     }
@@ -154,7 +154,7 @@ body {
         background: linear-gradient(135deg, rgba(25, 50, 95, 0.4), rgba(35, 70, 125, 0.2));
     }
 
-/* Links acciones */
+
 .action-links a {
     color: #64b5f6;
     text-decoration: none;
@@ -177,13 +177,13 @@ body {
         text-decoration: none;
     }
 
-/* Separadores acciones */
+
 .action-separator {
     color: #546e7a;
     font-size: 14px;
 }
 
-/* Mensaje no data */
+
 .no-data-message {
     text-align: center;
     padding: 50px;
@@ -192,7 +192,7 @@ body {
     color: #e6f3ff;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .index-title {
         font-size: 36px;
@@ -220,6 +220,6 @@ body {
 @media (max-width: 480px) {
     .sponsor-table th:nth-child(3),
     .sponsor-table td:nth-child(3) {
-        display: none; /* Ocultar columna Plan en móvil */
+        display: none;
     }
 }

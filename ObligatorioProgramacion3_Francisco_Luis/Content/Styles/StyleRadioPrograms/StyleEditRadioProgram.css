@@ -1,6 +1,4 @@
-﻿/* StyleEditClient.css */
-
-body {
+﻿body {
     margin: 0;
     padding: 10px;
     overflow-x: hidden;
@@ -110,6 +108,25 @@ body {
         box-shadow: 0 0 10px rgba(66, 165, 245, 0.8);
         color: #ffffff;
     }
+
+    /* Estilos específicos para input datetime-local */
+    .form-control[type="datetime-local"] {
+        color: #e6f3ff;
+        font-family: "Roboto", sans-serif;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        border: none;
+        padding: 12px 15px;
+        box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.15);
+        transition: all 0.3s ease;
+    }
+
+        .form-control[type="datetime-local"]:focus {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(66, 165, 245, 0.8);
+            color: #ffffff;
+            outline: none;
+        }
 
     .form-control[type="date"] {
         color: #e6f3ff;

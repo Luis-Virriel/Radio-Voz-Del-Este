@@ -1,5 +1,4 @@
 ﻿@model ObligatorioProgramacion3_Francisco_Luis.Models.RadioProgram
-
 @{
     ViewBag.Title = "Edit";
 }
@@ -7,20 +6,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
 <link href="~/Content/Styles/StyleRadioPrograms/StyleEditRadioProgram.css" rel="stylesheet" />
+
 <div class="edit-container">
     <h2 class="edit-title">Editar</h2>
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-
         <div class="form-horizontal">
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ID)
 
             <div class="form-group">
-                Nombre
+                @Html.LabelFor(model => model.ProgramName, "Nombre", new { @class = "control-label" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.ProgramName, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ProgramName, "", new { @class = "text-danger" })
@@ -28,7 +26,7 @@
             </div>
 
             <div class="form-group">
-                Portada
+                @Html.LabelFor(model => model.ImageURL, "Portada", new { @class = "control-label" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.ImageURL, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ImageURL, "", new { @class = "text-danger" })
@@ -36,7 +34,7 @@
             </div>
 
             <div class="form-group">
-                Descripcion
+                @Html.LabelFor(model => model.RadioDescription, "Descripción", new { @class = "control-label" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.RadioDescription, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.RadioDescription, "", new { @class = "text-danger" })
@@ -44,16 +42,16 @@
             </div>
 
             <div class="form-group">
-                Programacion
+                @Html.LabelFor(model => model.Schedule, "Programación", new { @class = "control-label" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Schedule, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.TextBoxFor(model => model.Schedule, new { @class = "form-control", type = "datetime-local" })
                     @Html.ValidationMessageFor(model => model.Schedule, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
                     @Html.ActionLink("← Volver a la lista", "Index", null, new { @class = "btn btn-secondary" })
                 </div>
             </div>

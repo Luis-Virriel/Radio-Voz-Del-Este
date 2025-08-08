@@ -14,13 +14,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
     {
         private RadioEntities db = new RadioEntities();
 
-        // GET: Weathers
         public ActionResult Index()
         {
             return View(db.Weathers.ToList());
         }
 
-        // GET: Weathers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,15 +33,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(weather);
         }
 
-        // GET: Weathers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Weathers/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,WeatherDate,Temperature,WeatherDescription,Icon")] Weather weather)
@@ -58,7 +52,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(weather);
         }
 
-        // GET: Weathers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -73,9 +66,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(weather);
         }
 
-        // POST: Weathers/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,WeatherDate,Temperature,WeatherDescription,Icon")] Weather weather)
@@ -89,7 +79,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(weather);
         }
 
-        // GET: Weathers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -104,7 +93,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(weather);
         }
 
-        // POST: Weathers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

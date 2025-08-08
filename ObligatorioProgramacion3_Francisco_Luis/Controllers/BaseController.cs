@@ -56,7 +56,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return permissions != null && permissions.Contains(permissionName);
         }
 
-        // Nuevo método para chequear si tiene al menos 1 permiso de una lista
         protected bool HasAnyPermission(IEnumerable<string> permissionsToCheck)
         {
             var permissions = Session["Permissions"] as List<string>;

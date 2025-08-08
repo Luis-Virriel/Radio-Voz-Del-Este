@@ -1,6 +1,6 @@
-﻿/* StyleIndexClient.css - Estilo específico para vista Index de clientes */
+﻿ 
 
-/* Resetear estilos del body y html */
+ 
 body {
     margin: 0;
     padding: 10px;
@@ -12,7 +12,7 @@ html {
     overflow-x: hidden;
 }
 
-/* Contenedor principal */
+ 
 .index-container {
     background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
     max-width: 98%;
@@ -41,7 +41,7 @@ html {
         pointer-events: none;
     }
 
-/* Título principal */
+ 
 .index-title {
     text-align: center;
     font-size: 48px;
@@ -56,7 +56,7 @@ html {
     z-index: 1;
 }
 
-/* Botón Create New */
+ 
 .create-button-container {
     text-align: center;
     margin-bottom: 35px;
@@ -105,7 +105,7 @@ html {
         color: #ffffff;
     }
 
-/* Tabla principal */
+ 
 .clients-table {
     width: 100%;
     border-collapse: separate;
@@ -119,7 +119,7 @@ html {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-    /* Encabezados de tabla */
+ 
     .clients-table th {
         background: linear-gradient(135deg, #1976d2, #1565c0);
         color: #ffffff;
@@ -145,28 +145,28 @@ html {
             background: linear-gradient(90deg, #64b5f6, #90caf9);
         }
 
-        /* Ajustar ancho de columnas específicas para clientes */
-        .clients-table th:nth-child(1) { /* Nombre */
+ 
+        .clients-table th:nth-child(1) { 
             width: 16%;
         }
 
-        .clients-table th:nth-child(2) { /* Apellido */
+        .clients-table th:nth-child(2) {
             width: 16%;
         }
 
-        .clients-table th:nth-child(3) { /* Correo Electrónico */
+        .clients-table th:nth-child(3) { 
             width: 25%;
         }
 
-        .clients-table th:nth-child(4) { /* Fecha de Nacimiento */
+        .clients-table th:nth-child(4) {
             width: 15%;
         }
 
-        .clients-table th:nth-child(5) { /* Usuario Asignado */
+        .clients-table th:nth-child(5) { 
             width: 16%;
         }
 
-        .clients-table th:nth-child(6) { /* Acciones */
+        .clients-table th:nth-child(6) { 
             width: 12%;
         }
 
@@ -178,7 +178,7 @@ html {
             border-top-right-radius: 15px;
         }
 
-    /* Filas de datos */
+ 
     .clients-table td {
         padding: 12px 10px;
         border: none;
@@ -191,7 +191,7 @@ html {
         position: relative;
     }
 
-        /* Columna Nombre */
+ 
         .clients-table td:nth-child(1) {
             width: 16%;
             font-weight: 700;
@@ -199,14 +199,14 @@ html {
             text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
         }
 
-        /* Columna Apellido */
+ 
         .clients-table td:nth-child(2) {
             width: 16%;
             font-weight: 700;
             color: #ffffff;
         }
 
-        /* Columna Correo Electrónico */
+ 
         .clients-table td:nth-child(3) {
             width: 25%;
             font-size: 12px;
@@ -225,7 +225,7 @@ html {
                     text-decoration: underline;
                 }
 
-        /* Columna Fecha de Nacimiento */
+ 
         .clients-table td:nth-child(4) {
             width: 15%;
             font-family: 'Courier New', monospace;
@@ -234,7 +234,7 @@ html {
             white-space: nowrap;
         }
 
-        /* Columna Usuario Asignado */
+ 
         .clients-table td:nth-child(5) {
             width: 16%;
             font-weight: 600;
@@ -242,20 +242,20 @@ html {
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
-        /* Columna Acciones */
+ 
         .clients-table td:nth-child(6) {
             width: 12%;
             white-space: nowrap;
         }
 
-    /* Efecto hover en filas */
+ 
     .clients-table tbody tr:hover td {
         background: linear-gradient(135deg, rgba(66, 165, 245, 0.3), rgba(102, 187, 106, 0.2));
         transform: translateX(5px);
         box-shadow: 0 5px 15px rgba(66, 165, 245, 0.3);
     }
 
-    /* Alternar colores de filas */
+ 
     .clients-table tbody tr:nth-child(even) td {
         background: linear-gradient(135deg, rgba(30, 60, 114, 0.3), rgba(42, 82, 152, 0.15));
     }
@@ -264,7 +264,7 @@ html {
         background: linear-gradient(135deg, rgba(25, 50, 95, 0.4), rgba(35, 70, 125, 0.2));
     }
 
-/* Enlaces de acciones */
+ 
 .action-links {
     white-space: nowrap;
 }
@@ -291,14 +291,14 @@ html {
             box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
         }
 
-/* Separadores entre acciones */
+ 
 .action-separator {
     color: #546e7a;
     margin: 0 3px;
     font-size: 12px;
 }
 
-/* Responsive para pantallas pequeñas */
+ 
 @media (max-width: 768px) {
     .index-container {
         margin: 15px;
@@ -326,19 +326,19 @@ html {
     }
 }
 
-/* Responsive para pantallas muy pequeñas */
+ 
 @media (max-width: 480px) {
     .clients-table th:nth-child(4),
     .clients-table td:nth-child(4) {
-        display: none; /* Ocultar fecha de nacimiento en móviles */
+        display: none
     }
 
     .clients-table th:nth-child(5),
     .clients-table td:nth-child(5) {
-        display: none; /* Ocultar usuario asignado en móviles */
+        display: none; 
     }
 
-    /* Redistribuir anchos para pantallas pequeñas */
+ 
     .clients-table th:nth-child(1),
     .clients-table td:nth-child(1) {
         width: 25%;
@@ -360,7 +360,7 @@ html {
     }
 }
 
-/* Mensaje cuando no hay datos */
+ 
 .no-data-message {
     text-align: center;
     padding: 50px;
@@ -370,7 +370,7 @@ html {
     font-family: "Bona Nova SC", serif;
 }
 
-/* Estilo para el contenedor de la tabla */
+ 
 .table-wrapper {
     overflow-x: auto;
     border-radius: 15px;
@@ -378,17 +378,17 @@ html {
     padding: 5px;
 }
 
-/* Ocultar elementos por defecto de MVC */
+ 
 h2:not(.index-title) {
     display: none;
 }
 
-/* Ajustar espaciado general */
+ 
 .index-container > p {
     display: none;
 }
 
-/* Animaciones adicionales */
+ 
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -425,7 +425,7 @@ h2:not(.index-title) {
         animation-delay: 0.5s;
     }
 
-/* Efecto de brillo en el contenedor */
+ 
 .index-container {
     animation: subtleGlow 3s ease-in-out infinite alternate;
 }
@@ -440,7 +440,7 @@ h2:not(.index-title) {
     }
 }
 
-/* Estilos específicos para datos de clientes */
+ 
 .client-name {
     font-weight: 700;
     color: #ffffff;
@@ -463,7 +463,7 @@ h2:not(.index-title) {
     font-weight: 600;
 }
 
-/* Efecto especial para el icono del título */
+ 
 .index-title i {
     margin-left: 15px;
     color: #ffffff;

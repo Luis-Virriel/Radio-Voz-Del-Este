@@ -1,6 +1,6 @@
-﻿/* StyleIndexHost.css - Estilo específico para vista Index de Hosts */
+﻿
 
-/* Reset body/html */
+
 body {
     margin: 0;
     padding: 10px;
@@ -12,7 +12,7 @@ html {
     overflow-x: hidden;
 }
 
-/* Contenedor principal */
+
 .index-container {
     background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
     max-width: 98%;
@@ -41,7 +41,7 @@ html {
         pointer-events: none;
     }
 
-/* Título principal */
+
 .index-title {
     text-align: center;
     font-size: 48px;
@@ -55,7 +55,7 @@ html {
     z-index: 1;
 }
 
-/* Botón Create New */
+
 .create-button-container {
     text-align: center;
     margin-bottom: 35px;
@@ -104,7 +104,7 @@ html {
         text-decoration: none;
     }
 
-/* Tabla principal para Hosts */
+
 .hosts-table {
     width: 100%;
     border-collapse: separate;
@@ -118,7 +118,7 @@ html {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-    /* Encabezados */
+
     .hosts-table th {
         background: linear-gradient(135deg, #1976d2, #1565c0);
         color: #ffffff;
@@ -150,10 +150,10 @@ html {
 
         .hosts-table th:last-child {
             border-top-right-radius: 15px;
-            text-align: center; /* Alinear encabezado Acciones */
+
         }
 
-    /* Filas */
+
     .hosts-table td {
         padding: 12px 10px;
         border: none;
@@ -165,7 +165,7 @@ html {
         position: relative;
     }
 
-        /* Alinear columna Acciones */
+
         .hosts-table td.action-links {
             text-align: center;
             padding: 12px 0;
@@ -185,7 +185,7 @@ html {
         background: linear-gradient(135deg, rgba(25, 50, 95, 0.4), rgba(35, 70, 125, 0.2));
     }
 
-/* Enlaces de acción */
+
 .action-links {
     white-space: nowrap;
 }
@@ -225,7 +225,7 @@ html {
     padding: 5px;
 }
 
-/* No data */
+
 .no-data-message {
     text-align: center;
     padding: 50px;
@@ -235,7 +235,7 @@ html {
     font-family: "Bona Nova SC", serif;
 }
 
-/* Animación */
+
 .hosts-table tbody tr {
     animation: fadeInUp 0.6s ease-out;
 }

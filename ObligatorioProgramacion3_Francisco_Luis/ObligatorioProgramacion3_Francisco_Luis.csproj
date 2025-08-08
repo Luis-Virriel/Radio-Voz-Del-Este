@@ -177,8 +177,18 @@
       <DependentUpon>ModelRadio.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Metadata\ClientMetaData.cs" />
+    <Compile Include="Models\Metadata\CommentMetaData.cs" />
+    <Compile Include="Models\Metadata\HostMetaData.cs" />
+    <Compile Include="Models\Metadata\NewsMetadata.cs" />
     <Compile Include="Models\Metadata\Partials\ClientPartial.cs" />
+    <Compile Include="Models\Metadata\Partials\CommentPartial.cs" />
+    <Compile Include="Models\Metadata\Partials\HostPartial.cs" />
+    <Compile Include="Models\Metadata\Partials\NewsPartial.cs" />
+    <Compile Include="Models\Metadata\Partials\SponsorPartial.cs" />
+    <Compile Include="Models\Metadata\RadioProgramMetaData.cs" />
+    <Compile Include="Models\Metadata\Partials\RadioProgramPartial.cs" />
     <Compile Include="Models\Metadata\Partials\UsersPartial.cs" />
+    <Compile Include="Models\Metadata\SponsormetaData.cs" />
     <Compile Include="Models\Metadata\UsersMetaData.cs" />
     <Compile Include="Models\ModelRadio.Context.cs">
       <AutoGen>True</AutoGen>
@@ -244,6 +254,10 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Currency.css" />
     <Content Include="Content\Index.css" />
+    <Content Include="Content\Styles\StyleComments\StyleCreateComments.css" />
+    <Content Include="Content\Styles\StyleComments\StyleDeleteComments.css" />
+    <Content Include="Content\Styles\StyleComments\StyleEditComments.css" />
+    <Content Include="Content\Styles\StyleComments\StyleIndexComments.css" />
     <Content Include="Content\Styles\StyleHost\StyleCreateHost.css" />
     <Content Include="Content\Styles\StyleHost\StyleDeleteHost.css" />
     <Content Include="Content\Styles\StyleHost\StyleDetailsHost.css" />
@@ -281,7 +295,6 @@
     <Content Include="Content\Wather.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Models\ModelRadio.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelRadio.edmx</DependentUpon>
@@ -337,7 +350,6 @@
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
     <Content Include="Views\Comments\Delete.cshtml" />
-    <Content Include="Views\Comments\Details.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
     <Content Include="Views\ExchangeRates\Create.cshtml" />

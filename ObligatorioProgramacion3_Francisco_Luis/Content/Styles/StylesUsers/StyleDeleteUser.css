@@ -1,6 +1,4 @@
-﻿/* ================================
-   StyleDeleteUser.css - Refinado con colores coherentes
-   ================================ */
+﻿
 body {
     margin: 0;
     padding: 20px;
@@ -94,7 +92,7 @@ hr {
     flex-wrap: wrap;
 }
 
-/* Botón específico para eliminar */
+
 .btn-delete {
     background: linear-gradient(45deg, #f44336, #e53935) !important;
     color: #ffffff !important;
@@ -122,7 +120,7 @@ hr {
         box-shadow: 0 12px 30px rgba(244, 67, 54, 0.6) !important;
     }
 
-/* Estilos específicos para proteger el botón de volver del navbar - Estilo igual al botón SALIR */
+
 .delete-page-back-button {
     background: linear-gradient(135deg, #4dd0e1, #26c6da) !important;
     color: #ffffff !important;
@@ -152,9 +150,9 @@ hr {
         box-shadow: 0 6px 20px rgba(77, 208, 225, 0.4) !important;
     }
 
-/* Clase adicional para asegurar que el botón no sea afectado por otros estilos */
+
 .btn-rectangle {
-    background: linear-gradient(135deg, #4dd0e1, #26c6da) !important;
+    background: linear-gradient(45deg, rgb(66, 165, 245), rgb(102, 187, 106));
     color: #ffffff !important;
     border-radius: 25px !important;
     padding: 12px 24px !important;
@@ -173,13 +171,13 @@ hr {
 }
 
     .btn-rectangle:hover {
-        background: linear-gradient(135deg, #26c6da, #00acc1) !important;
+        background: linear-gradient(45deg, rgb(66, 165, 245), rgb(102, 187, 106));
         color: #ffffff !important;
         transform: translateY(-2px) !important;
         box-shadow: 0 6px 20px rgba(77, 208, 225, 0.4) !important;
     }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .delete-container {
         margin: 20px 15px;
@@ -222,7 +220,7 @@ hr {
     }
 }
 
-/* Animaciones */
+
 @keyframes fadeIn {
     from {
         opacity: 0;

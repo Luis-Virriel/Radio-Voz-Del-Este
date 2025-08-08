@@ -5,7 +5,7 @@
 }
 
 <div class="main-layout">
-    <!-- News Sidebar -->
+  
     <aside class="news-sidebar">
         <div class="sidebar-card">
             <div class="sidebar-header">
@@ -60,19 +60,17 @@
                 </div>
             </a>
 
-            <!-- Botón para ver todas las noticias -->
             <a href="@Url.Action("News", "Home")" class="view-all-news">
                 <i class="fas fa-newspaper"></i> Ver todas las noticias
             </a>
         </div>
     </aside>
-
-    <!-- Main Content -->
+    
     <main class="main-content">
-        <!-- Widgets Header -->
+       
         <section class="widgets-header">
             <div class="widgets-row">
-                <!-- Widget del Clima -->
+               
                 <a href="@Url.Action("Weather", "Home")" class="widget-minimal">
                     <div class="widget-content">
                         <i class="fas fa-cloud-sun widget-icon"></i>
@@ -91,10 +89,8 @@
                     </div>
                 </a>
 
-                <!-- Título Central -->
                 <h1 class="radio-title-center">🎵 Tu Radio en Maldonado 🎵</h1>
 
-                <!-- Widget de Moneda -->
                 <a href="@Url.Action("Currency", "Home")" class="widget-minimal">
                     <div class="widget-content">
                         <i class="fas fa-dollar-sign widget-icon"></i>
@@ -115,14 +111,12 @@
             </div>
         </section>
 
-        <!-- Audio Section -->
         <section class="audio-section">
             <div class="live-indicator-large">
                 <span class="live-dot"></span>
                 <span class="live-text">EN VIVO</span>
             </div>
 
-            <!-- Reproductor simple y visible -->
             <div class="simple-player">
                 <div class="player-info">
                     <div class="radio-details">
@@ -135,7 +129,6 @@
             </div>
         </section>
 
-        <!-- Current Program -->
         @if (Model.CurrentProgram != null)
         {
             <section class="current-program">
@@ -197,7 +190,6 @@
             </section>
         }
 
-        <!-- Next Program -->
         @if (Model.NextProgram != null)
         {
             <section class="next-program">
@@ -207,9 +199,9 @@
             </section>
         }
 
-        <!-- Dashboard Grid -->
+       
         <div class="dashboard-grid">
-            <!-- Schedule Card -->
+            
             @if (Model.ProgramsList != null && Model.ProgramsList.Any())
             {
                 <div class="dashboard-card">
@@ -231,7 +223,6 @@
                 </div>
             }
 
-            <!-- Sponsors Card -->
             @if (Model.AuspiciantesLogos != null && Model.AuspiciantesLogos.Any())
             {
                 <div class="dashboard-card">
@@ -248,7 +239,6 @@
             }
         </div>
 
-        <!-- Newsletter Section -->
         <section class="newsletter">
             <h3>📧 ¡Mantente Conectado!</h3>
             <p>Suscríbete a nuestro boletín y recibe las últimas noticias, programación especial y eventos exclusivos</p>
@@ -260,7 +250,6 @@
         </section>
     </main>
 
-    <!-- Stats Sidebar -->
     <aside class="stats-sidebar">
         <div class="sidebar-card">
             <div class="sidebar-header">
@@ -348,7 +337,6 @@
     </aside>
 </div>
 
-<!-- Popup de confirmación de suscripción -->
 <div id="subscriptionPopup" class="subscription-popup hidden">
     <div class="popup-content">
         <div class="popup-icon">
@@ -360,7 +348,6 @@
     </div>
 </div>
 
-<!-- Floating Action Buttons -->
 <div class="floating-actions">
     <a href="https://wa.me/59899123456" class="fab-button fab-whatsapp" title="Contáctanos por WhatsApp" target="_blank">
         <i class="fab fa-whatsapp"></i>
@@ -375,7 +362,7 @@
 @section scripts {
     <script>
 		document.addEventListener('DOMContentLoaded', function() {
-			// Animación de logos de auspiciantes
+			
 			@if (Model.AuspiciantesLogos != null && Model.AuspiciantesLogos.Any())
 			{
 				@:var logos = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.AuspiciantesLogos));
@@ -397,18 +384,16 @@
 				@:}
 			}
 
-			// Efectos para el sidebar de noticias
 			const sidebarHeader = document.querySelector('.sidebar-header');
 			const newsItems = document.querySelectorAll('.news-item');
 			const viewAllButton = document.querySelector('.view-all-news');
 
-			// Efecto de hover mejorado para el header
+			
 			if (sidebarHeader) {
 				sidebarHeader.addEventListener('mouseenter', function() {
 					this.style.background = 'rgba(231, 76, 60, 0.05)';
 					this.style.borderColor = 'rgba(231, 76, 60, 0.3)';
 
-					// Añadir efecto de brillo
 					const sparkle = document.createElement('div');
 					sparkle.className = 'sparkle-effect';
 					sparkle.style.cssText = `
@@ -435,37 +420,33 @@
 				});
 			}
 
-			// Efectos para cada noticia
 			newsItems.forEach((item, index) => {
-				// Efecto de hover personalizado
+				
 				item.addEventListener('mouseenter', function() {
-					// Animar el icono del tiempo
+					
 					const timeIcon = this.querySelector('.news-time i');
 					if (timeIcon) {
 						timeIcon.style.transform = 'rotate(360deg)';
 						timeIcon.style.transition = 'transform 0.5s ease';
 					}
 
-					// Efecto de escala en la categoría
 					const category = this.querySelector('.news-category');
 					if (category) {
 						category.style.transform = 'scale(1.05)';
 						category.style.boxShadow = '0 4px 12px rgba(231, 76, 60, 0.3)';
 					}
 
-					// Efecto de deslizamiento en el título
 					const title = this.querySelector('.news-title');
 					if (title) {
 						title.style.transform = 'translateX(5px)';
 						title.style.color = '#e74c3c';
 					}
 
-					// Añadir efecto de pulso en el borde izquierdo
 					this.style.borderLeft = '4px solid #e74c3c';
 				});
 
 				item.addEventListener('mouseleave', function() {
-					// Restaurar efectos
+					
 					const timeIcon = this.querySelector('.news-time i');
 					if (timeIcon) {
 						timeIcon.style.transform = 'rotate(0deg)';
@@ -486,17 +467,14 @@
 					this.style.borderLeft = 'none';
 				});
 
-				// Efecto de clic
 				item.addEventListener('click', function(e) {
 					e.preventDefault();
 
-					// Efecto de "loading" temporal
 					this.classList.add('loading');
 
-					// Simular navegación con un pequeño delay
 					setTimeout(() => {
 						this.classList.remove('loading');
-						// Aquí iría la navegación real
+						
 						if (this.href) {
 							window.location.href = this.href;
 						}
@@ -504,10 +482,8 @@
 				});
 			});
 
-			// Efectos para el botón "Ver todas las noticias"
 			if (viewAllButton) {
 				viewAllButton.addEventListener('mouseenter', function() {
-					// Efecto de ondas
 					const ripple = document.createElement('div');
 					ripple.className = 'ripple-effect';
 					ripple.style.cssText = `
@@ -526,7 +502,6 @@
 				viewAllButton.addEventListener('click', function(e) {
 					e.preventDefault();
 
-					// Efecto de clic con escala
 					this.style.transform = 'scale(0.98)';
 					setTimeout(() => {
 						this.style.transform = 'translateY(-3px)';
@@ -536,8 +511,6 @@
 					}, 150);
 				});
 			}
-
-			// Efecto de hover suave en widgets
 			const widgets = document.querySelectorAll('.widget-minimal');
 			widgets.forEach(widget => {
 				widget.addEventListener('mouseenter', function() {
@@ -549,7 +522,6 @@
 				});
 			});
 
-			// Actualizar título con hora
 			function updateTime() {
 				const now = new Date();
 				const timeString = now.toLocaleTimeString('es-UY', {
@@ -562,8 +534,6 @@
 
 			setInterval(updateTime, 1000);
 			updateTime();
-
-			// Simular cambio de oyentes en línea
 			function updateListeners() {
 				const listenersElement = document.getElementById('live-listeners');
 				if (listenersElement) {
@@ -574,9 +544,7 @@
 				}
 			}
 
-			setInterval(updateListeners, 15000); // Cada 15 segundos
-
-			// Simulación de noticias "en tiempo real"
+			setInterval(updateListeners, 15000);
 			function simulateRealTimeUpdates() {
 				const updateIndicator = document.createElement('div');
 				updateIndicator.className = 'update-indicator';
@@ -590,13 +558,11 @@
 					animation: pulse-dot 1.5s infinite;
 				`;
 
-				// Añadir indicador a una noticia aleatoria
 				const randomNews = newsItems[Math.floor(Math.random() * newsItems.length)];
 				if (randomNews) {
 					randomNews.style.position = 'relative';
 					randomNews.appendChild(updateIndicator);
 
-					// Remover después de unos segundos
 					setTimeout(() => {
 						if (updateIndicator.parentNode) {
 							updateIndicator.remove();
@@ -605,42 +571,33 @@
 				}
 			}
 
-			// Simular actualizaciones cada 30 segundos
 			setInterval(simulateRealTimeUpdates, 30000);
 
-			// Modal para pedir canciones
 			function openRequestModal() {
 				alert('Función de pedido de canciones - Por implementar');
 			}
 
-			// Hacer la función global
 			window.openRequestModal = openRequestModal;
 		});
 
-		// Funciones para el newsletter
 		function handleNewsletterSubmit(event) {
-			event.preventDefault(); // Evita que se envíe el formulario
-
+			event.preventDefault(); 
 			const emailInput = document.getElementById('emailInput');
 			const email = emailInput.value.trim();
 
-			// Validar que el email no esté vacío
 			if (!email) {
 				alert('Por favor, ingresa tu email.');
 				return;
 			}
 
-			// Validar formato básico del email
 			const emailPattern = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
 			if (!emailPattern.test(email)) {
 				alert('Por favor, ingresa un email válido.');
 				return;
 			}
 
-			// Limpiar el input
 			emailInput.value = '';
 
-			// Mostrar popup de confirmación
 			showSubscriptionPopup();
 		}
 
@@ -648,7 +605,6 @@
 			const popup = document.getElementById('subscriptionPopup');
 			popup.classList.remove('hidden');
 
-			// Auto-cerrar después de 5 segundos
 			setTimeout(() => {
 				closePopup();
 			}, 5000);
@@ -659,7 +615,6 @@
 			popup.classList.add('hidden');
 		}
 
-		// Cerrar popup al hacer click fuera del contenido
 		document.addEventListener('click', function(e) {
 			const popup = document.getElementById('subscriptionPopup');
 			if (e.target === popup) {
@@ -667,7 +622,6 @@
 			}
 		});
 
-		// Cerrar popup con tecla Escape
 		document.addEventListener('keydown', function(e) {
 			if (e.key === 'Escape') {
 				closePopup();
@@ -678,17 +632,16 @@
 
         if (programLink) {
             programLink.addEventListener('click', function(e) {
-                // Efecto de loading antes de navegar
+               
                 const programSection = document.querySelector('.current-program');
                 programSection.style.transform = 'scale(0.98)';
                 programSection.style.opacity = '0.8';
 
                 setTimeout(() => {
-                    // La navegación continuará normalmente
+                    
                 }, 200);
             });
 
-            // Efecto de partículas en hover
             programLink.addEventListener('mouseenter', function() {
                 createSparkles(this);
             });

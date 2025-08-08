@@ -1,11 +1,11 @@
-﻿/* Mejoras para accesibilidad */
+﻿
 .news-table th,
 .news-table td {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
-/* NewsIndex-Style.css - Estilo adaptado para vista Index de noticias */
 
-/* Resetear estilos del body y html */
+
+
 body {
     margin: 0;
     padding: 10px;
@@ -17,7 +17,7 @@ html {
     overflow-x: hidden;
 }
 
-/* Contenedor principal */
+ 
 .index-container {
     background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
     max-width: 98%;
@@ -46,7 +46,7 @@ html {
         pointer-events: none;
     }
 
-/* Título principal */
+ 
 .index-title {
     text-align: center;
     font-size: 48px;
@@ -61,7 +61,7 @@ html {
     z-index: 1;
 }
 
-/* Botón Create New */
+ 
 .create-button-container {
     text-align: center;
     margin-bottom: 35px;
@@ -110,7 +110,7 @@ html {
         color: #ffffff;
     }
 
-/* Tabla principal de noticias */
+ 
 .news-table {
     width: 100%;
     border-collapse: separate;
@@ -124,7 +124,7 @@ html {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-    /* Encabezados de tabla */
+ 
     .news-table th {
         background: linear-gradient(135deg, #1976d2, #1565c0);
         color: #ffffff;
@@ -150,24 +150,24 @@ html {
             background: linear-gradient(90deg, #64b5f6, #90caf9);
         }
 
-        /* Ajustar ancho de columnas específicas para noticias */
-        .news-table th:nth-child(1) { /* Título */
+ 
+        .news-table th:nth-child(1) { 
             width: 20%;
         }
 
-        .news-table th:nth-child(2) { /* Contenido */
+        .news-table th:nth-child(2) { 
             width: 40%;
         }
 
-        .news-table th:nth-child(3) { /* Fecha */
+        .news-table th:nth-child(3) { 
             width: 15%;
         }
 
-        .news-table th:nth-child(4) { /* Imagen */
+        .news-table th:nth-child(4) { 
             width: 10%;
         }
 
-        .news-table th:nth-child(5) { /* Acciones */
+        .news-table th:nth-child(5) { 
             width: 15%;
         }
 
@@ -179,7 +179,7 @@ html {
             border-top-right-radius: 15px;
         }
 
-    /* Filas de datos */
+ 
     .news-table td {
         padding: 15px 12px;
         border: none;
@@ -195,15 +195,15 @@ html {
         min-height: auto;
     }
 
-        /* Ajustar columnas específicas para noticias */
-        .news-table td:nth-child(1) { /* Título */
+ 
+        .news-table td:nth-child(1) { 
             width: 20%;
             font-weight: 700;
             color: #ffffff;
             word-wrap: break-word;
         }
 
-        .news-table td:nth-child(2) { /* Contenido */
+        .news-table td:nth-child(2) { 
             width: 40%;
             font-size: 12px;
             color: #ffffff;
@@ -219,7 +219,7 @@ html {
             word-wrap: break-word;
         }
 
-        .news-table td:nth-child(3) { /* Fecha */
+        .news-table td:nth-child(3) { 
             width: 15%;
             font-family: 'Courier New', monospace;
             font-size: 11px;
@@ -227,18 +227,18 @@ html {
             white-space: nowrap;
         }
 
-        .news-table td:nth-child(4) { /* Imagen */
+        .news-table td:nth-child(4) { 
             width: 10%;
             text-align: center;
             padding: 8px;
         }
 
-        .news-table td:nth-child(5) { /* Acciones */
+        .news-table td:nth-child(5) { 
             width: 15%;
             white-space: nowrap;
         }
 
-/* Estilo para imágenes en la tabla */
+ 
 .news-image {
     max-height: 50px;
     max-width: 80px;
@@ -251,14 +251,14 @@ html {
         transform: scale(1.2);
     }
 
-/* Efecto hover en filas */
+ 
 .news-table tbody tr:hover td {
     background: linear-gradient(135deg, rgba(66, 165, 245, 0.3), rgba(102, 187, 106, 0.2));
     transform: translateX(5px);
     box-shadow: 0 5px 15px rgba(66, 165, 245, 0.3);
 }
 
-/* Alternar colores de filas */
+ 
 .news-table tbody tr:nth-child(even) td {
     background: linear-gradient(135deg, rgba(30, 60, 114, 0.3), rgba(42, 82, 152, 0.15));
 }
@@ -267,7 +267,7 @@ html {
     background: linear-gradient(135deg, rgba(25, 50, 95, 0.4), rgba(35, 70, 125, 0.2));
 }
 
-/* Enlaces de acciones */
+ 
 .action-links {
     white-space: nowrap;
 }
@@ -294,14 +294,14 @@ html {
             box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
         }
 
-/* Separadores entre acciones */
+ 
 .action-separator {
     color: #546e7a;
     margin: 0 3px;
     font-size: 12px;
 }
 
-/* Estilo para contenido completo sin ellipsis */
+
 .content-ellipsis {
     width: 100%;
     overflow: visible;
@@ -334,7 +334,6 @@ html {
         display: block !important;
     }
 
-/* Tooltip deshabilitado - contenido se muestra completo
 .content-tooltip {
     position: relative;
     display: block;
@@ -381,9 +380,9 @@ html {
         visibility: visible;
         opacity: 1;
     }
-*/
 
-/* Responsive para pantallas pequeñas */
+
+
 @media (max-width: 768px) {
     .index-container {
         margin: 15px;
@@ -420,7 +419,7 @@ html {
     }
 }
 
-/* Mensaje cuando no hay datos */
+
 .no-data-message {
     text-align: center;
     padding: 50px;
@@ -430,7 +429,7 @@ html {
     font-family: "Bona Nova SC", serif;
 }
 
-/* Estilo para el contenedor de la tabla */
+
 .table-wrapper {
     overflow-x: auto;
     border-radius: 15px;
@@ -438,17 +437,17 @@ html {
     padding: 5px;
 }
 
-/* Ocultar elementos por defecto de MVC */
+
 h2:not(.index-title) {
     display: none;
 }
 
-/* Ajustar espaciado general */
+
 .index-container > p {
     display: none;
 }
 
-/* Estilo para fecha de publicación */
+
 .publish-date {
     font-family: 'Courier New', monospace;
     font-size: 11px;
@@ -456,7 +455,7 @@ h2:not(.index-title) {
     font-weight: 600;
 }
 
-/* Estilo para título de noticia destacado */
+
 .news-title-field {
     font-weight: 700;
     color: #90caf9;
@@ -464,7 +463,7 @@ h2:not(.index-title) {
     line-height: 1.3;
 }
 
-/* Agregar reglas específicas para forzar contenido completo */
+
 .news-table td .content-ellipsis {
     display: block !important;
     overflow: visible !important;
@@ -478,7 +477,7 @@ h2:not(.index-title) {
     hyphens: auto !important;
 }
 
-/* Eliminar cualquier restricción de altura en elementos contenedores */
+
 .news-table td * {
     max-height: none !important;
     overflow: visible !important;
@@ -487,14 +486,14 @@ h2:not(.index-title) {
     text-overflow: unset !important;
 }
 
-/* Asegurar que las filas se expandan automáticamente */
+
 .news-table tbody tr {
     height: auto !important;
     min-height: auto !important;
     animation: fadeInUp 0.6s ease-out;
 }
 
-/* Forzar que el contenido de la segunda columna se muestre completo */
+
 .news-table td:nth-child(2) * {
     display: block !important;
     height: auto !important;
@@ -507,7 +506,7 @@ h2:not(.index-title) {
     -webkit-box-orient: unset !important;
 }
 
-/* Animaciones adicionales */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -540,7 +539,7 @@ h2:not(.index-title) {
     animation-delay: 0.5s;
 }
 
-/* Efecto de brillo en el contenedor */
+
 .index-container {
     animation: subtleGlow 3s ease-in-out infinite alternate;
 }
@@ -555,7 +554,7 @@ h2:not(.index-title) {
     }
 }
 
-/* Estilo para indicador de imagen faltante */
+
 .no-image-placeholder {
     color: #757575;
     font-style: italic;

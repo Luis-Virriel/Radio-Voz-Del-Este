@@ -12,13 +12,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
     {
         private RadioEntities db = new RadioEntities();
 
-        // GET: Roles
         public ActionResult Index()
         {
             return View(db.Roles.ToList());
         }
 
-        // GET: Roles/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -31,13 +29,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(role);
         }
 
-        // GET: Roles/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Roles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,RoleName")] Role role)
@@ -51,7 +47,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(role);
         }
 
-        // GET: Roles/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -81,7 +76,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(model);
         }
 
-        // POST: Roles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditRoleViewModel model)
@@ -94,14 +88,12 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
                 role.RoleName = model.RoleName;
 
-                // Limpiar permisos actuales
                 role.Permissions.Clear();
 
-                // Agregar permisos seleccionados
                 var selectedPermissionIds = model.Permissions
-                    .Where(p => p.IsAssigned)
-                    .Select(p => p.PermissionID)
-                    .ToList();
+    .Where(p => p.IsAssigned)
+    .Select(p => p.PermissionID)
+    .ToList();
 
                 var selectedPermissions = db.Permissions
                     .Where(p => selectedPermissionIds.Contains(p.ID))
@@ -114,14 +106,9 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
 
                 db.SaveChanges();
 
-                // **ACTUALIZAR SESIÓN CON EL ROL Y PERMISOS NUEVOS**
-                Session["Role"] = role.RoleName;
-                Session["Permissions"] = selectedPermissions.Select(p => p.PermissionName).ToList();
-
                 return RedirectToAction("Index");
             }
 
-            // Si hay error, recargar permisos para que la vista los muestre bien
             var allPermissions = db.Permissions.ToList();
             model.Permissions = allPermissions.Select(p => new PermissionCheckbox
             {
@@ -133,7 +120,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(model);
         }
 
-        // GET: Roles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -146,7 +132,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(role);
         }
 
-        // POST: Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

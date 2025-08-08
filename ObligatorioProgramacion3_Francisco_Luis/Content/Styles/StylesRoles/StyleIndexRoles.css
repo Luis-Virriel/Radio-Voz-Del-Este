@@ -1,6 +1,6 @@
-﻿/* StyleIndexRole.css - Estilo específico para vista Index de roles */
+﻿
 
-/* Resetear estilos base */
+
 body {
     margin: 0;
     padding: 10px;
@@ -14,7 +14,7 @@ html {
     overflow-x: hidden;
 }
 
-/* Contenedor principal */
+
 .index-container {
     background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
     max-width: 98%;
@@ -41,7 +41,7 @@ html {
         pointer-events: none;
     }
 
-/* Título principal */
+
 .index-title {
     text-align: center;
     font-size: 48px;
@@ -54,7 +54,7 @@ html {
     z-index: 1;
 }
 
-/* Contenedor y estilo para botón Create */
+
 .create-button-container {
     text-align: center;
     margin-bottom: 35px;
@@ -103,7 +103,7 @@ html {
         text-decoration: none;
     }
 
-/* Tabla principal */
+
 .roles-table {
     width: 100%;
     border-collapse: separate;
@@ -117,7 +117,7 @@ html {
     border: 1px solid rgba(255,255,255,0.1);
 }
 
-    /* Encabezados de tabla */
+
     .roles-table th {
         background: linear-gradient(135deg, #1976d2, #1565c0);
         color: #ffffff;
@@ -143,7 +143,7 @@ html {
             background: linear-gradient(90deg, #64b5f6, #90caf9);
         }
 
-        /* Columnas */
+
         .roles-table th:nth-child(1) {
             width: 70%;
         }
@@ -160,7 +160,7 @@ html {
             border-top-right-radius: 15px;
         }
 
-    /* Filas de datos */
+
     .roles-table td {
         padding: 12px 10px;
         border: none;
@@ -171,7 +171,7 @@ html {
         background: linear-gradient(135deg, rgba(30,60,114,0.4), rgba(42,82,152,0.2));
         overflow: hidden;
         position: relative;
-        vertical-align: middle; /* para centrar verticalmente */
+        vertical-align: middle; 
     }
 
         .roles-table td:nth-child(1) {
@@ -182,17 +182,17 @@ html {
 
         .roles-table td:nth-child(2) {
             white-space: nowrap;
-            text-align: center; /* centrado horizontal */
+            text-align: center;
         }
 
-    /* Efecto hover en filas */
+   
     .roles-table tbody tr:hover td {
         background: linear-gradient(135deg, rgba(66,165,245,0.3), rgba(102,187,106,0.2));
         transform: translateX(5px);
         box-shadow: 0 5px 15px rgba(66,165,245,0.3);
     }
 
-    /* Alternar colores de filas */
+    
     .roles-table tbody tr:nth-child(even) td {
         background: linear-gradient(135deg, rgba(30,60,114,0.3), rgba(42,82,152,0.15));
     }
@@ -201,7 +201,7 @@ html {
         background: linear-gradient(135deg, rgba(25,50,95,0.4), rgba(35,70,125,0.2));
     }
 
-/* Enlaces de acciones */
+
 .action-links {
     white-space: nowrap;
 }
@@ -229,14 +229,12 @@ html {
             box-shadow: 0 8px 20px rgba(66,165,245,0.4);
         }
 
-/* Separadores entre acciones */
 .action-separator {
     color: #546e7a;
     margin: 0 5px;
     font-size: 13px;
 }
 
-/* Responsive para pantallas pequeñas */
 @media (max-width: 768px) {
     .index-container {
         margin: 15px;
@@ -263,7 +261,6 @@ html {
     }
 }
 
-/* Mensaje cuando no hay datos */
 .no-data-message {
     text-align: center;
     padding: 50px;
@@ -273,7 +270,6 @@ html {
     font-family: "Bona Nova SC", serif;
 }
 
-/* Animaciones */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -310,7 +306,6 @@ html {
         animation-delay: 0.5s;
     }
 
-/* Efecto de brillo en contenedor */
 .index-container {
     animation: subtleGlow 3s ease-in-out infinite alternate;
 }

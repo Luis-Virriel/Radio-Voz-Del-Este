@@ -13,7 +13,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
     {
         private RadioEntities db = new RadioEntities();
 
-        // GET: Clients
         public ActionResult Index()
         {
             if (!HasPermission("ViewClient"))
@@ -23,7 +22,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(clients);
         }
 
-        // GET: Clients/Details/5
         public ActionResult Details(string id)
         {
             if (!HasPermission("ViewClient"))
@@ -39,7 +37,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(client);
         }
 
-        // GET: Clients/Create
         public ActionResult Create(int? userId)
         {
             if (!HasPermission("CreateClient"))
@@ -90,7 +87,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View();
         }
 
-        // POST: Clients/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDNumber,FirstName,LastName,Email,BirthDate,UserID")] Client client)
@@ -143,7 +139,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 ModelState.AddModelError("", "Error al guardar el cliente.");
             }
 
-            // Recargar selección para vista
             const int CLIENT_ROLE_ID = 3;
             var usuariosDisponibles = db.Users
                 .Where(u => u.RoleID == CLIENT_ROLE_ID && !db.Clients.Any(c => c.UserID == u.ID))
@@ -154,8 +149,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(client);
         }
 
-        // GET: Clients/Edit/5
-        // GET: Clients/Edit/5
         public ActionResult Edit(string id)
         {
             if (!HasPermission("EditClient"))
@@ -168,7 +161,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             if (client == null)
                 return HttpNotFound();
 
-            // Generar lista de usuarios válidos:
             const int CLIENT_ROLE_ID = 3;
 
             var usuariosDisponibles = db.Users
@@ -182,7 +174,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
 
-        // POST: Clients/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IDNumber,FirstName,LastName,Email,BirthDate,UserID")] Client client)
@@ -215,7 +206,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Si hay error de validación → reconstruir lista
             const int CLIENT_ROLE_ID_EDIT = 3;
             var usuariosDisponibles = db.Users
                 .Where(u => u.RoleID == CLIENT_ROLE_ID_EDIT &&
@@ -228,7 +218,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
         }
 
 
-        // GET: Clients/Delete/5
         public ActionResult Delete(string id)
         {
             if (!HasPermission("DeleteClient"))
@@ -244,7 +233,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(client);
         }
 
-        // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

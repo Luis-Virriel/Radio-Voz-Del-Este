@@ -1,4 +1,4 @@
-﻿/* StyleDetailsClient.css - Detalles de Cliente con estética coherente */
+﻿
 body {
     margin: 0;
     padding: 20px;
@@ -42,7 +42,7 @@ body {
     letter-spacing: 1px;
 }
 
-/* Estilos para la lista de definiciones */
+
 .dl-horizontal {
     width: 100%;
     max-width: 600px;
@@ -79,7 +79,7 @@ body {
         align-items: center;
     }
 
-/* Separador horizontal */
+
 hr {
     border: none;
     height: 2px;
@@ -88,14 +88,14 @@ hr {
     width: 100%;
 }
 
-/* Contenedor de acciones */
+
 .details-actions {
     margin-top: 40px;
     text-align: center;
     width: 100%;
 }
 
-    /* Estilos para los enlaces de acción */
+
     .details-actions a {
         background: linear-gradient(45deg, #1e88e5, #4caf50);
         color: #ffffff !important;
@@ -121,7 +121,7 @@ hr {
             box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6) !important;
         }
 
-        /* Estilo especial para el enlace "Volver" */
+
         .details-actions a:last-child {
             background: linear-gradient(45deg, #1e88e5, #4caf50);
             box-shadow: 0 8px 20px rgba(117, 117, 117, 0.4) !important;
@@ -132,13 +132,13 @@ hr {
                 box-shadow: 0 12px 30px rgba(117, 117, 117, 0.6) !important;
             }
 
-        /* Separador entre enlaces */
+
         .details-actions a + a::before {
             content: '';
             margin: 0;
         }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .details-container {
         margin: 20px 15px;
@@ -179,7 +179,7 @@ hr {
         }
 }
 
-/* Animaciones */
+
 @keyframes fadeIn {
     from {
         opacity: 0;

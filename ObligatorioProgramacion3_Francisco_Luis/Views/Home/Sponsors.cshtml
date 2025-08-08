@@ -14,7 +14,6 @@
 			<p class="page-subtitle">Empresas que confían en Radio Voz del Este</p>
 		</div>
 
-		<!-- Estadísticas -->
 		<div class="sponsors-stats">
 			<div class="stat-item">
 				<div class="stat-icon">
@@ -48,7 +47,6 @@
 		</div>
 	</div>
 
-	<!-- Sponsors Grid Simplificado -->
 	<div class="sponsors-grid">
 		@if (Model.Sponsors != null && Model.Sponsors.Any())
 		{
@@ -69,7 +67,6 @@
 		}
 	</div>
 
-	<!-- Call to Action -->
 	<div class="cta-section">
 		<div class="cta-content">
 			<h3>¿Quieres ser nuestro patrocinador?</h3>
@@ -81,7 +78,6 @@
 		</div>
 	</div>
 
-	<!-- Botón de regreso -->
 	<div class="back-to-home">
 		<a href="@Url.Action("Index", "Home")" class="back-btn">
 			<i class="fas fa-arrow-left"></i>
@@ -90,7 +86,6 @@
 	</div>
 </div>
 
-<!-- Modal para detalles del sponsor -->
 <div id="sponsorModal" class="modal hidden">
 	<div class="modal-content">
 		<div class="modal-header">
@@ -101,14 +96,13 @@
 		</div>
 		<div class="modal-body">
 			<div id="modalContent">
-				<!-- Contenido dinámico -->
 			</div>
 		</div>
 	</div>
 </div>
 
 <style>
-	/* Estilos generales */
+	
 	.sponsors-container {
 		max-width: 1200px;
 		margin: 0 auto;
@@ -139,7 +133,7 @@
 		color: whitesmoke;
 	}
 
-	/* Estadísticas */
+	
 	.sponsors-stats {
 		display: flex;
 		justify-content: center;
@@ -188,7 +182,7 @@
 		font-size: 0.9rem;
 	}
 
-	/* Grid de patrocinadores simplificado */
+	
 	.sponsors-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -237,7 +231,7 @@
 			color: #bdc3c7;
 		}
 
-	/* Call to Action */
+	
 	.cta-section {
 		background: linear-gradient(135deg, #667eea, #764ba2);
 		border-radius: 20px;
@@ -278,7 +272,7 @@
 			color: #667eea;
 		}
 
-	/* Botón de regreso */
+	
 	.back-to-home {
 		text-align: center;
 		margin-top: 40px;
@@ -304,7 +298,7 @@
 			transform: translateY(-2px);
 		}
 
-	/* Modal */
+	
 	.modal {
 		position: fixed;
 		top: 0;
@@ -362,7 +356,7 @@
 			background: rgba(255,255,255,0.1);
 		}
 
-	/* Estilos del modal de detalles */
+	
 	.sponsor-details-modal h4 {
 		color: #2c3e50;
 		margin-bottom: 20px;
@@ -378,7 +372,7 @@
 		color: #f39c12;
 	}
 
-	/* Animaciones */
+	
 	@@keyframes fadeInUp {
 		from {
 			opacity: 0;
@@ -413,7 +407,7 @@
 		}
 	}
 
-	/* Responsive */
+	
 	@@media (max-width: 768px) {
 		.sponsors-grid {
 			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -458,7 +452,7 @@
 </style>
 
 <script>
-    // Datos de los sponsors (generados desde el servidor)
+    
     const sponsorsData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Sponsors));
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -530,15 +524,13 @@
 
     function showModal() {
         document.getElementById('sponsorModal').classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Prevenir scroll
+        document.body.style.overflow = 'hidden'; 
     }
 
     function closeModal() {
         document.getElementById('sponsorModal').classList.add('hidden');
-        document.body.style.overflow = 'auto'; // Restaurar scroll
+        document.body.style.overflow = 'auto'; 
     }
-
-    // Event listeners para cerrar modal
     document.addEventListener('click', function(e) {
         const modal = document.getElementById('sponsorModal');
         if (e.target === modal) {

@@ -1,6 +1,6 @@
-﻿/* StyleLogin.css - Diseño coherente con el estilo moderno */
+﻿
 
-/* Reset */
+
 body {
     margin: 0;
     padding: 0;
@@ -13,7 +13,7 @@ html {
     overflow-x: hidden;
 }
 
-/* Contenedor principal con gradiente */
+
 .gradient-custom {
     min-height: 100vh;
     display: flex;
@@ -30,7 +30,7 @@ html {
         pointer-events: none;
     }
 
-/* Contenedor del formulario */
+
 .container {
     max-width: 1200px;
     width: 100%;
@@ -87,7 +87,7 @@ html {
     }
 }
 
-/* Tarjeta del login */
+
 .card {
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.2);
@@ -123,7 +123,7 @@ html {
     padding: 3rem !important;
 }
 
-/* Espaciado */
+
 .mb-md-5 {
     margin-bottom: 3rem !important;
 }
@@ -171,7 +171,7 @@ html {
     padding-right: 3rem !important;
 }
 
-/* Título principal */
+
 .card h2 {
     font-size: 32px;
     color: #ffffff;
@@ -189,7 +189,7 @@ html {
     text-transform: uppercase !important;
 }
 
-/* Párrafo descriptivo */
+
 .card p {
     color: #ffffff;
     font-size: 16px;
@@ -198,7 +198,7 @@ html {
     opacity: 0.9;
 }
 
-/* Campos de input */
+
 .form-control {
     width: 100%;
     padding: 15px 20px;
@@ -232,7 +232,7 @@ html {
     font-style: italic;
 }
 
-/* Botón de login */
+
 .btn {
     display: inline-block;
     padding: 16px 35px;
@@ -280,7 +280,7 @@ html {
     box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6);
 }
 
-/* Alertas de error */
+
 .alert {
     padding: 15px;
     margin-bottom: 20px;
@@ -294,7 +294,7 @@ html {
     color: #ff6b6b;
 }
 
-/* Enlaces sociales */
+
 .d-flex a {
     display: inline-block;
     padding: 12px;
@@ -320,7 +320,7 @@ html {
         box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
     }
 
-/* Iconos Font Awesome */
+
 .fab {
     font-family: "Font Awesome 5 Brands";
 }
@@ -329,7 +329,7 @@ html {
     font-size: 1.33333em;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .card-body {
         padding: 25px !important;
@@ -374,7 +374,7 @@ html {
     }
 }
 
-/* Animación del contenedor */
+
 @keyframes subtleGlow {
     0% {
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(42, 82, 152, 0.3);
@@ -385,7 +385,7 @@ html {
     }
 }
 
-/* Ocultar títulos por defecto del sistema */
+
 h1:not(.card h2),
 h2:not(.card h2),
 h3:not(.card h2),

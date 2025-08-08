@@ -6,18 +6,15 @@
     var permissions = Session["Permissions"] as List<string> ?? new List<string>();
 }
 
-<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link href="~/Content/Styles/StyleHost/StyleIndexHost.css" rel="stylesheet" />
 
-<!-- Contenedor principal -->
 <div class="index-container">
-    <!-- Título principal -->
+   
     <h2 class="index-title">Conductores</h2>
 
-    <!-- Botón Crear -->
     @if (permissions.Contains("CreateHost"))
     {
         <div class="create-button-container">
@@ -25,7 +22,6 @@
         </div>
     }
 
-    <!-- Tabla de Hosts -->
     <div class="table-wrapper">
         <table class="hosts-table">
             <thead>

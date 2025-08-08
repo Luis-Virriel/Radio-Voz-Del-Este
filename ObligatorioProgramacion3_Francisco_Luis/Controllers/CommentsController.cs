@@ -14,14 +14,12 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
     {
         private RadioEntities db = new RadioEntities();
 
-        // GET: Comments
         public ActionResult Index()
         {
             var comments = db.Comments.Include(c => c.Client).Include(c => c.RadioProgram);
             return View(comments.ToList());
         }
 
-        // GET: Comments/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,7 +34,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(comment);
         }
 
-        // GET: Comments/Create
         public ActionResult Create()
         {
             ViewBag.ClientID = new SelectList(db.Clients, "IDNumber", "FirstName");
@@ -44,9 +41,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View();
         }
 
-        // POST: Comments/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ClientID,ProgramID,Comment1,CommentDate")] Comment comment)
@@ -63,7 +57,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(comment);
         }
 
-        // GET: Comments/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,9 +73,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(comment);
         }
 
-        // POST: Comments/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,ClientID,ProgramID,Comment1,CommentDate")] Comment comment)
@@ -97,8 +87,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             ViewBag.ProgramID = new SelectList(db.RadioPrograms, "ID", "ProgramName", comment.ProgramID);
             return View(comment);
         }
-
-        // GET: Comments/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -113,8 +101,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             return View(comment);
         }
 
-        // POST: Comments/Delete/5
-        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -124,7 +110,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             if (user == null)
                 return HttpNotFound();
 
-            // Verificar si existe cliente vinculado a este usuario
             var clienteVinculado = db.Clients.Any(c => c.UserID == id);
             if (clienteVinculado)
             {
@@ -140,7 +125,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
             }
             catch (Exception ex)
             {
-                // Loguear el error en consola o sistema de logs
                 System.Diagnostics.Debug.WriteLine("Error al eliminar usuario: " + ex.Message);
                 TempData["ErrorMessage"] = "Ocurrió un error al eliminar el usuario.";
             }

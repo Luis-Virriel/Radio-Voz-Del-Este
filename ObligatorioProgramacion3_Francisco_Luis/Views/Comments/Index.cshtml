@@ -1,51 +1,73 @@
 ﻿@model IEnumerable<ObligatorioProgramacion3_Francisco_Luis.Models.Comment>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Comentarios";
 }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="@Url.Content("~/Content/Styles/StyleComments/StyleIndexComments.css")" rel="stylesheet" type="text/css" />
+<div class="index-container">
+    <h2 class="index-title">Comentarios</h2>
 
-<h2>Index</h2>
+    <div class="create-button-container">
+        @Html.ActionLink("Crear Nuevo Comentario", "Create", null, new { @class = "create-button" })
+    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Comment1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CommentDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Client.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RadioProgram.ProgramName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CommentDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Client.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RadioProgram.ProgramName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+    <div class="table-wrapper">
+        <table class="comments-table">
+            <thead>
+                <tr>
+                    <th>Comentario</th>
+                    <th>Fecha Comentario</th>
+                    <th>Cliente</th>
+                    <th>Programa</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="comment-text">
+                                @if (item.Comment1 != null && item.Comment1.Length > 100)
+                                {
+                                    <span class="comment-tooltip" data-comment="@item.Comment1">
+                                        <span class="comment-text-long">@Html.DisplayFor(modelItem => item.Comment1)</span>
+                                    </span>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.Comment1)
+                                }
+                            </td>
+                            <td class="comment-date">
+                                @Html.DisplayFor(modelItem => item.CommentDate)
+                            </td>
+                            <td class="comment-client">
+                                @Html.DisplayFor(modelItem => item.Client.FirstName)
+                            </td>
+                            <td class="comment-program">
+                                @Html.DisplayFor(modelItem => item.RadioProgram.ProgramName)
+                            </td>
+                            <td class="action-links">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.ID })
+                                <span class="action-separator">|</span>
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="no-data-message">
+                            No hay comentarios disponibles
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

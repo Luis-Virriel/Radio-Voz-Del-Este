@@ -32,14 +32,12 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
         [StringLength(500)]
         public string ImageURL { get; set; }
 
-        // Propiedades adicionales para la vista (no están en BD)
         public string Category { get; set; } = "General";
         public string Author { get; set; } = "Redacción";
         public string AuthorRole { get; set; } = "Editor";
         public int ViewCount { get; set; } = 0;
         public bool IsFeatured { get; set; } = false;
 
-        // Propiedades calculadas
         public string TimeAgo
         {
             get
@@ -79,13 +77,11 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
             {
                 if (string.IsNullOrEmpty(Content)) return "";
 
-                // Extraer los primeros 150 caracteres como excerpt
                 var plainText = Content.Length > 150 ? Content.Substring(0, 150) + "..." : Content;
                 return plainText;
             }
         }
 
-        // Método para determinar categoría basada en palabras clave del título
         public void SetCategoryFromTitle()
         {
             if (string.IsNullOrEmpty(Title)) return;
@@ -114,7 +110,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
                 Category = "General";
         }
 
-        // Método para asignar autor aleatorio
         public void SetRandomAuthor()
         {
             var authors = new[]
@@ -129,19 +124,16 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
                 new { Name = "Roberto Santos", Role = "Corresponsal" }
             };
 
-            var random = new Random(Id); // Usar ID como semilla para consistencia
-            var selectedAuthor = authors[random.Next(authors.Length)];
+            var random = new Random(Id); var selectedAuthor = authors[random.Next(authors.Length)];
 
             Author = selectedAuthor.Name;
             AuthorRole = selectedAuthor.Role;
         }
 
-        // Método para asignar imagen por defecto si no tiene
         public void SetDefaultImageIfEmpty()
         {
             if (string.IsNullOrEmpty(ImageURL))
             {
-                // Asignar imagen por defecto según categoría
                 switch (Category.ToLower())
                 {
                     case "local":

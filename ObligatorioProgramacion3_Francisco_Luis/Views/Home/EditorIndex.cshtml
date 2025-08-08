@@ -1,7 +1,35 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "EditorIndex";
+    string userName = User.Identity.Name ?? "Editor";
 }
 
-<h2>EditorIndex</h2>
+<div class="welcome-container">
+    <h1>Bienvenido, @userName</h1>
+</div>
 
+<style>
+    .welcome-container {
+        max-width: 700px;
+        margin: 60px auto;
+        background: linear-gradient(145deg, #1e3c72 0%, #2a5298 100%);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 20px rgba(42,82,152,0.3);
+        font-family: "Bona Nova SC", serif;
+        color: #e6f3ff;
+        text-align: center;
+    }
+
+        .welcome-container h1 {
+            font-size: 50px;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+
+        .welcome-container p {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+</style>

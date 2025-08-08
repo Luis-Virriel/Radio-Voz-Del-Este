@@ -25,10 +25,8 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Controllers
                 var user = db.Users.Include("Role.Permissions").FirstOrDefault(u => u.UserName == username);
                 if (user != null && BCrypt.Net.BCrypt.Verify(password, user.UserPassword))
                 {
-                    // Emitir cookie de autenticación
                     FormsAuthentication.SetAuthCookie(user.UserName, false);
 
-                    // Guardar rol y permisos en sesión
                     Session["Role"] = user.Role.RoleName;
                     Session["Permissions"] = user.Role.Permissions.Select(p => p.PermissionName).ToList();
 

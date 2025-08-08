@@ -1,4 +1,4 @@
-﻿/* StyleEditClient.css */
+﻿
 body {
     margin: 0;
     padding: 10px;
@@ -33,7 +33,7 @@ body {
         z-index: 0;
     }
 
-/* Título principal */
+
 .edit-title {
     font-size: 42px;
     text-align: center;
@@ -47,13 +47,13 @@ body {
     z-index: 1;
 }
 
-/* Contenedor del formulario */
+
 .form-horizontal {
     position: relative;
     z-index: 1;
 }
 
-/* Título h4 interno */
+
 .edit-container h4 {
     color: #d3e6ff;
     font-family: "Bona Nova SC", serif;
@@ -64,7 +64,7 @@ body {
     text-align: center;
 }
 
-/* Etiquetas (labels) */
+
 .control-label {
     display: block;
     margin-bottom: 8px;
@@ -74,14 +74,14 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
-/* Grupo de formulario */
+
 .form-group {
     margin-bottom: 25px;
     position: relative;
     z-index: 1;
 }
 
-/* Contenedor de campos */
+
 .col-md-10 {
     width: 100%;
 }
@@ -94,7 +94,7 @@ body {
     margin-left: 0;
 }
 
-/* Campos input, select, textarea */
+
 .form-control {
     width: 100%;
     padding: 12px 15px;
@@ -116,7 +116,7 @@ body {
         color: #ffffff;
     }
 
-    /* Campos de fecha específicos */
+
     .form-control[type="date"] {
         color: #e6f3ff;
         font-family: "Roboto", sans-serif;
@@ -127,12 +127,12 @@ body {
             cursor: pointer;
         }
 
-    /* Campos de email */
+
     .form-control[type="email"] {
         color: #e6f3ff;
     }
 
-/* Dropdown/Select */
+
 select.form-control {
     background: rgba(255, 255, 255, 0.1);
     color: #e6f3ff;
@@ -143,7 +143,7 @@ select.form-control {
         color: #e6f3ff;
     }
 
-/* Mensajes de validación */
+
 .text-danger {
     color: #ff6666;
     font-weight: 600;
@@ -152,7 +152,7 @@ select.form-control {
     display: block;
 }
 
-/* Línea separadora */
+
 hr {
     border: none;
     height: 1px;
@@ -160,7 +160,7 @@ hr {
     margin: 30px 0;
 }
 
-/* Contenedor de botones */
+
 .form-group:last-child {
     margin-top: 35px;
     text-align: center;
@@ -173,7 +173,7 @@ hr {
         flex-wrap: wrap;
     }
 
-/* Botones principales */
+
 .btn {
     padding: 15px 40px;
     font-family: "Bona Nova SC", serif;
@@ -193,7 +193,7 @@ hr {
     box-sizing: border-box;
 }
 
-/* Botón primario (Guardar) */
+
 .btn-primary {
     background: linear-gradient(45deg, #42a5f5, #66bb6a);
     box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
@@ -206,7 +206,7 @@ hr {
         color: #ffffff;
     }
 
-/* Botón secundario (Volver) */
+
 .btn-secondary {
     background: linear-gradient(45deg, #42a5f5, #66bb6a);
     box-shadow: 0 8px 20px rgba(120, 144, 156, 0.4);
@@ -221,7 +221,7 @@ hr {
         text-decoration: none;
     }
 
-/* Placeholders */
+
 .form-control::-webkit-input-placeholder {
     color: rgba(230, 243, 255, 0.6);
     font-style: italic;
@@ -242,7 +242,7 @@ hr {
     font-style: italic;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .edit-container {
         margin: 15px 15px 30px;

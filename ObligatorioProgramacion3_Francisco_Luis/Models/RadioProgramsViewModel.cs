@@ -11,10 +11,8 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
         public RadioProgram CurrentProgram { get; set; }
         public int TotalPrograms { get; set; }
 
-        // Nueva propiedad para comentarios por programa
         public Dictionary<int, List<CommentViewModel>> ProgramComments { get; set; } = new Dictionary<int, List<CommentViewModel>>();
 
-        // Propiedades existentes de categorías
         public List<RadioProgram> MatutinosPrograms
         {
             get
@@ -68,7 +66,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
             }
         }
 
-        // Métodos helper para comentarios
         public List<CommentViewModel> GetCommentsForProgram(int programId)
         {
             return ProgramComments.ContainsKey(programId)
@@ -82,20 +79,17 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
         }
     }
 
-    // ViewModel para comentarios individuales
     public class CommentViewModel
     {
         public int ID { get; set; }
-        public int ClientID { get; set; } // Mantener como int para el ViewModel
+        public int ClientID { get; set; }
         public int ProgramID { get; set; }
         public string Comment { get; set; }
         public DateTime CommentDate { get; set; }
 
-        // Información del cliente que comenta
         public string ClientName { get; set; }
         public string ClientEmail { get; set; }
 
-        // Propiedades de formato
         public string FormattedDate
         {
             get
@@ -124,7 +118,6 @@ namespace ObligatorioProgramacion3_Francisco_Luis.Models
         }
     }
 
-    // ViewModel para crear nuevos comentarios
     public class CreateCommentViewModel
     {
         public int ProgramID { get; set; }

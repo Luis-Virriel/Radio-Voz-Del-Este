@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="~/Content/Index.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Content/Curency.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Content/Wather.css" asp-append-version="true" />
-   
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <title>@ViewBag.Title - Voz del Este</title>
     @Html.AntiForgeryToken()
@@ -33,7 +30,7 @@
         }
 
 
-        /* Navbar mejorado */
+        
         .navbar {
             background: linear-gradient(135deg, #1e3c72, #2a5298) !important;
             padding: 1.5rem 0 !important;
@@ -67,7 +64,7 @@
                 gap: 2rem;
             }
 
-        /* Secciones del navbar */
+        
         .navbar-section {
             display: flex;
             align-items: center;
@@ -93,12 +90,12 @@
             margin-left: auto;
         }
 
-        /* Cuando solo hay login, centrar a la derecha */
+        
         .navbar .container-fluid:has(.navbar-left):has(.navbar-right):not(:has(.navbar-center-left)) .navbar-right {
             margin-left: auto;
         }
 
-        /* Logo y marca */
+        
         .navbar-left {
             display: flex;
             align-items: center;
@@ -146,7 +143,7 @@
             }
         }
 
-        /* Botón hamburguesa */
+        
         .navbar-toggler {
             border: 2px solid rgba(255, 255, 255, 0.4);
             border-radius: 8px;
@@ -157,7 +154,7 @@
                 box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
             }
 
-        /* Navegación */
+        
         .navbar-nav {
             align-items: center;
             gap: 1rem;
@@ -185,7 +182,7 @@
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             }
 
-        /* Dropdown estilizado */
+        
         .nav-dropdown {
             background: rgba(30, 60, 114, 0.95) !important;
             border: 2px solid rgba(255, 255, 255, 0.3) !important;
@@ -235,7 +232,7 @@
                 outline: none !important;
             }
 
-        /* Botones del navbar */
+        
         .btn-outline-light {
             background: rgba(255, 255, 255, 0.1) !important;
             color: rgba(255, 255, 255, 0.95) !important;
@@ -280,7 +277,7 @@
                 font-size: 1rem;
             }
 
-        /* Contenedor principal */
+        
         .container.body-content {
             background: transparent;
             max-width: 1600px;
@@ -288,7 +285,7 @@
             padding: 3rem 2rem;
         }
 
-        /* Footer mejorado */
+        
         footer {
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             backdrop-filter: blur(10px);
@@ -330,7 +327,7 @@
                 font-size: 1.3rem;
             }
 
-        /* HR personalizado */
+        
         hr {
             border: none;
             height: 2px;
@@ -338,7 +335,7 @@
             margin: 3rem 0;
         }
 
-        /* Animación de aparición del navbar */
+        
         .navbar {
             animation: slideDownImproved 0.8s ease-out;
         }
@@ -357,7 +354,7 @@
             }
         }
 
-        /* Responsive mejorado */
+        
         @@media (max-width: 991px) {
             .navbar {
                 padding: 1rem 0 !important;
@@ -495,7 +492,7 @@
     </style>
 </head>
 <body>
-    <!-- Función JavaScript para navegación -->
+   
     <script>
         function navigateToPage(url) {
             if (url) {
@@ -504,10 +501,9 @@
         }
     </script>
 
-    <!-- NAVBAR PRINCIPAL MEJORADO -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <!-- ZONA 1: IZQUIERDA - LOGO + NOMBRE -->
+            
             <div class="navbar-section navbar-left">
                 @{
                     var currentPath = Request.Url.AbsolutePath.ToLower();
@@ -526,7 +522,6 @@
                 var role = Session["Role"] as string ?? "Sin rol";
                 var permissions = Session["Permissions"] as List<string> ?? new List<string>();
 
-                <!-- ZONA 2: CENTRO-IZQUIERDA - DROPDOWN -->
                 <div class="navbar-section navbar-center-left">
                     <select onchange="navigateToPage(this.value)" class="nav-dropdown">
                         <option value="">Ir a...</option>
@@ -559,7 +554,7 @@
                         {
                             <option value="@Url.Action("Index", "Comments")">Comentarios</option>
                         }
-                        @* Roles solo para Admin *@
+
                         @if (role == "Admin")
                         {
                             <option value="@Url.Action("Index", "Roles")">Roles</option>
@@ -573,13 +568,11 @@
                         @if (role == "Clients")
                         {
                             <option value="@Url.Action("RadioPrograms", "Home")">Programas de Radio</option>
+                            <option value="@Url.Action("News", "Home")">Noticias</option>
                         }
 
                     </select>
                 </div>
-
-
-                <!-- ZONA 3: CENTRO-DERECHA - USUARIO -->
                 <div class="navbar-section navbar-center-right">
                     <span class="navbar-text">
                         <i class="fas fa-user-circle me-2"></i>
@@ -587,7 +580,6 @@
                     </span>
                 </div>
 
-                <!-- ZONA 4: DERECHA - BOTÓN SALIR -->
                 <div class="navbar-section navbar-right">
                     <a class="btn btn-outline-light" href="@Url.Action("Logout", "Account")">
                         <i class="fas fa-sign-out-alt"></i> Salir
@@ -596,7 +588,6 @@
             }
             else
             {
-                <!-- ZONA 4: DERECHA - BOTÓN LOGIN (cuando no está logueado) -->
                 <div class="navbar-section navbar-right">
                     <a class="btn btn-outline-light" href="@Url.Action("Login", "Account")" aria-label="Iniciar sesión">
                         <i class="fas fa-sign-in-alt"></i> Entrar
@@ -606,13 +597,11 @@
         </div>
     </nav>
 
-    <!-- CUERPO PRINCIPAL -->
     <div class="container body-content mt-4">
         @RenderBody()
 
         <hr />
 
-        <!-- FOOTER MEJORADO -->
         <footer class="text-center">
             <div>
                 <p style="font-size: 1.3rem; margin-bottom: 1.5rem;">
@@ -642,9 +631,8 @@
     @RenderSection("scripts", required: false)
 
     <script>
-        // Efectos adicionales para el layout
         document.addEventListener('DOMContentLoaded', function () {
-            // Animación suave para el logo
+         
             const logo = document.querySelector('.navbar img');
             if (logo) {
                 logo.addEventListener('mouseenter', function () {
@@ -657,7 +645,6 @@
                 });
             }
 
-            // Efecto click para el navbar brand
             const navbarBrand = document.querySelector('.navbar-brand');
             if (navbarBrand) {
                 navbarBrand.addEventListener('click', function (e) {
@@ -667,8 +654,6 @@
                     }, 150);
                 });
             }
-
-            // Efecto hover para el dropdown
             const dropdown = document.querySelector('.nav-dropdown');
             if (dropdown) {
                 dropdown.addEventListener('focus', function () {

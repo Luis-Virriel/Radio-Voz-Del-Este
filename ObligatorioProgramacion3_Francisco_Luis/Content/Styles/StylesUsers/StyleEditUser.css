@@ -1,4 +1,4 @@
-﻿/* StyleEditUser.css */
+﻿
 body {
     margin: 0;
     padding: 10px;
@@ -32,7 +32,7 @@ body {
         z-index: 0;
     }
 
-/* Título principal */
+
 .edit-title {
     font-size: 42px;
     text-align: center;
@@ -46,7 +46,7 @@ body {
     z-index: 1;
 }
 
-/* Etiquetas (labels) */
+
 .control-label.label-spaced {
     display: block;
     margin-bottom: 8px;
@@ -55,7 +55,7 @@ body {
     font-size: 16px;
 }
 
-/* Campos input, select, textarea */
+
 .form-control {
     width: 100%;
     padding: 12px 15px;
@@ -77,7 +77,7 @@ body {
         color: #ffffff;
     }
 
-/* Mensajes de validación */
+
 .text-danger {
     color: #ff6666;
     font-weight: 600;
@@ -85,14 +85,14 @@ body {
     margin-top: 4px;
 }
 
-/* Grupo de formulario */
+
 .form-group {
     margin-bottom: 28px;
     position: relative;
     z-index: 1;
 }
 
-/* Campo contraseña especial */
+
 .password-field .form-control {
     font-family: 'Courier New', monospace;
     letter-spacing: 3px;
@@ -100,12 +100,12 @@ body {
     color: #81c784;
 }
 
-/* Contenedor de roles */
+
 .role-field .form-control {
     background: rgba(255, 255, 255, 0.15);
 }
 
-/* Contenedor de botones, centrados y con espacio */
+
 .form-actions.centered-buttons {
     display: flex;
     justify-content: center;
@@ -115,7 +115,7 @@ body {
     z-index: 1;
 }
 
-/* Botones iguales para guardar y volver */
+
 .btn-default {
     padding: 15px 40px;
     font-family: "Bona Nova SC", serif;
@@ -144,12 +144,12 @@ body {
         text-decoration: none;
     }
 
-/* Quitar cualquier estilo de borde o subrayado en el botón volver */
+
 .btn-cancel {
-    /* Solo para el ActionLink, para que quede igual al botón guardar */
+
 }
 
-/* Línea separadora */
+
 hr {
     border: none;
     height: 1px;
@@ -157,7 +157,7 @@ hr {
     margin: 30px 0;
 }
 
-/* Título h4 interno */
+
 .edit-container h4 {
     color: #d3e6ff;
     font-family: "Bona Nova SC", serif;
@@ -167,7 +167,7 @@ hr {
     letter-spacing: 1.5px;
 }
 
-/* Responsive */
+
 @media (max-width: 600px) {
     .edit-container {
         margin: 15px 15px 30px;

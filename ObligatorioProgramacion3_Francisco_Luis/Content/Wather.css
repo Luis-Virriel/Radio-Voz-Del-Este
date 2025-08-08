@@ -16,7 +16,7 @@ body {
 	max-width: 1200px;
 }
 
-/* Header Section */
+
 .weather-header {
 	background: rgba(255, 255, 255, 0.1);
 	backdrop-filter: blur(10px);
@@ -43,7 +43,7 @@ body {
 	font-weight: 400;
 }
 
-/* Error Message */
+
 .error-container {
 	background: rgba(231, 76, 60, 0.1);
 	backdrop-filter: blur(10px);
@@ -68,7 +68,7 @@ body {
 	margin-bottom: 1rem;
 }
 
-/* Main Weather Container */
+
 .weather-main {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -78,7 +78,7 @@ body {
 	padding: 0 1rem;
 }
 
-/* Current Weather Card */
+
 .current-weather-card {
 	background: rgba(255, 255, 255, 0.95);
 	backdrop-filter: blur(10px);
@@ -151,7 +151,7 @@ body {
 	text-transform: capitalize;
 }
 
-/* Weather Details */
+
 .weather-details-card {
 	background: rgba(255, 255, 255, 0.95);
 	backdrop-filter: blur(10px);
@@ -226,7 +226,7 @@ body {
 	letter-spacing: 0.5px;
 }
 
-/* Forecast Section */
+
 .forecast-section {
 	background: rgba(255, 255, 255, 0.95);
 	backdrop-filter: blur(10px);
@@ -362,7 +362,7 @@ body {
 	border: 1px solid rgba(52, 152, 219, 0.2);
 }
 
-/* Back Button */
+
 .back-button-container {
 	text-align: center;
 	margin: 3rem auto;
@@ -393,7 +393,7 @@ body {
 		text-decoration: none;
 	}
 
-/* Responsive Design */
+
 @media (max-width: 1024px) {
 	.weather-main {
 		grid-template-columns: 1fr;

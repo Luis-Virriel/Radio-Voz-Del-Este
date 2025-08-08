@@ -20,10 +20,9 @@
             <h4>Información del Cliente</h4>
             <hr />
 
-            <!-- Campo oculto para mantener la CI como clave primaria -->
+            
             @Html.HiddenFor(model => model.IDNumber)
 
-            <!-- Nombre -->
             <div class="form-group">
                 @Html.LabelFor(model => model.FirstName, "Nombre", htmlAttributes: new { @class = "control-label" })
                 <div class="col-md-10">
@@ -39,7 +38,6 @@
                 </div>
             </div>
 
-            <!-- Apellido -->
             <div class="form-group">
                 @Html.LabelFor(model => model.LastName, "Apellido", htmlAttributes: new { @class = "control-label" })
                 <div class="col-md-10">
@@ -55,7 +53,6 @@
                 </div>
             </div>
 
-            <!-- Correo Electrónico -->
             <div class="form-group">
                 @Html.LabelFor(model => model.Email, "Correo Electrónico", htmlAttributes: new { @class = "control-label" })
                 <div class="col-md-10">
@@ -72,7 +69,7 @@
                 </div>
             </div>
 
-            <!-- Fecha de Nacimiento -->
+
             <div class="form-group">
                 @Html.LabelFor(model => model.BirthDate, "Fecha de Nacimiento", htmlAttributes: new { @class = "control-label" })
                 <div class="col-md-10">
@@ -89,7 +86,7 @@
                 </div>
             </div>
 
-            <!-- Usuario Asociado -->
+
             <div class="form-group">
                 @Html.LabelFor(model => model.UserID, "Usuario Asociado", htmlAttributes: new { @class = "control-label" })
                 <div class="col-md-10">
@@ -100,7 +97,7 @@
 
             <hr />
 
-            <!-- Botones -->
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Guardar Cambios" class="btn btn-primary" />

@@ -17,22 +17,20 @@
     {
         @Html.AntiForgeryToken()
 
-        @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
-
         <div class="form-group">
-            @Html.LabelFor(model => model.HostName)
-            @Html.EditorFor(model => model.HostName, new { htmlAttributes = new { @class = "input-field", placeholder = "Nombre del Host" } })
+            Nombre
+            @Html.EditorFor(model => model.HostName, new { htmlAttributes = new { @class = "input-field", placeholder = "Nombre del Conductor" } })
             @Html.ValidationMessageFor(model => model.HostName, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Bio)
+            Biografia
             @Html.EditorFor(model => model.Bio, new { htmlAttributes = new { @class = "input-field", placeholder = "Biografía" } })
             @Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProgramID, "Programa")
+            Programa
             @Html.DropDownList("ProgramID", (SelectList)ViewBag.ProgramID, "-- Seleccione un programa --", new { @class = "input-field" })
             @Html.ValidationMessageFor(model => model.ProgramID, "", new { @class = "text-danger" })
         </div>

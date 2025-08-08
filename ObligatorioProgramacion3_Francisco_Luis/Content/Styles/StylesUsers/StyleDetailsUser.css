@@ -1,4 +1,4 @@
-﻿/* StyleDetailsUser.css - Detalles de Usuario con estética coherente */
+﻿
 body {
     margin: 0;
     padding: 20px;
@@ -66,7 +66,7 @@ hr {
     margin: 40px 0;
 }
 
-/* Botón con degradado azul-verde, sin borde delineado */
+
 .btn-rectangle {
     background: linear-gradient(45deg, #42a5f5, #66bb6a);
     color: #ffffff !important;
@@ -94,7 +94,7 @@ hr {
         box-shadow: 0 12px 30px rgba(66, 165, 245, 0.6) !important;
     }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .details-container {
         margin: 20px 15px;
@@ -126,7 +126,7 @@ hr {
     }
 }
 
-/* Animaciones */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
